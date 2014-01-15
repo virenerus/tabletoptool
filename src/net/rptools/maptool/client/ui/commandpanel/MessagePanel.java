@@ -47,6 +47,7 @@ public class MessagePanel extends JPanel {
 	private final JScrollPane scrollPane;
 	private final HTMLDocument document;
 	private final JEditorPane textPane;
+	private String lastSpeaker;
 
 	private static final String SND_MESSAGE_RECEIVED = "messageReceived";
 
@@ -227,7 +228,18 @@ public class MessagePanel extends JPanel {
 
 					try {
 						Element element = document.getElement("body");
-						document.insertBeforeEnd(element, "<div>" + output + "</div>");
+						if(lastSpeaker != null && lastSpeaker.equals(message.getSpeaker())) {
+							Element lastDiv=element.getElement(element.getElementCount()-1);
+							document.insertBeforeEnd(lastDiv.getElement(0).getElement(0).getElement(1),"<div>"+output+"</div>");
+						}
+						else
+							if(message.getSpeaker()==null)
+								document.insertBeforeEnd(element, "<div>" + output + "</div>");
+							else
+								document.insertBeforeEnd(element, 
+										"<div><table cellpadding=0><tr><td valign=top rowspan=0 style=\"margin-right: 5px\">"+
+										message.getSpeaker()+ "</td><td valign=top align=left><div>" + output + "</div></td></tr></table></div>");
+						lastSpeaker=message.getSpeaker();
 
 						if (!message.getSource().equals(MapTool.getPlayer().getName())) {
 							MapTool.playSound(SND_MESSAGE_RECEIVED);
