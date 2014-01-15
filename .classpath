@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="lib" path="lib/withay-util.jar"/>
+	<classpathentry kind="lib" path="lib/renderpack-1.2004.jar"/>
+	<classpathentry kind="lib" path="lib/antlr-2.7.6.jar" sourcepath="/Users/frank/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
+	<classpathentry kind="lib" path="lib/jl1.0.jar"/>
+	<classpathentry kind="lib" path="lib/yasb-0.2-21012007.jar"/>
+	<classpathentry kind="lib" path="lib/servicediscoverylib-1.0.b5.jar"/>
+	<classpathentry kind="lib" path="lib/swing-worker-0.1.jar"/>
+	<classpathentry kind="lib" path="lib/decktool-1.0.b1.jar"/>
+	<classpathentry kind="lib" path="lib/hessian-3.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/parser-1.1.b24.jar" sourcepath="/parser/src"/>
+	<classpathentry kind="lib" path="lib/abeille-formsrt-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.4.1.jar" sourcepath="/Users/frank/.m2/repository/com/thoughtworks/xstream/xstream/1.4.1/xstream-1.4.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/xmlpull-1.1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jide-common-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-components-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-dialogs-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-dock-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-editor-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-grids-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-properties-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jide-shortcut-3.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.0.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/commons-io-1.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-jxpath-1.3.jar" sourcepath="/Users/frank/.m2/repository/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/tinylaf-nocp-1.4.0.jar" sourcepath="/Users/frank/Desktop/JavaSrc/tinylaf-1_4_0_src/src"/>
+	<classpathentry kind="lib" path="lib/rplib-1.0.b134.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/js-1.7R1.jar"/>
+	<classpathentry kind="lib" path="lib/upnplib-1.0.9-nodebug.jar"/>
+	<classpathentry kind="lib" path="lib/dicelib-1.0.b18.jar" sourcepath="/dicelib"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar" sourcepath="lib/src/commons-collections-3.2.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/commons-collections-3.2.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar" sourcepath="lib/src/commons-logging-1.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/commons-logging-1.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/ezmorph-1.0.5.jar" sourcepath="lib/src/ezmorph-1.0.5-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/ezmorph-1.0.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar" sourcepath="/Users/frank/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar"/>
+	<classpathentry kind="lib" path="lib/maptool.resource-1.0.b18.jar"/>
+	<classpathentry kind="lib" path="lib/clientserver-1.0.b17.jar" sourcepath="/clientserver/src"/>
+	<classpathentry kind="lib" path="lib/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

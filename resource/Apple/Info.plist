@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plist version="1.0">
+  <dict>
+    <key>CFBundleName</key>
+    <string>MapTool @SHORT_VERSION@</string>
+    <key>CFBundleShortVersionString</key>
+    <string>@LONG_VERSION@</string>
+    <key>CFBundleGetInfoString</key>
+    <string>RPTools.net MapTool</string>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <string>false</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleExecutable</key>
+    <string>run.sh</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>RPTM</string>
+    <key>CFBundleIconFile</key>
+    <string>maptool-icon</string>
+    <key>CFBundleIdentifier</key>
+    <string>net.rptools.maptool</string>
+  </dict>
+</plist>

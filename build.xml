@@ -1,0 +1,157 @@
+<project name="maptool" default="oracle-bundler">
+    <!-- See http://mojo.codehaus.org/osxappbundle-maven-plugin/ for
+	 information on creating app bundles for OSX when not building
+	 on OSX -->
+    <import file="../common.build/common-webstart-targets.xml" />
+    <property file="../launcher/conf/build.properties" prefix="mtl" />
+    <property name="launcher" value="launcher-${mtl.app.buildDate}.${mtl.app.buildNumber}" />
+
+    <!-- see http://stackoverflow.com/questions/14806709/application-is-using-java-6-from-apple-instead-of-java-7-from-oracle-on-mac-os-x/15271448
+    for more information on this newer Oracle approach to building application bundles.
+    -->
+    <taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="../common.build/lib/appbundler-1.0.jar" />
+
+    <target name="oracle-bundler" depends="dist-build">
+        <!-- This target will build the application bundle, but we replace the Info.plist
+        		with one we generate ourselves and we unzip the contents of the latest
+        		launcher-<version>.zip to the Contents/MacOSX directory.
+        	-->
+        <!--
+        <property file="conf/build.number" />
+        <property name="build.version" value="${app.version}.b${build.number}" />
+
+        <property name="jar.file.versioned.name" value="${ant.project.name}-${build.version}.jar" />
+        <property name="jar.file" value="${tmp}/${ant.project.name}.jar" />
+
+        <property name="tmp.zipdir" location="${tmp}/${ant.project.name}-${app.version}" />
+        <property name="jar.file.versioned" location="${tmp.zipdir}/${jar.file.versioned.name}" />
+-->
+        <bundleapp outputdirectory="${tmp}"
+                   name="MapTool-${build.version}"
+                   displayname="MapTool ${app.version}"
+                   identifier="net.rptools.maptool"
+                   shortversion="${app.version}"
+                   signature="RPTM"
+                   mainclassname="none.of.this.matters.since.the.plist.is.overwritten">
+            <!--
+            <runtime dir="${env.JAVA_HOME}" />
+            <classpath dir="${lib}">
+                <include name="*.jar" />
+            </classpath>
+            -->
+            <classpath file="${jar.file.versioned}" />
+        </bundleapp>
+
+        <property name="resource" location="resource" />
+        <property name="apple" location="${resource}/Apple" />
+        <property name="app" location="${tmp}/MapTool-${build.version}.app" />
+
+        <delete file="${app}/Contents/Info.plist" />
+        <copy todir="${app}/Contents" file="${apple}/Info.plist">
+            <filterset>
+                <filter token="SHORT_VERSION" value="${app.version}" />
+                <filter token="LONG_VERSION" value="${build.version}" />
+            </filterset>
+        </copy>
+        <copy todir="${app}/Contents/MacOS" file="${apple}/run.sh">
+            <filterset>
+                <filter token="LAUNCHER" value="${launcher}.jar" />
+            </filterset>
+        </copy>
+        <exec executable="chmod" dir="${app}/Contents/MacOS">
+            <arg value="a+x" />
+            <arg value="run.sh" />
+        </exec>
+        <unzip dest="${app}/Contents/MacOS" src="${dist}/zip/${launcher}.zip" />
+        <echo file="${app}/Contents/MacOS/mt.cfg"># Default install version (will be overwritten on first use)
+MAPTOOL_DIRECTORY=../Java
+RELATIVE_PATHS=true
+</echo>
+        <copy todir="${app}/Contents/Resources">
+            <fileset dir="${apple}">
+                <include name="launcher_splash.png" />
+	        <include name="maptool-icon.icns" />
+            </fileset>
+        </copy>
+        <mkdir dir="${app}/Contents/Java" />
+        <copy todir="${app}/Contents/Java" file="${tmp.zipdir}/${jar.file.versioned.name}" />
+        <copy todir="${app}/Contents/Java/lib">
+            <fileset dir="${lib}">
+                <exclude name="src/**" />
+                <exclude name="javadoc/**" />
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+        <delete>
+            <fileset dir="${app}/Contents">
+                <include name="MacOS/JavaAppLauncher" />
+                <include name="Resources/GenericApp.icns" />
+	    </fileset>
+    	</delete>
+    </target>
+
+    <target name="apple-dmg" depends="oracle-bundler">
+        <!-- hdiutil(1) has a lot of other features:  AES encryption, public key, certificates, etc -->
+        <exec dir="${tmp}" executable="hdiutil">
+            <arg value="create" />
+            <arg value="-volname" />
+            <arg value="MapTool ${build.version}" />
+            <arg value="-ov" />
+            <arg value="-srcfolder" />
+            <arg value="MapTool-${build.version}.app" />
+	    <arg value="-srcfolder" />
+	    <arg value="${resource}/bin/README.html" />
+	    <arg value="../maptool-${build.version}.dmg" />
+        </exec>
+        <exec dir="${tmp}" executable="hdiutil">
+            <arg value="internet-enable" />
+            <arg value="-yes" />
+            <arg value="../maptool-${build.version}.dmg" />
+        </exec>
+    </target>
+
+    <target name="oracle-bundler-cleanup" depends="oracle-bundler">
+        <!-- CLEANUP -->
+        <delete dir="${tmp}" />
+    </target>
+
+    <target name="apple-bundler" depends="dist-build">
+        <taskdef name="jarbundler" 
+		         classname="net.sourceforge.jarbundler.JarBundler" />
+
+        <property name="resource" location="resource" />
+        <property name="apple" location="${resource}/Apple" />
+
+        <jarbundler dir="${dist}"
+		        name="${ant.project.name}-${build.version}"
+			shortname="${ant.project.name}"
+			signature="RPTM"
+			icon="${apple}/maptool-icon.icns"
+			jvmversion="1.5+"
+			version="${build.version}"
+			bundleid="net.rptools.maptool"
+		        mainclass="${java.launch.mainClass}">
+
+            <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+
+            <jarfileset dir="${tmp}">
+                <include name="**/*.jar" />
+            </jarfileset>
+
+            <resourcefileset dir="${tmp}">
+                <!-- Scripts, XML, and License information for 3pp libraries -->
+                <exclude name="*.jar" />
+                <exclude name="*.bat" />
+                <exclude name="*.exe" />
+                <exclude name="*.pdf" />
+                <exclude name="**/javadoc" />
+                <exclude name="**/src" />
+            </resourcefileset>
+        </jarbundler>
+    </target>
+
+    <target name="apple-bundler-cleanup" depends="apple-bundler">
+        <!-- CLEANUP -->
+        <delete dir="${tmp}" />
+    </target>
+</project>
