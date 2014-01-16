@@ -29,7 +29,7 @@ import net.rptools.maptool.model.Token.Type;
  * 
  * @author Jay
  */
-public class InitiativeListModel extends AbstractListModel implements PropertyChangeListener {
+public class InitiativeListModel extends AbstractListModel<TokenInitiative> implements PropertyChangeListener {
 
     /*---------------------------------------------------------------------------------------------
      * Instance Variables 
@@ -239,7 +239,7 @@ public class InitiativeListModel extends AbstractListModel implements PropertyCh
      * 
      * @see javax.swing.ListModel#getElementAt(int)
      */
-    public Object getElementAt(int index) {
+    public TokenInitiative getElementAt(int index) {
         if (MapTool.getFrame().getInitiativePanel().hasGMPermission())
             return list.getTokenInitiative(index);
         int found = index;

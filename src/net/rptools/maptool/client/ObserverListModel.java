@@ -17,31 +17,31 @@ import java.util.Observer;
 import javax.swing.AbstractListModel;
 
 import net.rptools.maptool.model.ObservableList;
-import net.rptools.maptool.model.Player;
 
-public class PlayerListModel extends AbstractListModel implements Observer {
+public class ObserverListModel<T> extends AbstractListModel<T> implements Observer {
     
-    private ObservableList<Player> playerList;
+	private static final long serialVersionUID = 1L;
+	private ObservableList<T> list;
 
-    public PlayerListModel(ObservableList<Player> playerList) {
-        this.playerList = playerList;
+    public ObserverListModel(ObservableList<T> list) {
+        this.list = list;
         
         // TODO: Figure out how to clean this up when no longer in use
         // for now it doesn't matter, but, it's bad design
-        playerList.addObserver(this);
+        list.addObserver(this);
     }
     
-    public Object getElementAt(int index) {
-        return playerList.get(index);
+    public T getElementAt(int index) {
+        return list.get(index);
     }
 
     public int getSize() {
-        return playerList.size();
+        return list.size();
     }
 
     ////
     // OBSERVER
     public void update(Observable o, Object arg) {
-        fireContentsChanged(this, 0, playerList.size());
+        fireContentsChanged(this, 0, list.size());
     }
 }
