@@ -21,7 +21,8 @@ import javax.swing.ListSelectionModel;
 import net.rptools.lib.swing.PopupListener;
 import net.rptools.maptool.client.AppActions;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.PlayerListModel;
+import net.rptools.maptool.client.ObserverListModel;
+import net.rptools.maptool.model.Player;
 
 /**
  * Implements the contents of the Window -> Connections status panel.
@@ -35,9 +36,9 @@ import net.rptools.maptool.client.PlayerListModel;
  * <li>others?
  * </ul>
  */
-public class ClientConnectionPanel extends JList {
+public class ClientConnectionPanel extends JList<Player> {
 	public ClientConnectionPanel () {
-		setModel(new PlayerListModel(MapTool.getPlayerList()));
+		setModel(new ObserverListModel<Player>(MapTool.getPlayerList()));
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //		setCellRenderer(new DefaultListCellRenderer());
 
