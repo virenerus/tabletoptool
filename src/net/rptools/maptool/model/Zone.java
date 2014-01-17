@@ -665,7 +665,7 @@ public class Zone extends BaseModel {
 			boolean isAllowed = MapTool.getPlayer().isGM() || !MapTool.getServerPolicy().useStrictTokenManagement();
 			String playerId = MapTool.getPlayer().getName();
 			MapToolFrame frame = MapTool.getFrame();
-			ZoneRenderer zr = frame.getZoneRenderer(getId()); // FIXME 'zr' was null -- how can this happen?  Fix is to use getId() instead of 'this'
+			ZoneRenderer zr = frame.getZoneRenderer(getId());
 			ZoneView zoneView = zr.getZoneView();
 			ExposedAreaMetaData meta = null;
 

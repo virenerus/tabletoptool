@@ -18,10 +18,8 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import net.rptools.maptool.client.AppPreferences;
@@ -42,6 +40,8 @@ import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.util.math.IntLine;
+import net.rptools.maptool.util.math.IntPoint;
 import net.rptools.parser.Parser;
 import net.rptools.parser.ParserException;
 import net.rptools.parser.function.AbstractFunction;
@@ -93,7 +93,7 @@ public class TokenMoveFunctions extends AbstractFunction {
 			}
 			Path<?> path = tokenInContext.getLastPath();
 
-			List<Map<String, Integer>> pathPoints = getLastPathList(path, useDistancePerCell);
+			List<IntPoint> pathPoints = getLastPathList(path, useDistancePerCell);
 			return pathPointsToJSONArray(pathPoints);
 		}
 		if (functionName.equals("movedOverPoints")) {
@@ -103,13 +103,13 @@ public class TokenMoveFunctions extends AbstractFunction {
 			}
 			Path<?> path = tokenInContext.getLastPath();
 
-			List<Map<String, Integer>> returnPoints = new ArrayList<Map<String, Integer>>();
+			List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 
 			if ((parameters.size() == 1) || parameters.size() == 2) {
 				String points = (String) parameters.get(0);
 				String jsonPath = (String) (parameters.size() == 2 ? parameters.get(1) : "");
 
-				List<Map<String, Integer>> pathPoints = null;
+				List<IntPoint> pathPoints = null;
 				if (jsonPath != null && !jsonPath.equals("")) {
 					returnPoints = crossedPoints(zone, tokenInContext, points, jsonPath);
 				} else {
@@ -132,7 +132,7 @@ public class TokenMoveFunctions extends AbstractFunction {
 				throw new ParserException(I18N.getText("macro.function.general.noPerm", functionName));
 			}
 			Path<?> path = tokenInContext.getLastPath();
-			List<Map<String, Integer>> returnPoints = new ArrayList<Map<String, Integer>>();
+			List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 			Token target;
 
 			if ((parameters.size() == 1) || parameters.size() == 2) {
@@ -142,7 +142,7 @@ public class TokenMoveFunctions extends AbstractFunction {
 				if (target == null) {
 					throw new ParserException(I18N.getText("macro.function.general.unknownToken", functionName, targetToken));
 				}
-				List<Map<String, Integer>> pathPoints = null;
+				List<IntPoint> pathPoints = null;
 				if (jsonPath != null && !jsonPath.equals("")) {
 					returnPoints = crossedToken(zone, tokenInContext, target, jsonPath);
 				} else {
@@ -159,28 +159,25 @@ public class TokenMoveFunctions extends AbstractFunction {
 		return null;
 	}
 
-	private List<Map<String, Integer>> crossedToken(final Zone zone, final Token tokenInContext, final Token target, final String pathString) {
+	private List<IntPoint> crossedToken(final Zone zone, final Token tokenInContext, final Token target, final String pathString) {
 		Object jsonObject = JSONMacroFunctions.asJSON(pathString);
 
-		ArrayList<Map<String, Integer>> pathPoints = new ArrayList<Map<String, Integer>>();
+		ArrayList<IntPoint> pathPoints = new ArrayList<IntPoint>();
 		if (jsonObject instanceof JSONArray) {
 			ArrayList<?> tempPoints = (ArrayList<?>) JSONArray.toCollection((JSONArray) jsonObject);
 
 			for (Object o : tempPoints) {
 				MorphDynaBean bean = (MorphDynaBean) o;
 				//System.out.println(bean.get("x"));
-				Map<String, Integer> point = new HashMap<String, Integer>();
-				point.put("x", (Integer) bean.get("x"));
-				point.put("y", (Integer) bean.get("y"));
-				pathPoints.add(point);
+				pathPoints.add(new IntPoint((Integer) bean.get("x"), (Integer) bean.get("y")));
 			}
 			return getInstance().crossedToken(zone, tokenInContext, target, pathPoints);
 		}
 		return pathPoints;
 	}
 
-	private List<Map<String, Integer>> crossedPoints(final Zone zone, final Token tokenInContext, final String pointsString, final String pathString) {
-		List<Map<String, Integer>> pathPoints = convertJSONStringToList(pathString);
+	private List<IntPoint> crossedPoints(final Zone zone, final Token tokenInContext, final String pointsString, final String pathString) {
+		List<IntPoint> pathPoints = convertJSONStringToList(pathString);
 
 		pathPoints = getInstance().crossedPoints(zone, tokenInContext, pointsString, pathPoints);
 		return pathPoints;
@@ -192,35 +189,31 @@ public class TokenMoveFunctions extends AbstractFunction {
 	 * @param pathPoints
 	 * @return
 	 */
-	private List<Map<String, Integer>> crossedPoints(final Zone zone, final Token tokenInContext, final String pointsString, final List<Map<String, Integer>> pathPoints) {
-		List<Map<String, Integer>> returnPoints = new ArrayList<Map<String, Integer>>();
+	private List<IntPoint> crossedPoints(final Zone zone, final Token tokenInContext, final String pointsString, final List<IntPoint> pathPoints) {
+		List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 
-		List<Map<String, Integer>> targetPoints = convertJSONStringToList(pointsString);
+		List<IntPoint> targetPoints = convertJSONStringToList(pointsString);
 		if (pathPoints == null) {
 			return returnPoints;
 		}
-		for (Map<String, Integer> entry : pathPoints) {
-			Map<String, Integer> thePoint = new HashMap<String, Integer>();
+		for (IntPoint entry : pathPoints) {
 			Grid grid = zone.getGrid();
 			Rectangle originalArea = null;
 			Polygon targetArea = new Polygon();
-			for (Map<String, Integer> points : targetPoints) {
-				int x = points.get("x");
-				int y = points.get("y");
+			for (IntPoint points : targetPoints) {
+				int x = points.getX();
+				int y = points.getY();
 				targetArea.addPoint(x, y);
 			}
 			if (tokenInContext.isSnapToGrid()) {
-				originalArea = tokenInContext.getFootprint(grid).getBounds(grid, grid.convert(new ZonePoint(entry.get("x"), entry.get("y"))));
+				originalArea = tokenInContext.getFootprint(grid).getBounds(grid, grid.convert(new ZonePoint(entry.getX(), entry.getY())));
 			} else {
 				originalArea = tokenInContext.getBounds(zone);
 			}
 			Rectangle2D oa = originalArea.getBounds2D();
 			if (targetArea.contains(oa) || targetArea.intersects(oa)) {
-				thePoint.put("x", entry.get("x"));
-				thePoint.put("y", entry.get("y"));
-				returnPoints.add(thePoint);
+				returnPoints.add(entry);
 			}
-			thePoint = null;
 		}
 		return returnPoints;
 	}
@@ -231,8 +224,8 @@ public class TokenMoveFunctions extends AbstractFunction {
 	 * @param pathPoints
 	 * @return
 	 */
-	private List<Map<String, Integer>> crossedToken(final Zone zone, final Token tokenInContext, final Token target, final List<Map<String, Integer>> pathPoints) {
-		List<Map<String, Integer>> returnPoints = new ArrayList<Map<String, Integer>>();
+	private List<IntPoint> crossedToken(final Zone zone, final Token tokenInContext, final Token target, final List<IntPoint> pathPoints) {
+		List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 
 		/**
 		 * Lee: modifying code to match behavior on both grid-based and non-grid-based movement.
@@ -246,35 +239,27 @@ public class TokenMoveFunctions extends AbstractFunction {
 			return returnPoints;
 		}
 		if (tokenInContext.isSnapToGrid()) {
-			Map<String, Integer> thePoint = new HashMap<String, Integer>();
-			for (Map<String, Integer> entry : pathPoints) {
-				Rectangle originalArea = tokenInContext.getFootprint(grid).getBounds(grid, grid.convert(new ZonePoint(entry.get("x"), entry.get("y"))));
+			for (IntPoint entry : pathPoints) {
+				Rectangle originalArea = tokenInContext.getFootprint(grid).getBounds(grid, grid.convert(new ZonePoint(entry.getX(), entry.getY())));
 				if (targetArea.intersects(originalArea) || originalArea.intersects(targetArea)) {
-					thePoint.put("x", entry.get("x"));
-					thePoint.put("y", entry.get("y"));
-					returnPoints.add(thePoint);
-					thePoint = new HashMap<String, Integer>();
+					returnPoints.add(entry);
 				}
 			}
 		} else {
 			//Lee: establish first point, then process line intersection when a line can be drawn.
 			int ctr = 0;
 			Point previousPoint = new Point();
-			Map<String, Integer> firstPoint = new HashMap<String, Integer>(), secondPoint = new HashMap<String, Integer>();
-			for (Map<String, Integer> entry : pathPoints) {
+			for (IntPoint entry : pathPoints) {
 				Rectangle tokenArea = tokenInContext.getBounds(zone);
-				Point currentPoint = new Point(entry.get("x"), entry.get("y"));
+				Point currentPoint = new Point(entry.getX(), entry.getY());
 				if (ctr > 0) {
 					if (targetArea.intersectsLine(new Line2D.Double(previousPoint, currentPoint)) ||
 							targetArea.intersects(tokenArea)) {
-						firstPoint.put("x1", (int) previousPoint.getX());
-						firstPoint.put("y1", (int) previousPoint.getY());
-						secondPoint.put("x2", entry.get("x"));
-						secondPoint.put("y2", entry.get("y"));
-						returnPoints.add(firstPoint);
-						returnPoints.add(secondPoint);
-						firstPoint = new HashMap<String, Integer>();
-						secondPoint = new HashMap<String, Integer>();
+						returnPoints.add(new IntLine(
+								(int) previousPoint.getX(), 
+								(int) previousPoint.getY(), 
+								entry.getX(),
+								entry.getY()));
 					}
 				}
 				previousPoint = currentPoint;
@@ -285,8 +270,8 @@ public class TokenMoveFunctions extends AbstractFunction {
 		}
 		return returnPoints;
 	}
-
-	private JSONArray pathPointsToJSONArray(final List<Map<String, Integer>> pathPoints) {
+	
+	private JSONArray pathPointsToJSONArray(final List<IntPoint> pathPoints) {
 		if (log.isInfoEnabled()) {
 			log.info("DEVELOPMENT: in pathPointsToJSONArrayt.  Converting list to JSONArray");
 		}
@@ -295,29 +280,33 @@ public class TokenMoveFunctions extends AbstractFunction {
 			return jsonArr;
 		}
 		JSONObject pointObj = new JSONObject();
-		//Lee: had to add handling for the line segment made by unsnapped movedOverToken()
-		if (pathPoints.get(0).containsKey("x"))
-			for (Map<String, Integer> entry : pathPoints) {
-				pointObj.element("x", entry.get("x"));
-				pointObj.element("y", entry.get("y"));
+		if(pathPoints.get(0) instanceof IntLine) {
+			for (IntPoint line : pathPoints) {
+				IntLine entry=(IntLine)line;
+				pointObj.element("x1", entry.getX1());
+				pointObj.element("y1", entry.getY1());
+				pointObj.element("x2", entry.getX2());
+				pointObj.element("y2", entry.getY2());
 				jsonArr.add(pointObj);
 			}
-		else
-			for (Map<String, Integer> entry : pathPoints) {
-				pointObj.element("x1", entry.get("x1"));
-				pointObj.element("y1", entry.get("y1"));
-				pointObj.element("x2", entry.get("x2"));
-				pointObj.element("y2", entry.get("y2"));
+		}
+		else {
+			for (IntPoint entry : pathPoints) {
+				pointObj.element("x", entry.getX());
+				pointObj.element("y", entry.getY());
 				jsonArr.add(pointObj);
 			}
+		}
+			
 		if (log.isInfoEnabled()) {
 			log.info("DEVELOPMENT: in pathPointsToJSONArrayt.  return JSONArray");
 		}
 		return jsonArr;
 	}
 
-	private List<Map<String, Integer>> getLastPathList(final Path<?> path, final boolean useDistancePerCell) {
-		List<Map<String, Integer>> points = new ArrayList<Map<String, Integer>>();
+
+	private List<IntPoint> getLastPathList(final Path<?> path, final boolean useDistancePerCell) {
+		List<IntPoint> points = new ArrayList<IntPoint>();
 		if (path != null) {
 			Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
 			AbstractPoint zp = null;
@@ -343,10 +332,7 @@ public class TokenMoveFunctions extends AbstractFunction {
 					if (log.isInfoEnabled()) {
 						log.info("DEVELOPMENT: in getLastPathList.  Got a point, adding to list.");
 					}
-					Map<String, Integer> tokenLocationPoint = new HashMap<String, Integer>();
-					tokenLocationPoint.put("x", Integer.valueOf(zp.x));
-					tokenLocationPoint.put("y", Integer.valueOf(zp.y));
-					points.add(tokenLocationPoint);
+					points.add(new IntPoint(Integer.valueOf(zp.x),Integer.valueOf(zp.y)));
 				}
 			}
 		}
@@ -356,7 +342,7 @@ public class TokenMoveFunctions extends AbstractFunction {
 	public static BigDecimal tokenMoved(final Token originalToken, final Path<?> path, final List<GUID> filteredTokens) {
 		Token token = getMoveMacroToken(ON_TOKEN_MOVE_COMPLETE_CALLBACK);
 
-		List<Map<String, Integer>> pathPoints = getInstance().getLastPathList(path, true);
+		List<IntPoint> pathPoints = getInstance().getLastPathList(path, true);
 		JSONArray pathArr = getInstance().pathPointsToJSONArray(pathPoints);
 		String pathCoordinates = pathArr.toString();
 		// If we get here it is trusted so try to execute it.
@@ -519,18 +505,15 @@ public class TokenMoveFunctions extends AbstractFunction {
 		return BigDecimal.ZERO;
 	}
 
-	private List<Map<String, Integer>> convertJSONStringToList(final String pointsString) {
+	private List<IntPoint> convertJSONStringToList(final String pointsString) {
 		Object jsonObject = JSONMacroFunctions.asJSON(pointsString);
 
-		ArrayList<Map<String, Integer>> pathPoints = new ArrayList<Map<String, Integer>>();
+		ArrayList<IntPoint> pathPoints = new ArrayList<IntPoint>();
 		if (jsonObject instanceof JSONArray) {
 			ArrayList<?> tempPoints = (ArrayList<?>) JSONArray.toCollection((JSONArray) jsonObject);
 			for (Object o : tempPoints) {
 				MorphDynaBean bean = (MorphDynaBean) o;
-				Map<String, Integer> point = new HashMap<String, Integer>();
-				point.put("x", (Integer) bean.get("x"));
-				point.put("y", (Integer) bean.get("y"));
-				pathPoints.add(point);
+				pathPoints.add(new IntPoint((Integer) bean.get("x"), (Integer) bean.get("y")));
 			}
 		}
 		return pathPoints;

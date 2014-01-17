@@ -31,7 +31,7 @@
 <intAttribute key="org.eclipse.hyades.trace.ui.ATTR_PROFILING_LIMIT_SECONDS_NUM" value="5"/>
 <stringAttribute key="org.eclipse.hyades.trace.ui.ATTR_PROFILING_SET" value="org.eclipse.hyades.defaultProfilingSets.memory"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.rptools.maptool.client.MapTool"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="maptool-fork"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="maptoolsfork"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -DMAPTOOL_DEV=true -Xmx768M -Xss3M"/>
 <stringAttribute key="profiler.settings.cpu.exclude.wait.time" value="true"/>
 <stringAttribute key="profiler.settings.cpu.profiling.type" value="0"/>
