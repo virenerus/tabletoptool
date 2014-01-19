@@ -22,7 +22,7 @@ import java.util.Map;
 
 import net.rptools.lib.FileUtil;
 
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public class LightSource implements Comparable<LightSource> {
 	public enum Type {

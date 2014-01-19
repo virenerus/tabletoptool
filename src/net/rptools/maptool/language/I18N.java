@@ -52,8 +52,6 @@ public class I18N {
 	private static final String ACCELERATOR_EXTENSION = ".accel";
 	private static final String DESCRIPTION_EXTENSION = ".description";
 
-	private static Enumeration<String> keys;
-
 	static {
 		// Put here to make breakpointing easier. :)
 		BUNDLE = ResourceBundle.getBundle("net.rptools.maptool.language.i18n");
