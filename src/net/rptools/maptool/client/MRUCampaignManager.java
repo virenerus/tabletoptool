@@ -62,14 +62,13 @@ public class MRUCampaignManager {
 //				newMruList.removeLast();
 			ArrayList<File> newMruList = new ArrayList<File>(DEFAULT_MAX_MRU + 1);
 			newMruList.add(newCampaign);
-			for (ListIterator<File> iter = mruCampaigns.listIterator(); iter.hasNext();) {
-				File next = iter.next();
+			for (File f : mruCampaigns) {
 				if (newMruList.size() == DEFAULT_MAX_MRU)
 					break;
-				else if (next.equals(newCampaign))
+				else if (f.equals(newCampaign))
 					continue;
 				else
-					newMruList.add(next);
+					newMruList.add(f);
 			}
 			mruCampaigns = newMruList;
 		}
