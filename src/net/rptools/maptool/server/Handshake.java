@@ -41,7 +41,7 @@ public class Handshake {
 
 		HessianInput input = new HessianInput(s.getInputStream());
 		HessianOutput output = new HessianOutput(s.getOutputStream());
-		output.getSerializerFactory().setAllowNonSerializable(true);
+		output.findSerializerFactory().setAllowNonSerializable(true);
 
 		Request request = (Request) input.readObject();
 
