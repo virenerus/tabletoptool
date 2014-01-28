@@ -1,6 +1,11 @@
 package net.rptools.maptool.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.rptools.maptool.model.Token;
+import net.rptools.maptool.script.mt2.TokenView;
 
 public class TypeUtil {
 	/**
@@ -49,5 +54,12 @@ public class TypeUtil {
 			} // endtry
 		} // endif
 		return val;
+	}
+
+	public static List<TokenView> makeTokenViewList(List<Token> list) {
+		ArrayList<TokenView> l=new ArrayList<TokenView>(list.size());
+		for(Token t:list)
+			l.add(new TokenView(t));
+		return l;
 	}
 }

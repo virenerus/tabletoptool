@@ -1,4 +1,4 @@
-package net.rptools.maptool.script.mt2.functions.sight;
+package net.rptools.maptool.script.mt2.functions.token;
 
 public enum TokenPart {
 	TOP_LEFT,

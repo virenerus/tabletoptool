@@ -1,36 +1,30 @@
 package net.rptools.maptool.script.mt2;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.collections4.list.UnmodifiableList;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.Player;
 import net.rptools.maptool.script.ScriptLibrary;
-import net.rptools.maptool.script.mt2.functions.FogFunctions;
 import net.rptools.maptool.script.mt2.functions.InfoFunctions;
-import net.rptools.maptool.script.mt2.functions.TokenFunctions;
+import net.rptools.maptool.script.mt2.functions.MapFunctions;
 import net.rptools.maptool.script.mt2.functions.ini.InitiativeFunctions;
-import net.rptools.maptool.script.mt2.functions.vbl.VBLFunctions;
+import net.rptools.maptool.script.mt2.functions.token.TokenFunctions;
 
 //FIXMESOON make everything that returns or gets tokens here into tokenrepr
 //ECLIPSE make this into a PLUG-IN
 public class MT2ScriptLibrary implements ScriptLibrary {
 	
-	public final VBLFunctions vbl;
 	public final InitiativeFunctions ini;
 	public final InfoFunctions info;
 	public final TokenFunctions token;
-	public final FogFunctions fog;
+	public final MapFunctions map;
 
 	public MT2ScriptLibrary() {
-		this.vbl=new VBLFunctions();
 		this.ini=new InitiativeFunctions();
 		this.info=new InfoFunctions();
 		this.token=new TokenFunctions();
-		this.fog=new FogFunctions();
+		this.map=new MapFunctions();
 	}
 	
 	public String getVariableName() {

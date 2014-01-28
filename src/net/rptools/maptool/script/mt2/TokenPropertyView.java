@@ -54,7 +54,7 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	@Override
-	public Set<java.util.Map.Entry<String, String>> entrySet() {
+	public Set<Entry<String, String>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 

@@ -23,11 +23,10 @@ import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
-import net.rptools.maptool.script.mt2.functions.sight.TokenPart;
+import net.rptools.maptool.script.mt2.functions.token.TokenPart;
 import net.rptools.maptool.util.TypeUtil;
 
 public class TokenView extends TokenPropertyView {
-
 	public TokenView(Token token) {
 		super(token);
 	}
