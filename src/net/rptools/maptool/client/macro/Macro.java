@@ -11,8 +11,6 @@
 
 package net.rptools.maptool.client.macro;
 
-import java.util.List;
-
 import net.rptools.maptool.client.MapToolMacroContext;
 
 /**

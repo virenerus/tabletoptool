@@ -11,9 +11,10 @@
 
 package net.rptools.maptool.client.ui;
 
-import javax.swing.KeyStroke;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.KeyStroke;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.ui.macrobuttons.buttons.MacroButton;

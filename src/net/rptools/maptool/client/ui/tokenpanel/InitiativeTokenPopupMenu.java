@@ -25,9 +25,9 @@ import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.InitiativeList;
+import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.ZonePoint;
-import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 
 /**
  * The popup menu for initiative tokens.

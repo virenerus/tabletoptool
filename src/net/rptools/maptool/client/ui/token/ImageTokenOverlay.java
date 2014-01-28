@@ -21,8 +21,6 @@ import java.util.logging.Logger;
 
 import net.rptools.lib.MD5Key;
 import net.rptools.lib.swing.SwingUtil;
-import net.rptools.maptool.model.Asset;
-import net.rptools.maptool.model.AssetManager;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.util.ImageManager;
 

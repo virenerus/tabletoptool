@@ -36,14 +36,21 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 
+import org.apache.log4j.Logger;
+
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
 import net.rptools.maptool.client.swing.MessagePanelEditorKit;
 import net.rptools.maptool.model.TextMessage;
+import net.rptools.maptool.model.Token;
+import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.script.ScriptManager;
 
+//FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here
 public class MessagePanel extends JPanel {
 
+	private static final Logger log = Logger.getLogger(MessagePanel.class);
+	
 	private final JScrollPane scrollPane;
 	private final HTMLDocument document;
 	private final JEditorPane textPane;
@@ -91,7 +98,13 @@ public class MessagePanel extends JPanel {
 						Matcher m = URL_PATTERN.matcher(e.getDescription());
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
-								MacroLinkFunction.getInstance().runMacroLink(e.getDescription());
+								try {
+									ScriptManager.getInstance().evaluate(e.getDescription());
+								} catch (MT2ScriptException e1) {
+									e1.printStackTrace();
+									log.error("Error while trying to execute script from HTML", e1);
+									MapTool.addMessage(TextMessage.me(null, e1.getHTMLErrorMessage()));
+								}
 							}
 						}
 					}
@@ -218,7 +231,7 @@ public class MessagePanel extends JPanel {
 					// TODO change this so 'macro' is case-insensitive
 					Matcher m = Pattern.compile("href=([\"'])\\s*(macro://(?:[^/]*)/(?:[^?]*)(?:\\?(?:.*?))?)\\1\\s*", Pattern.CASE_INSENSITIVE).matcher(output);
 					while (m.find()) {
-						MacroLinkFunction.getInstance().processMacroLink(m.group(2));
+						//FIXMESOON MacroLinkFunction.getInstance().processMacroLink(m.group(2));
 					}
 				}
 				// if rolls not being visible to this user result in an empty message, display nothing

@@ -11,7 +11,6 @@
 
 package net.rptools.maptool.model.drawing;
 
-import java.io.Serializable;
 
 /**
  */

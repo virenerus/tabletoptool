@@ -28,9 +28,9 @@ import javax.swing.JProgressBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.apache.log4j.Logger;
-
 import net.rptools.lib.swing.SwingUtil;
+
+import org.apache.log4j.Logger;
 
 /**
  * <p>

@@ -27,8 +27,12 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
-          <source/>
-          <target/>
+          <source>7</source> <!-- see here, says only 7, not 1.7 -->
+          <target>7</target> <!-- here as well -->
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <executable>${env.JAVA_HOME_7}/bin/javac</executable>
+          <fork>true</fork>
         </configuration>
       </plugin>
     </plugins>
@@ -54,6 +58,11 @@
   		<artifactId>json-lib</artifactId>
   		<version>2.4</version>
   		<classifier>jdk15</classifier>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.codehaus.groovy</groupId>
+  		<artifactId>groovy-all</artifactId>
+  		<version>2.2.1</version>
   	</dependency>
   </dependencies>
 </project>

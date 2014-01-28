@@ -11,6 +11,8 @@
 
 package net.rptools.maptool.client.ui.commandpanel;
 
+import groovy.util.logging.Log;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -66,7 +68,6 @@ import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.AppStyle;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolMacroContext;
-import net.rptools.maptool.client.macro.MacroManager;
 import net.rptools.maptool.client.ui.chat.ChatProcessor;
 import net.rptools.maptool.client.ui.chat.SmileyChatTranslationRuleGroup;
 import net.rptools.maptool.client.ui.htmlframe.HTMLFrameFactory;
@@ -75,6 +76,8 @@ import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.ObservableList;
 import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Token;
+import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
 
@@ -492,7 +495,14 @@ public class CommandPanel extends JPanel implements Observer {
 			// Assume a "SAY"
 			text = "/s " + text;
 		}
-		MacroManager.executeMacro(text, macroContext);
+		//try {
+			MapTool.addLocalMessage(text);
+			//FIXMESOON print the message as needed on different computers
+			//ScriptManager.getInstance().evaluate(text, macroContext);
+		/*} catch (MT2ScriptException e) {
+			e.printStackTrace();
+			//FIXMESOON log error
+		}*/
 		commandTextArea.setText("");
 		MapTool.serverCommand().setLiveTypingLabel(MapTool.getPlayer().getName(), false);
 	}

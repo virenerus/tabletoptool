@@ -11,6 +11,8 @@
 
 package net.rptools.maptool.model;
 
+import groovy.lang.Script;
+
 import java.awt.Color;
 import java.util.Collection;
 import java.util.List;
@@ -22,15 +24,15 @@ import javax.swing.text.JTextComponent;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolLineParser;
 import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.client.MapToolUtil;
 import net.rptools.maptool.client.ui.MacroButtonHotKeyManager;
 import net.rptools.maptool.client.ui.macrobuttons.buttons.MacroButton;
 import net.rptools.maptool.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
+import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.StringUtil;
-import net.rptools.parser.ParserException;
 
 import org.apache.log4j.Logger;
 
@@ -64,6 +66,8 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	private String maxWidth;
 	private Boolean allowPlayerEdits = true;
 	private String toolTip;
+	/**this will be automatically generated from the command string whenever it is changed */
+	private transient Script compiledCommand;
 
 	// constructor that creates a new instance, doesn't auto-save
 	public MacroButtonProperties(int index, String colorKey, String hotKey, String command, String label, String group, String sortby, boolean autoExecute, boolean includeLabel,
@@ -365,72 +369,60 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	private void executeCommand(GUID tokenId) {
 		if (getCommand() != null) {
-
-			String impersonatePrefix = "";
-			if (tokenId != null) {
-				impersonatePrefix = "/im " + tokenId + ":";
-			}
-
-			JTextComponent commandArea = MapTool.getFrame().getCommandPanel().getCommandTextArea();
-			String oldText = commandArea.getText();
-
-			if (getIncludeLabel()) {
+			
+			//FIXMESOON print label of macro button when executed and option is selected: 
+			/*if (getIncludeLabel()) {
 				String commandToExecute = getLabel();
 				commandArea.setText(impersonatePrefix + commandToExecute);
 
 				MapTool.getFrame().getCommandPanel().commitCommand();
-			}
-
-			String commandsToExecute[] = parseMultiLineCommand(getCommand());
+			}*/
 
 			ZoneRenderer zr = MapTool.getFrame().getCurrentZoneRenderer();
 			Zone zone = (zr == null ? null : zr.getZone());
 			Token contextToken = (zone == null ? null : zone.getToken(tokenId));
 			String loc;
-			for (String command : commandsToExecute) {
-				// If we aren't auto execute, then append the text instead of replace it
-				commandArea.setText(impersonatePrefix + (!getAutoExecute() ? oldText + " " : "") + command);
-				if (getAutoExecute()) {
-					boolean trusted = false;
-					if (allowPlayerEdits == null) {
-						allowPlayerEdits = false;
-					}
-					if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
-						trusted = true;
-					}
-					if (saveLocation.equals("GlobalPanel")) {
-						loc = "global";
-						trusted = MapTool.getPlayer().isGM();
-					} else if (saveLocation.equals("CampaignPanel")) {
-						loc = "campaign";
-					} else if (contextToken != null) {
-						// Should this IF stmt really be:
-						//		contextToken.matches("^[^:\\s]+:")
-						// That would match any token with a string of text followed by a colon
-						// with no spaces in front of the colon.
-						if (contextToken.getName().toLowerCase().startsWith("lib:")) {
-							loc = contextToken.getName();
-						} else {
-							loc = "Token:" + contextToken.getName();
-						}
+			
+			// If we aren't auto execute, then append the text instead of replace it
+			if (getAutoExecute()) {
+				boolean trusted = false;
+				if (allowPlayerEdits == null) {
+					allowPlayerEdits = false;
+				}
+				if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
+					trusted = true;
+				}
+				if (saveLocation.equals("GlobalPanel")) {
+					loc = "global";
+					trusted = MapTool.getPlayer().isGM();
+				} else if (saveLocation.equals("CampaignPanel")) {
+					loc = "campaign";
+				} else if (contextToken != null) {
+					// Should this IF stmt really be:
+					//		contextToken.matches("^[^:\\s]+:")
+					// That would match any token with a string of text followed by a colon
+					// with no spaces in front of the colon.
+					if (contextToken.getName().toLowerCase().startsWith("lib:")) {
+						loc = contextToken.getName();
 					} else {
-						loc = MapToolLineParser.CHAT_INPUT;
+						loc = "Token:" + contextToken.getName();
 					}
-					MapToolMacroContext newMacroContext = new MapToolMacroContext(label, loc, trusted, index);
-					MapTool.getFrame().getCommandPanel().commitCommand(newMacroContext);
+				} else {
+					loc = "chat";//FIXMESOON was -> why? MapToolLineParser.CHAT_INPUT;
+				}
+				
+				MapToolMacroContext newMacroContext = new MapToolMacroContext(label, loc, trusted, index);
+				try {
+					Object o=ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
+					if(o!=null)
+						MapTool.addGlobalMessage(o.toString());
+				} catch (MT2ScriptException e) {
+					log.error("Error while trying to execute a macro from button",e);
+					MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
 				}
 			}
-			commandArea.requestFocusInWindow();
+			MapTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
 		}
-	}
-
-	private String[] parseMultiLineCommand(String multiLineCommand) {
-
-		// lookahead for new macro "/" after "\n" to prevent unnecessary splitting.
-		String pattern = "\n(?=/)";
-		String[] parsedCommand = multiLineCommand.split(pattern);
-
-		return parsedCommand;
 	}
 
 	public Token getToken() {
@@ -494,7 +486,13 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	}
 
 	public void setCommand(String command) {
-		this.command = command;
+		try {
+			this.compiledCommand=ScriptManager.getInstance().compile(command);
+			this.command = command;
+		} catch (MT2ScriptException e) {
+			//TODO replace this with a better error dialog
+			throw new RuntimeException("This script you tried to save is not valid.", e);
+		}
 	}
 
 	public String getLabel() {
@@ -659,7 +657,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 						+ "----------------------------------------------------------------------------------");
 			}
 			return MapTool.getParser().parseLine(token, toolTip, context);
-		} catch (ParserException pe) {
+		} catch (MT2ScriptException pe) {
 			return toolTip;
 		}
 	}

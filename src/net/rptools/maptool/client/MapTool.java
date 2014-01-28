@@ -26,6 +26,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -65,7 +67,6 @@ import net.rptools.lib.image.ThumbnailManager;
 import net.rptools.lib.net.RPTURLStreamHandlerFactory;
 import net.rptools.lib.sound.SoundManager;
 import net.rptools.lib.swing.SwingUtil;
-import net.rptools.maptool.client.functions.UserDefinedMacroFunctions;
 import net.rptools.maptool.client.swing.MapToolEventQueue;
 import net.rptools.maptool.client.swing.NoteFrame;
 import net.rptools.maptool.client.swing.SplashScreen;
@@ -86,6 +87,8 @@ import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZoneFactory;
+import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.server.MapToolServer;
 import net.rptools.maptool.server.ServerCommand;
 import net.rptools.maptool.server.ServerConfig;
@@ -179,7 +182,6 @@ public class MapTool {
 	private static SoundManager soundManager;
 	private static TaskBarFlasher taskbarFlasher;
 	private static EventDispatcher eventDispatcher;
-	private static MapToolLineParser parser = new MapToolLineParser();
 	private static String lastWhisperer;
 
 	/**
@@ -840,10 +842,6 @@ public class MapTool {
 		return campaign;
 	}
 
-	public static MapToolLineParser getParser() {
-		return parser;
-	}
-
 	public static void setCampaign(Campaign campaign) {
 		setCampaign(campaign, null);
 	}
@@ -876,7 +874,7 @@ public class MapTool {
 
 		AssetManager.updateRepositoryList();
 		MapTool.getFrame().getCampaignPanel().reset();
-		UserDefinedMacroFunctions.getInstance().loadCampaignLibFunctions();
+		ScriptManager.getInstance().initialize();
 	}
 
 	public static void setServerPolicy(ServerPolicy policy) {
@@ -1469,4 +1467,7 @@ public class MapTool {
 		}
 	}
 
+	public static ScriptManager getParser() {
+		return ScriptManager.getInstance();
+	}
 }

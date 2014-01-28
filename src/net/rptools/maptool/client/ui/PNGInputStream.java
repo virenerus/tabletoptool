@@ -11,15 +11,6 @@
 
 package net.rptools.maptool.client.ui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
 
 /**
  * An ImageStream created from a Component. 

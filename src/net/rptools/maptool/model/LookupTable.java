@@ -17,14 +17,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.rptools.common.expression.ExpressionParser;
-import net.rptools.common.expression.Result;
 import net.rptools.lib.MD5Key;
-import net.rptools.parser.ParserException;
+import net.rptools.maptool.script.MT2ScriptException;
 
 public class LookupTable {
 
-	private static ExpressionParser expressionParser = new ExpressionParser();
 	
 	private List<LookupEntry> entryList;
 	private String name;
@@ -58,7 +55,7 @@ public class LookupTable {
 		getInternalEntryList().add(new LookupEntry(min, max, result, imageId));
 	}
 	
-	public LookupEntry getLookup() throws ParserException {
+	public LookupEntry getLookup() throws MT2ScriptException {
 		return getLookup(null);
 	}
 
@@ -74,7 +71,7 @@ public class LookupTable {
 		return name;
 	}
 	
-	public LookupEntry getLookup(String roll) throws ParserException {
+	public LookupEntry getLookup(String roll) throws MT2ScriptException {
 
 		if (roll == null) {
 			roll = getDefaultRoll();
@@ -82,8 +79,9 @@ public class LookupTable {
 		
 		int tableResult = 0;
 		try {
-			Result result = expressionParser.evaluate(roll);
-			tableResult = Integer.parseInt(result.getValue().toString());
+			//Result result = expressionParser.evaluate(roll);
+			//FIXMESOON here has something to be evaluated (dice expression)
+			tableResult = Integer.parseInt("4");
 
 			Integer minmin = Integer.MAX_VALUE;
 			Integer maxmax = Integer.MIN_VALUE;
@@ -103,10 +101,10 @@ public class LookupTable {
 			}
 			
 		} catch (NumberFormatException nfe) {
-			throw new ParserException("Error lookup up value: " + tableResult); 
+			throw new MT2ScriptException("Error lookup up value: " + tableResult,nfe); 
 		}
 		
-		throw new ParserException("Unknown table lookup: " + tableResult);
+		throw new MT2ScriptException("Unknown table lookup: " + tableResult);
 	}
 
 	private String getDefaultRoll() {

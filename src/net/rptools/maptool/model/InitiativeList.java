@@ -23,10 +23,10 @@ import java.util.ListIterator;
 
 import javax.swing.Icon;
 
-import org.apache.log4j.Logger;
-
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
+
+import org.apache.log4j.Logger;
 
 /**
  * All of the tokens currently being shown in the initiative list. It includes a reference to all
@@ -213,6 +213,19 @@ public class InitiativeList implements Serializable {
             if (token.equals(tokens.get(i).getToken()))
             	list.add(i);
         return list;
+    }
+    
+    /**
+     * Searches for the passed token in the list.
+     * 
+     * @param token Search for this token.
+     * @return if this token is contained in the list
+     */
+    public boolean contains(Token token) {
+        for (int i = 0; i < tokens.size(); i++)
+            if (token.equals(tokens.get(i).getToken()))
+            	return true;
+        return false;
     }
     
     /**

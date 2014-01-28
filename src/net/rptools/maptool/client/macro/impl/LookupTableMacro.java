@@ -23,7 +23,6 @@ import net.rptools.maptool.model.LookupTable;
 import net.rptools.maptool.model.LookupTable.LookupEntry;
 import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.util.StringUtil;
-import net.rptools.parser.ParserException;
 
 @MacroDefinition(
 		name = "table",

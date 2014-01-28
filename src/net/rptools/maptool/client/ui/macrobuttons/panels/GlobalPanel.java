@@ -11,7 +11,6 @@
 
 package net.rptools.maptool.client.ui.macrobuttons.panels;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.rptools.maptool.client.MapTool;

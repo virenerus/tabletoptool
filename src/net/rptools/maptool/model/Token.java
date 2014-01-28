@@ -34,18 +34,18 @@ import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import net.rptools.CaseInsensitiveHashMap;
 import net.rptools.lib.MD5Key;
 import net.rptools.lib.image.ImageUtil;
 import net.rptools.lib.transferable.TokenTransferData;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.JSONMacroFunctions;
 import net.rptools.maptool.language.I18N;
+import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
-import net.rptools.parser.ParserException;
 
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Logger;
 
 /**
@@ -183,13 +183,13 @@ public class Token extends BaseModel {
 	 * Properties
 	 */
 	// I screwed up.  propertyMap was HashMap<String,Object> in pre-1.3b70 (?)
-	// and became a CaseInsensitiveHashMap<Object> thereafter.  So in order to
+	// and became a CaseInsensitiveMap<Object> thereafter.  So in order to
 	// be able to load old tokens, we need to read in the original data type and
 	// copy the elements into the new data type.  But because the name didn't
 	// change (that was the screw up) we have special code in readResolve() to
 	// help XStream move the data around.
 	private Map<String, Object> propertyMap; // 1.3b77 and earlier
-	private CaseInsensitiveHashMap<Object> propertyMapCI;
+	private CaseInsensitiveMap<String,Object> propertyMapCI;
 
 	private Map<String, String> macroMap;
 	private Map<Integer, Object> macroPropertiesMap;
@@ -717,7 +717,7 @@ public class Token extends BaseModel {
 	 */
 	public void setName(String name) throws IllegalArgumentException {
 		//Let's see if there is another Token with that name (only if Player is not GM)
-		if (!MapTool.getPlayer().isGM() && !MapTool.getParser().isMacroTrusted()) {
+		if (!MapTool.getPlayer().isGM()) {// && !MapTool.getParser().isMacroTrusted()) { //FIXMESOON reinstate trusted macro laws?
 			Zone curZone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
 			List<Token> tokensList = curZone.getTokens();
 
@@ -982,8 +982,8 @@ public class Token extends BaseModel {
 		getPropertyMap().remove(key);
 	}
 
-	public void setProperty(String key, Object value) {
-		getPropertyMap().put(key, value);
+	public Object setProperty(String key, Object value) {
+		return getPropertyMap().put(key, value);
 	}
 
 	public Object getProperty(String key) {
@@ -1017,19 +1017,13 @@ public class Token extends BaseModel {
 		if (val == null) {
 			return "";
 		}
-		// First we try convert it to a JSON object.
-		if (val.toString().trim().startsWith("[") || val.toString().trim().startsWith("{")) {
-			Object obj = JSONMacroFunctions.convertToJSON(val.toString());
-			if (obj != null) {
-				return obj;
-			}
-		}
+		
 		try {
 			if (log.isDebugEnabled()) {
 				log.debug("Evaluating property: '" + key + "' for token " + getName() + "(" + getId() + ")----------------------------------------------------------------------------------");
 			}
-			val = MapTool.getParser().parseLine(this, val.toString());
-		} catch (ParserException pe) {
+			val = ScriptManager.getInstance().evaluate(val.toString(),this);
+		} catch (MT2ScriptException pe) {
 			// pe.printStackTrace();
 			val = val.toString();
 		}
@@ -1048,18 +1042,9 @@ public class Token extends BaseModel {
 		return getPropertyMap().keySet();
 	}
 
-	/**
-	 * Returns all property names, preserving their case.
-	 * 
-	 * @return
-	 */
-	public Set<String> getPropertyNamesRaw() {
-		return getPropertyMap().keySetRaw();
-	}
-
-	private CaseInsensitiveHashMap<Object> getPropertyMap() {
+	private CaseInsensitiveMap<String,Object> getPropertyMap() {
 		if (propertyMapCI == null) {
-			propertyMapCI = new CaseInsensitiveHashMap<Object>();
+			propertyMapCI = new CaseInsensitiveMap<String,Object>();
 		}
 		return propertyMapCI;
 	}
@@ -1507,14 +1492,14 @@ public class Token extends BaseModel {
 		super.readResolve();
 		// FJE: If the propertyMap field has something in it, it could be:
 		//		a pre-1.3b66 token that contains a HashMap<?,?>, or
-		//		a pre-1.3b78 token that actually has the CaseInsensitiveHashMap<?>.
+		//		a pre-1.3b78 token that actually has the CaseInsensitiveMap<?>.
 		// Newer tokens will use propertyMapCI so we only need to make corrections
 		// if the old field has data in it.
 		if (propertyMap != null) {
-			if (propertyMap instanceof CaseInsensitiveHashMap) {
-				propertyMapCI = (CaseInsensitiveHashMap<Object>) propertyMap;
+			if (propertyMap instanceof CaseInsensitiveMap) {
+				propertyMapCI = (CaseInsensitiveMap<String,Object>) propertyMap;
 			} else {
-				propertyMapCI = new CaseInsensitiveHashMap<Object>();
+				propertyMapCI = new CaseInsensitiveMap<String,Object>();
 				propertyMapCI.putAll(propertyMap);
 				propertyMap.clear(); // It'll never be written out, but we should free the memory.
 			}

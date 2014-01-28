@@ -33,13 +33,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import net.rptools.CaseInsensitiveHashMap;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.swing.AbeillePanel;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.Campaign;
 import net.rptools.maptool.model.CampaignProperties;
 import net.rptools.maptool.model.TokenProperty;
+
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
 public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignProperties> {
 
@@ -228,7 +229,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 	private List<TokenProperty> parseTokenProperties(String propertyText) throws IllegalArgumentException {
 		List<TokenProperty> propertyList = new ArrayList<TokenProperty>();
 		BufferedReader reader = new BufferedReader(new StringReader(propertyText));
-		CaseInsensitiveHashMap<String> caseCheck = new CaseInsensitiveHashMap<String>();
+		CaseInsensitiveMap<String,String> caseCheck = new CaseInsensitiveMap<String,String>();
 		List<String> errlog = new LinkedList<String>();
 		try {
 			String original, line;

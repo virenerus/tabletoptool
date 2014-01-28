@@ -12,14 +12,15 @@
 package net.rptools.maptool.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 
-// TODO: Make this class implement 'List'
-public class ObservableList<K> extends Observable implements Iterable {
+public class ObservableList<K> extends Observable implements List<K> {
 
     private List<K> list;
     
@@ -48,11 +49,11 @@ public class ObservableList<K> extends Observable implements Iterable {
         Collections.sort(list, comparitor);
     }
     
-    public boolean contains(K item) {
+    public boolean contains(Object item) {
         return list.contains(item);
     }
 
-    public int indexOf(K item) {
+    public int indexOf(Object item) {
     	return list.indexOf(item);
     }
 
@@ -60,9 +61,10 @@ public class ObservableList<K> extends Observable implements Iterable {
         return list.get(i);
     }
     
-    public void add(K item) {
-        list.add(item);
+    public boolean add(K item) {
+        boolean b=list.add(item);
         fireUpdate(Event.append, item);
+        return b;
     }
 
     public void add(int index, K element) {
@@ -70,14 +72,16 @@ public class ObservableList<K> extends Observable implements Iterable {
         fireUpdate((index == list.size() ? Event.append : Event.add), element);
     }
     
-    public void remove(K item) {
-        list.remove(item);
+    public boolean remove(Object item) {
+        boolean b=list.remove(item);
         fireUpdate(Event.remove, item);
+        return b;
     }
     
-    public void remove(int i) {
+    public K remove(int i) {
         K source = list.remove(i);
         fireUpdate(Event.remove, source);
+        return source;
     }
     
     public void clear() {
@@ -91,7 +95,7 @@ public class ObservableList<K> extends Observable implements Iterable {
     
     ////
     // INTERNAL
-    protected void fireUpdate(Event event, K source) {
+    protected void fireUpdate(Event event, Object source) {
         setChanged();
         notifyObservers(event);
     }
@@ -122,4 +126,71 @@ public class ObservableList<K> extends Observable implements Iterable {
     public Iterator<K> iterator() {
       return list.iterator(); 
     }
+
+	@Override
+	public boolean addAll(Collection<? extends K> c) {
+		boolean b=list.addAll(c);
+		for(K k:c)
+			fireUpdate(Event.add, c);
+		return b;
+	}
+
+	@Override
+	public boolean addAll(int index, Collection<? extends K> c) {
+		boolean b=list.addAll(index,c);
+		for(K k:c)
+			fireUpdate(Event.add, c);
+		return b;
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		return list.containsAll(c);
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return list.isEmpty();
+	}
+
+	@Override
+	public int lastIndexOf(Object o) {
+		return list.lastIndexOf(o);
+	}
+
+	@Override
+	public ListIterator<K> listIterator() {
+		return list.listIterator();
+	}
+
+	public ListIterator<K> listIterator(int index) {
+		return list.listIterator(index);
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		boolean b=list.removeAll(c);
+		for(Object o:c)
+			fireUpdate(Event.remove, o);
+		return b;
+	}
+
+	public boolean retainAll(Collection<?> c) {
+		throw new UnsupportedOperationException();
+	}
+
+	public K set(int index, K element) {
+		K old=list.set(index, element);
+		if(old!=null)
+			fireUpdate(Event.remove, old);
+		fireUpdate(Event.add, element);
+		return old;
+	}
+
+	public Object[] toArray() {
+		return list.toArray();
+	}
+
+	public <T> T[] toArray(T[] a) {
+		return list.toArray(a);
+	}
 }

@@ -23,7 +23,6 @@ import javax.swing.ImageIcon;
 
 import net.rptools.maptool.client.AppStyle;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
 import net.rptools.maptool.model.Token;
 
 import com.jidesoft.docking.DockContext;

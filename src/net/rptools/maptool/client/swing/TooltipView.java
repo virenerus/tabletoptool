@@ -11,12 +11,14 @@
 
 package net.rptools.maptool.client.swing;
 
-import java.awt.*;
-import javax.swing.text.*;
-import javax.swing.text.html.*;
+import java.awt.Shape;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.InlineView;
 
 import net.rptools.maptool.client.AppPreferences;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
 
 public class TooltipView extends InlineView {
 
@@ -42,7 +44,7 @@ public class TooltipView extends InlineView {
     			boolean isInsideChat = mlToolTips;
     			boolean allowToolTipToShow = ! AppPreferences.getSuppressToolTipsForMacroLinks();
     			if (isInsideChat && allowToolTipToShow) {
-    				return MacroLinkFunction.getInstance().macroLinkToolTip(href);
+    				return href; //FIXMESOON this should return a describing text of the macro according to Macrolinkfunction.macroLinkTool
     			} 
     			// if we are not displaying macro link tooltips let if fall through so that any span tooltips will be displayed
     		} else  {

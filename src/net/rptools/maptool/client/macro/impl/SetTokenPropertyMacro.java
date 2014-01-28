@@ -27,7 +27,6 @@ import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
-import net.rptools.parser.ParserException;
 
 @MacroDefinition(name = "settokenproperty",
 		aliases = { "stp" },

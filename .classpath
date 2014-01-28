@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="lib/servicediscoverylib-1.0.b5.jar"/>
 	<classpathentry kind="lib" path="lib/swing-worker-0.1.jar"/>
 	<classpathentry kind="lib" path="lib/decktool-1.0.b1.jar"/>
-	<classpathentry kind="lib" path="lib/parser-1.1.b24.jar" sourcepath="/parser/src"/>
 	<classpathentry kind="lib" path="lib/abeille-formsrt-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/jide-common-3.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/jide-components-3.2.3.jar"/>
@@ -39,12 +38,6 @@
 	<classpathentry kind="lib" path="lib/rplib-1.0.b134.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/upnplib-1.0.9-nodebug.jar"/>
-	<classpathentry kind="lib" path="lib/dicelib-1.0.b18.jar" sourcepath="/dicelib"/>
-	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar" sourcepath="lib/src/commons-collections-3.2.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/commons-collections-3.2.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar" sourcepath="lib/src/commons-logging-1.1.1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/maptool/lib/javadoc/commons-logging-1.1.1-javadoc.jar!/"/>
@@ -54,13 +47,14 @@
 	<classpathentry kind="lib" path="lib/maptool.resource-1.0.b18.jar"/>
 	<classpathentry kind="lib" path="lib/clientserver-1.0.b17.jar" sourcepath="/clientserver/src"/>
 	<classpathentry kind="lib" path="lib/withay-util.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.0.jar" sourcepath="lib/src/commons-collections4-4.0-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>

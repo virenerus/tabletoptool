@@ -84,7 +84,6 @@ import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
 import net.rptools.maptool.client.ScreenPoint;
 import net.rptools.maptool.client.TransferableHelper;
-import net.rptools.maptool.client.functions.TokenMoveFunctions;
 import net.rptools.maptool.client.tool.PointerTool;
 import net.rptools.maptool.client.tool.StampTool;
 import net.rptools.maptool.client.tool.drawing.FreehandExposeTool;
@@ -430,11 +429,12 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 			// run tokenMoved() for each token in the filtered selection list, canceling if it returns 1.0
 			for (GUID tokenGUID : filteredTokens) {
 				Token token = zone.getToken(tokenGUID);
-				tmc = TokenMoveFunctions.tokenMoved(token, path, filteredTokens);
+				//FIXMESOON
+				/*tmc = TokenMoveFunctions.tokenMoved(token, path, filteredTokens);
 
 				if (tmc != null && tmc == BigDecimal.ONE) {
 					denyMovement(token);
-				}
+				}*/
 			}
 		}
 		moveTimer.stop("onTokenMove");
@@ -442,15 +442,18 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		moveTimer.start("onMultipleTokensMove");
 		// Multiple tokens, the list of tokens and call onMultipleTokensMove() macro function.
 		if (filteredTokens != null && filteredTokens.size() > 1) {
+			//FIXMESOON
+			/*
 			tmc = TokenMoveFunctions.multipleTokensMoved(filteredTokens);
 			// now determine if the macro returned false and if so
 			// revert each token's move to the last path.
 			if (tmc != null && tmc == BigDecimal.ONE) {
+			
 				for (GUID tokenGUID : filteredTokens) {
 					Token token = zone.getToken(tokenGUID);
 					denyMovement(token);
 				}
-			}
+			}*/
 		}
 		moveTimer.stop("onMultipleTokensMove");
 

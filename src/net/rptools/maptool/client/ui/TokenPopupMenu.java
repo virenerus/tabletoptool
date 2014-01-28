@@ -46,8 +46,6 @@ import javax.swing.text.JTextComponent;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
-import net.rptools.maptool.client.functions.AbstractTokenAccessorFunction;
-import net.rptools.maptool.client.functions.TokenBarFunction;
 import net.rptools.maptool.client.ui.token.BarTokenOverlay;
 import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.zone.FogUtil;
@@ -64,6 +62,7 @@ import net.rptools.maptool.model.Player.Role;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.util.TypeUtil;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -560,7 +559,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private JCheckBoxMenuItem createStateItem(String state, JMenu menu, Token token) {
 		JCheckBoxMenuItem item = new JCheckBoxMenuItem(new ChangeStateAction(state));
 		Object value = token.getState(state);
-		if (AbstractTokenAccessorFunction.getBooleanValue(value))
+		if (TypeUtil.getBooleanValue(value))
 			item.setSelected(true);
 		menu.add(item);
 		return item;
@@ -569,7 +568,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private JMenuItem createBarItem(String bar, JMenu menu, Token token) {
 		JMenuItem item = new JMenuItem(new ChangeBarAction(bar));
 		Object value = token.getState(bar);
-		int percent = (int) (TokenBarFunction.getBigDecimalValue(value).doubleValue() * 100);
+		int percent = (int) (TypeUtil.getBigDecimalValue(value).doubleValue() * 100);
 		item.setText(bar + " (" + Integer.toString(percent) + "%)");
 		menu.add(item);
 		return item;
@@ -721,7 +720,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			} else {
 				hide.setSelected(false);
 				slider.setEnabled(true);
-				slider.setValue((int) (TokenBarFunction.getBigDecimalValue(getTokenUnderMouse().getState(name)).doubleValue() * 100));
+				slider.setValue((int) (TypeUtil.getBigDecimalValue(getTokenUnderMouse().getState(name)).doubleValue() * 100));
 			}
 			JPanel barPanel = new JPanel(new FormLayout("right:pref 2px pref", "pref"));
 			barPanel.add(labelPanel, new CellConstraints(1, 1));

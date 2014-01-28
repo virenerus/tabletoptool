@@ -11,8 +11,6 @@
 
 package net.rptools.maptool.util;
 
-import javax.imageio.ImageIO;
-
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -34,6 +32,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import net.rptools.lib.CodeTimer;
 import net.rptools.lib.FileUtil;

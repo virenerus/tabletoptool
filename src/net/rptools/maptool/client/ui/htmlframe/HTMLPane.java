@@ -32,9 +32,7 @@ import javax.swing.text.html.StyleSheet;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
 import net.rptools.maptool.client.ui.commandpanel.MessagePanel;
-import net.rptools.parser.ParserException;
 
 import org.apache.log4j.Logger;
 

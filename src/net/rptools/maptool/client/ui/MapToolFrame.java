@@ -1084,6 +1084,15 @@ public class MapToolFrame extends DefaultDockableHolder implements WindowListene
 		// TODO: This should prob be immutable
 		return zoneRendererList;
 	}
+	
+	public ZoneRenderer getZoneRenderer(String name) {
+		for (ZoneRenderer zr : zoneRendererList) {
+			if (zr.getZone().getName().equals(name.toString())) {
+				return zr;
+			}
+		}
+		return null;
+	}
 
 	public ZoneRenderer getCurrentZoneRenderer() {
 		return currentRenderer;

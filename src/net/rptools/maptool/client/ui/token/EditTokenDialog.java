@@ -60,8 +60,6 @@ import javax.swing.text.JTextComponent;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
-import net.rptools.maptool.client.functions.AbstractTokenAccessorFunction;
-import net.rptools.maptool.client.functions.TokenBarFunction;
 import net.rptools.maptool.client.swing.AbeillePanel;
 import net.rptools.maptool.client.swing.GenericDialog;
 import net.rptools.maptool.language.I18N;
@@ -73,6 +71,7 @@ import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone.Layer;
+import net.rptools.maptool.util.TypeUtil;
 import net.rptools.maptool.util.ImageManager;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -162,7 +161,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			Component[] states = ((Container) statePanels[j]).getComponents();
 			for (int i = 0; i < states.length; i++) {
 				JCheckBox state = (JCheckBox) states[i];
-				state.setSelected(AbstractTokenAccessorFunction.getBooleanValue(token.getState(state.getText())));
+				state.setSelected(TypeUtil.getBooleanValue(token.getState(state.getText())));
 			}
 		}
 
@@ -179,7 +178,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				} else {
 					cb.setSelected(false);
 					bar.setEnabled(true);
-					bar.setValue((int) (TokenBarFunction.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
+					bar.setValue((int) (TypeUtil.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
 				}
 			}
 		}
@@ -422,7 +421,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				JSlider bar = (JSlider) bars[i + 1];
 				BigDecimal value = cb.isSelected() ? null : new BigDecimal(bar.getValue()).divide(new BigDecimal(100));
 				token.setState(bar.getName(), value);
-				bar.setValue((int) (TokenBarFunction.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
+				bar.setValue((int) (TypeUtil.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
 			}
 		}
 		// Ownership

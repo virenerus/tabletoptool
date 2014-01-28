@@ -20,14 +20,11 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
-
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.ui.zone.ZoneMiniMapPanel;
-import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.model.Campaign;
 import net.rptools.maptool.model.MacroButtonProperties;
-import net.rptools.maptool.model.Zone;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author crash
