@@ -212,4 +212,45 @@ public class InitiativeFunctions {
 	public void sortInitiative() {
 		MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList().sort();
 	}
+	
+	public int removeAllFromInitiative() {
+		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		int size=list.getSize();
+		list.clearModel();
+		return size;
+	}
+	
+	public int removeAllPCsFromInitiative() {
+		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		list.startUnitOfWork();
+		int count=0;
+        for (int i = list.getSize() - 1; i >= 0; i--) {
+            Token token = list.getTokenInitiative(i).getToken();
+            if (token.getType() == Type.PC) {
+                list.removeToken(i);
+                count++;
+            }
+        }
+        list.setRound(-1);
+        list.setCurrent(-1);
+        list.finishUnitOfWork();
+        return count;
+	}
+	
+	public int removeAllNPCsFromInitiative() {
+		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		list.startUnitOfWork();
+		int count=0;
+        for (int i = list.getSize() - 1; i >= 0; i--) {
+            Token token = list.getTokenInitiative(i).getToken();
+            if (token.getType() == Type.NPC) {
+                list.removeToken(i);
+                count++;
+            }
+        }
+        list.setRound(-1);
+        list.setCurrent(-1);
+        list.finishUnitOfWork();
+        return count;
+	}
 }
