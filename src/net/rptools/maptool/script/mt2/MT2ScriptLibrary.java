@@ -9,7 +9,7 @@ import net.rptools.maptool.script.ScriptLibrary;
 import net.rptools.maptool.script.mt2.functions.InfoFunctions;
 import net.rptools.maptool.script.mt2.functions.MapFunctions;
 import net.rptools.maptool.script.mt2.functions.ini.InitiativeFunctions;
-import net.rptools.maptool.script.mt2.functions.token.TokenFunctions;
+import net.rptools.maptool.script.mt2.functions.player.PlayerFunctions;
 
 //FIXMESOON make everything that returns or gets tokens here into tokenrepr
 //ECLIPSE make this into a PLUG-IN
@@ -17,13 +17,13 @@ public class MT2ScriptLibrary implements ScriptLibrary {
 	
 	public final InitiativeFunctions ini;
 	public final InfoFunctions info;
-	public final TokenFunctions token;
+	public final PlayerFunctions player;
 	public final MapFunctions map;
 
 	public MT2ScriptLibrary() {
 		this.ini=new InitiativeFunctions();
 		this.info=new InfoFunctions();
-		this.token=new TokenFunctions();
+		this.player=new PlayerFunctions();
 		this.map=new MapFunctions();
 	}
 	
@@ -48,17 +48,5 @@ public class MT2ScriptLibrary implements ScriptLibrary {
 			MapTool.addGlobalMessage("null");
 		else
 			MapTool.addGlobalMessage(o.toString());
-	}
-	
-	public String getPlayer() {
-		return MapTool.getPlayer().getName();
-	}
-	
-	public List<String> getPlayers() {
-		List<Player> players=MapTool.getPlayerList();
-		List<String> names=new ArrayList<String>(players.size());
-		for(Player p:players)
-			names.add(p.getName());
-		return names;
 	}
 }

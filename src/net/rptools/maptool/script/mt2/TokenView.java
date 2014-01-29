@@ -1,5 +1,6 @@
 package net.rptools.maptool.script.mt2;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
@@ -14,8 +15,10 @@ import java.util.Set;
 
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.client.MapToolUtil;
 import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
+import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
@@ -97,7 +100,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param barName the name of the bar
 	 * @return if this bar is currently visible on this token
 	 */
-	public boolean isVisible(String barName) {
+	public boolean isBarVisible(String barName) {
 		return token.getState(barName) != null;
 	}
 
@@ -106,7 +109,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param barName the name of the bar
 	 * @param show if the bar should be visible or not
 	 */
-	public void setVisible(String barName, boolean show) {
+	public void setBarVisible(String barName, boolean show) {
 		token.setState(barName, show ? BigDecimal.ONE : null);
 		this.sendUpdateToServer();
 	}
@@ -267,6 +270,7 @@ public class TokenView extends TokenPropertyView {
     
     public void setState(String state, boolean value) {
     	token.setState(state, value);
+    	this.sendUpdateToServer();
     }
     
     public void setAllStates(boolean value) {
@@ -293,10 +297,6 @@ public class TokenView extends TokenPropertyView {
     
 	private void sendUpdateToServer() {
 		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
-	}
-
-	public String getGMName() {
-		return token.getGMName();
 	}
 
 	public GUID getId() {
@@ -380,5 +380,60 @@ public class TokenView extends TokenPropertyView {
 	
 	public String getLabel() {
 		return token.getLabel();
+	}
+	
+	public String getGMName() {
+		return token.getGMName();
+	}
+	
+	public void setGMName(String name) {
+		token.setGMName(name);
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	/**
+	 * Gets the halo for the token.
+	 * @return the halo color or null if there is no halo
+	 */
+	public String getHalo() {
+		if (token.getHaloColor() != null)
+			return "#" + Integer.toHexString(token.getHaloColor().getRGB()).substring(2);
+		else
+			return null;
+	}
+
+	/**
+	 * Sets the halo color of the token.
+	 * @param value the color to set in the form #AAAAAA or null to deactivate the halo
+	 */
+	public void setHalo(String hexColor) {
+		if (hexColor == null) {
+			token.setHaloColor(null);
+		} else {
+			Color color = MapToolUtil.getColor(hexColor);
+			token.setHaloColor(color);
+		}
+		
+		// TODO: This works for now but could result in a lot of resending of data
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+	}
+	
+	public boolean getInitiativeHold() {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+        List<Integer> list = zone.getInitiativeList().indexOf(token);
+        if (list.isEmpty())
+        	throw new IllegalArgumentException("The accessed token is not on the current map"); 
+        return zone.getInitiativeList().getTokenInitiative(list.get(0).intValue()).isHolding(); 
+	}
+	
+	public void setInitiativeHold(boolean value) {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+        for(TokenInitiative ti : zone.getInitiativeList().getTokens())
+        	if(ti.getToken().equals(token))
+        		ti.setHolding(value);
 	}
 }
