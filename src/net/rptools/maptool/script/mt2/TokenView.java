@@ -16,18 +16,22 @@ import java.util.Set;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
+import net.rptools.maptool.client.functions.StringFunctions;
 import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.language.I18N;
+import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
+import net.rptools.maptool.model.LightSource;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.script.mt2.functions.token.TokenPart;
 import net.rptools.maptool.util.TypeUtil;
+import net.sf.json.JSONArray;
 
 public class TokenView extends TokenPropertyView {
 	public TokenView(Token token) {
@@ -435,5 +439,97 @@ public class TokenView extends TokenPropertyView {
         for(TokenInitiative ti : zone.getInitiativeList().getTokens())
         	if(ti.getToken().equals(token))
         		ti.setHolding(value);
+	}
+	
+	public boolean hasLightSource() {
+		return token.hasLightSources();
+	}
+	
+	public boolean hasLightSource(String category) {
+
+			for (LightSource ls : MapTool.getCampaign().getLightSourcesMap().get(category).values()) {
+				if (token.hasLightSource(ls))
+					return true;
+			}
+			return false;
+	}
+	
+	public boolean hasLightSource(String category, String name) {
+		for (LightSource ls : MapTool.getCampaign().getLightSourcesMap().get(category).values()) {
+			if (ls.getName().equals(name)) {
+				if (token.hasLightSource(ls)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void clearLightSources() {
+		token.clearLightSources();
+		this.sendUpdateToServer();
+		MapTool.getFrame().updateTokenTree();
+		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+	}
+	
+	/**
+	 * Sets the light value for a token.
+	 * @param category the category of the light source.
+	 * @param name  The name of the light source.
+	 * @param active The value to set for the light source, false for off or true for on.
+	 * @return false if the light was not found, otherwise true;
+	 */
+	public boolean setLight(String category, String name, boolean active) {
+		boolean found = false;
+
+		for (LightSource ls : MapTool.getCampaign().getLightSourcesMap().get(category).values()) {
+			if (ls.getName().equals(name)) {
+				found = true;
+				if (active) {
+					token.removeLightSource(ls);
+				} else {
+					token.addLightSource(ls, Direction.CENTER);
+				}
+				break;
+			}
+		}
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone = renderer.getZone();
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		MapTool.getFrame().updateTokenTree();
+		renderer.flushLight();
+
+		return found;
+	}
+	
+	/**
+	 * Gets the names of the light sources that are on.
+	 * @return a string list containing the lights that are on.
+	 */
+	public List<String> getLights(Token token) {
+		ArrayList<String> lightList = new ArrayList<String>();
+		for (Map<GUID, LightSource> category : MapTool.getCampaign().getLightSourcesMap().values()) {
+			for (LightSource ls : category.values()) {
+				if (token.hasLightSource(ls))
+					lightList.add(ls.getName());
+			}
+		}
+		return lightList;
+	}
+	
+	/**
+	 * Gets the names of the light sources that are on.
+	 * @param category The category to get the light sources for
+	 * @return a string list containing the lights that are on.
+	 */
+	private List<String> getLights(Token token, String category) {
+		ArrayList<String> lightList = new ArrayList<String>();
+		for (LightSource ls : MapTool.getCampaign().getLightSourcesMap().get(category).values()) {
+			if (token.hasLightSource(ls)) {
+				lightList.add(ls.getName());
+			}
+		}
+		return lightList;
 	}
 }
