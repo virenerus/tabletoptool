@@ -92,7 +92,6 @@ import net.rptools.maptool.client.tool.drawing.PolygonExposeTool;
 import net.rptools.maptool.client.tool.drawing.RectangleExposeTool;
 import net.rptools.maptool.client.ui.Scale;
 import net.rptools.maptool.client.ui.Tool;
-import net.rptools.maptool.client.ui.htmlframe.HTMLFrameFactory;
 import net.rptools.maptool.client.ui.token.AbstractTokenOverlay;
 import net.rptools.maptool.client.ui.token.BarTokenOverlay;
 import net.rptools.maptool.client.ui.token.NewTokenDialog;
@@ -2868,7 +2867,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		addToSelectionHistory(selectedTokenSet);
 		selectedTokenSet.remove(tokenGUID);
 		MapTool.getFrame().resetTokenPanels();
-		HTMLFrameFactory.selectedListChanged();
 //		flushFog = true; // could call flushFog() but also clears visibleScreenArea and I don't know if we want that...
 		repaint();
 	}
@@ -2880,7 +2878,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		addToSelectionHistory(selectedTokenSet);
 		selectedTokenSet.add(tokenGUID);
 		MapTool.getFrame().resetTokenPanels();
-		HTMLFrameFactory.selectedListChanged();
 //		flushFog = true;
 		repaint();
 		return true;
@@ -2897,7 +2894,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 
 		repaint();
 		MapTool.getFrame().resetTokenPanels();
-		HTMLFrameFactory.selectedListChanged();
 	}
 
 	/**
@@ -2918,7 +2914,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		clearShowPaths();
 		selectedTokenSet.clear();
 		MapTool.getFrame().resetTokenPanels();
-		HTMLFrameFactory.selectedListChanged();
 		repaint();
 	}
 
@@ -2951,7 +2946,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		// TODO: if selection history is empty, notify the selection panel to
 		// disable the undo button.
 		MapTool.getFrame().resetTokenPanels();
-		HTMLFrameFactory.selectedListChanged();
 		repaint();
 	}
 

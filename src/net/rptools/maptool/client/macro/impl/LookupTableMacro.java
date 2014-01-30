@@ -17,12 +17,13 @@ import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.client.macro.MacroContext;
 import net.rptools.maptool.client.macro.MacroDefinition;
-import net.rptools.maptool.client.macro.MacroManager;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.LookupTable;
 import net.rptools.maptool.model.LookupTable.LookupEntry;
 import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.util.StringUtil;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 @MacroDefinition(
 		name = "table",

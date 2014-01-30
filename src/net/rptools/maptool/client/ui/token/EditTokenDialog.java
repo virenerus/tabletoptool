@@ -71,8 +71,8 @@ import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone.Layer;
-import net.rptools.maptool.util.TypeUtil;
 import net.rptools.maptool.util.ImageManager;
+import net.rptools.maptool.util.TypeUtil;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;

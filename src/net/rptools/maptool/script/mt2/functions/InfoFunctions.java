@@ -16,7 +16,6 @@ import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.tokenpanel.InitiativePanel;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.walker.WalkerMetric;
-import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.Campaign;
 import net.rptools.maptool.model.CampaignProperties;
 import net.rptools.maptool.model.Grid;
@@ -30,6 +29,8 @@ import net.rptools.maptool.server.ServerPolicy;
 import net.rptools.maptool.util.SysInfo;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class InfoFunctions {
 	/**

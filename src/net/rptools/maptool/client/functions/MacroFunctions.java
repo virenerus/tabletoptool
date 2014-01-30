@@ -19,15 +19,13 @@ import java.util.List;
 import java.util.Map;
 
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
 import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.Token;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class MacroFunctions extends AbstractFunction {
 	private static final MacroFunctions instance = new MacroFunctions();

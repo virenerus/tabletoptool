@@ -27,8 +27,6 @@ import java.util.regex.Pattern;
 import net.rptools.lib.MD5Key;
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
-import net.rptools.maptool.client.functions.AbortFunction.AbortFunctionException;
 import net.rptools.maptool.client.macro.MacroContext;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
@@ -39,13 +37,11 @@ import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.util.StringUtil;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
+import org.codehaus.groovy.syntax.ParserException;
 
 public class MacroLinkFunction extends AbstractFunction {
 	private static final Logger log = Logger.getLogger(MacroLinkFunction.class);

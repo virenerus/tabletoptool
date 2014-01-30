@@ -292,8 +292,8 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 			break;
 
 		case RPTOOLS:
-			Object[] selectedRows = getLibraryList().getSelectedValues();
-			if (selectedRows == null || selectedRows.length == 0) {
+			List<?> selectedRows = getLibraryList().getSelectedValuesList();
+			if (selectedRows == null || selectedRows.isEmpty()) {
 				MapTool.showMessage("dialog.addresource.warn.mustselectone", "Error", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}

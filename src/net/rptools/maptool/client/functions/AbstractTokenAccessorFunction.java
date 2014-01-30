@@ -15,13 +15,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Token;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 /**
  * Support for accessing getters and setters on tokens using a function

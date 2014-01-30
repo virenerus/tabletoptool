@@ -12,7 +12,6 @@
 package net.rptools.maptool.client.ui.htmlframe;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -24,7 +23,7 @@ import javax.swing.JDialog;
 
 import net.rptools.lib.swing.SwingUtil;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.model.Token;
+import net.rptools.maptool.client.functions.MacroLinkFunction;
 
 @SuppressWarnings("serial")
 public class HTMLDialog extends JDialog implements HTMLPanelContainer {
@@ -147,80 +146,6 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 			dialog.setVisible(true);
 		}
 		return dialog;
-	}
-
-	/**
-	 * The selected token list has changed.
-	 */
-	private void selectedChanged() {
-		if (macroCallbacks.get("onChangeSelection") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeSelection"));
-				}
-			});
-		}
-	}
-
-	/**
-	 * A new token has been impersonated or the impersonated token is cleared.
-	 */
-	private void impersonatedChanged() {
-		if (macroCallbacks.get("onChangeImpersonated") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeImpersonated"));
-				}
-			});
-		}
-	}
-
-	/**
-	 * One of the tokens has changed.
-	 */
-	private void tokenChanged(final Token token) {
-		if (macroCallbacks.get("onChangeToken") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeToken") + token.getId().toString());
-				}
-			});
-		}
-	}
-
-	/**
-	 * The selected token list has changed.
-	 */
-	public static void doSelectedChanged() {
-		for (HTMLDialog dialog : dialogs.values()) {
-			if (dialog.isVisible()) {
-				dialog.selectedChanged();
-			}
-		}
-	}
-
-	/**
-	 * A new token has been impersonated or the impersonated token is cleared.
-	 */
-	public static void doImpersonatedChanged() {
-		for (HTMLDialog dialog : dialogs.values()) {
-			if (dialog.isVisible()) {
-				dialog.impersonatedChanged();
-			}
-		}
-	}
-
-	/**
-	 * One of the tokens has changed.
-	 */
-	public static void doTokenChanged(Token token) {
-		if (token != null) {
-			for (HTMLDialog dialog : dialogs.values()) {
-				if (dialog.isVisible()) {
-					dialog.tokenChanged(token);
-				}
-			}
-		}
 	}
 
 	/**

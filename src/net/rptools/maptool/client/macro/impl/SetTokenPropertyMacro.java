@@ -28,6 +28,8 @@ import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 
+import org.codehaus.groovy.syntax.ParserException;
+
 @MacroDefinition(name = "settokenproperty",
 		aliases = { "stp" },
 		description = "settokenproperty.description",

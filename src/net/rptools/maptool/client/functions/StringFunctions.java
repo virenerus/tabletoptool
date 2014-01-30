@@ -22,10 +22,8 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import net.rptools.maptool.language.I18N;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.VariableResolver;
-import net.rptools.parser.function.AbstractFunction;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class StringFunctions extends AbstractFunction {
 	private int matchNo = 0;

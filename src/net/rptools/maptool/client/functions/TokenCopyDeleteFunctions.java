@@ -17,7 +17,6 @@ import java.util.List;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
-import net.rptools.maptool.client.MapToolVariableResolver;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.GUID;
@@ -26,11 +25,10 @@ import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class TokenCopyDeleteFunctions extends AbstractFunction {
 

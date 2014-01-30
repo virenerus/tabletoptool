@@ -25,7 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.GUID;
@@ -37,10 +36,9 @@ import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
 import net.rptools.maptool.util.TokenUtil;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
 import net.sf.json.JSONArray;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class TokenPropertyFunctions extends AbstractFunction {
 	private static final TokenPropertyFunctions instance = new TokenPropertyFunctions();

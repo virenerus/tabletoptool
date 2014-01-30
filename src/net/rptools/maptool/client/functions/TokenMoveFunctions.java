@@ -24,8 +24,6 @@ import java.util.Set;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
-import net.rptools.maptool.client.functions.AbortFunction.AbortFunctionException;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.walker.WalkerMetric;
 import net.rptools.maptool.client.walker.ZoneWalker;
@@ -42,14 +40,12 @@ import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.util.math.IntLine;
 import net.rptools.maptool.util.math.IntPoint;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.AbstractFunction;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
+import org.codehaus.groovy.syntax.ParserException;
 
 /**
  * @author Joe.Frazier

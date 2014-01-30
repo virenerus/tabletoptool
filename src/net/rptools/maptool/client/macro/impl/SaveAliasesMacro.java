@@ -28,7 +28,6 @@ import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.client.macro.Macro;
 import net.rptools.maptool.client.macro.MacroContext;
 import net.rptools.maptool.client.macro.MacroDefinition;
-import net.rptools.maptool.client.macro.MacroManager;
 import net.rptools.maptool.language.I18N;
 
 import org.apache.commons.io.FileUtils;

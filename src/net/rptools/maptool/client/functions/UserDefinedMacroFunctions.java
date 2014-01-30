@@ -20,17 +20,13 @@ import java.util.Set;
 import java.util.Stack;
 
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.MapToolVariableResolver;
-import net.rptools.maptool.client.functions.AbortFunction.AbortFunctionException;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
-import net.rptools.parser.Parser;
-import net.rptools.parser.ParserException;
-import net.rptools.parser.function.Function;
-import net.rptools.parser.function.ParameterException;
 import net.sf.json.JSONArray;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class UserDefinedMacroFunctions implements Function {
 

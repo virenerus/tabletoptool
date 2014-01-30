@@ -36,15 +36,14 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 
-import org.apache.log4j.Logger;
-
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.swing.MessagePanelEditorKit;
 import net.rptools.maptool.model.TextMessage;
-import net.rptools.maptool.model.Token;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptManager;
+
+import org.apache.log4j.Logger;
 
 //FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here
 public class MessagePanel extends JPanel {

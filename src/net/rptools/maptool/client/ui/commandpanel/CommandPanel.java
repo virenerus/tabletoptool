@@ -11,8 +11,6 @@
 
 package net.rptools.maptool.client.ui.commandpanel;
 
-import groovy.util.logging.Log;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -70,14 +68,11 @@ import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.client.ui.chat.ChatProcessor;
 import net.rptools.maptool.client.ui.chat.SmileyChatTranslationRuleGroup;
-import net.rptools.maptool.client.ui.htmlframe.HTMLFrameFactory;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.ObservableList;
 import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Token;
-import net.rptools.maptool.script.MT2ScriptException;
-import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
 
@@ -186,7 +181,6 @@ public class CommandPanel extends JPanel implements Observer {
 		if (zr != null)
 			token = zr.getZone().getToken(guid);
 		setIdentityImpl(token);
-		HTMLFrameFactory.impersonateToken();
 	}
 
 	/**
@@ -208,7 +202,6 @@ public class CommandPanel extends JPanel implements Observer {
 			identityName = identity;
 			setCharacterLabel("Speaking as: " + getIdentity());
 		}
-		HTMLFrameFactory.impersonateToken();
 	}
 
 	public JButton getEmotePopupButton() {

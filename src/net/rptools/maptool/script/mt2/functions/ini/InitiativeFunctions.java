@@ -6,9 +6,9 @@ import java.util.List;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.InitiativeList;
+import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.InitiativeListModel;
 import net.rptools.maptool.model.Token;
-import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.Token.Type;
 import net.rptools.maptool.script.mt2.TokenView;
 import net.rptools.maptool.script.mt2.functions.ini.InitiativeListView.InitiativeEntry;

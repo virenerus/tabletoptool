@@ -1,6 +1,5 @@
 package net.rptools.maptool.script.mt2.functions.ini;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

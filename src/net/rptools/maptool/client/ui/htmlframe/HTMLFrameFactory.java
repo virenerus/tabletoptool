@@ -11,21 +11,11 @@
 
 package net.rptools.maptool.client.ui.htmlframe;
 
-import net.rptools.lib.AppEvent;
-import net.rptools.lib.AppEventListener;
-import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.ui.commandpanel.CommandPanel;
-import net.rptools.maptool.model.ModelChangeEvent;
-import net.rptools.maptool.model.ModelChangeListener;
-import net.rptools.maptool.model.Token;
-import net.rptools.maptool.model.Zone;
-import net.rptools.maptool.model.Zone.Event;
 
 public class HTMLFrameFactory {
 	private HTMLFrameFactory() {
 	}
 
-	private static HTMLFrameFactory.Listener listener;
 
 	/**
 	 * Shows a dialog or frame based on the options.
@@ -40,9 +30,10 @@ public class HTMLFrameFactory {
 	 *            The html contents of frame or dialog.
 	 */
 	public static void show(String name, boolean isFrame, String properties, String html) {
+		/* removed with the event removal
 		if (listener == null) {
 			listener = new HTMLFrameFactory.Listener();
-		}
+		}*/
 		boolean input = false;
 		boolean temporary = false;
 		int width = -1;
@@ -118,31 +109,8 @@ public class HTMLFrameFactory {
 			HTMLDialog.showDialog(name, title, width, height, hasFrame, input, temporary, closeButton, html);
 		}
 	}
-
-	/**
-	 * The list of selected tokens changed.
-	 */
-	public static void selectedListChanged() {
-		HTMLFrame.doSelectedChanged();
-		HTMLDialog.doSelectedChanged();
-	}
-
-	/**
-	 * A new token has been impersonated or cleared.
-	 */
-	public static void impersonateToken() {
-		HTMLFrame.doImpersonatedChanged();
-		HTMLDialog.doImpersonatedChanged();
-	}
-
-	/**
-	 * One of the tokens has changed.
-	 */
-	public static void tokenChanged(Token token) {
-		HTMLFrame.doTokenChanged(token);
-		HTMLDialog.doTokenChanged(token);
-	}
-
+	/* This is how an event system could be implemented here
+	//TODO reimplment event system but better
 	public static class Listener implements ModelChangeListener, AppEventListener {
 		public Listener() {
 			MapTool.getEventDispatcher().addListener(this, MapTool.ZoneEvent.Activated);
@@ -172,7 +140,7 @@ public class HTMLFrameFactory {
 			}
 			newZone.addModelChangeListener(this);
 		}
-	}
+	}*/
 
 	public static boolean isVisible(boolean isFrame, String name) {
 		if (isFrame) {

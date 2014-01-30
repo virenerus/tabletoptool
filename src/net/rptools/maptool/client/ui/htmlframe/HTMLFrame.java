@@ -12,7 +12,6 @@
 package net.rptools.maptool.client.ui.htmlframe;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -23,7 +22,7 @@ import javax.swing.ImageIcon;
 
 import net.rptools.maptool.client.AppStyle;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.model.Token;
+import net.rptools.maptool.client.functions.MacroLinkFunction;
 
 import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
@@ -148,80 +147,6 @@ public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {
 	public void updateContents(String html) {
 		macroCallbacks.clear();
 		panel.updateContents(html, false);
-	}
-
-	/**
-	 * The selected token list has changed.
-	 */
-	private void selectedChanged() {
-		if (macroCallbacks.get("onChangeSelection") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeSelection"));
-				}
-			});
-		}
-	}
-
-	/**
-	 * A new token has been impersonated or the impersonated token is cleared.
-	 */
-	private void impersonatedChanged() {
-		if (macroCallbacks.get("onChangeImpersonated") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeImpersonated"));
-				}
-			});
-		}
-	}
-
-	/**
-	 * One of the tokens has changed.
-	 */
-	private void tokenChanged(final Token token) {
-		if (macroCallbacks.get("onChangeToken") != null) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					MacroLinkFunction.getInstance().runMacroLink(macroCallbacks.get("onChangeToken") + token.getId().toString());
-				}
-			});
-		}
-	}
-
-	/**
-	 * The selected token list has changed.
-	 */
-	public static void doSelectedChanged() {
-		for (HTMLFrame frame : frames.values()) {
-			if (frame.isVisible()) {
-				frame.selectedChanged();
-			}
-		}
-	}
-
-	/**
-	 * A new token has been impersonated or the impersonated token is cleared.
-	 */
-	public static void doImpersonatedChanged() {
-		for (HTMLFrame frame : frames.values()) {
-			if (frame.isVisible()) {
-				frame.impersonatedChanged();
-			}
-		}
-	}
-
-	/**
-	 * One of the tokens has changed.
-	 */
-	public static void doTokenChanged(Token token) {
-		if (token != null) {
-			for (HTMLFrame frame : frames.values()) {
-				if (frame.isVisible()) {
-					frame.tokenChanged(token);
-				}
-			}
-		}
 	}
 
 	public void closeRequest() {

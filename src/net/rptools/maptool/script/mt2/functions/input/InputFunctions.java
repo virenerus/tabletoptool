@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import net.rptools.lib.MD5Key;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.language.I18N;
-import net.rptools.maptool.model.Token;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.mt2.TokenView;
 import net.rptools.maptool.util.ImageManager;

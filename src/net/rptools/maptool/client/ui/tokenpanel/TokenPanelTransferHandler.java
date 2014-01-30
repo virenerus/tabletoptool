@@ -15,6 +15,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -78,7 +79,7 @@ public class TokenPanelTransferHandler extends TransferHandler {
   @Override
   protected Transferable createTransferable(JComponent aC) {
     if (aC instanceof JList) {
-      Object[] selectedValues = ((JList)aC).getSelectedValues();
+      List<?> selectedValues = ((JList)aC).getSelectedValuesList();
       return new TokenPanelTransferable(selectedValues);
     } // endif
     return null;
@@ -96,7 +97,7 @@ class TokenPanelTransferable implements Transferable {
   /**
    * The array of tokens read from the token panel when the transferable was created
    */
-  private Object[] tokens;
+  private List<?> tokens;
   
   /**
    * Create the transferable for the given tokens. 
@@ -104,7 +105,7 @@ class TokenPanelTransferable implements Transferable {
    * @param theTokens Tokens being transfered. Uses object array since that is what is 
    * provided by the list.
    */
-  TokenPanelTransferable(Object[] theTokens) {
+  TokenPanelTransferable(List<?> theTokens) {
     tokens = theTokens;
   }
   
@@ -115,8 +116,8 @@ class TokenPanelTransferable implements Transferable {
     if (!isDataFlavorSupported(aFlavor)) 
       throw new UnsupportedFlavorException(aFlavor);
     MapToolTokenTransferData tokenList = new MapToolTokenTransferData();
-    for (int i = 0; i < tokens.length; i++)
-      tokenList.add(((Token)tokens[i]).toTransferData());
+    for (Object t:tokens)
+      tokenList.add(((Token)t).toTransferData());
     return tokenList;
   }
 

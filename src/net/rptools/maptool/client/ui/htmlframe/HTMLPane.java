@@ -32,6 +32,7 @@ import javax.swing.text.html.StyleSheet;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.client.functions.MacroLinkFunction;
 import net.rptools.maptool.client.ui.commandpanel.MessagePanel;
 
 import org.apache.log4j.Logger;
@@ -380,8 +381,6 @@ public class HTMLPane extends JEditorPane {
 						HTMLDocument document = (HTMLDocument) getDocument();
 						StyleSheet style = document.getStyleSheet();
 						style.loadRules(new StringReader(cssText), null);
-					} catch (ParserException e) {
-						// Do nothing
 					} catch (IOException e) {
 						// Do nothing
 					}
