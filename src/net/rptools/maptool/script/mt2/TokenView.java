@@ -16,22 +16,28 @@ import java.util.Set;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
-import net.rptools.maptool.client.functions.StringFunctions;
 import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
+import net.rptools.maptool.client.walker.WalkerMetric;
+import net.rptools.maptool.client.walker.ZoneWalker;
+import net.rptools.maptool.client.walker.astar.AStarSquareEuclideanWalker;
 import net.rptools.maptool.language.I18N;
+import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
-import net.rptools.maptool.model.LightSource;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
+import net.rptools.maptool.model.LightSource;
+import net.rptools.maptool.model.SquareGrid;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.script.mt2.functions.token.TokenLocation;
 import net.rptools.maptool.script.mt2.functions.token.TokenPart;
 import net.rptools.maptool.util.TypeUtil;
-import net.sf.json.JSONArray;
+
+import org.codehaus.groovy.syntax.ParserException;
 
 public class TokenView extends TokenPropertyView {
 	public TokenView(Token token) {
@@ -523,7 +529,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param category The category to get the light sources for
 	 * @return a string list containing the lights that are on.
 	 */
-	private List<String> getLights(Token token, String category) {
+	public List<String> getLights(Token token, String category) {
 		ArrayList<String> lightList = new ArrayList<String>();
 		for (LightSource ls : MapTool.getCampaign().getLightSourcesMap().get(category).values()) {
 			if (token.hasLightSource(ls)) {
@@ -531,5 +537,199 @@ public class TokenView extends TokenPropertyView {
 			}
 		}
 		return lightList;
+	}
+	
+	public TokenLocation getLocation() {
+		return getLocation(true);
+	}
+
+	public TokenLocation getLocation(boolean useDistancePerCell) {
+		if (useDistancePerCell) {
+			Rectangle tokenBounds = token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone());
+			return new TokenLocation(tokenBounds.x, tokenBounds.y, token.getZOrder());
+		} else {
+			Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+			CellPoint cellPoint = zone.getGrid().convert(new ZonePoint(token.getX(), token.getY()));
+			return new TokenLocation(cellPoint.x, cellPoint.y, token.getZOrder());
+		}
+	}
+	
+	public int getDrawOrder() {
+		return token.getZOrder();
+	}
+	
+	public void setDrawOrder(int newOrder) {
+		token.setZOrder(newOrder);
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone = renderer.getZone();
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		renderer.flushLight();
+	}
+	
+	public double getDistance(TokenView target) {
+		return getDistance(target,true,null);
+	}
+	
+	public double getDistance(TokenView target, String metric) {
+		return getDistance(target,true,metric);
+	}
+	
+	public double getDistance(TokenView target, boolean gridUnits) {
+		return getDistance(target,gridUnits,null);
+	}
+	
+	/**
+	 * Gets the distance between two tokens.
+	 * 
+	 * @param target.token
+	 * @param gridUnits
+	 * @return the distance between this token and target
+	 * @throws ParserException
+	 */
+	public double getDistance(TokenView target, boolean gridUnits, String metric) {
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Grid grid = renderer.getZone().getGrid();
+
+		if (grid.getCapabilities().isPathingSupported() && !"NO_GRID".equals(metric)) {
+
+			// Get which cells our tokens occupy
+			Set<CellPoint> sourceCells = token.getFootprint(grid).getOccupiedCells(grid.convert(new ZonePoint(token.getX(), token.getY())));
+			Set<CellPoint> targetCells = target.token.getFootprint(grid).getOccupiedCells(grid.convert(new ZonePoint(target.token.getX(), target.token.getY())));
+
+			ZoneWalker walker;
+			if (metric != null && grid instanceof SquareGrid) {
+				try {
+					WalkerMetric wmetric = WalkerMetric.valueOf(metric);
+					walker = new AStarSquareEuclideanWalker(renderer.getZone(), wmetric);
+
+				} catch (IllegalArgumentException e) {
+					throw new IllegalArgumentException(I18N.getText("macro.function.getDistance.invalidMetric", metric));
+				}
+			} else {
+				walker = grid.createZoneWalker();
+			}
+
+			// Get the distances from each source to target cell and keep the minimum one
+			int distance = Integer.MAX_VALUE;
+			for (CellPoint scell : sourceCells) {
+				for (CellPoint tcell : targetCells) {
+					walker.setWaypoints(scell, tcell);
+					distance = Math.min(distance, walker.getDistance());
+				}
+			}
+
+			if (gridUnits) {
+				return distance;
+			} else {
+				return (double)distance / renderer.getZone().getUnitsPerCell();
+			}
+		} else {
+
+			double d = token.getFootprint(grid).getScale();
+			double sourceCenterX = token.getX() + (d * grid.getSize()) / 2;
+			double sourceCenterY = token.getY() + (d * grid.getSize()) / 2;
+			d = target.token.getFootprint(grid).getScale();
+			double targetCenterX = target.token.getX() + (d * grid.getSize()) / 2;
+			double targetCenterY = target.token.getY() + (d * grid.getSize()) / 2;
+			double a = sourceCenterX - targetCenterX;
+			double b = sourceCenterY - targetCenterY;
+			double h = Math.sqrt(a * a + b * b);
+			h /= renderer.getZone().getGrid().getSize();
+			if (gridUnits) {
+				h *= renderer.getZone().getUnitsPerCell();
+			}
+			return h;
+		}
+	}
+	
+	public double getDistance(int x, int y) {
+		return getDistance(x, y,true,null);
+	}
+	
+	public double getDistance(int x, int y, String metric) {
+		return getDistance(x,y,true,metric);
+	}
+	
+	public double getDistance(int x, int y, boolean gridUnits) {
+		return getDistance(x,y,gridUnits,null);
+	}
+	
+	public double getDistance(int x, int y, boolean gridUnits, String metric) {
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Grid grid = renderer.getZone().getGrid();
+
+		if (grid.getCapabilities().isPathingSupported() && !"NO_GRID".equals(metric)) {
+
+			// Get which cells our tokens occupy
+			Set<CellPoint> sourceCells = token.getFootprint(grid).getOccupiedCells(grid.convert(new ZonePoint(token.getX(), token.getY())));
+			CellPoint targetCell = grid.convert(new ZonePoint(x,y));
+
+			ZoneWalker walker;
+			if (metric != null && grid instanceof SquareGrid) {
+				try {
+					WalkerMetric wmetric = WalkerMetric.valueOf(metric);
+					walker = new AStarSquareEuclideanWalker(renderer.getZone(), wmetric);
+
+				} catch (IllegalArgumentException e) {
+					throw new IllegalArgumentException(I18N.getText("macro.function.getDistance.invalidMetric", metric));
+				}
+			} else {
+				walker = grid.createZoneWalker();
+			}
+
+			// Get the distances from each source to target cell and keep the minimum one
+			int distance = Integer.MAX_VALUE;
+			for (CellPoint scell : sourceCells) {
+				walker.setWaypoints(scell, targetCell);
+				distance = Math.min(distance, walker.getDistance());
+			}
+
+			if (gridUnits) {
+				return distance;
+			} else {
+				return (double)distance / renderer.getZone().getUnitsPerCell();
+			}
+		} else {
+
+			double d = token.getFootprint(grid).getScale();
+			double sourceCenterX = token.getX() + (d * grid.getSize()) / 2;
+			double sourceCenterY = token.getY() + (d * grid.getSize()) / 2;
+			double a = sourceCenterX - x;
+			double b = sourceCenterY - y;
+			double h = Math.sqrt(a * a + b * b);
+			h /= renderer.getZone().getGrid().getSize();
+			if (gridUnits) {
+				h *= renderer.getZone().getUnitsPerCell();
+			}
+			return h;
+		}
+	}
+		
+	/**
+	 * Moves a token to the specified x,y location instantly.
+	 * @param x the x co-ordinate of the destination.
+	 * @param y  the y co-ordinate of the destination.
+	 * @param gridUnits  whether the (x,y) coordinates are in zone coordinates or point to a grid cell
+	 */
+	public void moveToken(int x, int y, boolean gridUnits) {
+		Grid grid = MapTool.getFrame().getCurrentZoneRenderer().getZone().getGrid();
+
+		if (gridUnits) {
+			CellPoint cp = new CellPoint(x, y);
+			ZonePoint zp = grid.convert(cp);
+			token.setX(zp.x);
+			token.setY(zp.y);
+		} else {
+			ZonePoint zp = new ZonePoint(x, y);
+			token.setX(zp.x);
+			token.setY(zp.y);
+		}
+		
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone = renderer.getZone();
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		renderer.flushLight();
 	}
 }

@@ -12,10 +12,12 @@ import java.util.Set;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.ui.zone.FogUtil;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
+import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.GUID;
+import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
-import net.rptools.maptool.script.MT2ScriptException;
+import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.script.mt2.tokenfilter.AllFilter;
 import net.rptools.maptool.script.mt2.tokenfilter.ExposedFilter;
 import net.rptools.maptool.script.mt2.tokenfilter.NPCFilter;
@@ -200,5 +202,59 @@ public class MapView {
 	public void deselectTokens(Collection<TokenView> tokens) {
 		for(TokenView t:tokens)
 			zr.deselectToken(t.getId());
+	}
+	
+	public boolean moveTokenToMap(MapView target, TokenView token, int targetX, int targetY) {
+		Zone targetZone=target.zr.getZone();
+		Token t=zr.getZone().getToken(token.getId());
+		if(t==null)
+			return false;
+
+		Grid grid = targetZone.getGrid();
+
+		ZonePoint zp = grid.convert(new CellPoint(targetX, targetY));
+		targetX = zp.x;
+		targetY = zp.y;
+
+		t.setX(targetX);
+		t.setY(targetY);
+		t.setZOrder(targetZone.getLargestZOrder()+1);
+		targetZone.putToken(t);
+		MapTool.serverCommand().putToken(targetZone.getId(), t);
+		MapTool.serverCommand().removeToken(zr.getZone().getId(), token.getId());
+		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().refresh();
+		return true;
+	}
+	
+	public int moveTokenToMap(MapView target, List<TokenView> tokens, int targetX, int targetY) {
+		Zone targetZone=target.zr.getZone();
+		int count=0;
+		for(TokenView token:tokens) {
+			Token t=zr.getZone().getToken(token.getId());
+			if(t!=null) {
+				Grid grid = targetZone.getGrid();
+		
+				ZonePoint zp = grid.convert(new CellPoint(targetX+count, targetY));
+				targetX = zp.x;
+				targetY = zp.y;
+		
+				t.setX(targetX);
+				t.setY(targetY);
+				t.setZOrder(targetZone.getLargestZOrder()+1);
+				targetZone.putToken(t);
+				
+				MapTool.serverCommand().putToken(targetZone.getId(), t);
+				MapTool.serverCommand().removeToken(zr.getZone().getId(), token.getId());
+				count++;
+			}
+		}
+		
+		//if at least one could be moved
+		if(count>0) {
+			MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+			MapTool.getFrame().refresh();
+		}
+		return count;
 	}
 }
