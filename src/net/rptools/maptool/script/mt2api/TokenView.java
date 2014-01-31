@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
@@ -1029,5 +1030,82 @@ public class TokenView extends TokenPropertyView {
 		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
 		MapTool.serverCommand().bringTokensToFront(zone.getId(), Collections.singleton(token.getId()));
 		zone.putToken(token);
+	}
+	
+	public void setPropertyType(String type) {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.setPropertyType(type);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token); // FJE Should this be here?  Added because other places have it...?!
+	}
+	
+	public String getPropertyType() {
+		 return token.getPropertyType();
+	}
+	
+	public Integer getFacing() {
+		return token.getFacing();
+	}
+	
+	public void setFacing(Integer direction) {
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone = renderer.getZone();
+		token.setFacing(direction);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		if(this.hasLightSource())
+			renderer.flushLight();
+		zone.putToken(token);
+	}
+	
+	public void removeFacing() {
+		this.setFacing(null);
+	}
+	
+	public List<String> getMatchingProperties(String regex) {
+		List<String> matching=new ArrayList<String>(); 
+		Pattern p=Pattern.compile(regex);
+		for(String str:token.getPropertyNames())
+			if(p.matcher(str).matches())
+				matching.add(str);
+		return matching;
+	}
+	
+	public void addOwner(String player) {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.addOwner(player);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	public void clearAllOwners() {
+		token.clearAllOwners();
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	public void removeOwner(String player) {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.removeOwner(player);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	public int getWidth() {
+		return token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone()).width;
+	}
+	
+	public int getHeight() {
+		return token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone()).height;
+	}
+	
+	public String getTokenShape() {
+		return token.getShape().toString();
+	}
+	
+	public void setTokenShape(String shape) {
+		Token.TokenShape newShape = Token.TokenShape.valueOf(shape);
+		token.setShape(newShape);
+		this.sendUpdateToServer();
 	}
 }
