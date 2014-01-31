@@ -44,7 +44,7 @@ public class TokenPropertyFunctions extends AbstractFunction {
 	private static final TokenPropertyFunctions instance = new TokenPropertyFunctions();
 
 	private TokenPropertyFunctions() {
-		super(0, 4, "getPropertyNames", "getAllPropertyNames", "getPropertyNamesRaw", "hasProperty", "isNPC", "isPC", "setPC", "setNPC", "getLayer", "setLayer", "getSize", "setSize", "getOwners",
+		super(0, 4,  "getAllPropertyNames", "hasProperty", "isNPC", "isPC", "setPC", "setNPC", "getLayer", "setLayer", "getSize", "setSize", "getOwners",
 				"isOwnedByAll", "isOwner", "resetProperty", "getProperty", "setProperty", "isPropertyEmpty", "getPropertyDefault", "sendToBack", "bringToFront", "getLibProperty", "setLibProperty",
 				"getLibPropertyNames", "setPropertyType", "getPropertyType", "getRawProperty", "getTokenFacing", "setTokenFacing", "removeTokenFacing", "getMatchingProperties",
 				"getMatchingLibProperties", "isSnapToGrid", "setOwner", "getTokenWidth", "getTokenHeight", "getTokenShape", "setTokenShape");

@@ -262,9 +262,9 @@ public class FTPClient {
 			} else if (data.local instanceof String) {
 				File file = new File((String) data.local);
 				try {
-					is = new FileInputStream(file);
 					data.setMaximum((int) ((file.length() + BLOCKSIZE - 1) / BLOCKSIZE));
 					fireStateChanged(data);
+					return new FileInputStream(file);
 				} catch (FileNotFoundException e) {
 					log.error("Can't find local asset " + file, e);
 				}
@@ -286,7 +286,7 @@ public class FTPClient {
 				log.error("Attempting to open remote file " + file.getPath(), e);
 			}
 		}
-		return is;
+		return null;
 	}
 
 	protected OutputStream prepareOutputStream(FTPTransferObject data) throws IOException {
@@ -328,25 +328,25 @@ public class FTPClient {
 	}
 
 	protected void doit(FTPTransferObject data) {
-		InputStream is = null;
-		OutputStream os = null;
 		try {
-			is = prepareInputStream(data);
-			os = prepareOutputStream(data);
-			if (is == null || os == null) {
-				log.error("Can't build connection");
-				return;
-			}
-			byte[] buf = new byte[BLOCKSIZE];
-			int c = 1;
-			while (c > 0) {
-				c = is.read(buf);
-				if (c > 0)
-					os.write(buf, 0, c);
+			try (InputStream is = prepareInputStream(data);
+					OutputStream os = prepareOutputStream(data);)
+			{
+				if (is == null || os == null) {
+					log.error("Can't build connection");
+					return;
+				}
+				byte[] buf = new byte[BLOCKSIZE];
+				int c = 1;
+				while (c > 0) {
+					c = is.read(buf);
+					if (c > 0)
+						os.write(buf, 0, c);
+					data.incrCurrentPosition();
+					fireStateChanged(data);
+				}
 				data.incrCurrentPosition();
-				fireStateChanged(data);
 			}
-			data.incrCurrentPosition();
 		} catch (IOException e) {
 			/*
 			 * For an IOException, it doesn't matter if it's a networking
@@ -361,20 +361,6 @@ public class FTPClient {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (os != null) {
-				try {
-					os.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 			uploadDone(data, false);
 		}
 	}

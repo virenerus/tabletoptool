@@ -29,8 +29,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.html.FormView;
 import javax.swing.text.html.HTML;
 
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 
 public class HTMLPaneFormView extends FormView {

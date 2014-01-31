@@ -32,6 +32,7 @@ import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.StringUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -406,14 +407,15 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 						loc = "Token:" + contextToken.getName();
 					}
 				} else {
-					loc = "chat";//FIXMESOON was -> why? MapToolLineParser.CHAT_INPUT;
+					loc = "chat";
 				}
 				
 				MapToolMacroContext newMacroContext = new MapToolMacroContext(label, loc, trusted, index);
 				try {
-					Object o=ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
-					if(o!=null)
-						MapTool.addGlobalMessage(o.toString());
+					if(compiledCommand==null)
+						compileCommand();
+					if(compiledCommand!=null)
+						ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
 				} catch (MT2ScriptException e) {
 					log.error("Error while trying to execute a macro from button",e);
 					MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
@@ -421,6 +423,11 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			}
 			MapTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
 		}
+	}
+
+	private void compileCommand() throws MT2ScriptException {
+		if(command!=null && !StringUtils.isEmpty(command))
+			this.compiledCommand=ScriptManager.getInstance().compile(command);
 	}
 
 	public Token getToken() {
@@ -485,8 +492,8 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	public void setCommand(String command) {
 		try {
-			this.compiledCommand=ScriptManager.getInstance().compile(command);
 			this.command = command;
+			compileCommand();
 		} catch (MT2ScriptException e) {
 			//TODO replace this with a better error dialog
 			throw new RuntimeException("This script you tried to save is not valid.", e);
@@ -684,6 +691,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		colorKey = "default";
 		hotKey = MacroButtonHotKeyManager.HOTKEYS[0];
 		command = "";
+		compiledCommand=null;
 		label = String.valueOf(index);
 		group = "";
 		sortby = "";

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.rptools.maptool.model.Token;
-import net.rptools.maptool.script.mt2.TokenView;
+import net.rptools.maptool.script.mt2api.TokenView;
 
 public class TypeUtil {
 	/**
