@@ -18,6 +18,7 @@ import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
 import net.rptools.maptool.script.mt2api.functions.MapFunctions;
 import net.rptools.maptool.script.mt2api.functions.PathFunctions;
 import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
+import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
 import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 
@@ -30,6 +31,7 @@ public class MT2ScriptLibrary implements ScriptLibrary {
 	public final MapFunctions map;
 	public final DialogFunctions dialog;
 	public final PathFunctions path;
+	public final InputFunctions input;
 
 	public MT2ScriptLibrary() {
 		this.ini=new InitiativeFunctions();
@@ -38,6 +40,7 @@ public class MT2ScriptLibrary implements ScriptLibrary {
 		this.map=new MapFunctions();
 		this.dialog=new DialogFunctions();
 		this.path=new PathFunctions();
+		this.input=new InputFunctions();
 	}
 	
 	public String getVariableName() {
