@@ -7,6 +7,7 @@ import java.util.Set;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.Token;
+import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.util.StringUtil;
 
 /**
@@ -87,9 +88,9 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	private void sendUpdate() {
-		MapTool.serverCommand().putToken(
-				MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), 
-				token);
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
 	}
 
 	@Override
@@ -106,6 +107,7 @@ public abstract class TokenPropertyView implements Map<String, String>{
 			throw new NullPointerException();
 		String o=(String)token.getProperty(key.toString());
 		token.resetProperty(key.toString());
+		sendUpdate();
 		return o;
 	}
 

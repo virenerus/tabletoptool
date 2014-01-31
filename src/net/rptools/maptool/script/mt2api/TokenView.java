@@ -1,22 +1,19 @@
 package net.rptools.maptool.script.mt2api;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
@@ -33,19 +30,24 @@ import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
-import net.rptools.maptool.model.Path;
+import net.rptools.maptool.model.TokenFootprint;
+import net.rptools.maptool.model.TokenProperty;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.LightSource;
+import net.rptools.maptool.model.Path;
 import net.rptools.maptool.model.SquareGrid;
 import net.rptools.maptool.model.Token;
+import net.rptools.maptool.model.Token.Type;
 import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 import net.rptools.maptool.script.mt2api.functions.token.TokenPart;
+import net.rptools.maptool.util.ImageManager;
+import net.rptools.maptool.util.TokenUtil;
 import net.rptools.maptool.util.TypeUtil;
 import net.rptools.maptool.util.math.IntPoint;
-import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.syntax.ParserException;
@@ -818,5 +820,214 @@ public class TokenView extends TokenPropertyView {
 	public boolean hasProperty(String name) {
 		Object o=token.getProperty(name);
 		return o!=null && StringUtils.isEmpty(o.toString());
+	}
+	
+	public boolean isPC() {
+		return token.getType()==Type.PC;
+	}
+	
+	public boolean isNPC() {
+		return token.getType()==Type.NPC;
+	}
+	
+	public void setPC() {
+		if(token.getType()!=Type.PC) {
+			ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+			Zone zone=zr.getZone();
+			token.setType(Token.Type.PC);
+			MapTool.serverCommand().putToken(zone.getId(), token);
+			zone.putToken(token);
+			zr.flushLight();
+			MapTool.getFrame().updateTokenTree();
+		}
+	}
+	
+	public void setNPC() {
+		if(token.getType()!=Type.NPC) {
+			ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+			Zone zone=zr.getZone();
+			token.setType(Token.Type.NPC);
+			MapTool.serverCommand().putToken(zone.getId(), token);
+			zone.putToken(token);
+			zr.flushLight();
+			MapTool.getFrame().updateTokenTree();
+		}
+	}
+	
+	public String getLayer() {
+		return token.getLayer().toString();
+	}
+	
+	public void setLayer(String layer, boolean forceShape) {
+		Layer l=Zone.Layer.valueOf(layer);
+		ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone=zr.getZone();
+		token.setLayer(l);
+		if (forceShape) {
+			switch (l) {
+			case BACKGROUND:
+			case OBJECT:
+				token.setShape(Token.TokenShape.TOP_DOWN);
+				break;
+			case GM:
+			case TOKEN:
+				Image image = ImageManager.getImage(token.getImageAssetId());
+				if (image == null || image == ImageManager.TRANSFERING_IMAGE) {
+					token.setShape(Token.TokenShape.TOP_DOWN);
+				} else {
+					token.setShape(TokenUtil.guessTokenType(image));
+				}
+				break;
+			}
+		}
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+		zr.flushLight();
+		MapTool.getFrame().updateTokenTree();
+	}
+	
+	/**
+	 * Gets the size of the token.
+	 * The sizes returned are:
+     * <ul><li>Fine</li>
+     *<li>Diminutive</li>
+     *<li>Tiny</li>
+     *<li>Small</li>
+     *<li>Medium</li>
+     *<li>Large</li>
+     *<li>Huge</li>
+     *<li>Gargantuan</li>
+     *<li>Colossal</li></ul>
+     *
+	 * @return the size of the token.
+	 */
+	public String getSize() {
+		Grid grid = MapTool.getFrame().getCurrentZoneRenderer().getZone().getGrid();
+		if (token.isSnapToScale()) {
+			for (TokenFootprint footprint : grid.getFootprints()) {
+				if (token.getFootprint(grid) == footprint) {
+					return footprint.getName();
+				}
+			}
+		}
+		return "";
+	}
+	
+	/**
+	 * Sets the size of the token.
+	 * 
+	 * @param token
+	 *            The token to set the size of.
+	 * @param size
+	 *            The size to set the token to.
+	 * @return The new size of the token.
+	 * @throws ParserException
+	 *             if the size specified is an invalid size.
+	 */
+	public String setSize(String size) throws MT2ScriptException {
+		if (size.equalsIgnoreCase("native") || size.equalsIgnoreCase("free")) {
+			token.setSnapToScale(false);
+			return this.getSize();
+		}
+		token.setSnapToScale(true);
+		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		Zone zone = renderer.getZone();
+		Grid grid = zone.getGrid();
+		for (TokenFootprint footprint : grid.getFootprints()) {
+			if (footprint.getName().equalsIgnoreCase(size)) {
+				token.setFootprint(grid, footprint);
+				renderer.flush(token);
+				renderer.repaint();
+				MapTool.serverCommand().putToken(zone.getId(), token);
+				zone.putToken(token);
+				MapTool.getFrame().updateTokenTree();
+				return this.getSize();
+			}
+		}
+		throw new MT2ScriptException(I18N.getText("macro.function.tokenProperty.invalidSize", "setSize", size));
+	}
+	
+	public Set<String> getOwners() {
+		return Collections.unmodifiableSet(token.getOwners());
+	}
+	
+	public boolean isOwnedByAll() {
+		return token.isOwnedByAll();
+	}
+	
+	public boolean isOwner(String player) {
+		return token.isOwner(player);
+	}
+	
+	public void resetProperty(String property) {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.resetProperty(property);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	
+	public Object getProperty(String property) {
+		return token.getProperty(property);
+	}
+	public Object getEvaluatedProperty(String property) {
+		Object val = token.getEvaluatedProperty(property);
+
+		if (val instanceof String) {
+			// try to convert to a number
+			try {
+				return new BigDecimal(val.toString()).intValue();
+			} catch (Exception e) {
+				return val;
+			}
+		} else {
+			return val;
+		}
+	}
+	
+	public void setProperty(String property, Object value) {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.setProperty(property, value);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+		zone.putToken(token);
+	}
+	
+	public Object getPropertyDefault(String property) {
+		Object val = null;
+
+		List<TokenProperty> propertyList = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		if (propertyList != null) {
+			for (TokenProperty tp : propertyList) {
+				if (property.equalsIgnoreCase(tp.getName())) {
+					val = tp.getDefaultValue();
+					break;
+				}
+			}
+		}
+		if (val == null) {
+			return null;
+		}
+		if (val instanceof String) {
+			// try to convert to a number
+			try {
+				return new BigDecimal(val.toString()).intValue();
+			} catch (Exception e) {
+				return val;
+			}
+		} else {
+			return val;
+		}
+	}
+	
+	public void sendToBack() {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().sendTokensToBack(zone.getId(), Collections.singleton(token.getId()));
+		zone.putToken(token);
+	}
+	
+	public void bringToFront() {
+		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().bringTokensToFront(zone.getId(), Collections.singleton(token.getId()));
+		zone.putToken(token);
 	}
 }
