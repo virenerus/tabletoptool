@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.Icon;
@@ -1134,10 +1135,9 @@ public class Token extends BaseModel {
 	}
 
 	public List<String> getMacroNames(boolean secure) {
-		Set<Integer> keys = getMacroPropertiesMap(secure).keySet();
 		List<String> list = new ArrayList<String>();
-		for (int key : keys) {
-			MacroButtonProperties prop = (MacroButtonProperties) macroPropertiesMap.get(key);
+		for (Entry<Integer, Object> entry : getMacroPropertiesMap(secure).entrySet()) {
+			MacroButtonProperties prop = (MacroButtonProperties) entry.getValue();
 			list.add(prop.getLabel());
 		}
 		return list;

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.UserDefinedMacroFunctions;
 import net.rptools.maptool.client.ui.token.BarTokenOverlay;
 import net.rptools.maptool.client.ui.token.BooleanTokenOverlay;
 import net.rptools.maptool.client.ui.tokenpanel.InitiativePanel;
@@ -27,7 +26,6 @@ import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.server.ServerPolicy;
 import net.rptools.maptool.util.SysInfo;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.codehaus.groovy.syntax.ParserException;
@@ -128,7 +126,6 @@ public class InfoFunctions {
 			if (libInfo.size() > 0) {
 				cinfo.put("library tokens", libInfo);
 			}
-			cinfo.put("user defined functions", JSONArray.fromObject(UserDefinedMacroFunctions.getInstance().getAliases()));
 		//}
 		return JSONObject.fromObject(cinfo);
 	}

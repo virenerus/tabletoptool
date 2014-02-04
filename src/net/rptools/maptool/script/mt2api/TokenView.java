@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import net.rptools.lib.MD5Key;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.MapToolUtil;
@@ -31,6 +32,7 @@ import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
+import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.TokenProperty;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
@@ -49,6 +51,7 @@ import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.TokenUtil;
 import net.rptools.maptool.util.TypeUtil;
 import net.rptools.maptool.util.math.IntPoint;
+import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.syntax.ParserException;
@@ -165,6 +168,15 @@ public class TokenView extends TokenPropertyView {
 	        return false;
 	    } // endif
 	    return ti != null;
+	}
+	
+	public int removeFromInitiative() {
+		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		List<Integer> tokens = list.indexOf(token);
+		list.startUnitOfWork();
+	    for (int i = tokens.size() - 1; i >= 0; i--) list.removeToken(tokens.get(i).intValue());
+	    	list.finishUnitOfWork();
+	    return tokens.size();
 	}
 	
 	/**
@@ -1107,5 +1119,113 @@ public class TokenView extends TokenPropertyView {
 		Token.TokenShape newShape = Token.TokenShape.valueOf(shape);
 		token.setShape(newShape);
 		this.sendUpdateToServer();
+	}
+	
+	public TokenView copyToken() {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		List<Token> allTokens = zone.getTokens();
+		Token t = new Token(token);
+
+		if (allTokens != null) {
+			for (Token tok : allTokens) {
+				GUID tea = tok.getExposedAreaGUID();
+				if (tea != null && tea.equals(t.getExposedAreaGUID())) {
+					t.setExposedAreaGUID(new GUID());
+				}
+			}
+		}
+		zone.putToken(t);
+
+		MapTool.serverCommand().putToken(zone.getId(), t);
+			
+		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		return new TokenView(t);
+	}
+	
+	public List<TokenView> copyToken(int numberOfCopies) {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		List<TokenView> newTokens = new ArrayList<TokenView>(numberOfCopies);
+		List<Token> allTokens = zone.getTokens();
+		for (int i = 0; i < numberOfCopies; i++) {
+			Token t = new Token(token);
+
+			if (allTokens != null) {
+				for (Token tok : allTokens) {
+					GUID tea = tok.getExposedAreaGUID();
+					if (tea != null && tea.equals(t.getExposedAreaGUID())) {
+						t.setExposedAreaGUID(new GUID());
+					}
+				}
+			}
+			zone.putToken(t);
+
+			MapTool.serverCommand().putToken(zone.getId(), t);
+			newTokens.add(new TokenView(t));
+		}
+		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		return newTokens;
+	}
+	
+	public void removeToken() {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		MapTool.serverCommand().removeToken(zone.getId(), token.getId());
+	}
+	
+	public void setTokenImage(String assetId) {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.setImageAsset(null, new MD5Key(assetId));
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+	}
+	
+	public void setTokenPortrait(String assetId) {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.setPortraitImage(new MD5Key(assetId));
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+	}
+	
+	public void setTokenHandout(String assetId) {
+		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		token.setCharsheetImage(new MD5Key(assetId));
+		zone.putToken(token);
+		MapTool.serverCommand().putToken(zone.getId(), token);
+	}
+	
+	public String getTokenImage() {
+		return token.getImageAssetId().toString();
+	}
+	
+	public String getTokenPortrait() {
+		return token.getPortraitImage().toString();
+	}
+	
+	public String getTokenHandout() {
+		return token.getCharsheetImage().toString();
+	}
+	
+	public boolean hasMacro(String macroName) {
+		return token.getMacroNames(false).contains(macroName);
+	}
+	
+	public MacroView getMacro(String macroName) {
+		return new MacroView(token.getMacro(macroName,false));
+	}
+	
+	public boolean removeMacro(String macroName) {
+		MacroButtonProperties mbp=token.getMacro(macroName, false);
+		if(mbp!=null) {
+			token.deleteMacroButtonProperty(mbp);
+			MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
+			return true;
+		}
+		return false;
+	}
+	
+	public MacroView createMacro(String label) {
+		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
+		mbp.setTokenId(token);
+		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
+		return new MacroView(mbp);
 	}
 }
