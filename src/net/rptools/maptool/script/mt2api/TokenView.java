@@ -34,7 +34,6 @@ import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
 import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.TokenFootprint;
-import net.rptools.maptool.model.TokenProperty;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.LightSource;
 import net.rptools.maptool.model.Path;
@@ -43,6 +42,7 @@ import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Token.Type;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.Layer;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
@@ -1227,5 +1227,9 @@ public class TokenView extends TokenPropertyView {
 		mbp.setTokenId(token);
 		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
 		return new MacroView(mbp);
+	}
+	
+	public void testInt() {
+		token.setProperty("HP", 5);
 	}
 }

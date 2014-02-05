@@ -30,7 +30,6 @@ import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.ui.zone.vbl.AreaTree;
 import net.rptools.maptool.model.AttachedLightSource;
-import net.rptools.maptool.model.Campaign;
 import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Light;
@@ -41,6 +40,7 @@ import net.rptools.maptool.model.SightType;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.Filter;
+import net.rptools.maptool.model.campaign.Campaign;
 
 public class ZoneView implements ModelChangeListener {
 	private final Zone zone;

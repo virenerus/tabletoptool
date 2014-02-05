@@ -60,8 +60,8 @@ import net.rptools.maptool.client.ui.token.MultipleImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.SingleImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.TwoImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.TwoToneBarTokenOverlay;
-import net.rptools.maptool.model.Campaign;
-import net.rptools.maptool.model.CampaignProperties;
+import net.rptools.maptool.model.campaign.Campaign;
+import net.rptools.maptool.model.campaign.CampaignProperties;
 import net.rptools.maptool.util.ImageManager;
 
 import com.jeta.forms.components.colors.JETAColorWell;

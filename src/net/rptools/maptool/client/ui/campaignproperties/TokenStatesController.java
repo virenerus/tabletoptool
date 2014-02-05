@@ -74,9 +74,9 @@ import net.rptools.maptool.client.ui.token.XTokenOverlay;
 import net.rptools.maptool.client.ui.token.YieldTokenOverlay;
 import net.rptools.maptool.model.Asset;
 import net.rptools.maptool.model.AssetManager;
-import net.rptools.maptool.model.Campaign;
-import net.rptools.maptool.model.CampaignProperties;
 import net.rptools.maptool.model.Token;
+import net.rptools.maptool.model.campaign.Campaign;
+import net.rptools.maptool.model.campaign.CampaignProperties;
 import net.rptools.maptool.model.drawing.AbstractTemplate.Quadrant;
 import net.rptools.maptool.util.StringUtil;
 

@@ -36,9 +36,10 @@ import javax.swing.event.ListSelectionListener;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.swing.AbeillePanel;
 import net.rptools.maptool.language.I18N;
-import net.rptools.maptool.model.Campaign;
-import net.rptools.maptool.model.CampaignProperties;
-import net.rptools.maptool.model.TokenProperty;
+import net.rptools.maptool.model.campaign.Campaign;
+import net.rptools.maptool.model.campaign.CampaignProperties;
+import net.rptools.maptool.model.campaign.TokenProperty;
+import net.rptools.maptool.model.campaign.TokenPropertyType;
 
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
@@ -194,6 +195,11 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 		StringBuilder builder = new StringBuilder();
 
 		for (TokenProperty property : propertyList) {
+			//appends something like Text  or Integer 
+			builder.append(property.getType().name().charAt(0))
+				.append(property.getType().name().substring(1).toLowerCase())
+				.append(' ');
+			
 			if (property.isShowOnStatSheet()) {
 				builder.append("*");
 			}
@@ -240,7 +246,17 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 				}
 
 				TokenProperty property = new TokenProperty();
-
+				int spaceIndex = line.indexOf(' ');
+				if(spaceIndex==-1)
+					throw new RuntimeException("There must be space after the type of the property");
+				String type=line.substring(0,spaceIndex);
+				line=line.substring(0,spaceIndex+1);
+				try {
+					property.setType(TokenPropertyType.valueOf(type.toUpperCase()));
+				} catch(IllegalArgumentException e) {
+					throw new RuntimeException("Unsupported Propertype while parsing properties");
+				}
+				
 				// Prefix
 				while (true) {
 					if (line.startsWith("*")) {
@@ -271,7 +287,14 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 				if (indexDefault > 0) {
 					String defaultVal = line.substring(indexDefault+1).trim();
 					if (defaultVal.length() > 0) {
-						property.setDefaultValue(defaultVal);
+						if(property.getType().equals(String.class))
+							property.setDefaultValue(defaultVal);
+						else if(property.getType().equals(Integer.class))
+							property.setDefaultValue(Integer.parseInt(defaultVal));
+						else if(property.getType().equals(Float.class))
+							property.setDefaultValue(Float.parseFloat(defaultVal));
+						else
+							throw new RuntimeException("Unsupported default value");
 					}
 
 					//remove the default value from the end of the string...

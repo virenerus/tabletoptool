@@ -59,7 +59,7 @@ import net.rptools.maptool.client.tool.drawing.RectangleTool;
 import net.rptools.maptool.client.tool.drawing.RectangleTopologyTool;
 import net.rptools.maptool.client.tool.drawing.WallTemplateTool;
 import net.rptools.maptool.language.I18N;
-import net.rptools.maptool.model.Campaign;
+import net.rptools.maptool.model.campaign.Campaign;
 
 public class ToolbarPanel extends JToolBar {
 	private final ButtonGroup buttonGroup = new ButtonGroup();

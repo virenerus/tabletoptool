@@ -83,10 +83,10 @@ import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Pointer;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
-import net.rptools.maptool.model.TokenProperty;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.Zone.VisionType;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.util.GraphicsUtil;
 import net.rptools.maptool.util.ImageManager;
@@ -973,7 +973,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 	 * <td>Rotate token right by facing amount (depends on grid)
 	 * <tr>
 	 * <td>Ctrl Shift Right
-	 * <td>Rotate token right by 5¼ increments
+	 * <td>Rotate token right by 5ï¿½ increments
 	 * <tr>
 	 * <td>Left
 	 * <td>Move token left
@@ -982,7 +982,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 	 * <td>Rotate token left by facing amount (depends on grid)
 	 * <tr>
 	 * <td>Ctrl Shift Left
-	 * <td>Rotate token left by 5¼ increments
+	 * <td>Rotate token left by 5ï¿½ increments
 	 * </table>
 	 */
 	@Override

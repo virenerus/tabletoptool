@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.campaign;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -42,10 +42,16 @@ import net.rptools.maptool.client.ui.token.TwoImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.TwoToneBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.XTokenOverlay;
 import net.rptools.maptool.client.ui.token.YieldTokenOverlay;
+import net.rptools.maptool.model.GUID;
+import net.rptools.maptool.model.LightSource;
+import net.rptools.maptool.model.LookupTable;
+import net.rptools.maptool.model.ShapeType;
+import net.rptools.maptool.model.SightType;
 
 public class CampaignProperties {
 	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
 
+	//FIXME make this a 2d HashMap
 	private Map<String, List<TokenProperty>> tokenTypeMap;
 	private List<String> remoteRepositoryList;
 	private Map<String, Map<GUID, LightSource>> lightSourcesMap;
@@ -322,18 +328,18 @@ public class CampaignProperties {
 		tokenTypeMap = new HashMap<String, List<TokenProperty>>();
 
 		List<TokenProperty> list = new ArrayList<TokenProperty>();
-		list.add(new TokenProperty("Strength", "Str"));
-		list.add(new TokenProperty("Dexterity", "Dex"));
-		list.add(new TokenProperty("Constitution", "Con"));
-		list.add(new TokenProperty("Intelligence", "Int"));
-		list.add(new TokenProperty("Wisdom", "Wis"));
-		list.add(new TokenProperty("Charisma", "Char"));
-		list.add(new TokenProperty("HP", true, true, false));
-		list.add(new TokenProperty("AC", true, true, false));
-		list.add(new TokenProperty("Defense", "Def"));
-		list.add(new TokenProperty("Movement", "Mov"));
-		list.add(new TokenProperty("Elevation", "Elv", true, false, false));
-		list.add(new TokenProperty("Description", "Des"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Strength", "Str"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Dexterity", "Dex"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Constitution", "Con"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Intelligence", "Int"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Wisdom", "Wis"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Charisma", "Char"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"HP", true, true, false));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"AC", true, true, false));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Defense", "Def"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Movement", "Mov"));
+		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Elevation", "Elv", true, false, false));
+		list.add(new TokenProperty(TokenPropertyType.TEXT,"Description", "Des"));
 
 		tokenTypeMap.put(DEFAULT_TOKEN_PROPERTY_TYPE, list);
 	}

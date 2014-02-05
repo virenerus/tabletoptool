@@ -41,6 +41,8 @@ import net.rptools.lib.transferable.TokenTransferData;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.language.I18N;
+import net.rptools.maptool.model.campaign.Campaign;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;

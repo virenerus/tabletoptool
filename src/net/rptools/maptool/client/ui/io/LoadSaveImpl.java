@@ -21,8 +21,8 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.model.Campaign;
 import net.rptools.maptool.model.MacroButtonProperties;
+import net.rptools.maptool.model.campaign.Campaign;
 
 import org.apache.log4j.Logger;
 

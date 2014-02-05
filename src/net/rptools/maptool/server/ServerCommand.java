@@ -17,8 +17,6 @@ import java.util.Set;
 
 import net.rptools.lib.MD5Key;
 import net.rptools.maptool.model.Asset;
-import net.rptools.maptool.model.Campaign;
-import net.rptools.maptool.model.CampaignProperties;
 import net.rptools.maptool.model.ExposedAreaMetaData;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.InitiativeList;
@@ -30,6 +28,8 @@ import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.VisionType;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.model.campaign.Campaign;
+import net.rptools.maptool.model.campaign.CampaignProperties;
 import net.rptools.maptool.model.drawing.Drawable;
 import net.rptools.maptool.model.drawing.Pen;
 

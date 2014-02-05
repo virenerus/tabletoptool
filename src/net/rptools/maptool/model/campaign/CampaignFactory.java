@@ -9,7 +9,9 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.campaign;
+
+import net.rptools.maptool.model.ZoneFactory;
 
 
 public class CampaignFactory {

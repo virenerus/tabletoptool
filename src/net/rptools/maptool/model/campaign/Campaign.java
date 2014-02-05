@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.campaign;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +33,13 @@ import net.rptools.maptool.client.ui.token.ImageTokenOverlay;
 import net.rptools.maptool.client.ui.token.MultipleImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.SingleImageBarTokenOverlay;
 import net.rptools.maptool.client.ui.token.TwoImageBarTokenOverlay;
+import net.rptools.maptool.model.Asset;
+import net.rptools.maptool.model.GUID;
+import net.rptools.maptool.model.LightSource;
+import net.rptools.maptool.model.LookupTable;
+import net.rptools.maptool.model.MacroButtonProperties;
+import net.rptools.maptool.model.SightType;
+import net.rptools.maptool.model.Zone;
 
 /**
  * <p>

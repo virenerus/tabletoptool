@@ -2,12 +2,14 @@ package net.rptools.maptool.script.mt2api;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.util.StringUtil;
 
 /**
@@ -17,7 +19,7 @@ import net.rptools.maptool.util.StringUtil;
  * @author Virenerus
  *
  */
-public abstract class TokenPropertyView implements Map<String, String>{
+public abstract class TokenPropertyView implements Map<String, Object>{
 
 	protected Token token;
 
@@ -55,16 +57,16 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	@Override
-	public Set<Entry<String, String>> entrySet() {
+	public Set<Entry<String, Object>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public String get(Object key) {
+	public Object get(Object key) {
 		if(key==null)
 			throw new NullPointerException();
 		else
-			return (String)token.getProperty(key.toString());
+			return token.getProperty(key.toString());
 	}
 
 	@Override
@@ -81,8 +83,15 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	@Override
-	public String put(String key, String value) {
-		String old=(String)token.setProperty(key, value);
+	public Object put(String key, Object value) {
+		List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		for(TokenProperty propType:propTypes) {
+			if(propType.getName().equals(key)) {
+				if(value!=null && !propType.getType().isInstance(value))
+					throw new IllegalArgumentException("Given value is of type "+value.getClass()+" instead of "+propType.getType());
+			}
+		}
+		Object old=token.setProperty(key, value);
 		sendUpdate();
 		return old;
 	}
@@ -94,18 +103,25 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	@Override
-	public void putAll(Map<? extends String, ? extends String> m) {
-		for(Entry<? extends String, ? extends String> e:m.entrySet()) {
+	public void putAll(Map<? extends String, ?> m) {
+		List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		for(Entry<? extends String, ?> e:m.entrySet()) {
+			for(TokenProperty propType:propTypes) {
+				if(propType.getName().equals(e.getKey())) {
+					if(e.getValue()!=null && !propType.getType().isInstance(e.getValue()))
+						throw new IllegalArgumentException("Given value is of type "+e.getValue().getClass()+" instead of "+propType.getType());
+				}
+			}
 			token.setProperty(e.getKey(), e.getValue());
 		}
 		sendUpdate();
 	}
 
 	@Override
-	public String remove(Object key) {
+	public Object remove(Object key) {
 		if(key==null)
 			throw new NullPointerException();
-		String o=(String)token.getProperty(key.toString());
+		Object o=token.getProperty(key.toString());
 		token.resetProperty(key.toString());
 		sendUpdate();
 		return o;
@@ -117,7 +133,7 @@ public abstract class TokenPropertyView implements Map<String, String>{
 	}
 
 	@Override
-	public Collection<String> values() {
+	public Collection<Object> values() {
 		throw new UnsupportedOperationException();
 	}
 	

@@ -19,7 +19,7 @@ import java.io.IOException;
 import javax.swing.Timer;
 
 import net.rptools.maptool.language.I18N;
-import net.rptools.maptool.model.Campaign;
+import net.rptools.maptool.model.campaign.Campaign;
 import net.rptools.maptool.util.PersistenceUtil;
 
 import org.apache.log4j.Logger;

@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.campaign;
 
 import java.io.Serializable;
 
@@ -19,29 +19,31 @@ public class TokenProperty implements Serializable {
 	private boolean highPriority;
 	private boolean ownerOnly;
 	private boolean gmOnly;
-	private String defaultValue;
+	private Object defaultValue;
+	private TokenPropertyType type;
 
 	public TokenProperty() {
 		// For serialization
 	}
 
 	public TokenProperty(String name) {
-		this(name, null, false, false, false);
+		this(TokenPropertyType.TEXT, name, null, false, false, false);
 	}
 
-	public TokenProperty(String name, String shortName) {
-		this(name, shortName, false, false, false);
+	public TokenProperty(TokenPropertyType type, String name, String shortName) {
+		this(type,name, shortName, false, false, false);
 	}
 
-	public TokenProperty(String name, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
-		this(name, null, highPriority, isOwnerOnly, isGMOnly);
+	public TokenProperty(TokenPropertyType type, String name, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
+		this(type,name, null, highPriority, isOwnerOnly, isGMOnly);
 	}
-	public TokenProperty(String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
+	public TokenProperty(TokenPropertyType type, String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
 		this.name = name;
 		this.shortName = shortName;
 		this.highPriority = highPriority;
 		this.ownerOnly = isOwnerOnly;
 		this.gmOnly = isGMOnly;
+		this.type=type;
 	}
 	public TokenProperty(String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly, String defaultValue) {
 		this.name = name;
@@ -89,13 +91,22 @@ public class TokenProperty implements Serializable {
 		this.gmOnly = gmOnly;
 	}
 
-	public String getDefaultValue()
+	public Object getDefaultValue()
 	{
 		return this.defaultValue;
 	}
 
-	public void setDefaultValue(String defaultValue)
-	{
+	public void setDefaultValue(Object defaultValue) {
+		if(defaultValue!=null && !type.isInstance(defaultValue))
+			throw new RuntimeException("Default type does not match given type");
 		this.defaultValue = defaultValue;
+	}
+
+	public TokenPropertyType getType() {
+		return this.type;
+	}
+	
+	public void setType(TokenPropertyType type) {
+		this.type=type;
 	}
 }

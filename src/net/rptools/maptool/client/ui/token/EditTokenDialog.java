@@ -71,6 +71,7 @@ import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone.Layer;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.TypeUtil;
 
@@ -819,18 +820,18 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 	private class TokenPropertyTableModel extends AbstractPropertyTableModel<net.rptools.maptool.client.ui.token.EditTokenDialog.TokenPropertyTableModel.EditTokenProperty> {
 		private static final long serialVersionUID = 2822797264738675580L;
 
-		private Map<String, String> propertyMap;
-		private List<net.rptools.maptool.model.TokenProperty> propertyList;
+		private Map<String, Object> propertyMap;
+		private List<net.rptools.maptool.model.campaign.TokenProperty> propertyList;
 
-		private Map<String, String> getPropertyMap() {
+		private Map<String, Object> getPropertyMap() {
 			Token token = getModel();
 
 			if (propertyMap == null) {
-				propertyMap = new HashMap<String, String>();
+				propertyMap = new HashMap<String, Object>();
 
-				List<net.rptools.maptool.model.TokenProperty> propertyList = getPropertyList();
-				for (net.rptools.maptool.model.TokenProperty property : propertyList) {
-					String value = (String) token.getProperty(property.getName());
+				List<net.rptools.maptool.model.campaign.TokenProperty> propertyList = getPropertyList();
+				for (net.rptools.maptool.model.campaign.TokenProperty property : propertyList) {
+					Object value = token.getProperty(property.getName());
 					if (value == null) {
 						value = property.getDefaultValue();
 					}
@@ -840,7 +841,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			return propertyMap;
 		}
 
-		private List<net.rptools.maptool.model.TokenProperty> getPropertyList() {
+		private List<net.rptools.maptool.model.campaign.TokenProperty> getPropertyList() {
 			if (propertyList == null) {
 				propertyList = MapTool.getCampaign().getTokenPropertyList((String) getPropertyTypeCombo().getSelectedItem());
 			}
@@ -848,8 +849,8 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		}
 
 		public void applyTo(Token token) {
-			for (net.rptools.maptool.model.TokenProperty property : getPropertyList()) {
-				String value = getPropertyMap().get(property.getName());
+			for (net.rptools.maptool.model.campaign.TokenProperty property : getPropertyList()) {
+				Object value = getPropertyMap().get(property.getName());
 				if (property.getDefaultValue() != null && property.getDefaultValue().equals(value)) {
 					token.setProperty(property.getName(), null); // Clear original value
 					continue;
@@ -874,7 +875,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			private final String key;
 
 			public EditTokenProperty(String key) {
-				super(key, key, String.class, (String) getPropertyTypeCombo().getSelectedItem());
+				super(key, key, null, (String) getPropertyTypeCombo().getSelectedItem());
 				this.key = key;
 			}
 
@@ -885,12 +886,23 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 			@Override
 			public void setValue(Object value) {
-				getPropertyMap().put(key, (String) value);
+				getPropertyMap().put(key, value);
 			}
 
 			@Override
 			public boolean hasValue() {
 				return getPropertyMap().get(key) != null;
+			}
+			
+			@Override
+			public Class<?> getType() {
+				List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(getModel().getPropertyType());
+				for(TokenProperty propType:propTypes) {
+					if(propType.getName().equals(key)) {
+						return propType.getType().getType();
+					}
+				}
+				return null;
 			}
 		}
 	}
