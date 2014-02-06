@@ -3,6 +3,7 @@ package net.rptools.maptool.script.groovy;
 import java.util.Map;
 
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.builder.ImportCustomizerFactory;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -20,6 +21,7 @@ public class GroovyScriptManager extends ScriptManager<Script> {
 	@Override
 	public void init() {
 		compilerConfiguration=new CompilerConfiguration();
+		compilerConfiguration.addCompilationCustomizers(new ScriptImportCustomizer());
 	}
 	
 	public Script compile(String script) throws MT2ScriptException {
