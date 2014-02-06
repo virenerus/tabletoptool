@@ -12,6 +12,7 @@ import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptManager;
+import net.rptools.maptool.script.mt2api.MT2ScriptLibrary;
 import net.rptools.maptool.script.mt2api.TokenView;
 
 public class GroovyScriptManager extends ScriptManager<Script> {
@@ -22,6 +23,7 @@ public class GroovyScriptManager extends ScriptManager<Script> {
 	public void init() {
 		compilerConfiguration=new CompilerConfiguration();
 		compilerConfiguration.addCompilationCustomizers(new ScriptImportCustomizer());
+		compilerConfiguration.setScriptBaseClass(MT2ScriptLibrary.class.getName());
 	}
 	
 	public Script compile(String script) throws MT2ScriptException {

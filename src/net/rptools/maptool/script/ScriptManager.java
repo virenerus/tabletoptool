@@ -36,10 +36,9 @@ public abstract class ScriptManager<T> {
 
 	public void initialize() {
 		scriptBindings=new HashMap<String,Object>();
-		//load librarys
-		//ECLIPSE get these from plugins
-		MT2ScriptLibrary lib=new MT2ScriptLibrary();
-		scriptBindings.put(lib.getVariableName(), lib);
+		//TODO load libraries from plugins
+		//load libraries like this
+		//scriptBindings.put(lib.getVariableName(), lib);
 		init();
 	}
 	

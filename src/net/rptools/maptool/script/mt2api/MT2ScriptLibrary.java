@@ -1,5 +1,7 @@
 package net.rptools.maptool.script.mt2api;
 
+import groovy.lang.Script;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 
 //FIXME make this package into a PLUG-IN
-public class MT2ScriptLibrary implements ScriptLibrary {
+public abstract class MT2ScriptLibrary extends Script implements ScriptLibrary {
 	
 	public final InitiativeFunctions ini;
 	public final InfoFunctions info;
@@ -34,6 +36,7 @@ public class MT2ScriptLibrary implements ScriptLibrary {
 	public final InputFunctions input;
 
 	public MT2ScriptLibrary() {
+		super();
 		this.ini=new InitiativeFunctions();
 		this.info=new InfoFunctions();
 		this.player=new PlayerFunctions();
