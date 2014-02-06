@@ -47,6 +47,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 //	private transient static final List<String> HTMLColors = Arrays.asList("aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "purple", "red", "silver", "teal",
 //			"white", "yellow");
 	private transient MacroButton button;
+	//FIXME a macro should hold the token, not the token id!!
 	private transient GUID tokenId;
 	private String saveLocation;
 	private int index;
@@ -321,7 +322,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	 */
 	public void executeMacro(Collection<Token> tokenList) {
 		if (tokenList == null || tokenList.size() == 0) {
-			executeCommand(null);
+			executeCommand();
 		} else if (commonMacro) {
 			executeCommonMacro(tokenList);
 		} else {
@@ -348,7 +349,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 		if (compareCommand) {
 			for (Token token : tokenList) {
-				executeCommand(token.getId());
+				executeCommand(token);
 			}
 		} else {
 			// We need to find the "matching" button for each token and ensure to run that one.
@@ -368,61 +369,75 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	private void executeCommand(GUID tokenId) {
 		if (getCommand() != null) {
-			
-			//FIXMESOON print label of macro button when executed and option is selected: 
-			/*if (getIncludeLabel()) {
-				String commandToExecute = getLabel();
-				commandArea.setText(impersonatePrefix + commandToExecute);
-
-				MapTool.getFrame().getCommandPanel().commitCommand();
-			}*/
-
 			ZoneRenderer zr = MapTool.getFrame().getCurrentZoneRenderer();
 			Zone zone = (zr == null ? null : zr.getZone());
 			Token contextToken = (zone == null ? null : zone.getToken(tokenId));
-			String loc;
-			
-			// If we aren't auto execute, then append the text instead of replace it
-			if (getAutoExecute()) {
-				boolean trusted = false;
-				if (allowPlayerEdits == null) {
-					allowPlayerEdits = false;
-				}
-				if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
-					trusted = true;
-				}
-				if (saveLocation.equals("GlobalPanel")) {
-					loc = "global";
-					trusted = MapTool.getPlayer().isGM();
-				} else if (saveLocation.equals("CampaignPanel")) {
-					loc = "campaign";
-				} else if (contextToken != null) {
-					// Should this IF stmt really be:
-					//		contextToken.matches("^[^:\\s]+:")
-					// That would match any token with a string of text followed by a colon
-					// with no spaces in front of the colon.
-					if (contextToken.getName().toLowerCase().startsWith("lib:")) {
-						loc = contextToken.getName();
-					} else {
-						loc = "Token:" + contextToken.getName();
-					}
-				} else {
-					loc = "chat";
-				}
-				
-				MapToolMacroContext newMacroContext = new MapToolMacroContext(label, loc, trusted, index);
-				try {
-					if(compiledCommand==null)
-						compileCommand();
-					if(compiledCommand!=null)
-						ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
-				} catch (MT2ScriptException e) {
-					log.error("Error while trying to execute a macro from button",e);
-					MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
-				}
-			}
-			MapTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
+			executeCommand(contextToken);
 		}
+	}
+
+	private void executeCommand() {
+		executeCommand((Token)null);
+	}
+	
+	public Object executeMacro(Token token) {
+		return executeCommand(token);
+	}
+	
+	private Object executeCommand(Token contextToken) {
+		//FIXMESOON print label of macro button when executed and option is selected: 
+		/*if (getIncludeLabel()) {
+			String commandToExecute = getLabel();
+			commandArea.setText(impersonatePrefix + commandToExecute);
+
+			MapTool.getFrame().getCommandPanel().commitCommand();
+		}*/
+
+		
+		String loc;
+		Object o = null;
+		
+		// If we aren't auto execute, then append the text instead of replace it
+		if (getAutoExecute()) {
+			boolean trusted = false;
+			if (allowPlayerEdits == null) {
+				allowPlayerEdits = false;
+			}
+			if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
+				trusted = true;
+			}
+			if (saveLocation.equals("GlobalPanel")) {
+				loc = "global";
+				trusted = MapTool.getPlayer().isGM();
+			} else if (saveLocation.equals("CampaignPanel")) {
+				loc = "campaign";
+			} else if (contextToken != null) {
+				// Should this IF stmt really be:
+				//		contextToken.matches("^[^:\\s]+:")
+				// That would match any token with a string of text followed by a colon
+				// with no spaces in front of the colon.
+				if (contextToken.getName().toLowerCase().startsWith("lib:")) {
+					loc = contextToken.getName();
+				} else {
+					loc = "Token:" + contextToken.getName();
+				}
+			} else {
+				loc = "chat";
+			}
+			
+			MapToolMacroContext newMacroContext = new MapToolMacroContext(label, loc, trusted, index);
+			try {
+				if(compiledCommand==null)
+					compileCommand();
+				if(compiledCommand!=null)
+					o=ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
+			} catch (MT2ScriptException e) {
+				log.error("Error while trying to execute a macro from button",e);
+				MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
+			}
+		}
+		MapTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
+		return o;
 	}
 
 	private void compileCommand() throws MT2ScriptException {

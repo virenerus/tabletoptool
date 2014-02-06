@@ -1217,4 +1217,9 @@ public class TokenView extends TokenPropertyView {
 	public void testInt() {
 		token.setProperty("HP", 5);
 	}
+	
+	public Object executeMacro(String name) {
+		MacroButtonProperties mbp=token.getMacro(name, false);
+		return mbp.executeMacro(token);
+	}
 }
