@@ -72,6 +72,8 @@ import net.rptools.maptool.client.ui.AppMenuBar;
 import net.rptools.maptool.client.ui.ConnectionStatusPanel;
 import net.rptools.maptool.client.ui.MapToolFrame;
 import net.rptools.maptool.client.ui.StartServerDialogPreferences;
+import net.rptools.maptool.client.ui.token.CappedIntegerCellEditor;
+import net.rptools.maptool.client.ui.token.CappedIntegerCellRenderer;
 import net.rptools.maptool.client.ui.zone.PlayerView;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.ui.zone.ZoneRendererFactory;
@@ -92,6 +94,7 @@ import net.rptools.maptool.server.ServerConfig;
 import net.rptools.maptool.server.ServerPolicy;
 import net.rptools.maptool.transfer.AssetTransferManager;
 import net.rptools.maptool.util.UPnPUtil;
+import net.rptools.maptool.util.math.CappedInteger;
 import net.tsc.servicediscovery.ServiceAnnouncer;
 
 import org.apache.commons.io.FileUtils;
@@ -99,6 +102,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import com.jidesoft.grid.CellEditorManager;
+import com.jidesoft.grid.CellRendererManager;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
@@ -1140,6 +1145,8 @@ public class MapTool {
 			}
 		};
 		uiDefaultsCustomizer.customize(UIManager.getDefaults());
+		CellRendererManager.registerRenderer(CappedInteger.class, new CappedIntegerCellRenderer());
+		CellEditorManager.registerEditor(CappedInteger.class, new CappedIntegerCellEditor.Factory());
 	}
 
 	public static void main(String[] args) {

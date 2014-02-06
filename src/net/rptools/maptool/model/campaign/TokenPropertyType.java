@@ -1,5 +1,7 @@
 package net.rptools.maptool.model.campaign;
 
+import net.rptools.maptool.util.math.CappedInteger;
+
 public enum TokenPropertyType {
 	TEXT(String.class) {
 		@Override
@@ -33,6 +35,28 @@ public enum TokenPropertyType {
 		public String printObject(Object obj) {
 			return ((Float)obj).toString();
 		}
+	},
+	CAPPED(CappedInteger.class) {
+		@Override
+		public CappedInteger parseObject(String str) {
+			return CappedInteger.valueOf(str.replaceAll("\\s", ""));
+		}
+		
+		@Override
+		public String printObject(Object obj) {
+			CappedInteger capped=((CappedInteger)obj);
+			return capped.getValue()+" in ["+capped.getMin()+';'+capped.getMax()+']';
+		}
+		
+		@Override
+		public String toStatsheetString(Object propertyValue) {
+			if(propertyValue==null)
+				return "null";
+			else {
+				CappedInteger capped=(CappedInteger)propertyValue;
+				return capped.getValue()+" / "+capped.getMax();
+			}
+		}
 	};
 	
 	private Class<?> type;
@@ -50,5 +74,9 @@ public enum TokenPropertyType {
 
 	public boolean isInstance(Object obj) {
 		return type.isInstance(obj);
+	}
+
+	public String toStatsheetString(Object propertyValue) {
+		return propertyValue==null?"null":propertyValue.toString();
 	}
 }

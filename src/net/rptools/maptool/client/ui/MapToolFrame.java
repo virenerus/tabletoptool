@@ -684,6 +684,7 @@ public class MapToolFrame extends DefaultDockableHolder implements WindowListene
 		zoneRendererPanel.setComponentZOrder(layoutPanel, 0);
 		zoneRendererPanel.revalidate();
 		zoneRendererPanel.repaint();
+		zoneMiniMapPanel.repaint();
 		visibleControlPanel = layoutPanel;
 	}
 
@@ -1235,6 +1236,7 @@ public class MapToolFrame extends DefaultDockableHolder implements WindowListene
 		if (!MapTool.MAC_OS_X)
 			menuBar.setVisible(false);
 
+		fullScreenFrame.add(zoneMiniMapPanel);
 		fullScreenFrame.setVisible(true);
 		this.setVisible(false);
 	}

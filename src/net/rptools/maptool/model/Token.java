@@ -1003,39 +1003,6 @@ public class Token extends BaseModel {
 		return value;
 	}
 
-	public Object getEvaluatedProperty(String key) {
-		Object val = getProperty(key);
-		if (val == null) {
-			// Global default ?
-			List<TokenProperty> propertyList = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(propertyType);
-			if (propertyList != null) {
-				for (TokenProperty property : propertyList) {
-					if (key.equalsIgnoreCase(property.getName())) {
-						val = property.getDefaultValue();
-						break;
-					}
-				}
-			}
-		}
-		if (val == null) {
-			return "";
-		}
-		
-		try {
-			if (log.isDebugEnabled()) {
-				log.debug("Evaluating property: '" + key + "' for token " + getName() + "(" + getId() + ")----------------------------------------------------------------------------------");
-			}
-			val = ScriptManager.getInstance().evaluate(val.toString(),this);
-		} catch (MT2ScriptException pe) {
-			// pe.printStackTrace();
-			val = val.toString();
-		}
-		if (val == null) {
-			val = "";
-		}
-		return val;
-	}
-
 	/**
 	 * Returns all property names, all in lowercase.
 	 * 

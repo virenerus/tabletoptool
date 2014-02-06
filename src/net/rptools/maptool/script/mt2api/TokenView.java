@@ -32,18 +32,18 @@ import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
-import net.rptools.maptool.model.MacroButtonProperties;
-import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.LightSource;
+import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.Path;
 import net.rptools.maptool.model.SquareGrid;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Token.Type;
+import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.Layer;
-import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 import net.rptools.maptool.script.mt2api.functions.token.TokenPart;
@@ -51,7 +51,6 @@ import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.TokenUtil;
 import net.rptools.maptool.util.TypeUtil;
 import net.rptools.maptool.util.math.IntPoint;
-import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.syntax.ParserException;
@@ -982,20 +981,6 @@ public class TokenView extends TokenPropertyView {
 	
 	public Object getProperty(String property) {
 		return token.getProperty(property);
-	}
-	public Object getEvaluatedProperty(String property) {
-		Object val = token.getEvaluatedProperty(property);
-
-		if (val instanceof String) {
-			// try to convert to a number
-			try {
-				return new BigDecimal(val.toString()).intValue();
-			} catch (Exception e) {
-				return val;
-			}
-		} else {
-			return val;
-		}
 	}
 	
 	public void setProperty(String property, Object value) {

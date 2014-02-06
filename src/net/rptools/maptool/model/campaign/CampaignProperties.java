@@ -47,6 +47,7 @@ import net.rptools.maptool.model.LightSource;
 import net.rptools.maptool.model.LookupTable;
 import net.rptools.maptool.model.ShapeType;
 import net.rptools.maptool.model.SightType;
+import net.rptools.maptool.util.math.CappedInteger;
 
 public class CampaignProperties {
 	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
@@ -327,14 +328,16 @@ public class CampaignProperties {
 		}
 		tokenTypeMap = new HashMap<String, List<TokenProperty>>();
 
-		List<TokenProperty> list = new ArrayList<TokenProperty>();
+		List<TokenProperty> list = new ArrayList<TokenProperty>(12);
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Strength", "Str"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Dexterity", "Dex"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Constitution", "Con"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Intelligence", "Int"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Wisdom", "Wis"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Charisma", "Char"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"HP", true, true, false));
+		TokenProperty tp = new TokenProperty(TokenPropertyType.CAPPED,"HP", true, true, false);
+		tp.setDefaultValue(new CappedInteger(10, 0, 10));
+		list.add(tp);
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"AC", true, true, false));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Defense", "Def"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Movement", "Mov"));

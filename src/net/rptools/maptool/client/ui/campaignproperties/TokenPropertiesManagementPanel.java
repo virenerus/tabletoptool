@@ -248,13 +248,13 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 				TokenProperty property = new TokenProperty();
 				int spaceIndex = line.indexOf(' ');
 				if(spaceIndex==-1)
-					throw new RuntimeException("There must be space after the type of the property");
+					errlog.add("There must be space after the type of the property");
 				String type=line.substring(0,spaceIndex);
-				line=line.substring(0,spaceIndex+1);
+				line=line.substring(spaceIndex).trim();
 				try {
 					property.setType(TokenPropertyType.valueOf(type.toUpperCase()));
 				} catch(IllegalArgumentException e) {
-					throw new RuntimeException("Unsupported Propertype while parsing properties");
+					errlog.add("Unsupported Property type '"+type+"'");
 				}
 				
 				// Prefix
@@ -287,14 +287,11 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 				if (indexDefault > 0) {
 					String defaultVal = line.substring(indexDefault+1).trim();
 					if (defaultVal.length() > 0) {
-						if(property.getType().equals(String.class))
-							property.setDefaultValue(defaultVal);
-						else if(property.getType().equals(Integer.class))
-							property.setDefaultValue(Integer.parseInt(defaultVal));
-						else if(property.getType().equals(Float.class))
-							property.setDefaultValue(Float.parseFloat(defaultVal));
-						else
-							throw new RuntimeException("Unsupported default value");
+						try {
+							property.setDefaultValue(property.getType().parseObject(defaultVal));
+						} catch(Exception e) {
+							errlog.add("The default value '"+defaultVal+"' is not valid fot the type "+property.getType()+".");
+						}
 					}
 
 					//remove the default value from the end of the string...

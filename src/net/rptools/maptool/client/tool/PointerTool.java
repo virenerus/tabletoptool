@@ -1381,15 +1381,15 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 							if (property.isOwnerOnly() && !AppUtil.playerOwns(tokenUnderMouse)) {
 								continue;
 							}
-							Object propertyValue = tokenUnderMouse.getEvaluatedProperty(property.getName());
+							Object propertyValue = tokenUnderMouse.getProperty(property.getName());
 							if (propertyValue != null) {
 								if (propertyValue.toString().length() > 0) {
-									String propName = property.getName();
-									if (property.getShortName() != null) {
+									String propName;
+									if (property.getShortName() != null)
 										propName = property.getShortName();
-									}
-									Object value = tokenUnderMouse.getEvaluatedProperty(property.getName());
-									propertyMap.put(propName, value != null ? value.toString() : "");
+									else
+										propName= property.getName();
+									propertyMap.put(propName, property.getType().toStatsheetString(propertyValue));
 								}
 							}
 						}
