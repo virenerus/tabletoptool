@@ -10,16 +10,22 @@
  */
 package net.rptools.maptool.client.ui;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 
 import net.rptools.lib.swing.SwingUtil;
@@ -32,8 +38,27 @@ import net.rptools.maptool.client.ui.macrobuttons.buttons.MacroButton;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.Token;
+import net.rptools.maptool.script.mt2api.functions.DialogFunctions;
+import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
+import net.rptools.maptool.script.mt2api.functions.MapFunctions;
+import net.rptools.maptool.script.mt2api.functions.PathFunctions;
+import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
+import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
+import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
+
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.BasicCompletion;
+import org.fife.ui.autocomplete.CompletionProvider;
+import org.fife.ui.autocomplete.DefaultCompletionProvider;
+import org.fife.ui.autocomplete.FunctionCompletion;
+import org.fife.ui.autocomplete.ParameterizedCompletion.Parameter;
+import org.fife.ui.autocomplete.ShorthandCompletion;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import com.jeta.forms.components.panel.FormPanel;
+import com.jeta.forms.gui.form.FormAccessor;
 import com.jeta.forms.gui.form.GridView;
 
 public class MacroButtonDialog extends JDialog {
@@ -50,6 +75,7 @@ public class MacroButtonDialog extends JDialog {
 	Boolean startingCompareAutoExecute;
 	Boolean startingCompareApplyToSelectedTokens;
 	Boolean startingAllowPlayerEdits;
+	private RSyntaxTextArea commandTextArea;
 
 	public MacroButtonDialog() {
 
@@ -70,6 +96,7 @@ public class MacroButtonDialog extends JDialog {
 
 		panel.getCheckBox("applyToTokensCheckBox").setEnabled(!isTokenMacro);
 		panel.getComboBox("hotKey").setEnabled(!isTokenMacro);
+		
 		panel.getTextField("maxWidth").setEnabled(false); // can't get max-width to work, so temporarily disabling it.
 		panel.getCheckBox("allowPlayerEditsCheckBox").setEnabled(MapTool.getPlayer().isGM());
 
@@ -144,8 +171,9 @@ public class MacroButtonDialog extends JDialog {
 				getLabelTextField().setText(properties.getLabel());
 				getGroupTextField().setText(properties.getGroup());
 				getSortbyTextField().setText(properties.getSortby());
-				getCommandTextArea().setText(properties.getCommand());
-				getCommandTextArea().setCaretPosition(0);
+				commandTextArea.setText(properties.getCommand());
+				commandTextArea.setCaretPosition(0);
+				commandTextArea.discardAllEdits(); //this removes all edits, otherwise adding all the text is an edit itself
 
 				getAutoExecuteCheckBox().setSelected(properties.getAutoExecute());
 				getIncludeLabelCheckBox().setSelected(properties.getIncludeLabel());
@@ -168,7 +196,7 @@ public class MacroButtonDialog extends JDialog {
 					getHotKeyCombo().setEnabled(false);
 					getGroupTextField().setEnabled(properties.getCompareGroup());
 					getSortbyTextField().setEnabled(properties.getCompareSortPrefix());
-					getCommandTextArea().setEnabled(properties.getCompareCommand());
+					commandTextArea.setEnabled(properties.getCompareCommand());
 					getAutoExecuteCheckBox().setEnabled(properties.getCompareAutoExecute());
 					getIncludeLabelCheckBox().setEnabled(properties.getCompareIncludeLabel());
 					getApplyToTokensCheckBox().setEnabled(properties.getCompareApplyToSelectedTokens());
@@ -195,8 +223,66 @@ public class MacroButtonDialog extends JDialog {
 	}
 
 	private void initCommandTextArea() {
+		commandTextArea = new RSyntaxTextArea();
+		commandTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);
+		commandTextArea.setCodeFoldingEnabled(true);
+		commandTextArea.setAntiAliasingEnabled(true);
+		commandTextArea.setHighlightCurrentLine(false);
+		
+		CompletionProvider provider = createCompletionProvider();
+		AutoCompletion ac = new AutoCompletion(provider);
+		ac.setAutoActivationEnabled(true);
+		ac.setParameterAssistanceEnabled(true);
+		ac.setShowDescWindow(true);
+		ac.install(commandTextArea);
+		
+		
 		// Need to get rid of the tooltip, but abeille can't set it back to null, so we'll do it manually
-		getCommandTextArea().setToolTipText(null);
+		RTextScrollPane sp=new RTextScrollPane(commandTextArea);
+		sp.setFoldIndicatorEnabled(true);
+		panel.getFormAccessor("detailsPanel").replaceBean("command",sp);
+		//.replaceBean("command", sp);
+		//panel.reset();
+	}
+	
+	private CompletionProvider createCompletionProvider() {
+		// A DefaultCompletionProvider is the simplest concrete implementation
+		// of CompletionProvider. This provider has no understanding of
+		// language semantics. It simply checks the text entered up to the
+		// caret position for a match against known completions. This is all
+		// that is needed in the majority of cases.
+		DefaultCompletionProvider provider = new DefaultCompletionProvider();
+		
+		// Add completions for all Java keywords. A BasicCompletion is just
+		// a straightforward word completion.
+		//TODO create a real xml file to parse from with comments
+		provider.addCompletion(new BasicCompletion(provider,"print","Printing a String","<b>Printing</b> a string."));
+		createDynamicCompletions(provider, "ini", InitiativeFunctions.class);
+		createDynamicCompletions(provider, "info", InfoFunctions.class);
+		createDynamicCompletions(provider, "player", PlayerFunctions.class);
+		createDynamicCompletions(provider, "map", MapFunctions.class);
+		createDynamicCompletions(provider, "dialog", DialogFunctions.class);
+		createDynamicCompletions(provider, "path", PathFunctions.class);
+		createDynamicCompletions(provider, "input", InputFunctions.class);
+		
+		return provider;
+
+	}
+	
+	private void createDynamicCompletions(DefaultCompletionProvider prov, String lib, Class<?> c) {
+		for(Method m:c.getMethods()) {
+			if(m.getDeclaringClass().equals(c)) {
+				FunctionCompletion fc = new FunctionCompletion(prov, lib+'.'+m.getName(),m.getReturnType().getSimpleName());
+				
+				LinkedList<Parameter> params=new LinkedList<Parameter>();
+				Class<?>[] pts=m.getParameterTypes();
+				for(int i=0;i<pts.length;i++)
+					params.add(new Parameter(pts[i].getSimpleName(), "arg"+i));
+				if(!params.isEmpty())
+					fc.setParams(params);
+				prov.addCompletion(fc);
+			}
+		}
 	}
 
 	private void save() {
@@ -209,7 +295,7 @@ public class MacroButtonDialog extends JDialog {
 		properties.setLabel(getLabelTextField().getText());
 		properties.setGroup(getGroupTextField().getText());
 		properties.setSortby(getSortbyTextField().getText());
-		properties.setCommand(getCommandTextArea().getText());
+		properties.setCommand(commandTextArea.getText());
 		properties.setAutoExecute(getAutoExecuteCheckBox().isSelected());
 		properties.setIncludeLabel(getIncludeLabelCheckBox().isSelected());
 		properties.setApplyToTokens(getApplyToTokensCheckBox().isSelected());
@@ -344,10 +430,10 @@ public class MacroButtonDialog extends JDialog {
 	private JTextField getSortbyTextField() {
 		return panel.getTextField("sortby");
 	}
-
-	private JTextArea getCommandTextArea() {
-		return (JTextArea) panel.getTextComponent("command");
-	}
+/*
+	private RSyntaxTextArea getCommandTextArea() {
+		return (RSyntaxTextArea) panel.getTextComponent("command");
+	}*/
 
 	private JComboBox getFontColorComboBox() {
 		return panel.getComboBox("fontColorComboBox");

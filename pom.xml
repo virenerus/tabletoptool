@@ -62,5 +62,15 @@
   		<artifactId>groovy-all</artifactId>
   		<version>2.2.1</version>
   	</dependency>
+  	<dependency>
+		<groupId>com.fifesoft</groupId>
+		<artifactId>rsyntaxtextarea</artifactId>
+		<version>2.5.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fifesoft</groupId>
+		<artifactId>autocomplete</artifactId>
+		<version>2.5.0</version>
+	</dependency>
   </dependencies>
 </project>

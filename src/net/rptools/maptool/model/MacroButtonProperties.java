@@ -15,6 +15,7 @@ import groovy.lang.Script;
 
 import java.awt.Color;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -349,7 +350,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 		if (compareCommand) {
 			for (Token token : tokenList) {
-				executeCommand(token);
+				executeCommand(token, null);
 			}
 		} else {
 			// We need to find the "matching" button for each token and ensure to run that one.
@@ -372,19 +373,19 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			ZoneRenderer zr = MapTool.getFrame().getCurrentZoneRenderer();
 			Zone zone = (zr == null ? null : zr.getZone());
 			Token contextToken = (zone == null ? null : zone.getToken(tokenId));
-			executeCommand(contextToken);
+			executeCommand(contextToken,null);
 		}
 	}
 
 	private void executeCommand() {
-		executeCommand((Token)null);
+		executeCommand(null,null);
 	}
 	
 	public Object executeMacro(Token token) {
-		return executeCommand(token);
+		return executeCommand(token,null);
 	}
 	
-	private Object executeCommand(Token contextToken) {
+	private Object executeCommand(Token contextToken, HashMap<String, Object> arguments) {
 		//FIXMESOON print label of macro button when executed and option is selected: 
 		/*if (getIncludeLabel()) {
 			String commandToExecute = getLabel();
@@ -430,7 +431,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 				if(compiledCommand==null)
 					compileCommand();
 				if(compiledCommand!=null)
-					o=ScriptManager.getInstance().run(compiledCommand,contextToken,newMacroContext);
+					o=ScriptManager.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
 			} catch (MT2ScriptException e) {
 				log.error("Error while trying to execute a macro from button",e);
 				MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
@@ -445,6 +446,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			this.compiledCommand=ScriptManager.getInstance().compile(command);
 	}
 
+	//TODO return token directly. This is FUCKING slow
 	public Token getToken() {
 		return MapTool.getFrame().getCurrentZoneRenderer().getZone().getToken(this.tokenId);
 	}
@@ -996,5 +998,9 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		if (allowPlayerEdits == null)
 			allowPlayerEdits = true;
 		return this;
+	}
+
+	public Object executeMacro(Token token, HashMap<String, Object> arguments) {
+		return executeCommand(token,arguments);
 	}
 }

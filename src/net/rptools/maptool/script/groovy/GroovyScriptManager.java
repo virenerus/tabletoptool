@@ -1,5 +1,6 @@
 package net.rptools.maptool.script.groovy;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -35,11 +36,12 @@ public class GroovyScriptManager extends ScriptManager<Script> {
 	}
 
 	@Override
-	protected Object run(Script script, Token token, MapToolMacroContext context, Map<String, Object> scriptBindings) throws MT2ScriptException {
+	protected Object run(Script script, HashMap<String, Object> arguments, Token token, MapToolMacroContext context, Map<String, Object> scriptBindings) throws MT2ScriptException {
 		try {
 			Binding b=new Binding(scriptBindings);
 			if(token!=null)
 				b.setVariable("token", new TokenView(token));
+			b.setVariable("args", arguments);
 			script.setBinding(b);
 			return script.run();
 		} catch(Exception e) {

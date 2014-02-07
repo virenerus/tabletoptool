@@ -1,5 +1,7 @@
 package net.rptools.maptool.script.mt2api;
 
+import java.util.HashMap;
+
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.MacroButtonProperties;
 
@@ -170,5 +172,9 @@ public class MacroView {
 	public void setCompareApplyToSelectedTokens(Boolean value) {
 		macro.setCompareApplyToSelectedTokens(value);
 		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+	}
+	
+	public Object executeMacro(String name, HashMap<String,Object> arguments) {
+		return macro.executeMacro(macro.getToken(), arguments);
 	}
 }

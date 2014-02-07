@@ -46,18 +46,18 @@ public abstract class ScriptManager<T> {
 	public abstract T compile(String script) throws MT2ScriptException;
 
 	public Object run(T script, MapToolMacroContext context) throws MT2ScriptException {
-		return run(script,null,context);
+		return run(script,null,null,context);
 	}
 
 	public Object run(T script, Token token) throws MT2ScriptException {
-		return run(script,token,null);
+		return run(script,null,token,null);
 	}
 
-	public Object run(T script, Token token, MapToolMacroContext context) throws MT2ScriptException {
-		return run(script, token, context, scriptBindings);
+	public Object run(T script, HashMap<String, Object> arguments, Token token, MapToolMacroContext context) throws MT2ScriptException {
+		return run(script, arguments, token, context, scriptBindings);
 	}
 	
-	protected abstract Object run(T script, Token token, MapToolMacroContext context, Map<String, Object> scriptBindings2) throws MT2ScriptException;
+	protected abstract Object run(T script, HashMap<String, Object> arguments, Token token, MapToolMacroContext context, Map<String, Object> scriptBindings2) throws MT2ScriptException;
 
 	public Object evaluate(String script, Token token) throws MT2ScriptException {
 		return evaluate(script, token, null);
@@ -68,7 +68,7 @@ public abstract class ScriptManager<T> {
 	}
 	
 	public Object evaluate(String script, Token token, MapToolMacroContext context) throws MT2ScriptException {
-		return run(compile(script),token,context);
+		return run(compile(script),null,token,context);
 	}
 
 	//FIXMESOON find out what this should do and implement it
