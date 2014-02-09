@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mt2-DocCreator
+Bundle-SymbolicName: mt2-DocCreator
+Bundle-Version: 1.0.0.qualifier
+Export-Package: .
