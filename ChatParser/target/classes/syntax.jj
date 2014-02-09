@@ -1,0 +1,280 @@
+options {
+	STATIC = false ;
+	UNICODE_INPUT = true;
+	DEBUG_PARSER = true;
+	//DEBUG_LOOKAHEAD = true;
+	//DEBUG_TOKEN_MANAGER = true;
+}
+PARSER_BEGIN(ChatParser)
+	package net.sf.mt2.chatparser.generated;
+	
+	import java.util.List;
+	import java.util.LinkedList;
+	import net.sf.mt2.chatparser.ChatPart;
+	import net.sf.mt2.chatparser.DiceExpressionPart;
+	import net.sf.mt2.chatparser.TextPart;
+	import net.sf.mt2.chatparser.ChatCommand;
+	import net.sf.mt2.chatparser.ChatCommandPart;
+	import net.sf.mt2.dice.*;
+	import net.sf.mt2.dice.expression.*;
+	import java.io.BufferedReader;
+	import java.io.StringReader;
+	
+	public class ChatParser {
+		public ChatParser(String str) {
+			this(new BufferedReader(new StringReader(str)));
+		}
+	}
+PARSER_END(ChatParser)
+
+<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < CLEAR_CHAT : "clear" | "clr">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < GM : "gm" | "togm">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < IMPERSONAT : "impersonate" | "im">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < OOC : "ooc">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < SELF : "self">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < TOKEN_MACRO : "tmacro" | "tm">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:DEFAULT}
+
+<DEFAULT>  TOKEN : { < CHAT_COMMAND : "/">:CHATCOMMAND }
+<DEFAULT>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
+<DEFAULT>  TOKEN : { < TEXT :  (~["§"])+> }
+<DICE_EXPR>TOKEN : { < CODE_END :  "§">:DEFAULT }
+<DICE_EXPR>TOKEN : { < PLUS :  "+"> }
+<DICE_EXPR>TOKEN : { < MINUS :  "-"> }
+<DICE_EXPR>TOKEN : { < MULTIPLICATION :  "*"> }
+<DICE_EXPR>TOKEN : { < DIVISION :  "/"> }
+<DICE_EXPR>TOKEN : { < PARANTHESES_LEFT :  "("> }
+<DICE_EXPR>TOKEN : { < PARANTHESES_RIGHT :  ")"> }
+<DICE_EXPR>TOKEN : { < NUMBER :  (["0"-"9"])+> }
+
+<DICE_EXPR>TOKEN : { < DICE_D : "d" > }
+<DICE_EXPR>TOKEN : { < DICE_KEEP : "k" > }
+<DICE_EXPR>TOKEN : { < DICE_REROLL : "r" > }
+<DICE_EXPR>TOKEN : { < DICE_SUCCESS : "s" > }
+<DICE_EXPR>TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
+<DICE_EXPR>TOKEN : { < DICE_EXPLODING : "e" > }
+<DICE_EXPR>TOKEN : { < DICE_OPEN : "o" > }
+<DICE_EXPR>TOKEN : { < DICE_HERO_STUN : "h" > }
+<DICE_EXPR>TOKEN : { < DICE_HERO_BODY : "b" > }
+<DICE_EXPR>TOKEN : { < DICE_FUDGE : "df" > }
+<DICE_EXPR>TOKEN : { < DICE_UBIQUITY : "du" > }
+<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
+<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_EXPLODING : "sr4e" > }
+<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_GREMLIN : "sr4g" > }
+<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN : "sr4" > }
+
+
+
+
+List<ChatPart> Start() :
+	{
+		LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+	}
+	{
+		(
+			(
+				<CHAT_COMMAND>
+				{ChatCommand cc;}
+				cc=CHAT_COMMAND()
+				{list.add(new ChatCommandPart(cc));}
+			)
+			|
+			(
+				<CODE_START>
+				{list.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+				<CODE_END>
+				
+			)
+			|
+			{Token t;}		  
+			t=<TEXT>
+			{list.add(new TextPart(t.image));}
+		)+
+		<EOF>
+		{return list;}
+	}
+	
+ChatCommand CHAT_COMMAND() :
+	{
+		Token t;
+	}
+	{
+		(
+		    t=<MACRO_EXEC>
+		    | t=<CLEAR_CHAT>
+		    | t=<EMIT>
+		    | t=<EMOTE>
+		    | t=<GM>
+		    | t=<GOTO>
+		    | t=<IMPERSONAT>
+		    | t=<OOC>
+		    | t=<REPLY>
+		    | t=<ROLL>
+		    | t=<ROLL_GM>
+		    | t=<ROLL_ME>
+		    | t=<ROLL_SECRET>
+		    | t=<SELF>
+		    | t=<TABLE>
+		    | t=<TOKEN_MACRO>
+		    | t=<TOKEN_SPEECH>
+		    | t=<WHISPER>
+		)
+		{return ChatCommand.valueOf(t.image);}
+	}
+
+DiceExpression DICE_EXPRESSION() :
+	{	}
+	{
+		
+		{DiceExpression first=TERM();}
+		(
+		  	{AdditionNode a=new AdditionNode(first);}
+			(				<PLUS>
+				{a.add(TERM());}				|
+				<MINUS>
+				{a.subtract(TERM());}
+			)+
+			{return a;} //return Additionnode if there are at least 2 nodes
+		)?
+		{return first;}		  	}
+
+DiceExpression TERM() :
+	{
+	}
+	{
+		
+		{DiceExpression first=PRIMARY();}
+
+		(
+		  	{MultiplicationNode a=new MultiplicationNode(first);}
+			(
+				<MULTIPLICATION>
+				{a.multiplyBy(PRIMARY());}
+				|
+				<DIVISION>
+				{a.divideBy(PRIMARY());}
+			)+
+			{return a;} //return Multiplactionnode if there are at least 2 nodes
+		)?
+		{return first;}
+		  
+	}
+
+DiceExpression PRIMARY():
+	{
+	}
+	{
+		(
+			{int number;}
+			number=NUMBER()
+			(			  	{Dice d;}				d=DICE(number)				{return new DiceNode(d);}
+			|
+				{return new NumberNode(number);}
+			)
+		|
+			{DiceExpression de;}
+			<PARANTHESES_LEFT>
+			de= DICE_EXPRESSION()
+			<PARANTHESES_RIGHT>
+			{return de;}
+		|
+			<MINUS> {return new NegationNode(PRIMARY());}
+		)
+	}
+Dice DICE(int count) :
+	{
+		int type;
+		int extra;
+	}
+	{
+		(
+			<DICE_FUDGE>
+			{return new FudgeDice(count);}
+			|
+			<DICE_UBIQUITY>
+			{return new UbiquityDice(count);}
+			|
+			<DICE_SHADOWRUN>
+			{return new ShadowrunBasicDice(count);}
+			|
+			<DICE_SHADOWRUN_EXPLODING>
+			{return new ExplodingShadowrunBasicDice(count);}
+			|
+			<DICE_SHADOWRUN_GREMLIN>
+			extra=NUMBER()
+			{return new ShadowrunGremlinDice(count,extra);}
+			|
+			<DICE_SHADOWRUN_EXPLODING_GREMLIN>
+			extra=NUMBER()
+			{return new ExplodingShadowrunGremlinDice(count,extra);}
+			
+		)
+		| 
+		(
+			<DICE_D>
+			type=NUMBER()
+			(
+				(
+					<DICE_D>
+					extra=NUMBER()
+					{return new DropDice(count,type,extra);}
+				) |
+				(
+					<DICE_KEEP>
+					extra=NUMBER()
+					{return new KeepDice(count,type,extra);}
+				) |
+				(
+					<DICE_REROLL>
+					extra=NUMBER()
+					{return new RerollDice(count,type,extra);}
+				) |
+				(
+					<DICE_SUCCESS>
+					extra=NUMBER()
+					{return new SuccessDice(count,type,extra);}
+				) |
+				(
+					<DICE_EXPLODING_SUCCESS>
+					extra=NUMBER()
+					{return new ExplodingSuccessDice(count,type,extra);}
+				) |
+				(
+					<DICE_EXPLODING>
+					{return new ExplodingDice(count,type);}
+				) |
+				(
+					<DICE_OPEN>
+					{return new OpenDice(count,type);}
+				) |
+				(
+					<DICE_HERO_STUN>
+					{return new HeroStunDice(count,type);}
+				) |
+				(
+					<DICE_HERO_BODY>
+					{return new HeroBodyDice(count,type);}
+				)
+			)?
+			{return new SimpleDice(count,type);}
+		)
+	}
+
+int NUMBER() :
+	{
+		Token number;
+	}
+	{
+		number=<NUMBER>
+		{return Integer.parseInt(number.image);}	}
