@@ -1,8 +1,27 @@
 package net.rptools.maptool.model.campaign;
 
+import com.jidesoft.grid.BooleanCheckBoxCellEditor;
+import com.jidesoft.grid.EditorContext;
+
 import net.rptools.maptool.util.math.CappedInteger;
 
 public enum TokenPropertyType {
+	BOOLEAN(Boolean.class) {
+		@Override
+		public Boolean parseObject(String str) {
+			return Boolean.valueOf(str);
+		}
+
+		@Override
+		public String printObject(Object obj) {
+			return ((Boolean)obj).toString();
+		}
+		
+		@Override
+		public EditorContext getEditorContext() {
+			return BooleanCheckBoxCellEditor.CONTEXT;
+		}
+	},
 	TEXT(String.class) {
 		@Override
 		public String parseObject(String str) {
@@ -78,5 +97,12 @@ public enum TokenPropertyType {
 
 	public String toStatsheetString(Object propertyValue) {
 		return propertyValue==null?"null":propertyValue.toString();
+	}
+
+	/**
+	 * @return something diffrent than null to switch the editors used for this property in a jide grid
+	 */
+	public EditorContext getEditorContext() {
+		return null;
 	}
 }

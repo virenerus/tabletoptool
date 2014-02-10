@@ -5,6 +5,7 @@ import java.awt.Component;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BoxLayout;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
@@ -27,12 +28,19 @@ public class CappedIntegerCellEditor extends AbstractCellEditor implements Table
 		panel.add(valueField);
 		panel.add(maxField);
 		valueField.setToolTipText("current value");
-		minField.setForeground(Color.GRAY);
+		setForeground(minField,Color.GRAY);
 		minField.setToolTipText("minimum value");
-		maxField.setForeground(Color.GRAY);
+		setForeground(maxField,Color.GRAY);
 		maxField.setToolTipText("maximum value");
 	}
     
+	private void setForeground(JSpinner spinner, Color c) {
+		JSpinner.DefaultEditor editor =(JSpinner.DefaultEditor)spinner.getEditor();
+		JFormattedTextField textField=(JFormattedTextField)editor.getTextField();
+		textField.setForeground(c);
+		textField.setCaretColor(c);
+	}
+
 	@Override
 	public CappedInteger getCellEditorValue() {
 		return new CappedInteger((Integer)valueField.getValue(),

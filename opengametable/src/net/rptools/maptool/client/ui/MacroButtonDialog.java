@@ -229,6 +229,8 @@ public class MacroButtonDialog extends JDialog {
 		commandTextArea.setAntiAliasingEnabled(true);
 		commandTextArea.setHighlightCurrentLine(false);
 		
+		//new GroovyLanguageSupport().install(commandTextArea);
+		
 		CompletionProvider provider = createCompletionProvider();
 		AutoCompletion ac = new AutoCompletion(provider);
 		ac.setAutoActivationEnabled(true);
@@ -252,6 +254,8 @@ public class MacroButtonDialog extends JDialog {
 		// caret position for a match against known completions. This is all
 		// that is needed in the majority of cases.
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
+		provider.setParameterizedCompletionParams('(', ", " , ')');
+		provider.setAutoActivationRules(false, ".");
 		
 		// Add completions for all Java keywords. A BasicCompletion is just
 		// a straightforward word completion.

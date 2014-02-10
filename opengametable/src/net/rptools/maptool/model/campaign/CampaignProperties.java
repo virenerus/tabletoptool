@@ -343,6 +343,9 @@ public class CampaignProperties {
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Movement", "Mov"));
 		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Elevation", "Elv", true, false, false));
 		list.add(new TokenProperty(TokenPropertyType.TEXT,"Description", "Des"));
+		tp=new TokenProperty(TokenPropertyType.BOOLEAN,"Female","fem");
+		tp.setDefaultValue(Boolean.FALSE);
+		list.add(tp);
 
 		tokenTypeMap.put(DEFAULT_TOKEN_PROPERTY_TYPE, list);
 	}

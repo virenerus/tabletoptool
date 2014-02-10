@@ -72,6 +72,7 @@ import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.campaign.TokenProperty;
+import net.rptools.maptool.model.campaign.TokenPropertyType;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.TypeUtil;
 
@@ -874,9 +875,23 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 			private final String key;
 
+			private TokenPropertyType type;
+
 			public EditTokenProperty(String key) {
 				super(key, key, null, (String) getPropertyTypeCombo().getSelectedItem());
 				this.key = key;
+				
+				//get Type from key
+				List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(getModel().getPropertyType());
+				for(TokenProperty propType:propTypes) {
+					if(propType.getName().equals(key)) {
+						type=propType.getType();
+						break;
+					}
+				}
+				
+				if(type.getEditorContext()!=null)
+					this.setEditorContext(type.getEditorContext());
 			}
 
 			@Override
@@ -896,13 +911,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			
 			@Override
 			public Class<?> getType() {
-				List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(getModel().getPropertyType());
-				for(TokenProperty propType:propTypes) {
-					if(propType.getName().equals(key)) {
-						return propType.getType().getType();
-					}
-				}
-				return null;
+				return type.getType();
 			}
 		}
 	}
