@@ -19,4 +19,8 @@ public class NegationNode implements DiceExpression {
 		return "-"+expr.toString();
 	}
 
+	public String toEvaluatedString() {
+		return "-("+expr.toEvaluatedString()+")";
+	}
+
 }

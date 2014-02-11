@@ -47,4 +47,15 @@ public class AdditionNode implements DiceExpression {
 		}
 		return sb.toString();
 	}
+
+	public String toEvaluatedString() {
+		StringBuilder sb=new StringBuilder();
+		for(int i=0;i<nodes.size();i++) {
+			if(operations.get(i))
+				sb.append('+').append(nodes.get(i).toEvaluatedString());
+			else
+				sb.append('-').append(nodes.get(i).toEvaluatedString());
+		}
+		return sb.toString();
+	}
 }

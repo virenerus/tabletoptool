@@ -17,4 +17,8 @@ public class NumberNode implements DiceExpression {
 	public String toString() {
 		return Integer.toString(number);
 	}
+
+	public String toEvaluatedString() {
+		return Integer.toString(number);
+	}
 }

@@ -6,4 +6,5 @@ public interface DiceExpression {
 
 	public int evaluate(Random random);
 	
+	public String toEvaluatedString();
 }

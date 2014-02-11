@@ -42,14 +42,31 @@ public class MultiplicationNode implements DiceExpression {
 		for(int i=0;i<nodes.size();i++) {
 			if(i>0) {
 				if(operations.get(i))
-					sb.append('*');
+					sb.append('\u00D7');
 				else
-					sb.append('/');
+					sb.append('\u00F7');
 			}
 			if(operations.get(i))
 				sb.append(nodes.get(i).toString());
 			else
 				sb.append(nodes.get(i).toString());
+		}
+		return sb.toString();
+	}
+
+	public String toEvaluatedString() {
+		StringBuilder sb=new StringBuilder();
+		for(int i=0;i<nodes.size();i++) {
+			if(i>0) {
+				if(operations.get(i))
+					sb.append('\u00D7');
+				else
+					sb.append('\u00F7');
+			}
+			if(operations.get(i))
+				sb.append(nodes.get(i).toEvaluatedString());
+			else
+				sb.append(nodes.get(i).toEvaluatedString());
 		}
 		return sb.toString();
 	}

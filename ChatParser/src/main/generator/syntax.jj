@@ -48,7 +48,7 @@ PARSER_END(ChatParser)
 
 <DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
 <DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
-<DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> }
+<DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> :AFTER_CC}
 <DICE_EXPR>TOKEN : { < CODE_END :  "§">:AFTER_CC }
 <DICE_EXPR>TOKEN : { < PLUS :  "+"> }
 <DICE_EXPR>TOKEN : { < MINUS :  "-"> }
@@ -86,8 +86,17 @@ List<ChatPart> Start() :
 				<CHAT_COMMAND_SLASH>
 				{ChatCommand cc;}
 				cc=CHAT_COMMAND()
-				<TEXT>
 				{list.add(new ChatCommandPart(cc));}
+				(
+					<EOF>
+					|
+					{Token t;} 
+					t=<TEXT>
+					{
+						if(!" ".equals(t.image))
+							list.add(new TextPart(t.image));
+					}
+				)
 		)?
 		
 		(
@@ -100,7 +109,7 @@ List<ChatPart> Start() :
 			{Token t;}		  
 			t=<TEXT>
 			{
-				if(list.getLast() instanceof TextPart)
+				if(!list.isEmpty() && list.getLast() instanceof TextPart)
 					((TextPart)list.getLast()).append(t.image);
 				else
 					list.add(new TextPart(t.image));
