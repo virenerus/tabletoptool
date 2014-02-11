@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.rptools.lib.FileUtil;
+import net.rptools.maptool.model.grid.Grid;
 
 import org.apache.commons.lang3.math.NumberUtils;
 

@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.grid;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -28,6 +28,13 @@ import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.tool.PointerTool;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.walker.ZoneWalker;
+import net.rptools.maptool.model.CellPoint;
+import net.rptools.maptool.model.GUID;
+import net.rptools.maptool.model.ModelChangeEvent;
+import net.rptools.maptool.model.Token;
+import net.rptools.maptool.model.TokenFootprint;
+import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.model.TokenFootprint.OffsetTranslator;
 import net.rptools.maptool.model.Zone.Event;
 

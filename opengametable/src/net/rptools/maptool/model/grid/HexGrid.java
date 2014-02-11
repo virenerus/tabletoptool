@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.grid;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -28,6 +28,10 @@ import net.rptools.lib.image.ImageUtil;
 import net.rptools.lib.swing.SwingUtil;
 import net.rptools.maptool.client.AppState;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
+import net.rptools.maptool.model.CellPoint;
+import net.rptools.maptool.model.Token;
+import net.rptools.maptool.model.TokenFootprint;
+import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.model.TokenFootprint.OffsetTranslator;
 
 /**
@@ -169,7 +173,7 @@ public abstract class HexGrid extends Grid {
 	/** Distance from centerpoint to middle of a face. Set to gridSize/2. */
 	private double minorRadius;
 	/**
-	 * Distance from centerpoint to vertex. Set to minorRadius/hexRatio (basically, uses 30¼ cosine to calculate
+	 * Distance from centerpoint to vertex. Set to minorRadius/hexRatio (basically, uses 30ï¿½ cosine to calculate
 	 * sqrt(3)/2).
 	 */
 	private double edgeLength;

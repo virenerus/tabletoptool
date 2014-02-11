@@ -97,9 +97,8 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 	}
 
 	private void sendUpdate() {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
-		MapTool.serverCommand().putToken(zone.getId(), token);
-		zone.putToken(token);
+		MapTool.serverCommand().putToken(token.getZone().getId(), token);
+		token.getZone().putToken(token);
 	}
 
 	@Override

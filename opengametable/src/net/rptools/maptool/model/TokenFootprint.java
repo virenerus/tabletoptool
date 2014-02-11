@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import net.rptools.maptool.model.grid.Grid;
+
 /**
  * This class represents the set of cells a token occupies based on its size. Each token is assumed to take up at least
  * one cell, additional cells are indicated by cell offsets assuming the occupied cell is at 0, 0

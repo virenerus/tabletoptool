@@ -40,9 +40,11 @@ import net.rptools.lib.image.ImageUtil;
 import net.rptools.lib.transferable.TokenTransferData;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.campaign.Campaign;
 import net.rptools.maptool.model.campaign.TokenProperty;
+import net.rptools.maptool.model.grid.Grid;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;
@@ -135,14 +137,16 @@ public class Token extends BaseModel {
 
 	private String name;
 	private Set<String> ownerList;
-
+	
 	private int ownerType;
+	
+	private transient Zone zone;
 
 	private static final int OWNER_TYPE_ALL = 1;
 	private static final int OWNER_TYPE_LIST = 0;
 
 	private String tokenShape;
-	private String tokenType;
+	private Type tokenType;
 	private String layer;
 	private transient Zone.Layer actualLayer;
 
@@ -217,7 +221,7 @@ public class Token extends BaseModel {
 		x = token.x;
 		y = token.y;
 		z = token.z;
-
+		
 		// These properties shouldn't be transferred, they are more transient and relate to token history, not to new tokens
 		//		lastX = token.lastX;
 		//		lastY = token.lastY;
@@ -448,20 +452,13 @@ public class Token extends BaseModel {
 	}
 
 	public Type getType() {
-		try {
-			// TODO: make this a psf
-			return tokenType != null ? Type.valueOf(tokenType) : Type.NPC;
-		} catch (IllegalArgumentException iae) {
-			tokenType = Type.NPC.name();
-			return Type.NPC;
-		}
+		return tokenType != null ? tokenType : Type.NPC;
 	}
 
 	public void setType(Type type) {
-		tokenType = type.name();
-		if (type == Type.PC) {
+		tokenType = type;
+		if (type == Type.PC)
 			hasSight = true;
-		}
 	}
 
 	public Zone.Layer getLayer() {
@@ -1494,5 +1491,13 @@ public class Token extends BaseModel {
 	 */
 	public GUID getExposedAreaGUID() {
 		return exposedAreaGUID;
+	}
+
+	public Zone getZone() {
+		return zone;
+	}
+
+	public void setZone(Zone zone) {
+		this.zone = zone;
 	}
 }

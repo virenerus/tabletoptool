@@ -9,7 +9,8 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.grid;
+
 
 /**
  * Given a string describing the type of desired grid, this factory

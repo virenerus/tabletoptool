@@ -65,7 +65,6 @@ import net.rptools.maptool.client.swing.GenericDialog;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.AssetManager;
 import net.rptools.maptool.model.Association;
-import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.ObservableList;
 import net.rptools.maptool.model.Player;
 import net.rptools.maptool.model.Token;
@@ -73,6 +72,7 @@ import net.rptools.maptool.model.TokenFootprint;
 import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.model.campaign.TokenPropertyType;
+import net.rptools.maptool.model.grid.Grid;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.TypeUtil;
 

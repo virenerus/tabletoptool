@@ -45,6 +45,7 @@ import net.rptools.maptool.model.drawing.DrawablePaint;
 import net.rptools.maptool.model.drawing.DrawableTexturePaint;
 import net.rptools.maptool.model.drawing.DrawnElement;
 import net.rptools.maptool.model.drawing.Pen;
+import net.rptools.maptool.model.grid.Grid;
 import net.rptools.maptool.util.StringUtil;
 
 import org.apache.log4j.Logger;
@@ -61,15 +62,15 @@ import org.apache.log4j.Logger;
 public class Zone extends BaseModel {
 	private static final Logger log = Logger.getLogger(Zone.class);
 
-	public enum VisionType {
+	public static enum VisionType {
 		OFF, DAY, NIGHT
 	}
 
-	public enum Event {
+	public static enum Event {
 		TOKEN_ADDED, TOKEN_REMOVED, TOKEN_CHANGED, GRID_CHANGED, DRAWABLE_ADDED, DRAWABLE_REMOVED, FOG_CHANGED, LABEL_ADDED, LABEL_REMOVED, LABEL_CHANGED, TOPOLOGY_CHANGED, INITIATIVE_LIST_CHANGED, BOARD_CHANGED
 	}
 
-	public enum Layer {
+	public static enum Layer {
 		TOKEN("Token"), GM("Hidden"), OBJECT("Object"), BACKGROUND("Background");
 
 		private String displayName;
@@ -976,6 +977,7 @@ public class Zone extends BaseModel {
 	public void putToken(Token token) {
 		boolean newToken = !tokenMap.containsKey(token.getId());
 
+		token.setZone(this);
 		tokenMap.put(token.getId(), token);
 
 		// LATER: optimize this

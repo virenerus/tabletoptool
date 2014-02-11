@@ -22,9 +22,9 @@ import java.util.Set;
 import java.util.prefs.Preferences;
 
 import net.rptools.maptool.client.walker.WalkerMetric;
-import net.rptools.maptool.model.GridFactory;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.grid.GridFactory;
 
 import org.apache.log4j.Logger;
 

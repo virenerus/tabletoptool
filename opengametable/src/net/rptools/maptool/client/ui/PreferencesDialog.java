@@ -40,10 +40,10 @@ import net.rptools.lib.swing.SwingUtil;
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.walker.WalkerMetric;
-import net.rptools.maptool.model.Grid;
-import net.rptools.maptool.model.GridFactory;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.grid.Grid;
+import net.rptools.maptool.model.grid.GridFactory;
 import net.rptools.maptool.util.StringUtil;
 
 import com.jeta.forms.components.colors.JETAColorWell;

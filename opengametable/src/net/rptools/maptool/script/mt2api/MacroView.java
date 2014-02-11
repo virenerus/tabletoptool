@@ -28,7 +28,7 @@ public class MacroView {
 	
 	public void setLabel(String label) {
 		macro.setLabel(label);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public TokenView getToken() {
@@ -41,7 +41,7 @@ public class MacroView {
 
 	public void setColorKey(String colorKey) {
 		macro.setColorKey(colorKey);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getCommand() {
@@ -50,7 +50,7 @@ public class MacroView {
 
 	public void setCommand(String command) {
 		macro.setCommand(command);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getGroup() {
@@ -59,7 +59,7 @@ public class MacroView {
 	
 	public void setGroup(String group) {
 		macro.setGroup(group);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getSortby() {
@@ -68,7 +68,7 @@ public class MacroView {
 
 	public void setSortby(String sortby) {
 		macro.setSortby(sortby);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public boolean getAutoExecute() {
@@ -77,7 +77,7 @@ public class MacroView {
 
 	public void setAutoExecute(boolean autoExecute) {
 		macro.setAutoExecute(autoExecute);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public boolean getApplyToTokens() {
@@ -86,7 +86,7 @@ public class MacroView {
 
 	public void setApplyToTokens(boolean applyToTokens) {
 		macro.setApplyToTokens(applyToTokens);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getFontColorKey() {
@@ -95,7 +95,7 @@ public class MacroView {
 
 	public void setFontColorKey(String fontColorKey) {
 		macro.setFontColorKey(fontColorKey);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getMinWidth() {
@@ -104,7 +104,7 @@ public class MacroView {
 
 	public void setMinWidth(String minWidth) {
 		macro.setMinWidth(minWidth);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getMaxWidth() {
@@ -113,12 +113,12 @@ public class MacroView {
 
 	public void setMaxWidth(String maxWidth) {
 		macro.setMaxWidth(maxWidth);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public void setToolTip(String tt) {
 		macro.setToolTip(tt);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public String getToolTip() {
@@ -131,7 +131,7 @@ public class MacroView {
 
 	public void setCommonMacro(Boolean value) {
 		macro.setCommonMacro(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public Boolean getCompareGroup() {
@@ -140,7 +140,7 @@ public class MacroView {
 
 	public void setCompareGroup(Boolean value) {
 		macro.setCompareGroup(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public Boolean getCompareSortPrefix() {
@@ -149,7 +149,7 @@ public class MacroView {
 
 	public void setCompareSortPrefix(Boolean value) {
 		macro.setCompareSortPrefix(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public Boolean getCompareCommand() {
@@ -158,7 +158,7 @@ public class MacroView {
 
 	public void setCompareCommand(Boolean value) {
 		macro.setCompareCommand(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public Boolean getCompareIncludeLabel() {
@@ -171,7 +171,7 @@ public class MacroView {
 
 	public void setCompareAutoExecute(Boolean value) {
 		macro.setCompareAutoExecute(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
 	public Boolean getCompareApplyToSelectedTokens() {
@@ -180,7 +180,7 @@ public class MacroView {
 
 	public void setCompareApplyToSelectedTokens(Boolean value) {
 		macro.setCompareApplyToSelectedTokens(value);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), macro.getToken());
+		MapTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 	
 	public Object executeMacro(String name, HashMap<String,Object> arguments) {

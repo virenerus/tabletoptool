@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.grid;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -24,6 +24,10 @@ import javax.swing.KeyStroke;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.client.tool.PointerTool;
+import net.rptools.maptool.model.CellPoint;
+import net.rptools.maptool.model.MovementKey;
+import net.rptools.maptool.model.TokenFootprint;
+import net.rptools.maptool.model.ZonePoint;
 
 public class GridlessGrid extends Grid {
 	private static List<TokenFootprint> footprintList;

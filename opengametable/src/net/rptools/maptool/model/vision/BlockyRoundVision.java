@@ -15,10 +15,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.NoninvertibleTransformException;
 
-import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Vision;
 import net.rptools.maptool.model.Zone;
+import net.rptools.maptool.model.grid.Grid;
 
 public class BlockyRoundVision extends Vision {
 	public BlockyRoundVision() {

@@ -13,6 +13,8 @@
  */
 package net.rptools.maptool.model;
 
+import net.rptools.maptool.model.grid.HexGrid;
+import net.rptools.maptool.model.grid.HexGridHorizontal;
 import junit.framework.TestCase;
 
 public class TestHexGrid extends TestCase {

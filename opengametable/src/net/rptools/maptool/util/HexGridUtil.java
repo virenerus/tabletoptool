@@ -12,8 +12,8 @@
 package net.rptools.maptool.util;
 
 import net.rptools.maptool.model.CellPoint;
-import net.rptools.maptool.model.HexGrid;
-import net.rptools.maptool.model.HexGridHorizontal;
+import net.rptools.maptool.model.grid.HexGrid;
+import net.rptools.maptool.model.grid.HexGridHorizontal;
 
 /**
  * Provides methods to handle hexgrid issues that don't exist with a square grid.

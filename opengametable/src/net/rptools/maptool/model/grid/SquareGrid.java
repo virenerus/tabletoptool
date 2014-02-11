@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package net.rptools.maptool.model;
+package net.rptools.maptool.model.grid;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,6 +40,10 @@ import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.walker.WalkerMetric;
 import net.rptools.maptool.client.walker.ZoneWalker;
 import net.rptools.maptool.client.walker.astar.AStarSquareEuclideanWalker;
+import net.rptools.maptool.model.CellPoint;
+import net.rptools.maptool.model.MovementKey;
+import net.rptools.maptool.model.TokenFootprint;
+import net.rptools.maptool.model.ZonePoint;
 
 public class SquareGrid extends Grid {
 	private static final String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //$NON-NLS-1$

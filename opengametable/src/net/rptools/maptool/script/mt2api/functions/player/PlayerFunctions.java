@@ -12,7 +12,7 @@ public class PlayerFunctions {
 	public TokenView getImpersonatedToken() {
 		GUID guid = MapTool.getFrame().getCommandPanel().getIdentityGUID();
 		if (guid != null)
-			return new TokenView(MapTool.getFrame().getCurrentZoneRenderer().getZone().getToken(guid));
+			return new TokenView(MapTool.getFrame().findToken(guid));
 		else
 			return new TokenView(MapTool.getFrame().getCurrentZoneRenderer().getZone().resolveToken(MapTool.getFrame().getCommandPanel().getIdentity()));
 	}

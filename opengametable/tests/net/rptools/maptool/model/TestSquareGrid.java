@@ -13,6 +13,8 @@
  */
 package net.rptools.maptool.model;
 
+import net.rptools.maptool.model.grid.Grid;
+import net.rptools.maptool.model.grid.SquareGrid;
 import junit.framework.TestCase;
 
 public class TestSquareGrid extends TestCase {

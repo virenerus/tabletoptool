@@ -31,13 +31,11 @@ import net.rptools.maptool.model.AbstractPoint;
 import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.Direction;
 import net.rptools.maptool.model.GUID;
-import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.LightSource;
 import net.rptools.maptool.model.MacroButtonProperties;
 import net.rptools.maptool.model.Path;
-import net.rptools.maptool.model.SquareGrid;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.model.Token.Type;
 import net.rptools.maptool.model.TokenFootprint;
@@ -45,6 +43,8 @@ import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.model.campaign.TokenProperty;
+import net.rptools.maptool.model.grid.Grid;
+import net.rptools.maptool.model.grid.SquareGrid;
 import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 import net.rptools.maptool.script.mt2api.functions.token.TokenPart;
@@ -157,7 +157,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return if this token was actually added
 	 */
 	public boolean addToInitiative(boolean allowDuplicates, String state) {
-		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		InitiativeList list = token.getZone().getInitiativeList();
 	    // insert the token if needed
 	    TokenInitiative ti = null;
 	    if (allowDuplicates || !list.contains(token)) {
@@ -171,7 +171,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public int removeFromInitiative() {
-		InitiativeList list = MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+		InitiativeList list = token.getZone().getInitiativeList();
 		List<Integer> tokens = list.indexOf(token);
 		list.startUnitOfWork();
 	    for (int i = tokens.size() - 1; i >= 0; i--) list.removeToken(tokens.get(i).intValue());
@@ -193,7 +193,7 @@ public class TokenView extends TokenPropertyView {
 	 */
 	public void setName(String name) {
 		token.setName(name);
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		MapTool.serverCommand().putToken(renderer.getZone().getId(), token);
 	}
 	
@@ -204,7 +204,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return
 	 */
 	public boolean isVisible(int x, int y) {
-		Area visArea = MapTool.getFrame().getCurrentZoneRenderer().getZoneView().getVisibleArea(token);
+		Area visArea = MapTool.getFrame().getZoneRenderer(token.getZone()).getZoneView().getVisibleArea(token);
 		if (visArea == null)
 			return false;
 		else
@@ -218,7 +218,7 @@ public class TokenView extends TokenPropertyView {
      * @return The first token initiative value for the passed token
      */
     public String getInitiative() {
-        Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+        Zone zone = token.getZone();
         List<Integer> list = zone.getInitiativeList().indexOf(token);
         if (list.isEmpty()) return null; 
         return zone.getInitiativeList().getTokenInitiative(list.get(0).intValue()).getState(); 
@@ -231,7 +231,7 @@ public class TokenView extends TokenPropertyView {
      * @return The first token initiative value for the passed token
      */
     public List<String> getInitiatives() {
-        Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+        Zone zone = token.getZone();
         List<Integer> list = zone.getInitiativeList().indexOf(token);
         if (list.isEmpty()) return Collections.emptyList();
         List<String> ret = new ArrayList<String>(list.size());
@@ -241,7 +241,7 @@ public class TokenView extends TokenPropertyView {
     }
     
     public void setTokenInitiative(String state) {
-    	InitiativeList list=MapTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList();
+    	InitiativeList list=token.getZone().getInitiativeList();
     	for(Integer index:list.indexOf(token)) {
 	        TokenInitiative ti = list.getTokenInitiative(index);
 	        if(ti!=null)
@@ -332,7 +332,7 @@ public class TokenView extends TokenPropertyView {
     }
     
 	private void sendUpdateToServer() {
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
+		MapTool.serverCommand().putToken(token.getZone().getId(), token);
 	}
 
 	public GUID getId() {
@@ -349,7 +349,7 @@ public class TokenView extends TokenPropertyView {
 		if(!token.getHasSight())
 			return EnumSet.noneOf(TokenPart.class);
 		
-		ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer zr=MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone=zr.getZone();
 		Area tokensVisibleArea = zr.getZoneView().getVisibleArea(token);
 		if (tokensVisibleArea == null)
@@ -395,7 +395,7 @@ public class TokenView extends TokenPropertyView {
 	public void setHasSight(boolean value) {
 		token.setHasSight(value);
 		this.sendUpdateToServer();
-		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
 	public String getSightType() {
@@ -405,12 +405,12 @@ public class TokenView extends TokenPropertyView {
 	public void setSightType(String sightType) {
 		token.setSightType(sightType);
 		this.sendUpdateToServer();
-		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
 	public void setLabel(String label) {
 		token.setLabel(label);
-		MapTool.getFrame().getCurrentZoneRenderer().getZone().putToken(token);
+		token.getZone().putToken(token);
 		this.sendUpdateToServer();
 	}
 	
@@ -424,7 +424,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public void setGMName(String name) {
 		token.setGMName(name);
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
 	}
@@ -453,13 +453,13 @@ public class TokenView extends TokenPropertyView {
 		}
 		
 		// TODO: This works for now but could result in a lot of resending of data
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
 	public boolean getInitiativeHold() {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
         List<Integer> list = zone.getInitiativeList().indexOf(token);
         if (list.isEmpty())
         	throw new IllegalArgumentException("The accessed token is not on the current map"); 
@@ -467,7 +467,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void setInitiativeHold(boolean value) {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
         for(TokenInitiative ti : zone.getInitiativeList().getTokens())
         	if(ti.getToken().equals(token))
         		ti.setHolding(value);
@@ -501,7 +501,7 @@ public class TokenView extends TokenPropertyView {
 		token.clearLightSources();
 		this.sendUpdateToServer();
 		MapTool.getFrame().updateTokenTree();
-		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
 	/**
@@ -525,7 +525,7 @@ public class TokenView extends TokenPropertyView {
 				break;
 			}
 		}
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
@@ -571,10 +571,10 @@ public class TokenView extends TokenPropertyView {
 
 	public TokenLocation getLocation(boolean useDistancePerCell) {
 		if (useDistancePerCell) {
-			Rectangle tokenBounds = token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone());
+			Rectangle tokenBounds = token.getBounds(token.getZone());
 			return new TokenLocation(tokenBounds.x, tokenBounds.y, token.getZOrder());
 		} else {
-			Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+			Zone zone = token.getZone();
 			CellPoint cellPoint = zone.getGrid().convert(new ZonePoint(token.getX(), token.getY()));
 			return new TokenLocation(cellPoint.x, cellPoint.y, token.getZOrder());
 		}
@@ -586,7 +586,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public void setDrawOrder(int newOrder) {
 		token.setZOrder(newOrder);
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
@@ -614,7 +614,7 @@ public class TokenView extends TokenPropertyView {
 	 * @throws ParserException
 	 */
 	public double getDistance(TokenView target, boolean gridUnits, String metric) {
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Grid grid = renderer.getZone().getGrid();
 
 		if (grid.getCapabilities().isPathingSupported() && !"NO_GRID".equals(metric)) {
@@ -682,7 +682,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public double getDistance(int x, int y, boolean gridUnits, String metric) {
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Grid grid = renderer.getZone().getGrid();
 
 		if (grid.getCapabilities().isPathingSupported() && !"NO_GRID".equals(metric)) {
@@ -739,7 +739,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param gridUnits  whether the (x,y) coordinates are in zone coordinates or point to a grid cell
 	 */
 	public void moveToken(int x, int y, boolean gridUnits) {
-		Grid grid = MapTool.getFrame().getCurrentZoneRenderer().getZone().getGrid();
+		Grid grid = token.getZone().getGrid();
 
 		if (gridUnits) {
 			CellPoint cp = new CellPoint(x, y);
@@ -752,7 +752,7 @@ public class TokenView extends TokenPropertyView {
 			token.setY(zp.y);
 		}
 		
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
@@ -781,7 +781,7 @@ public class TokenView extends TokenPropertyView {
 		Path<? extends AbstractPoint> path = token.getLastPath();
 		List<IntPoint> points = new ArrayList<IntPoint>();
 		if (path != null) {
-			Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+			Zone zone = token.getZone();
 			AbstractPoint zp = null;
 			for (AbstractPoint pathCells : path.getCellPath()) {
 				if (pathCells instanceof CellPoint) {
@@ -806,7 +806,7 @@ public class TokenView extends TokenPropertyView {
 	public boolean isSnapToGrid() {
 		return token.isSnapToGrid();
 	}
-
+	
 	/**
 	 * Returns the Rectangle the token would fill if it stould at the given coordinates
 	 * @param zone the zone where to calculate where the token stands
@@ -814,7 +814,8 @@ public class TokenView extends TokenPropertyView {
 	 * @param y the y coodinate (gridless)
 	 * @return the bounding rectangle
 	 */
-	public Rectangle getBounds(Zone zone, int x, int y) {
+	public Rectangle getBounds(int x, int y) {
+		Zone zone=token.getZone();
 		if (token.isSnapToGrid()) {
 			return token.getFootprint(zone.getGrid()).getBounds(zone.getGrid(), zone.getGrid().convert(new ZonePoint(x,y)));
 		} else {
@@ -822,8 +823,8 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 
-	public Rectangle getBounds(Zone zone) {
-		return getBounds(zone,token.getX(),token.getY());
+	public Rectangle getBounds() {
+		return getBounds(token.getX(),token.getY());
 	}
 	
 	public Set<String> getPropertyNames() {
@@ -845,7 +846,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public void setPC() {
 		if(token.getType()!=Type.PC) {
-			ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+			ZoneRenderer zr=MapTool.getFrame().getZoneRenderer(token.getZone());
 			Zone zone=zr.getZone();
 			token.setType(Token.Type.PC);
 			MapTool.serverCommand().putToken(zone.getId(), token);
@@ -857,7 +858,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public void setNPC() {
 		if(token.getType()!=Type.NPC) {
-			ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+			ZoneRenderer zr=MapTool.getFrame().getZoneRenderer(token.getZone());
 			Zone zone=zr.getZone();
 			token.setType(Token.Type.NPC);
 			MapTool.serverCommand().putToken(zone.getId(), token);
@@ -873,7 +874,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public void setLayer(String layer, boolean forceShape) {
 		Layer l=Zone.Layer.valueOf(layer);
-		ZoneRenderer zr=MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer zr=MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone=zr.getZone();
 		token.setLayer(l);
 		if (forceShape) {
@@ -915,7 +916,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return the size of the token.
 	 */
 	public String getSize() {
-		Grid grid = MapTool.getFrame().getCurrentZoneRenderer().getZone().getGrid();
+		Grid grid = token.getZone().getGrid();
 		if (token.isSnapToScale()) {
 			for (TokenFootprint footprint : grid.getFootprints()) {
 				if (token.getFootprint(grid) == footprint) {
@@ -943,7 +944,7 @@ public class TokenView extends TokenPropertyView {
 			return this.getSize();
 		}
 		token.setSnapToScale(true);
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		Grid grid = zone.getGrid();
 		for (TokenFootprint footprint : grid.getFootprints()) {
@@ -973,7 +974,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void resetProperty(String property) {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		token.resetProperty(property);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
@@ -985,7 +986,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void setProperty(String property, Object value) {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		token.setProperty(property, value);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
@@ -1019,19 +1020,19 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void sendToBack() {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		MapTool.serverCommand().sendTokensToBack(zone.getId(), Collections.singleton(token.getId()));
 		zone.putToken(token);
 	}
 	
 	public void bringToFront() {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		MapTool.serverCommand().bringTokensToFront(zone.getId(), Collections.singleton(token.getId()));
 		zone.putToken(token);
 	}
 	
 	public void setPropertyType(String type) {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		token.setPropertyType(type);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token); // FJE Should this be here?  Added because other places have it...?!
@@ -1046,7 +1047,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void setFacing(Integer direction) {
-		ZoneRenderer renderer = MapTool.getFrame().getCurrentZoneRenderer();
+		ZoneRenderer renderer = MapTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		token.setFacing(direction);
 		MapTool.serverCommand().putToken(zone.getId(), token);
@@ -1069,7 +1070,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public void addOwner(String player) {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		token.addOwner(player);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
@@ -1077,24 +1078,24 @@ public class TokenView extends TokenPropertyView {
 	
 	public void clearAllOwners() {
 		token.clearAllOwners();
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
 	}
 	
 	public void removeOwner(String player) {
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone=token.getZone();
 		token.removeOwner(player);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token);
 	}
 	
 	public int getWidth() {
-		return token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone()).width;
+		return token.getBounds(token.getZone()).width;
 	}
 	
 	public int getHeight() {
-		return token.getBounds(MapTool.getFrame().getCurrentZoneRenderer().getZone()).height;
+		return token.getBounds(token.getZone()).height;
 	}
 	
 	public String getTokenShape() {
@@ -1108,7 +1109,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	public TokenView copyToken() {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		List<Token> allTokens = zone.getTokens();
 		Token t = new Token(token);
 
@@ -1124,12 +1125,12 @@ public class TokenView extends TokenPropertyView {
 
 		MapTool.serverCommand().putToken(zone.getId(), t);
 			
-		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 		return new TokenView(t);
 	}
 	
 	public List<TokenView> copyToken(int numberOfCopies) {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		List<TokenView> newTokens = new ArrayList<TokenView>(numberOfCopies);
 		List<Token> allTokens = zone.getTokens();
 		for (int i = 0; i < numberOfCopies; i++) {
@@ -1148,31 +1149,31 @@ public class TokenView extends TokenPropertyView {
 			MapTool.serverCommand().putToken(zone.getId(), t);
 			newTokens.add(new TokenView(t));
 		}
-		MapTool.getFrame().getCurrentZoneRenderer().flushLight();
+		MapTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 		return newTokens;
 	}
 	
 	public void removeToken() {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		MapTool.serverCommand().removeToken(zone.getId(), token.getId());
 	}
 	
 	public void setTokenImage(String assetId) {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		token.setImageAsset(null, new MD5Key(assetId));
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
 	public void setTokenPortrait(String assetId) {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		token.setPortraitImage(new MD5Key(assetId));
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
 	public void setTokenHandout(String assetId) {
-		Zone zone = MapTool.getFrame().getCurrentZoneRenderer().getZone();
+		Zone zone = token.getZone();
 		token.setCharsheetImage(new MD5Key(assetId));
 		zone.putToken(token);
 		MapTool.serverCommand().putToken(zone.getId(), token);
@@ -1202,7 +1203,7 @@ public class TokenView extends TokenPropertyView {
 		MacroButtonProperties mbp=token.getMacro(macroName, false);
 		if(mbp!=null) {
 			token.deleteMacroButtonProperty(mbp);
-			MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
+			MapTool.serverCommand().putToken(token.getZone().getId(), token);
 			return true;
 		}
 		return false;
@@ -1211,7 +1212,7 @@ public class TokenView extends TokenPropertyView {
 	public MacroView createMacro(String label) {
 		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
 		mbp.setToken(token);
-		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
+		MapTool.serverCommand().putToken(token.getZone().getId(), token);
 		return new MacroView(mbp);
 	}
 	

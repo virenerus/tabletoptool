@@ -14,10 +14,10 @@ import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.walker.WalkerMetric;
 import net.rptools.maptool.client.walker.ZoneWalker;
 import net.rptools.maptool.model.CellPoint;
-import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.Path;
 import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZonePoint;
+import net.rptools.maptool.model.grid.Grid;
 import net.rptools.maptool.script.mt2api.TokenView;
 import net.rptools.maptool.util.math.IntLine;
 import net.rptools.maptool.util.math.IntPoint;
@@ -137,7 +137,6 @@ public class PathFunctions {
 	 */
 	public List<IntPoint> movedOverPoint(TokenView token, List<IntPoint> path, List<IntPoint> points) {
 		List<IntPoint> returnPoints = new ArrayList<IntPoint>(points.size());
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
 
 		Polygon targetArea = new Polygon();
 		for (IntPoint point : points) {
@@ -147,7 +146,7 @@ public class PathFunctions {
 		}
 		
 		for (IntPoint entry : path) {
-			Rectangle2D oa = token.getBounds(zone,entry.getX(),entry.getY()).getBounds2D();
+			Rectangle2D oa = token.getBounds(entry.getX(),entry.getY()).getBounds2D();
 			if (targetArea.contains(oa) || targetArea.intersects(oa)) {
 				returnPoints.add(entry);
 			}
@@ -158,15 +157,14 @@ public class PathFunctions {
 	public List<IntPoint> movedOverToken(TokenView token, List<IntPoint> path, TokenView target) {
 		List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 
-		Zone zone=MapTool.getFrame().getCurrentZoneRenderer().getZone();
-		Rectangle targetArea = target.getBounds(zone);
+		Rectangle targetArea = target.getBounds();
 
 		if (path == null) {
 			return returnPoints;
 		}
 		if (token.isSnapToGrid()) {
 			for (IntPoint entry : path) {
-				Rectangle originalArea = token.getBounds(zone, entry.getX(), entry.getY());
+				Rectangle originalArea = token.getBounds(entry.getX(), entry.getY());
 				if (targetArea.intersects(originalArea) || originalArea.intersects(targetArea)) {
 					returnPoints.add(entry);
 				}
@@ -176,7 +174,7 @@ public class PathFunctions {
 			int ctr = 0;
 			Point previousPoint = new Point();
 			for (IntPoint entry : path) {
-				Rectangle tokenArea = token.getBounds(zone);
+				Rectangle tokenArea = token.getBounds();
 				Point currentPoint = new Point(entry.getX(), entry.getY());
 				if (ctr > 0) {
 					if (targetArea.intersectsLine(new Line2D.Double(previousPoint, currentPoint)) ||

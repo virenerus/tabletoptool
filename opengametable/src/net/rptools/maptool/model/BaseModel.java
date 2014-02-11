@@ -28,7 +28,7 @@ public class BaseModel {
 		listenerList.remove(listener);
 	}
 
-	protected void fireModelChangeEvent(ModelChangeEvent event) {
+	public void fireModelChangeEvent(ModelChangeEvent event) {
 
 		for (ModelChangeListener listener : listenerList) {
 			listener.modelChanged(event);

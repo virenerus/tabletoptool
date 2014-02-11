@@ -29,7 +29,6 @@ import net.rptools.maptool.model.Asset;
 import net.rptools.maptool.model.AssetManager;
 import net.rptools.maptool.model.ExposedAreaMetaData;
 import net.rptools.maptool.model.GUID;
-import net.rptools.maptool.model.Grid;
 import net.rptools.maptool.model.InitiativeList;
 import net.rptools.maptool.model.InitiativeList.TokenInitiative;
 import net.rptools.maptool.model.Label;
@@ -45,6 +44,7 @@ import net.rptools.maptool.model.campaign.CampaignProperties;
 import net.rptools.maptool.model.drawing.Drawable;
 import net.rptools.maptool.model.drawing.DrawnElement;
 import net.rptools.maptool.model.drawing.Pen;
+import net.rptools.maptool.model.grid.Grid;
 import net.rptools.maptool.transfer.AssetProducer;
 
 /**
