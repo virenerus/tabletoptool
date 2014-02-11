@@ -202,10 +202,6 @@ public class Zone extends BaseModel {
 	 * Returns the distance in map pixels at a 1:1 zoom
 	 */
 	public int getTokenVisionInPixels() {
-		if (tokenVisionDistance == 0) {
-			// TODO: This is here to provide transition between pre 1.3b19 an 1.3b19.  Remove later
-			tokenVisionDistance = DEFAULT_TOKEN_VISION_DISTANCE;
-		}
 		return (tokenVisionDistance * grid.getSize() / getUnitsPerCell());
 	}
 

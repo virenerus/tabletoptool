@@ -40,13 +40,10 @@ import net.rptools.lib.image.ImageUtil;
 import net.rptools.lib.transferable.TokenTransferData;
 import net.rptools.maptool.client.AppUtil;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.language.I18N;
+import net.rptools.maptool.model.Zone.Layer;
 import net.rptools.maptool.model.campaign.Campaign;
-import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.model.grid.Grid;
-import net.rptools.maptool.script.MT2ScriptException;
-import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
 
@@ -138,17 +135,13 @@ public class Token extends BaseModel {
 	private String name;
 	private Set<String> ownerList;
 	
-	private int ownerType;
+	private boolean ownedByAll;
 	
 	private transient Zone zone;
 
-	private static final int OWNER_TYPE_ALL = 1;
-	private static final int OWNER_TYPE_LIST = 0;
-
-	private String tokenShape;
+	private TokenShape tokenShape;
 	private Type tokenType;
-	private String layer;
-	private transient Zone.Layer actualLayer;
+	private Zone.Layer layer;
 
 	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
 
@@ -189,26 +182,12 @@ public class Token extends BaseModel {
 	/**
 	 * Properties
 	 */
-	// I screwed up.  propertyMap was HashMap<String,Object> in pre-1.3b70 (?)
-	// and became a CaseInsensitiveMap<Object> thereafter.  So in order to
-	// be able to load old tokens, we need to read in the original data type and
-	// copy the elements into the new data type.  But because the name didn't
-	// change (that was the screw up) we have special code in readResolve() to
-	// help XStream move the data around.
-	private Map<String, Object> propertyMap; // 1.3b77 and earlier
-	private CaseInsensitiveMap<String,Object> propertyMapCI;
+	private CaseInsensitiveMap<String,Object> propertyMap;
 
 	private Map<String, String> macroMap;
 	private Map<Integer, Object> macroPropertiesMap;
 
 	private Map<String, String> speechMap;
-
-	// Deprecated, here to allow deserialization
-	@SuppressWarnings("unused")
-	private transient int size; // 1.3b16
-
-	@SuppressWarnings("unused")
-	private transient List<Vision> visionList; // 1.3b18
 
 	public enum ChangeEvent {
 		name, MACRO_CHANGED
@@ -262,7 +241,7 @@ public class Token extends BaseModel {
 		hasSight = token.hasSight;
 		propertyType = token.propertyType;
 
-		ownerType = token.ownerType;
+		ownedByAll = token.ownedByAll;
 		if (token.ownerList != null) {
 			ownerList = new HashSet<String>();
 			ownerList.addAll(token.ownerList);
@@ -273,9 +252,9 @@ public class Token extends BaseModel {
 		if (token.state != null) {
 			state.putAll(token.state);
 		}
-		if (token.propertyMapCI != null) {
+		if (token.propertyMap != null) {
 			getPropertyMap().clear();
-			getPropertyMap().putAll(token.propertyMapCI);
+			getPropertyMap().putAll(token.propertyMap);
 		}
 		if (token.macroPropertiesMap != null) {
 			macroPropertiesMap = new HashMap<Integer, Object>(token.macroPropertiesMap);
@@ -342,7 +321,6 @@ public class Token extends BaseModel {
 //		propertyType = "Basic";
 		sightType = MapTool.getCampaign().getCampaignProperties().getDefaultSightType();
 //		state = null;
-		visionList = null;
 	}
 
 	public void setHasSight(boolean hasSight) {
@@ -426,13 +404,7 @@ public class Token extends BaseModel {
 	}
 
 	public boolean isStamp() {
-		switch (getLayer()) {
-		case BACKGROUND:
-		case OBJECT:
-		case GM:
-			return true;
-		}
-		return false;
+		return getLayer()!=Layer.TOKEN;
 	}
 
 	public boolean isToken() {
@@ -440,15 +412,11 @@ public class Token extends BaseModel {
 	}
 
 	public TokenShape getShape() {
-		try {
-			return tokenShape != null ? TokenShape.valueOf(tokenShape) : TokenShape.SQUARE; // TODO: make this a psf
-		} catch (IllegalArgumentException iae) {
-			return TokenShape.SQUARE;
-		}
+		return tokenShape != null ? tokenShape : TokenShape.SQUARE;
 	}
 
 	public void setShape(TokenShape type) {
-		this.tokenShape = type.name();
+		this.tokenShape = type;
 	}
 
 	public Type getType() {
@@ -462,19 +430,11 @@ public class Token extends BaseModel {
 	}
 
 	public Zone.Layer getLayer() {
-		try {
-			if (actualLayer == null) {
-				actualLayer = layer != null ? Zone.Layer.valueOf(layer) : Zone.Layer.TOKEN;
-			}
-			return actualLayer;
-		} catch (IllegalArgumentException iae) {
-			return Zone.Layer.TOKEN;
-		}
+		return layer != null ? layer : Zone.Layer.TOKEN;
 	}
 
 	public void setLayer(Zone.Layer layer) {
-		this.layer = layer.name();
-		actualLayer = layer;
+		this.layer = layer;
 	}
 
 	public boolean hasFacing() {
@@ -638,7 +598,7 @@ public class Token extends BaseModel {
 	}
 
 	public synchronized void addOwner(String playerId) {
-		ownerType = OWNER_TYPE_LIST;
+		this.ownedByAll=false;
 		if (ownerList == null) {
 			ownerList = new HashSet<String>();
 		}
@@ -646,11 +606,11 @@ public class Token extends BaseModel {
 	}
 
 	public synchronized boolean hasOwners() {
-		return ownerType == OWNER_TYPE_ALL || (ownerList != null && !ownerList.isEmpty());
+		return ownedByAll || (ownerList != null && !ownerList.isEmpty());
 	}
 
 	public synchronized void removeOwner(String playerId) {
-		ownerType = OWNER_TYPE_LIST;
+		ownedByAll=false;
 		if (ownerList == null) {
 			return;
 		}
@@ -661,12 +621,9 @@ public class Token extends BaseModel {
 	}
 
 	public synchronized void setOwnedByAll(boolean ownedByAll) {
-		if (ownedByAll) {
-			ownerType = OWNER_TYPE_ALL;
+		this.ownedByAll=ownedByAll;
+		if (ownedByAll)
 			ownerList = null;
-		} else {
-			ownerType = OWNER_TYPE_LIST;
-		}
 	}
 
 	public Set<String> getOwners() {
@@ -674,7 +631,7 @@ public class Token extends BaseModel {
 	}
 
 	public boolean isOwnedByAll() {
-		return ownerType == OWNER_TYPE_ALL;
+		return this.ownedByAll;
 	}
 
 	public synchronized void clearAllOwners() {
@@ -682,7 +639,7 @@ public class Token extends BaseModel {
 	}
 
 	public synchronized boolean isOwner(String playerId) {
-		return /* getType() == Type.PC && */(ownerType == OWNER_TYPE_ALL || (ownerList != null && ownerList.contains(playerId)));
+		return this.ownedByAll || (ownerList != null && ownerList.contains(playerId));
 	}
 
 	@Override
@@ -1010,10 +967,10 @@ public class Token extends BaseModel {
 	}
 
 	private CaseInsensitiveMap<String,Object> getPropertyMap() {
-		if (propertyMapCI == null) {
-			propertyMapCI = new CaseInsensitiveMap<String,Object>();
+		if (propertyMap == null) {
+			propertyMap = new CaseInsensitiveMap<String,Object>();
 		}
-		return propertyMapCI;
+		return propertyMap;
 	}
 
 	private void loadOldMacros() {
@@ -1256,7 +1213,7 @@ public class Token extends BaseModel {
 		td.put(TokenTransferData.WIDTH, scaleX);
 		td.put(TokenTransferData.HEIGHT, scaleY);
 		td.put(TokenTransferData.SNAP_TO_GRID, snapToGrid);
-		td.put(TokenTransferData.OWNER_TYPE, ownerType);
+		td.put(TokenTransferData.OWNER_TYPE, ownedByAll);
 		td.put(TokenTransferData.VISIBLE_OWNER_ONLY, visibleOnlyToOwner);
 		td.put(TokenTransferData.TOKEN_TYPE, tokenShape);
 		td.put(TokenTransferData.NOTES, notes);
@@ -1300,8 +1257,8 @@ public class Token extends BaseModel {
 		visibleOnlyToOwner = getBoolean(td, TokenTransferData.VISIBLE_OWNER_ONLY, false);
 		name = td.getName();
 		ownerList = td.getPlayers();
-		ownerType = getInt(td, TokenTransferData.OWNER_TYPE, ownerList == null ? OWNER_TYPE_ALL : OWNER_TYPE_LIST);
-		tokenShape = (String) td.get(TokenTransferData.TOKEN_TYPE);
+		ownedByAll = getBoolean(td, TokenTransferData.OWNER_TYPE, ownerList == null ? true : false);
+		tokenShape = (TokenShape)td.get(TokenTransferData.TOKEN_TYPE);
 		facing = td.getFacing();
 		notes = (String) td.get(TokenTransferData.NOTES);
 		gmNotes = (String) td.get(TokenTransferData.GM_NOTES);
@@ -1456,21 +1413,6 @@ public class Token extends BaseModel {
 	@Override
 	protected Object readResolve() {
 		super.readResolve();
-		// FJE: If the propertyMap field has something in it, it could be:
-		//		a pre-1.3b66 token that contains a HashMap<?,?>, or
-		//		a pre-1.3b78 token that actually has the CaseInsensitiveMap<?>.
-		// Newer tokens will use propertyMapCI so we only need to make corrections
-		// if the old field has data in it.
-		if (propertyMap != null) {
-			if (propertyMap instanceof CaseInsensitiveMap) {
-				propertyMapCI = (CaseInsensitiveMap<String,Object>) propertyMap;
-			} else {
-				propertyMapCI = new CaseInsensitiveMap<String,Object>();
-				propertyMapCI.putAll(propertyMap);
-				propertyMap.clear(); // It'll never be written out, but we should free the memory.
-			}
-			propertyMap = null;
-		}
 		// 1.3 b77
 		if (exposedAreaGUID == null) {
 			exposedAreaGUID = new GUID();

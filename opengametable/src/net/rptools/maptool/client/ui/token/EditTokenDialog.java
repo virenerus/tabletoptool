@@ -321,7 +321,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 	private void updatePropertyTypeCombo() {
 		List<String> typeList = new ArrayList<String>(MapTool.getCampaign().getTokenTypes());
 		Collections.sort(typeList);
-		DefaultComboBoxModel model = new DefaultComboBoxModel(typeList.toArray());
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(typeList.toArray(new String[typeList.size()]));
 		getPropertyTypeCombo().setModel(model);
 		getPropertyTypeCombo().addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -352,8 +352,8 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		return (JComboBox) getComponent("size");
 	}
 
-	public JComboBox getPropertyTypeCombo() {
-		return (JComboBox) getComponent("propertyTypeCombo");
+	public JComboBox<String> getPropertyTypeCombo() {
+		return (JComboBox<String>) getComponent("propertyTypeCombo");
 	}
 
 	public JComboBox getSightTypeCombo() {
@@ -916,7 +916,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		}
 	}
 
-	private class OwnerListModel extends AbstractListModel {
+	private class OwnerListModel extends AbstractListModel<Selectable> {
 		private static final long serialVersionUID = 2375600545516097234L;
 
 		List<Selectable> ownerList = new ArrayList<Selectable>();
@@ -943,7 +943,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			}
 		}
 
-		public Object getElementAt(int index) {
+		public Selectable getElementAt(int index) {
 			return ownerList.get(index);
 		}
 
