@@ -9,7 +9,7 @@
         import net.sf.mt2.chatparser.TextPart;
         import net.sf.mt2.chatparser.ChatCommand;
         import net.sf.mt2.chatparser.UnknownCommandException;
-        import net.sf.mt2.chatparser.ChatCommandPart;
+        import net.sf.mt2.chatparser.ParsedChat;
         import net.sf.mt2.dice.*;
         import net.sf.mt2.dice.expression.*;
         import java.io.BufferedReader;
@@ -25,22 +25,22 @@
                         this.inputString=str;
                 }
 
-                public List<? extends ChatPart> parse() throws UnknownCommandException {
+                public ParsedChat parse() throws UnknownCommandException {
                         try {
                                 return START();
                         } catch(ParseException e) {
                                 e.printStackTrace();
-                                return Collections.singletonList(new TextPart(inputString));
+                                return new ParsedChat(new TextPart(inputString));
                         }
                 }
 
-  final private List<ChatPart> START() throws ParseException, UnknownCommandException {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+  final private ParsedChat START() throws ParseException, UnknownCommandException {ParsedChat list=new ParsedChat();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case CHAT_COMMAND_SLASH:{
       jj_consume_token(CHAT_COMMAND_SLASH);
 ChatCommand cc;
       cc = CHAT_COMMAND();
-list.add(new ChatCommandPart(cc));
+list.setChatCommand(cc);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case 0:{
         jj_consume_token(0);
@@ -86,7 +86,7 @@ list.add(new DiceExpressionPart(DICE_EXPRESSION()));
       case TEXT:{
 Token t;
         t = jj_consume_token(TEXT);
-if(!list.isEmpty() && list.getLast() instanceof TextPart)
+if(list.getLast() instanceof TextPart)
                                         ((TextPart)list.getLast()).append(t.image);
                                 else
                                         list.add(new TextPart(t.image));

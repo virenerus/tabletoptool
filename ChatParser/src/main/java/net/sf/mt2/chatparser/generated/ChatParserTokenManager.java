@@ -8,7 +8,7 @@ import net.sf.mt2.chatparser.DiceExpressionPart;
 import net.sf.mt2.chatparser.TextPart;
 import net.sf.mt2.chatparser.ChatCommand;
 import net.sf.mt2.chatparser.UnknownCommandException;
-import net.sf.mt2.chatparser.ChatCommandPart;
+import net.sf.mt2.chatparser.ParsedChat;
 import net.sf.mt2.dice.*;
 import net.sf.mt2.dice.expression.*;
 import java.io.BufferedReader;

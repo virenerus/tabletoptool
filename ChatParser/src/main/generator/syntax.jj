@@ -15,7 +15,7 @@ PARSER_BEGIN(ChatParser)
 	import net.sf.mt2.chatparser.TextPart;
 	import net.sf.mt2.chatparser.ChatCommand;
 	import net.sf.mt2.chatparser.UnknownCommandException;
-	import net.sf.mt2.chatparser.ChatCommandPart;
+	import net.sf.mt2.chatparser.ParsedChat;
 	import net.sf.mt2.dice.*;
 	import net.sf.mt2.dice.expression.*;
 	import java.io.BufferedReader;
@@ -31,12 +31,12 @@ PARSER_BEGIN(ChatParser)
 			this.inputString=str;
 		}
 		
-		public List<? extends ChatPart> parse() throws UnknownCommandException {
+		public ParsedChat parse() throws UnknownCommandException {
 			try {
 				return START();
 			} catch(ParseException e) {
 				e.printStackTrace();
-				return Collections.singletonList(new TextPart(inputString));
+				return new ParsedChat(new TextPart(inputString));
 			}
 		}
 	}
@@ -93,16 +93,16 @@ PARSER_END(ChatParser)
 
 
 
-private List<ChatPart> START() throws UnknownCommandException:
+private ParsedChat START() throws UnknownCommandException:
 	{
-		LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+		ParsedChat list=new ParsedChat();
 	}
 	{
 		(
 				<CHAT_COMMAND_SLASH>
 				{ChatCommand cc;}
 				cc=CHAT_COMMAND()
-				{list.add(new ChatCommandPart(cc));}
+				{list.setChatCommand(cc);}
 				(
 					<EOF>
 					|
@@ -125,7 +125,7 @@ private List<ChatPart> START() throws UnknownCommandException:
 			{Token t;}		  
 			t=<TEXT>
 			{
-				if(!list.isEmpty() && list.getLast() instanceof TextPart)
+				if(list.getLast() instanceof TextPart)
 					((TextPart)list.getLast()).append(t.image);
 				else
 					list.add(new TextPart(t.image));
