@@ -1210,7 +1210,7 @@ public class TokenView extends TokenPropertyView {
 	
 	public MacroView createMacro(String label) {
 		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
-		mbp.setTokenId(token);
+		mbp.setToken(token);
 		MapTool.serverCommand().putToken(MapTool.getFrame().getCurrentZoneRenderer().getZone().getId(), token);
 		return new MacroView(mbp);
 	}

@@ -1,9 +1,18 @@
 package net.rptools.maptool.script.mt2api;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
+import org.apache.commons.lang3.StringUtils;
+
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.MacroButtonProperties;
+import net.rptools.maptool.model.Token;
 
 public class MacroView {
 
@@ -176,5 +185,45 @@ public class MacroView {
 	
 	public Object executeMacro(String name, HashMap<String,Object> arguments) {
 		return macro.executeMacro(macro.getToken(), arguments);
+	}
+	
+	public String createLink(String text, String... args) {
+		try {
+			StringBuilder sb=new StringBuilder("<a href=\"macro://");
+			sb.append(macro.getToken().getId().toString())
+				.append('/')
+				.append(URLEncoder.encode(macro.getLabel(),"utf8"));
+			if(args.length>0) {
+				sb.append('?');
+				
+				for(int i=0;i<args.length;i++) {
+					if(i>0)
+						sb.append('&');
+					sb.append("arg").append(i).append('=').append(URLEncoder.encode(args[i],"utf8"));
+				}
+			}
+			
+			return sb.toString();
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static Object executeLink(String link) {
+		try {
+			URL u=new URL(link);
+			Token t=MapTool.getFrame().findToken(new GUID(u.getHost()));
+			MacroButtonProperties mbp = t.getMacro(URLDecoder.decode(u.getPath(),"utf8"),false);
+			HashMap<String,Object> arguments=new HashMap<String,Object>();
+			for(String a:StringUtils.split(u.getQuery(),'&')) {
+				String[] aps=StringUtils.split(a,'=');
+				arguments.put(aps[0], URLDecoder.decode(aps[1], "utf8"));
+			}
+			return mbp.executeMacro(t, arguments);
+		} catch (MalformedURLException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

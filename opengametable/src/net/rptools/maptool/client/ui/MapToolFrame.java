@@ -1606,4 +1606,14 @@ public class MapToolFrame extends DefaultDockableHolder implements WindowListene
 			}
 		}
 	}
+
+	public Token findToken(GUID guid) {
+		for(ZoneRenderer zr:getZoneRenderers()) {
+			Token t=zr.getZone().getToken(guid);
+			if(t!=null)
+				return t;
+		}
+		return null;
+		
+	}
 }

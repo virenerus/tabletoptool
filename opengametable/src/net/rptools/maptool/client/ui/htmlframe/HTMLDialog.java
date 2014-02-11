@@ -23,7 +23,7 @@ import javax.swing.JDialog;
 
 import net.rptools.lib.swing.SwingUtil;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
+import net.rptools.maptool.script.mt2api.MacroView;
 
 @SuppressWarnings("serial")
 public class HTMLDialog extends JDialog implements HTMLPanelContainer {
@@ -172,7 +172,8 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 				closeRequest();
 			}
 			HTMLPane.FormActionEvent fae = (HTMLPane.FormActionEvent) e;
-			MacroLinkFunction.getInstance().runMacroLink(fae.getAction() + fae.getData());
+			//FIXME why would we need the action?
+			MacroView.executeLink(/*fae.getAction() + */fae.getData());
 		}
 		if (e instanceof HTMLPane.ChangeTitleActionEvent) {
 			this.setTitle(((HTMLPane.ChangeTitleActionEvent) e).getNewTitle());

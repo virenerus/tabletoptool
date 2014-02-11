@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 import net.rptools.maptool.client.AppStyle;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
+import net.rptools.maptool.script.mt2api.MacroView;
 
 import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
@@ -158,7 +158,8 @@ public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {
 	public void actionPerformed(ActionEvent e) {
 		if (e instanceof HTMLPane.FormActionEvent) {
 			HTMLPane.FormActionEvent fae = (HTMLPane.FormActionEvent) e;
-			MacroLinkFunction.getInstance().runMacroLink(fae.getAction() + fae.getData());
+			//FIXME why would we need the action?
+			MacroView.executeLink(/*fae.getAction() + */fae.getData());
 		}
 		if (e instanceof HTMLPane.RegisterMacroActionEvent) {
 			HTMLPane.RegisterMacroActionEvent rmae = (HTMLPane.RegisterMacroActionEvent) e;

@@ -32,8 +32,8 @@ import javax.swing.text.html.StyleSheet;
 
 import net.rptools.maptool.client.AppPreferences;
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.functions.MacroLinkFunction;
 import net.rptools.maptool.client.ui.commandpanel.MessagePanel;
+import net.rptools.maptool.script.mt2api.MacroView;
 
 import org.apache.log4j.Logger;
 
@@ -62,7 +62,7 @@ public class HTMLPane extends JEditorPane {
 						Matcher m = MessagePanel.URL_PATTERN.matcher(e.getDescription());
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
-								MacroLinkFunction.getInstance().runMacroLink(e.getDescription());
+								MacroView.executeLink(e.getDescription());
 							}
 						}
 					}
@@ -372,7 +372,7 @@ public class HTMLPane extends JEditorPane {
 
 			if (rel != null && type != null && href != null) {
 				if (rel.toString().equalsIgnoreCase("stylesheet")) {
-					String[] vals = href.toString().split("@");
+					/*String[] vals = href.toString().split("@");
 					if (vals.length != 2) {
 						return;
 					}
@@ -383,7 +383,9 @@ public class HTMLPane extends JEditorPane {
 						style.loadRules(new StringReader(cssText), null);
 					} catch (IOException e) {
 						// Do nothing
-					}
+					}*/
+					//this needs to be fixed. Find out what this meant
+					throw new UnsupportedOperationException("Not implemented yet");
 				} else if (type.toString().equalsIgnoreCase("macro")) {
 					if (rel.toString().equalsIgnoreCase("onChangeImpersonated")) {
 						doRegisterMacro("onChangeImpersonated", href.toString());

@@ -48,8 +48,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 //	private transient static final List<String> HTMLColors = Arrays.asList("aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "purple", "red", "silver", "teal",
 //			"white", "yellow");
 	private transient MacroButton button;
-	//FIXME a macro should hold the token, not the token id!!
-	private transient GUID tokenId;
+	private transient Token token;
 	private String saveLocation;
 	private int index;
 	private String colorKey;
@@ -88,7 +87,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setMinWidth(minWidth);
 		setMaxWidth(maxWidth);
 		setButton(null);
-		setTokenId((GUID) null);
+		setToken(null);
 		setSaveLocation("");
 		setAllowPlayerEdits(AppPreferences.getAllowPlayerMacroEditsDefault());
 		setCompareGroup(true);
@@ -117,7 +116,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setMinWidth("");
 		setMaxWidth("");
 		setButton(null);
-		setTokenId((GUID) null);
+		setToken(null);
 		setSaveLocation("");
 		setAllowPlayerEdits(AppPreferences.getAllowPlayerMacroEditsDefault());
 		setCompareGroup(true);
@@ -149,7 +148,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	public MacroButtonProperties(Token token, int index, String group) {
 		this(index);
 		setSaveLocation("Token");
-		setTokenId(token);
+		setToken(token);
 		setGroup(group);
 		setAllowPlayerEdits(AppPreferences.getAllowPlayerMacroEditsDefault());
 		setCompareGroup(true);
@@ -195,7 +194,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	public MacroButtonProperties(Token token, int index, MacroButtonProperties properties) {
 		this(index);
 		setSaveLocation("Token");
-		setTokenId(token);
+		setToken(token);
 		setColorKey(properties.getColorKey());
 		// use the default hot key
 		setCommand(properties.getCommand());
@@ -224,7 +223,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	// constructor for creating common macro buttons on selection panel
 	public MacroButtonProperties(int index, MacroButtonProperties properties) {
 		this(index);
-		setTokenId((Token) null);
+		setToken((Token) null);
 		setColorKey(properties.getColorKey());
 		// use the default hot key
 		setCommand(properties.getCommand());
@@ -251,7 +250,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	public MacroButtonProperties(Token token, Map<String, String> props) {
 		this(props.containsKey("index") ? Integer.parseInt(props.get("index")) : token.getMacroNextIndex());
-		setTokenId(token);
+		setToken(token);
 		if (props.containsKey("saveLocation"))
 			setSaveLocation(props.get("saveLocation"));
 		if (props.containsKey("colorKey"))
@@ -301,7 +300,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	}
 
 	public void save() {
-		if (saveLocation.equals("Token") && tokenId != null) {
+		if (saveLocation.equals("Token") && token != null) {
 			getToken().saveMacroButtonProperty(this);
 		} else if (saveLocation.equals("GlobalPanel")) {
 			MacroButtonPrefs.savePreferences(this);
@@ -311,7 +310,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	}
 
 	public void executeMacro() {
-		executeCommand(tokenId);
+		executeCommand(token);
 	}
 
 	/**
@@ -329,7 +328,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		} else {
 			if (tokenList.size() > 0) {
 				for (Token token : tokenList) {
-					executeCommand(token.getId());
+					executeCommand(token);
 				}
 			}
 		}
@@ -357,24 +356,16 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			for (Token nextToken : tokenList) {
 				for (MacroButtonProperties nextMacro : nextToken.getMacroList(true)) {
 					if (nextMacro.hashCodeForComparison() == hashCodeForComparison()) {
-						nextMacro.executeCommand(nextToken.getId());
+						nextMacro.executeCommand(nextToken);
 					}
 				}
 			}
 		}
 	}
 
-	public void executeMacro(GUID tokenId) {
-		executeCommand(tokenId);
-	}
-
-	private void executeCommand(GUID tokenId) {
-		if (getCommand() != null) {
-			ZoneRenderer zr = MapTool.getFrame().getCurrentZoneRenderer();
-			Zone zone = (zr == null ? null : zr.getZone());
-			Token contextToken = (zone == null ? null : zone.getToken(tokenId));
-			executeCommand(contextToken,null);
-		}
+	private void executeCommand(Token token) {
+		if (getCommand() != null)
+			executeCommand(token,null);
 	}
 
 	private void executeCommand() {
@@ -446,21 +437,12 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			this.compiledCommand=ScriptManager.getInstance().compile(command);
 	}
 
-	//TODO return token directly. This is FUCKING slow
 	public Token getToken() {
-		return MapTool.getFrame().getCurrentZoneRenderer().getZone().getToken(this.tokenId);
+		return token;
 	}
 
-	public void setTokenId(Token token) {
-		if (token == null) {
-			this.tokenId = null;
-		} else {
-			this.tokenId = token.getId();
-		}
-	}
-
-	public void setTokenId(GUID tokenId) {
-		this.tokenId = tokenId;
+	public void setToken(Token token) {
+		this.token = token;
 	}
 
 	public void setSaveLocation(String saveLocation) {
@@ -668,10 +650,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			return toolTip;
 		}
 
-		Token token = null;
-		if (tokenId != null) {
-			token = MapTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-		}
 		try {
 			MapToolMacroContext context = new MapToolMacroContext("ToolTip", token != null ? token.getName() : "", false, index);
 			if (log.isDebugEnabled()) {
