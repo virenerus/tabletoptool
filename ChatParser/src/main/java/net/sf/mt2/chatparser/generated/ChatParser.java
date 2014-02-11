@@ -19,445 +19,410 @@
                         this(new BufferedReader(new StringReader(str)));
                 }
 
-  final public List<ChatPart> Start() throws ParseException {
-    trace_call("Start");
-    try {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
-      label_1:
+  final public List<ChatPart> Start() throws ParseException {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case CHAT_COMMAND:{
+        jj_consume_token(CHAT_COMMAND);
+ChatCommand cc;
+        cc = CHAT_COMMAND();
+list.add(new ChatCommandPart(cc));
+        break;
+        }
+      case CODE_START:{
+        jj_consume_token(CODE_START);
+list.add(new DiceExpressionPart(DICE_EXPRESSION()));
+        jj_consume_token(CODE_END);
+        break;
+        }
+      case TEXT:{
+Token t;
+        t = jj_consume_token(TEXT);
+list.add(new TextPart(t.image));
+        break;
+        }
+      default:
+        jj_la1[0] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case CHAT_COMMAND:
+      case CODE_START:
+      case TEXT:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[1] = jj_gen;
+        break label_1;
+      }
+    }
+    jj_consume_token(0);
+{if ("" != null) return list;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public ChatCommand CHAT_COMMAND() throws ParseException {Token t;
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case MACRO_EXEC:{
+      t = jj_consume_token(MACRO_EXEC);
+      break;
+      }
+    case CLEAR_CHAT:{
+      t = jj_consume_token(CLEAR_CHAT);
+      break;
+      }
+    case EMIT:{
+      t = jj_consume_token(EMIT);
+      break;
+      }
+    case EMOTE:{
+      t = jj_consume_token(EMOTE);
+      break;
+      }
+    case GM:{
+      t = jj_consume_token(GM);
+      break;
+      }
+    case GOTO:{
+      t = jj_consume_token(GOTO);
+      break;
+      }
+    case IMPERSONAT:{
+      t = jj_consume_token(IMPERSONAT);
+      break;
+      }
+    case OOC:{
+      t = jj_consume_token(OOC);
+      break;
+      }
+    case REPLY:{
+      t = jj_consume_token(REPLY);
+      break;
+      }
+    case ROLL:{
+      t = jj_consume_token(ROLL);
+      break;
+      }
+    case ROLL_GM:{
+      t = jj_consume_token(ROLL_GM);
+      break;
+      }
+    case ROLL_ME:{
+      t = jj_consume_token(ROLL_ME);
+      break;
+      }
+    case ROLL_SECRET:{
+      t = jj_consume_token(ROLL_SECRET);
+      break;
+      }
+    case SELF:{
+      t = jj_consume_token(SELF);
+      break;
+      }
+    case TABLE:{
+      t = jj_consume_token(TABLE);
+      break;
+      }
+    case TOKEN_MACRO:{
+      t = jj_consume_token(TOKEN_MACRO);
+      break;
+      }
+    case TOKEN_SPEECH:{
+      t = jj_consume_token(TOKEN_SPEECH);
+      break;
+      }
+    case WHISPER:{
+      t = jj_consume_token(WHISPER);
+      break;
+      }
+    default:
+      jj_la1[2] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+{if ("" != null) return ChatCommand.valueOf(t.image);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public DiceExpression DICE_EXPRESSION() throws ParseException {
+DiceExpression first=TERM();
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case PLUS:
+    case MINUS:{
+AdditionNode a=new AdditionNode(first);
+      label_2:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case CHAT_COMMAND:{
-          jj_consume_token(CHAT_COMMAND);
-ChatCommand cc;
-          cc = CHAT_COMMAND();
-list.add(new ChatCommandPart(cc));
+        case PLUS:{
+          jj_consume_token(PLUS);
+a.add(TERM());
           break;
           }
-        case CODE_START:{
-          jj_consume_token(CODE_START);
-list.add(new DiceExpressionPart(DICE_EXPRESSION()));
-          jj_consume_token(CODE_END);
-          break;
-          }
-        case TEXT:{
-Token t;
-          t = jj_consume_token(TEXT);
-list.add(new TextPart(t.image));
+        case MINUS:{
+          jj_consume_token(MINUS);
+a.subtract(TERM());
           break;
           }
         default:
-          jj_la1[0] = jj_gen;
+          jj_la1[3] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case CHAT_COMMAND:
-        case CODE_START:
-        case TEXT:{
+        case PLUS:
+        case MINUS:{
           ;
           break;
           }
         default:
-          jj_la1[1] = jj_gen;
-          break label_1;
+          jj_la1[4] = jj_gen;
+          break label_2;
         }
       }
-      jj_consume_token(0);
-{if ("" != null) return list;}
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("Start");
-    }
-  }
-
-  final public ChatCommand CHAT_COMMAND() throws ParseException {
-    trace_call("CHAT_COMMAND");
-    try {Token t;
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case MACRO_EXEC:{
-        t = jj_consume_token(MACRO_EXEC);
-        break;
-        }
-      case CLEAR_CHAT:{
-        t = jj_consume_token(CLEAR_CHAT);
-        break;
-        }
-      case EMIT:{
-        t = jj_consume_token(EMIT);
-        break;
-        }
-      case EMOTE:{
-        t = jj_consume_token(EMOTE);
-        break;
-        }
-      case GM:{
-        t = jj_consume_token(GM);
-        break;
-        }
-      case GOTO:{
-        t = jj_consume_token(GOTO);
-        break;
-        }
-      case IMPERSONAT:{
-        t = jj_consume_token(IMPERSONAT);
-        break;
-        }
-      case OOC:{
-        t = jj_consume_token(OOC);
-        break;
-        }
-      case REPLY:{
-        t = jj_consume_token(REPLY);
-        break;
-        }
-      case ROLL:{
-        t = jj_consume_token(ROLL);
-        break;
-        }
-      case ROLL_GM:{
-        t = jj_consume_token(ROLL_GM);
-        break;
-        }
-      case ROLL_ME:{
-        t = jj_consume_token(ROLL_ME);
-        break;
-        }
-      case ROLL_SECRET:{
-        t = jj_consume_token(ROLL_SECRET);
-        break;
-        }
-      case SELF:{
-        t = jj_consume_token(SELF);
-        break;
-        }
-      case TABLE:{
-        t = jj_consume_token(TABLE);
-        break;
-        }
-      case TOKEN_MACRO:{
-        t = jj_consume_token(TOKEN_MACRO);
-        break;
-        }
-      case TOKEN_SPEECH:{
-        t = jj_consume_token(TOKEN_SPEECH);
-        break;
-        }
-      case WHISPER:{
-        t = jj_consume_token(WHISPER);
-        break;
-        }
-      default:
-        jj_la1[2] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-{if ("" != null) return ChatCommand.valueOf(t.image);}
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("CHAT_COMMAND");
-    }
-  }
-
-  final public DiceExpression DICE_EXPRESSION() throws ParseException {
-    trace_call("DICE_EXPRESSION");
-    try {
-DiceExpression first=TERM();
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case PLUS:
-      case MINUS:{
-AdditionNode a=new AdditionNode(first);
-        label_2:
-        while (true) {
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case PLUS:{
-            jj_consume_token(PLUS);
-a.add(TERM());
-            break;
-            }
-          case MINUS:{
-            jj_consume_token(MINUS);
-a.subtract(TERM());
-            break;
-            }
-          default:
-            jj_la1[3] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case PLUS:
-          case MINUS:{
-            ;
-            break;
-            }
-          default:
-            jj_la1[4] = jj_gen;
-            break label_2;
-          }
-        }
 {if ("" != null) return a;}
-        break;
-        }
-      default:
-        jj_la1[5] = jj_gen;
-        ;
+      break;
       }
+    default:
+      jj_la1[5] = jj_gen;
+      ;
+    }
 {if ("" != null) return first;}
     throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("DICE_EXPRESSION");
-    }
   }
 
   final public DiceExpression TERM() throws ParseException {
-    trace_call("TERM");
-    try {
 DiceExpression first=PRIMARY();
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case MULTIPLICATION:
-      case DIVISION:{
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case MULTIPLICATION:
+    case DIVISION:{
 MultiplicationNode a=new MultiplicationNode(first);
-        label_3:
-        while (true) {
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case MULTIPLICATION:{
-            jj_consume_token(MULTIPLICATION);
-a.multiplyBy(PRIMARY());
-            break;
-            }
-          case DIVISION:{
-            jj_consume_token(DIVISION);
-a.divideBy(PRIMARY());
-            break;
-            }
-          default:
-            jj_la1[6] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case MULTIPLICATION:
-          case DIVISION:{
-            ;
-            break;
-            }
-          default:
-            jj_la1[7] = jj_gen;
-            break label_3;
-          }
-        }
-{if ("" != null) return a;}
-        break;
-        }
-      default:
-        jj_la1[8] = jj_gen;
-        ;
-      }
-{if ("" != null) return first;}
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("TERM");
-    }
-  }
-
-  final public DiceExpression PRIMARY() throws ParseException {
-    trace_call("PRIMARY");
-    try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case NUMBER:{
-int number;
-        number = NUMBER();
+      label_3:
+      while (true) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case DICE_D:
-        case DICE_FUDGE:
-        case DICE_UBIQUITY:
-        case DICE_SHADOWRUN_EXPLODING_GREMLIN:
-        case DICE_SHADOWRUN_EXPLODING:
-        case DICE_SHADOWRUN_GREMLIN:
-        case DICE_SHADOWRUN:{
-Dice d;
-          d = DICE(number);
-{if ("" != null) return new DiceNode(d);}
+        case MULTIPLICATION:{
+          jj_consume_token(MULTIPLICATION);
+a.multiplyBy(PRIMARY());
+          break;
+          }
+        case DIVISION:{
+          jj_consume_token(DIVISION);
+a.divideBy(PRIMARY());
           break;
           }
         default:
-          jj_la1[9] = jj_gen;
-{if ("" != null) return new NumberNode(number);}
+          jj_la1[6] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
         }
-        break;
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case MULTIPLICATION:
+        case DIVISION:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[7] = jj_gen;
+          break label_3;
         }
-      case PARANTHESES_LEFT:{
-DiceExpression de;
-        jj_consume_token(PARANTHESES_LEFT);
-        de = DICE_EXPRESSION();
-        jj_consume_token(PARANTHESES_RIGHT);
-{if ("" != null) return de;}
-        break;
-        }
-      case MINUS:{
-        jj_consume_token(MINUS);
-{if ("" != null) return new NegationNode(PRIMARY());}
-        break;
-        }
-      default:
-        jj_la1[10] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
       }
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("PRIMARY");
+{if ("" != null) return a;}
+      break;
+      }
+    default:
+      jj_la1[8] = jj_gen;
+      ;
     }
+{if ("" != null) return first;}
+    throw new Error("Missing return statement in function");
   }
 
-  final public Dice DICE(int count) throws ParseException {
-    trace_call("DICE");
-    try {int type;
-                int extra;
+  final public DiceExpression PRIMARY() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case NUMBER:{
+int number;
+      number = NUMBER();
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case DICE_D:
       case DICE_FUDGE:
       case DICE_UBIQUITY:
       case DICE_SHADOWRUN_EXPLODING_GREMLIN:
       case DICE_SHADOWRUN_EXPLODING:
       case DICE_SHADOWRUN_GREMLIN:
       case DICE_SHADOWRUN:{
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case DICE_FUDGE:{
-          jj_consume_token(DICE_FUDGE);
+Dice d;
+        d = DICE(number);
+{if ("" != null) return new DiceNode(d);}
+        break;
+        }
+      default:
+        jj_la1[9] = jj_gen;
+{if ("" != null) return new NumberNode(number);}
+      }
+      break;
+      }
+    case PARANTHESES_LEFT:{
+DiceExpression de;
+      jj_consume_token(PARANTHESES_LEFT);
+      de = DICE_EXPRESSION();
+      jj_consume_token(PARANTHESES_RIGHT);
+{if ("" != null) return de;}
+      break;
+      }
+    case MINUS:{
+      jj_consume_token(MINUS);
+{if ("" != null) return new NegationNode(PRIMARY());}
+      break;
+      }
+    default:
+      jj_la1[10] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Dice DICE(int count) throws ParseException {int type;
+                int extra;
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case DICE_FUDGE:
+    case DICE_UBIQUITY:
+    case DICE_SHADOWRUN_EXPLODING_GREMLIN:
+    case DICE_SHADOWRUN_EXPLODING:
+    case DICE_SHADOWRUN_GREMLIN:
+    case DICE_SHADOWRUN:{
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case DICE_FUDGE:{
+        jj_consume_token(DICE_FUDGE);
 {if ("" != null) return new FudgeDice(count);}
-          break;
-          }
-        case DICE_UBIQUITY:{
-          jj_consume_token(DICE_UBIQUITY);
+        break;
+        }
+      case DICE_UBIQUITY:{
+        jj_consume_token(DICE_UBIQUITY);
 {if ("" != null) return new UbiquityDice(count);}
-          break;
-          }
-        case DICE_SHADOWRUN:{
-          jj_consume_token(DICE_SHADOWRUN);
+        break;
+        }
+      case DICE_SHADOWRUN:{
+        jj_consume_token(DICE_SHADOWRUN);
 {if ("" != null) return new ShadowrunBasicDice(count);}
-          break;
-          }
-        case DICE_SHADOWRUN_EXPLODING:{
-          jj_consume_token(DICE_SHADOWRUN_EXPLODING);
+        break;
+        }
+      case DICE_SHADOWRUN_EXPLODING:{
+        jj_consume_token(DICE_SHADOWRUN_EXPLODING);
 {if ("" != null) return new ExplodingShadowrunBasicDice(count);}
-          break;
-          }
-        case DICE_SHADOWRUN_GREMLIN:{
-          jj_consume_token(DICE_SHADOWRUN_GREMLIN);
-          extra = NUMBER();
+        break;
+        }
+      case DICE_SHADOWRUN_GREMLIN:{
+        jj_consume_token(DICE_SHADOWRUN_GREMLIN);
+        extra = NUMBER();
 {if ("" != null) return new ShadowrunGremlinDice(count,extra);}
+        break;
+        }
+      case DICE_SHADOWRUN_EXPLODING_GREMLIN:{
+        jj_consume_token(DICE_SHADOWRUN_EXPLODING_GREMLIN);
+        extra = NUMBER();
+{if ("" != null) return new ExplodingShadowrunGremlinDice(count,extra);}
+        break;
+        }
+      default:
+        jj_la1[11] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      break;
+      }
+    case DICE_D:{
+      jj_consume_token(DICE_D);
+      type = NUMBER();
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case DICE_D:
+      case DICE_KEEP:
+      case DICE_REROLL:
+      case DICE_SUCCESS:
+      case DICE_EXPLODING_SUCCESS:
+      case DICE_EXPLODING:
+      case DICE_OPEN:
+      case DICE_HERO_STUN:
+      case DICE_HERO_BODY:{
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case DICE_D:{
+          jj_consume_token(DICE_D);
+          extra = NUMBER();
+{if ("" != null) return new DropDice(count,type,extra);}
           break;
           }
-        case DICE_SHADOWRUN_EXPLODING_GREMLIN:{
-          jj_consume_token(DICE_SHADOWRUN_EXPLODING_GREMLIN);
+        case DICE_KEEP:{
+          jj_consume_token(DICE_KEEP);
           extra = NUMBER();
-{if ("" != null) return new ExplodingShadowrunGremlinDice(count,extra);}
+{if ("" != null) return new KeepDice(count,type,extra);}
+          break;
+          }
+        case DICE_REROLL:{
+          jj_consume_token(DICE_REROLL);
+          extra = NUMBER();
+{if ("" != null) return new RerollDice(count,type,extra);}
+          break;
+          }
+        case DICE_SUCCESS:{
+          jj_consume_token(DICE_SUCCESS);
+          extra = NUMBER();
+{if ("" != null) return new SuccessDice(count,type,extra);}
+          break;
+          }
+        case DICE_EXPLODING_SUCCESS:{
+          jj_consume_token(DICE_EXPLODING_SUCCESS);
+          extra = NUMBER();
+{if ("" != null) return new ExplodingSuccessDice(count,type,extra);}
+          break;
+          }
+        case DICE_EXPLODING:{
+          jj_consume_token(DICE_EXPLODING);
+{if ("" != null) return new ExplodingDice(count,type);}
+          break;
+          }
+        case DICE_OPEN:{
+          jj_consume_token(DICE_OPEN);
+{if ("" != null) return new OpenDice(count,type);}
+          break;
+          }
+        case DICE_HERO_STUN:{
+          jj_consume_token(DICE_HERO_STUN);
+{if ("" != null) return new HeroStunDice(count,type);}
+          break;
+          }
+        case DICE_HERO_BODY:{
+          jj_consume_token(DICE_HERO_BODY);
+{if ("" != null) return new HeroBodyDice(count,type);}
           break;
           }
         default:
-          jj_la1[11] = jj_gen;
+          jj_la1[12] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
         }
-      case DICE_D:{
-        jj_consume_token(DICE_D);
-        type = NUMBER();
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case DICE_D:
-        case DICE_KEEP:
-        case DICE_REROLL:
-        case DICE_SUCCESS:
-        case DICE_EXPLODING_SUCCESS:
-        case DICE_EXPLODING:
-        case DICE_OPEN:
-        case DICE_HERO_STUN:
-        case DICE_HERO_BODY:{
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case DICE_D:{
-            jj_consume_token(DICE_D);
-            extra = NUMBER();
-{if ("" != null) return new DropDice(count,type,extra);}
-            break;
-            }
-          case DICE_KEEP:{
-            jj_consume_token(DICE_KEEP);
-            extra = NUMBER();
-{if ("" != null) return new KeepDice(count,type,extra);}
-            break;
-            }
-          case DICE_REROLL:{
-            jj_consume_token(DICE_REROLL);
-            extra = NUMBER();
-{if ("" != null) return new RerollDice(count,type,extra);}
-            break;
-            }
-          case DICE_SUCCESS:{
-            jj_consume_token(DICE_SUCCESS);
-            extra = NUMBER();
-{if ("" != null) return new SuccessDice(count,type,extra);}
-            break;
-            }
-          case DICE_EXPLODING_SUCCESS:{
-            jj_consume_token(DICE_EXPLODING_SUCCESS);
-            extra = NUMBER();
-{if ("" != null) return new ExplodingSuccessDice(count,type,extra);}
-            break;
-            }
-          case DICE_EXPLODING:{
-            jj_consume_token(DICE_EXPLODING);
-{if ("" != null) return new ExplodingDice(count,type);}
-            break;
-            }
-          case DICE_OPEN:{
-            jj_consume_token(DICE_OPEN);
-{if ("" != null) return new OpenDice(count,type);}
-            break;
-            }
-          case DICE_HERO_STUN:{
-            jj_consume_token(DICE_HERO_STUN);
-{if ("" != null) return new HeroStunDice(count,type);}
-            break;
-            }
-          case DICE_HERO_BODY:{
-            jj_consume_token(DICE_HERO_BODY);
-{if ("" != null) return new HeroBodyDice(count,type);}
-            break;
-            }
-          default:
-            jj_la1[12] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          break;
-          }
-        default:
-          jj_la1[13] = jj_gen;
-          ;
-        }
-{if ("" != null) return new SimpleDice(count,type);}
-        break;
-        }
       default:
-        jj_la1[14] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
+        jj_la1[13] = jj_gen;
+        ;
       }
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("DICE");
+{if ("" != null) return new SimpleDice(count,type);}
+      break;
+      }
+    default:
+      jj_la1[14] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
-  final public int NUMBER() throws ParseException {
-    trace_call("NUMBER");
-    try {Token number;
-      number = jj_consume_token(NUMBER);
+  final public int NUMBER() throws ParseException {Token number;
+    number = jj_consume_token(NUMBER);
 {if ("" != null) return Integer.parseInt(number.image);}
     throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("NUMBER");
-    }
   }
 
   /** Generated Token Manager. */
@@ -556,7 +521,6 @@ DiceExpression de;
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
-      trace_token(token, "");
       return token;
     }
     token = oldToken;
@@ -571,7 +535,6 @@ DiceExpression de;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
     jj_gen++;
-      trace_token(token, " (in getNextToken)");
     return token;
   }
 
@@ -630,55 +593,12 @@ DiceExpression de;
     return new ParseException(token, exptokseq, tokenImage);
   }
 
-  private int trace_indent = 0;
-  private boolean trace_enabled = true;
-
-/** Enable tracing. */
+  /** Enable tracing. */
   final public void enable_tracing() {
-    trace_enabled = true;
   }
 
-/** Disable tracing. */
+  /** Disable tracing. */
   final public void disable_tracing() {
-    trace_enabled = false;
-  }
-
-  private void trace_call(String s) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Call:   " + s);
-    }
-    trace_indent = trace_indent + 2;
-  }
-
-  private void trace_return(String s) {
-    trace_indent = trace_indent - 2;
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Return: " + s);
-    }
-  }
-
-  private void trace_token(Token t, String where) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Consumed token: <" + tokenImage[t.kind]);
-      if (t.kind != 0 && !tokenImage[t.kind].equals("\"" + t.image + "\"")) {
-        System.out.print(": \"" + t.image + "\"");
-      }
-      System.out.println(" at line " + t.beginLine + " column " + t.beginColumn + ">" + where);
-    }
-  }
-
-  private void trace_scan(Token t1, int t2) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Visited token: <" + tokenImage[t1.kind]);
-      if (t1.kind != 0 && !tokenImage[t1.kind].equals("\"" + t1.image + "\"")) {
-        System.out.print(": \"" + t1.image + "\"");
-      }
-      System.out.println(" at line " + t1.beginLine + " column " + t1.beginColumn + ">; Expected token: <" + tokenImage[t2] + ">");
-    }
   }
 
         }

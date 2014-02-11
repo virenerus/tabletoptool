@@ -72,5 +72,10 @@
 		<artifactId>autocomplete</artifactId>
 		<version>2.5.0</version>
 	</dependency>
+	<dependency>
+		<groupId>projecttiamat</groupId>
+		<artifactId>ChatParser</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 </project>
