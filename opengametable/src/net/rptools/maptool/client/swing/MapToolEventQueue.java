@@ -29,7 +29,7 @@ import com.jidesoft.dialog.JideOptionPane;
 public class MapToolEventQueue extends EventQueue {
 	private static final Logger log = Logger.getLogger(MapToolEventQueue.class);
 	private static final JideOptionPane optionPane = new JideOptionPane(I18N.getString("MapToolEventQueue.details"), JOptionPane.ERROR_MESSAGE, JideOptionPane.CLOSE_OPTION); //$NON-NLS-1$
-
+	
 	@Override
 	protected void dispatchEvent(AWTEvent event) {
 		try {

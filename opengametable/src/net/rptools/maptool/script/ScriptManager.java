@@ -1,8 +1,6 @@
 package net.rptools.maptool.script;
 
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
 import java.util.HashMap;
@@ -11,10 +9,6 @@ import java.util.Map;
 import net.rptools.maptool.client.MapToolMacroContext;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.script.groovy.GroovyScriptManager;
-import net.rptools.maptool.script.mt2api.MT2ScriptLibrary;
-import net.rptools.maptool.script.mt2api.TokenView;
-
-import org.codehaus.groovy.control.CompilerConfiguration;
 
 /**
  * This is the central class of of the new Scrip APIting. Use this class to call and compile scripts.

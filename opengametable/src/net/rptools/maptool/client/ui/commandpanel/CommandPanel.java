@@ -57,6 +57,8 @@ import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 import javax.swing.plaf.basic.BasicToggleButtonUI;
 
+import org.apache.log4j.Logger;
+
 import net.rptools.lib.AppEvent;
 import net.rptools.lib.AppEventListener;
 import net.rptools.lib.image.ImageUtil;
@@ -75,11 +77,14 @@ import net.rptools.maptool.model.TextMessage;
 import net.rptools.maptool.model.Token;
 import net.rptools.maptool.util.ImageManager;
 import net.rptools.maptool.util.StringUtil;
+import net.sf.mt2.chatparser.generated.ParseException;
 
 public class CommandPanel extends JPanel implements Observer {
 	private static final long serialVersionUID = 8710948417044703674L;
 
 	private final List<String> commandHistory = new LinkedList<String>();
+	
+	private final static Logger log=Logger.getLogger(CommandPanel.class);
 
 	private JLabel characterLabel;
 	private JTextPane commandTextArea;
@@ -418,11 +423,6 @@ public class CommandPanel extends JPanel implements Observer {
 		}
 	}
 
-	/*
-	 * FIXME: this is insufficient for stopping faked rolls; the user can still do something like &{"laquo;"}.
-	 */
-	public static final Pattern CHEATER_PATTERN = Pattern.compile("\u00AB|\u00BB|&#171;|&#187;|&laquo;|&raquo;|\036|\037");
-
 	/**
 	 * Execute the command in the command field.
 	 */
@@ -453,9 +453,7 @@ public class CommandPanel extends JPanel implements Observer {
 	 */
 	public void commitCommand(MapToolMacroContext macroContext) {
 		String text = commandTextArea.getText().trim();
-		if (text.length() == 0) {
-			return;
-		}
+
 		// Command history
 		// Don't store up a bunch of repeats
 		if (commandHistory.size() == 0 || !text.equals(commandHistory.get(commandHistory.size() - 1))) {
@@ -464,13 +462,6 @@ public class CommandPanel extends JPanel implements Observer {
 		}
 		commandHistoryIndex = commandHistory.size();
 
-		// Detect whether the person is attempting to fake rolls.
-		if (CHEATER_PATTERN.matcher(text).find()) {
-			MapTool.addServerMessage(TextMessage.me(null, "Cheater. You have been reported."));
-			MapTool.serverCommand().message(TextMessage.gm(null, MapTool.getPlayer().getName() + " was caught <i>cheating</i>: " + text));
-			commandTextArea.setText("");
-			return;
-		}
 		// Make sure they aren't trying to break out of the div
 		// FIXME: as above, </{"div"}> can be used to get around this
 		int divCount = StringUtil.countOccurances(text, "<div");
@@ -484,12 +475,10 @@ public class CommandPanel extends JPanel implements Observer {
 			commandTextArea.setText("");
 			return;
 		}
-		if (text.charAt(0) != '/') {
-			// Assume a "SAY"
-			text = "/s " + text;
-		}
+		
+		
 		//try {
-			MapTool.addLocalMessage(text);
+			ChatExecutor.executeChat(text);
 			//FIXMESOON print the message as needed on different computers
 			//ScriptManager.getInstance().evaluate(text, macroContext);
 		/*} catch (MT2ScriptException e) {

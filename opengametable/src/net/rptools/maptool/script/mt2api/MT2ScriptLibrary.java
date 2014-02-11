@@ -25,7 +25,7 @@ import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
 
 //FIXME make this package into a PLUG-IN
-public abstract class MT2ScriptLibrary extends Script implements ScriptLibrary {
+public abstract class MT2ScriptLibrary extends Script {
 	
 	public final InitiativeFunctions ini;
 	public final InfoFunctions info;
@@ -44,10 +44,6 @@ public abstract class MT2ScriptLibrary extends Script implements ScriptLibrary {
 		this.dialog=new DialogFunctions();
 		this.path=new PathFunctions();
 		this.input=new InputFunctions();
-	}
-	
-	public String getVariableName() {
-		return "MT2";
 	}
 
 	public void print(int i) {

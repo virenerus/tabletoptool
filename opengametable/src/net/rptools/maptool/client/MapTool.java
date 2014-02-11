@@ -624,6 +624,8 @@ public class MapTool {
 
 		handler = new ClientMethodHandler();
 
+		ScriptManager.getInstance().initialize();
+		
 		setClientFrame(new MapToolFrame(menuBar));
 
 		serverCommand = new ServerCommandClientImpl();
@@ -876,7 +878,6 @@ public class MapTool {
 
 		AssetManager.updateRepositoryList();
 		MapTool.getFrame().getCampaignPanel().reset();
-		ScriptManager.getInstance().initialize();
 	}
 
 	public static void setServerPolicy(ServerPolicy policy) {
@@ -1119,6 +1120,8 @@ public class MapTool {
 	}
 
 	private static final void configureJide() {
+		com.jidesoft.utils.Lm.verifyLicense("Trevor Croft", "rptools", "5MfIVe:WXJBDrToeLWPhMv3kI2s3VFo");
+		
 		LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = new LookAndFeelFactory.UIDefaultsCustomizer() {
 			public void customize(UIDefaults defaults) {
 				ThemePainter painter = (ThemePainter) UIDefaultsLookup.get("Theme.painter");
@@ -1145,6 +1148,8 @@ public class MapTool {
 			}
 		};
 		uiDefaultsCustomizer.customize(UIManager.getDefaults());
+		
+		//add CappedIntegerCellEditor/Renderer to managers
 		CellRendererManager.registerRenderer(CappedInteger.class, new CappedIntegerCellRenderer());
 		CellEditorManager.registerEditor(CappedInteger.class, new CappedIntegerCellEditor.Factory());
 	}
@@ -1191,6 +1196,8 @@ public class MapTool {
 		factory.registerProtocol("asset", new AssetURLStreamHandler());
 		URL.setURLStreamHandlerFactory(factory);
 
+		configureJide();
+		
 		final Toolkit tk = Toolkit.getDefaultToolkit();
 		tk.getSystemEventQueue().push(new MapToolEventQueue());
 
@@ -1238,8 +1245,8 @@ public class MapTool {
 					}
 				}
 			}
-
-			com.jidesoft.utils.Lm.verifyLicense("Trevor Croft", "rptools", "5MfIVe:WXJBDrToeLWPhMv3kI2s3VFo");
+			
+			
 			LookAndFeelFactory.addUIDefaultsCustomizer(new LookAndFeelFactory.UIDefaultsCustomizer() {
 				public void customize(UIDefaults defaults) {
 					// Remove red border around menus
@@ -1259,7 +1266,8 @@ public class MapTool {
 			 * intervening versions).
 			 */
 			Theme.buttonPressedColor = new SBReference(Color.GRAY, 0, -6, SBReference.SUB3_COLOR);
-
+			
+			//yes, this needs to be called again because we change the look and feel
 			configureJide();
 		} catch (Exception e) {
 			MapTool.showError("msg.error.lafSetup", e);
