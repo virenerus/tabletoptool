@@ -13,7 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/renderpack-1.2004.jar"/>
-	<classpathentry kind="lib" path="lib/antlr-2.7.6.jar" sourcepath="/Users/frank/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib/jl1.0.jar"/>
 	<classpathentry kind="lib" path="lib/yasb-0.2-21012007.jar"/>
 	<classpathentry kind="lib" path="lib/servicediscoverylib-1.0.b5.jar"/>
