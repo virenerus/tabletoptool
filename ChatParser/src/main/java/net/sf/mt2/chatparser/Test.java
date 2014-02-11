@@ -9,13 +9,15 @@ import net.sf.mt2.chatparser.generated.ParseException;
 public class Test {
 
 	public static void main(String[] args) throws IOException, ParseException {
-		ChatParser p=new ChatParser("/whallo");
+		ChatParser p=new ChatParser("/");
 		p.enable_tracing();
-		List<ChatPart> l=p.Start();
-		
-		for(ChatPart cp:l) {
-			System.out.println(cp.getClass().getSimpleName());
-			System.out.println("\t"+cp.getDefaultTextRepresentation());
+		try {
+			for(ChatPart cp:p.parse()) {
+				System.out.println(cp.getClass().getSimpleName());
+				System.out.println("\t"+cp.getDefaultTextRepresentation());
+			}
+		} catch (UnknownCommandException e) {
+			e.printStackTrace();
 		}
 	}
 

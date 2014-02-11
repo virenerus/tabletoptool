@@ -8,18 +8,33 @@
         import net.sf.mt2.chatparser.DiceExpressionPart;
         import net.sf.mt2.chatparser.TextPart;
         import net.sf.mt2.chatparser.ChatCommand;
+        import net.sf.mt2.chatparser.UnknownCommandException;
         import net.sf.mt2.chatparser.ChatCommandPart;
         import net.sf.mt2.dice.*;
         import net.sf.mt2.dice.expression.*;
         import java.io.BufferedReader;
         import java.io.StringReader;
+        import java.util.Collections;
 
         public class ChatParser implements ChatParserConstants {
+
+                private String inputString;
+
                 public ChatParser(String str) {
                         this(new BufferedReader(new StringReader(str)));
+                        this.inputString=str;
                 }
 
-  final public List<ChatPart> Start() throws ParseException {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+                public List<? extends ChatPart> parse() throws UnknownCommandException {
+                        try {
+                                return START();
+                        } catch(ParseException e) {
+                                e.printStackTrace();
+                                return Collections.singletonList(new TextPart(inputString));
+                        }
+                }
+
+  final private List<ChatPart> START() throws ParseException, UnknownCommandException {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case CHAT_COMMAND_SLASH:{
       jj_consume_token(CHAT_COMMAND_SLASH);
@@ -52,6 +67,16 @@ if(!" ".equals(t.image))
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case CODE_START:
+      case TEXT:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[2] = jj_gen;
+        break label_1;
+      }
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case CODE_START:{
         jj_consume_token(CODE_START);
 list.add(new DiceExpressionPart(DICE_EXPRESSION()));
@@ -68,19 +93,9 @@ if(!list.isEmpty() && list.getLast() instanceof TextPart)
         break;
         }
       default:
-        jj_la1[2] = jj_gen;
+        jj_la1[3] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
-      }
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case CODE_START:
-      case TEXT:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[3] = jj_gen;
-        break label_1;
       }
     }
     jj_consume_token(0);
@@ -88,7 +103,7 @@ if(!list.isEmpty() && list.getLast() instanceof TextPart)
     throw new Error("Missing return statement in function");
   }
 
-  final public ChatCommand CHAT_COMMAND() throws ParseException {
+  final private ChatCommand CHAT_COMMAND() throws ParseException, UnknownCommandException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case MACRO_EXEC:{
       jj_consume_token(MACRO_EXEC);
@@ -180,21 +195,41 @@ if(!list.isEmpty() && list.getLast() instanceof TextPart)
 {if ("" != null) return ChatCommand.WHISPER;}
       break;
       }
+    case UNKNOWN_COMMAND:{
+StringBuilder sb=new StringBuilder();
+      label_2:
+      while (true) {
+Token t;
+        t = jj_consume_token(UNKNOWN_COMMAND);
+sb.append(t.image);
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case UNKNOWN_COMMAND:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[4] = jj_gen;
+          break label_2;
+        }
+      }
+{if (true) throw new UnknownCommandException(sb.toString());}
+      break;
+      }
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[5] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     throw new Error("Missing return statement in function");
   }
 
-  final public DiceExpression DICE_EXPRESSION() throws ParseException {
+  final private DiceExpression DICE_EXPRESSION() throws ParseException {
 DiceExpression first=TERM();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case PLUS:
     case MINUS:{
 AdditionNode a=new AdditionNode(first);
-      label_2:
+      label_3:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
         case PLUS:{
@@ -208,7 +243,7 @@ a.subtract(TERM());
           break;
           }
         default:
-          jj_la1[5] = jj_gen;
+          jj_la1[6] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -219,28 +254,28 @@ a.subtract(TERM());
           break;
           }
         default:
-          jj_la1[6] = jj_gen;
-          break label_2;
+          jj_la1[7] = jj_gen;
+          break label_3;
         }
       }
 {if ("" != null) return a;}
       break;
       }
     default:
-      jj_la1[7] = jj_gen;
+      jj_la1[8] = jj_gen;
       ;
     }
 {if ("" != null) return first;}
     throw new Error("Missing return statement in function");
   }
 
-  final public DiceExpression TERM() throws ParseException {
+  final private DiceExpression TERM() throws ParseException {
 DiceExpression first=PRIMARY();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case MULTIPLICATION:
     case DIVISION:{
 MultiplicationNode a=new MultiplicationNode(first);
-      label_3:
+      label_4:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
         case MULTIPLICATION:{
@@ -254,7 +289,7 @@ a.divideBy(PRIMARY());
           break;
           }
         default:
-          jj_la1[8] = jj_gen;
+          jj_la1[9] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -265,22 +300,22 @@ a.divideBy(PRIMARY());
           break;
           }
         default:
-          jj_la1[9] = jj_gen;
-          break label_3;
+          jj_la1[10] = jj_gen;
+          break label_4;
         }
       }
 {if ("" != null) return a;}
       break;
       }
     default:
-      jj_la1[10] = jj_gen;
+      jj_la1[11] = jj_gen;
       ;
     }
 {if ("" != null) return first;}
     throw new Error("Missing return statement in function");
   }
 
-  final public DiceExpression PRIMARY() throws ParseException {
+  final private DiceExpression PRIMARY() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case NUMBER:{
 int number;
@@ -299,7 +334,7 @@ Dice d;
         break;
         }
       default:
-        jj_la1[11] = jj_gen;
+        jj_la1[12] = jj_gen;
 {if ("" != null) return new NumberNode(number);}
       }
       break;
@@ -318,14 +353,14 @@ DiceExpression de;
       break;
       }
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[13] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     throw new Error("Missing return statement in function");
   }
 
-  final public Dice DICE(int count) throws ParseException {int type;
+  final private Dice DICE(int count) throws ParseException {int type;
                 int extra;
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case DICE_FUDGE:
@@ -368,7 +403,7 @@ DiceExpression de;
         break;
         }
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -439,28 +474,28 @@ DiceExpression de;
           break;
           }
         default:
-          jj_la1[14] = jj_gen;
+          jj_la1[15] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
         }
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[16] = jj_gen;
         ;
       }
 {if ("" != null) return new SimpleDice(count,type);}
       break;
       }
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[17] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     throw new Error("Missing return statement in function");
   }
 
-  final public int NUMBER() throws ParseException {Token number;
+  final private int NUMBER() throws ParseException {Token number;
     number = jj_consume_token(NUMBER);
 {if ("" != null) return Integer.parseInt(number.image);}
     throw new Error("Missing return statement in function");
@@ -475,7 +510,7 @@ DiceExpression de;
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[17];
+  final private int[] jj_la1 = new int[18];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -483,10 +518,10 @@ DiceExpression de;
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x200001,0x80000,0x300000,0x300000,0x7fffe,0x1800000,0x1800000,0x1800000,0x6000000,0x6000000,0x6000000,0x40000000,0x29000000,0x0,0xc0000000,0xc0000000,0x40000000,};
+      jj_la1_0 = new int[] {0x400001,0x100000,0x600000,0x600000,0x80000,0xffffe,0x3000000,0x3000000,0x3000000,0xc000000,0xc000000,0xc000000,0x80000000,0x52000000,0x0,0x80000000,0x80000000,0x80000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f80,0x0,0x1f80,0x7f,0x7f,0x1f80,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3f00,0x0,0x3f00,0xff,0xff,0x3f00,};
    }
 
   /** Constructor with InputStream. */
@@ -500,7 +535,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -514,7 +549,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -524,7 +559,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -534,7 +569,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -543,7 +578,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -552,7 +587,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -603,12 +638,12 @@ DiceExpression de;
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[45];
+    boolean[] la1tokens = new boolean[46];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 17; i++) {
+    for (int i = 0; i < 18; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -620,7 +655,7 @@ DiceExpression de;
         }
       }
     }
-    for (int i = 0; i < 45; i++) {
+    for (int i = 0; i < 46; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

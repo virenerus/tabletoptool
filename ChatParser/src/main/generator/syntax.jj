@@ -14,15 +14,30 @@ PARSER_BEGIN(ChatParser)
 	import net.sf.mt2.chatparser.DiceExpressionPart;
 	import net.sf.mt2.chatparser.TextPart;
 	import net.sf.mt2.chatparser.ChatCommand;
+	import net.sf.mt2.chatparser.UnknownCommandException;
 	import net.sf.mt2.chatparser.ChatCommandPart;
 	import net.sf.mt2.dice.*;
 	import net.sf.mt2.dice.expression.*;
 	import java.io.BufferedReader;
 	import java.io.StringReader;
+	import java.util.Collections;
 	
 	public class ChatParser {
+	
+		private String inputString;
+	
 		public ChatParser(String str) {
 			this(new BufferedReader(new StringReader(str)));
+			this.inputString=str;
+		}
+		
+		public List<? extends ChatPart> parse() throws UnknownCommandException {
+			try {
+				return START();
+			} catch(ParseException e) {
+				e.printStackTrace();
+				return Collections.singletonList(new TextPart(inputString));
+			}
 		}
 	}
 PARSER_END(ChatParser)
@@ -45,6 +60,7 @@ PARSER_END(ChatParser)
 <CHATCOMMAND>  TOKEN : { < TOKEN_MACRO : "tmacro" | "tm">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < UNKNOWN_COMMAND : ~[] >:CHATCOMMAND}
 
 <DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
 <DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
@@ -77,7 +93,7 @@ PARSER_END(ChatParser)
 
 
 
-List<ChatPart> Start() :
+private List<ChatPart> START() throws UnknownCommandException:
 	{
 		LinkedList<ChatPart> list=new LinkedList<ChatPart>();
 	}
@@ -114,12 +130,12 @@ List<ChatPart> Start() :
 				else
 					list.add(new TextPart(t.image));
 			}
-		)+
+		)*
 		<EOF>
 		{return list;}
 	}
 	
-ChatCommand CHAT_COMMAND() :
+private ChatCommand CHAT_COMMAND() throws UnknownCommandException:
 	{
 	}
 	{
@@ -177,11 +193,21 @@ ChatCommand CHAT_COMMAND() :
 		    |
 		    <WHISPER>
 		    {return ChatCommand.WHISPER;}
+		    |
+		    (
+		    	{StringBuilder sb=new StringBuilder();}
+		    	(
+		    		{Token t;}
+		    		t=<UNKNOWN_COMMAND>
+		    		{sb.append(t.image);}
+		    	)+
+		    	{throw new UnknownCommandException(sb.toString());}
+		    )
 		)
 	}
 	
 
-DiceExpression DICE_EXPRESSION() :
+private DiceExpression DICE_EXPRESSION() :
 	{	}
 	{
 		
@@ -197,7 +223,7 @@ DiceExpression DICE_EXPRESSION() :
 		)?
 		{return first;}		  	}
 
-DiceExpression TERM() :
+private DiceExpression TERM() :
 	{
 	}
 	{
@@ -219,7 +245,7 @@ DiceExpression TERM() :
 		  
 	}
 
-DiceExpression PRIMARY():
+private DiceExpression PRIMARY():
 	{
 	}
 	{
@@ -240,7 +266,7 @@ DiceExpression PRIMARY():
 			<MINUS> {return new NegationNode(PRIMARY());}
 		)
 	}
-Dice DICE(int count) :
+private Dice DICE(int count) :
 	{
 		int type;
 		int extra;
@@ -319,7 +345,7 @@ Dice DICE(int count) :
 		)
 	}
 
-int NUMBER() :
+private int NUMBER() :
 	{
 		Token number;
 	}
