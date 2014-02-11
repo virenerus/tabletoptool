@@ -7,7 +7,7 @@ public enum ChatCommand {
 	EMOTE,
 	GM,
 	GOTO,
-	IMPERSONAT,
+	IMPERSONATE,
 	OOC,
 	REPLY,
 	ROLL,

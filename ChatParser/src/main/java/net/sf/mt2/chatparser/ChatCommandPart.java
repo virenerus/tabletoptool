@@ -8,15 +8,13 @@ public class ChatCommandPart extends ChatPart {
 		this.chatCommand=cc;
 	}
 	
-	@Override
-	public String getText() {
-		return chatCommand.name();
+	public ChatCommand getChatCommand() {
+		return chatCommand;
 	}
-
+	
 	@Override
-	public Object getEvaluatedValue() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDefaultTextRepresentation() {
+		return chatCommand.name();
 	}
 
 }

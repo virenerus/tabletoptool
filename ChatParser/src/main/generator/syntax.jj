@@ -27,29 +27,29 @@ PARSER_BEGIN(ChatParser)
 	}
 PARSER_END(ChatParser)
 
-<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < CLEAR_CHAT : "clear" | "clr">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < GM : "gm" | "togm">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < IMPERSONAT : "impersonate" | "im">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < OOC : "ooc">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < SELF : "self">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < TOKEN_MACRO : "tmacro" | "tm">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:DEFAULT}
-<CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:DEFAULT}
+<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < CLEAR_CHAT : "clear" | "clr">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < GM : "gm" | "togm">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < IMPERSONATE : "impersonate" | "im">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < OOC : "ooc">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < SELF : "self">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < TOKEN_MACRO : "tmacro" | "tm">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:AFTER_CC}
 
-<DEFAULT>  TOKEN : { < CHAT_COMMAND : "/">:CHATCOMMAND }
-<DEFAULT>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
-<DEFAULT>  TOKEN : { < TEXT :  (~["§"])+> }
-<DICE_EXPR>TOKEN : { < CODE_END :  "§">:DEFAULT }
+<DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
+<DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
+<DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> }
+<DICE_EXPR>TOKEN : { < CODE_END :  "§">:AFTER_CC }
 <DICE_EXPR>TOKEN : { < PLUS :  "+"> }
 <DICE_EXPR>TOKEN : { < MINUS :  "-"> }
 <DICE_EXPR>TOKEN : { < MULTIPLICATION :  "*"> }
@@ -83,23 +83,28 @@ List<ChatPart> Start() :
 	}
 	{
 		(
-			(
-				<CHAT_COMMAND>
+				<CHAT_COMMAND_SLASH>
 				{ChatCommand cc;}
 				cc=CHAT_COMMAND()
+				<TEXT>
 				{list.add(new ChatCommandPart(cc));}
-			)
-			|
+		)?
+		
+		(
 			(
 				<CODE_START>
 				{list.add(new DiceExpressionPart(DICE_EXPRESSION()));}
 				<CODE_END>
-				
 			)
 			|
 			{Token t;}		  
 			t=<TEXT>
-			{list.add(new TextPart(t.image));}
+			{
+				if(list.getLast() instanceof TextPart)
+					((TextPart)list.getLast()).append(t.image);
+				else
+					list.add(new TextPart(t.image));
+			}
 		)+
 		<EOF>
 		{return list;}
@@ -107,31 +112,65 @@ List<ChatPart> Start() :
 	
 ChatCommand CHAT_COMMAND() :
 	{
-		Token t;
 	}
 	{
 		(
-		    t=<MACRO_EXEC>
-		    | t=<CLEAR_CHAT>
-		    | t=<EMIT>
-		    | t=<EMOTE>
-		    | t=<GM>
-		    | t=<GOTO>
-		    | t=<IMPERSONAT>
-		    | t=<OOC>
-		    | t=<REPLY>
-		    | t=<ROLL>
-		    | t=<ROLL_GM>
-		    | t=<ROLL_ME>
-		    | t=<ROLL_SECRET>
-		    | t=<SELF>
-		    | t=<TABLE>
-		    | t=<TOKEN_MACRO>
-		    | t=<TOKEN_SPEECH>
-		    | t=<WHISPER>
+		    <MACRO_EXEC>
+		    {return ChatCommand.MACRO_EXEC;}
+		    |
+			<CLEAR_CHAT>
+			{return ChatCommand.CLEAR_CHAT;}
+		    |
+		    <EMIT>
+		    {return ChatCommand.EMIT;}
+		    |
+		    <EMOTE>
+		    {return ChatCommand.EMOTE;}
+		    |
+		    <GM>
+		    {return ChatCommand.GM;}
+		    |
+		    <GOTO>
+		    {return ChatCommand.GOTO;}
+		    |
+		    <IMPERSONATE>
+		    {return ChatCommand.IMPERSONATE;}
+		    |
+		    <OOC>
+		    {return ChatCommand.OOC;}
+		    |
+		    <REPLY>
+		    {return ChatCommand.REPLY;}
+		    |
+		    <ROLL>
+		    {return ChatCommand.ROLL;}
+		    |
+		    <ROLL_GM>
+		    {return ChatCommand.ROLL_GM;}
+		    |
+		    <ROLL_ME>
+		    {return ChatCommand.ROLL_ME;}
+		    |
+		    <ROLL_SECRET>
+		    {return ChatCommand.ROLL_SECRET;}
+		    |
+		    <SELF>
+		    {return ChatCommand.SELF;}
+		    |
+		    <TABLE>
+		    {return ChatCommand.TABLE;}
+		    |
+		    <TOKEN_MACRO>
+		    {return ChatCommand.TOKEN_MACRO;}
+		    |
+		    <TOKEN_SPEECH>
+		    {return ChatCommand.TOKEN_SPEECH;}
+		    |
+		    <WHISPER>
+		    {return ChatCommand.WHISPER;}
 		)
-		{return ChatCommand.valueOf(t.image);}
 	}
+	
 
 DiceExpression DICE_EXPRESSION() :
 	{	}

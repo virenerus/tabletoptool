@@ -20,16 +20,22 @@
                 }
 
   final public List<ChatPart> Start() throws ParseException {LinkedList<ChatPart> list=new LinkedList<ChatPart>();
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case CHAT_COMMAND_SLASH:{
+      jj_consume_token(CHAT_COMMAND_SLASH);
+ChatCommand cc;
+      cc = CHAT_COMMAND();
+      jj_consume_token(TEXT);
+list.add(new ChatCommandPart(cc));
+      break;
+      }
+    default:
+      jj_la1[0] = jj_gen;
+      ;
+    }
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case CHAT_COMMAND:{
-        jj_consume_token(CHAT_COMMAND);
-ChatCommand cc;
-        cc = CHAT_COMMAND();
-list.add(new ChatCommandPart(cc));
-        break;
-        }
       case CODE_START:{
         jj_consume_token(CODE_START);
 list.add(new DiceExpressionPart(DICE_EXPRESSION()));
@@ -39,23 +45,25 @@ list.add(new DiceExpressionPart(DICE_EXPRESSION()));
       case TEXT:{
 Token t;
         t = jj_consume_token(TEXT);
-list.add(new TextPart(t.image));
+if(list.getLast() instanceof TextPart)
+                                        ((TextPart)list.getLast()).append(t.image);
+                                else
+                                        list.add(new TextPart(t.image));
         break;
         }
       default:
-        jj_la1[0] = jj_gen;
+        jj_la1[1] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case CHAT_COMMAND:
       case CODE_START:
       case TEXT:{
         ;
         break;
         }
       default:
-        jj_la1[1] = jj_gen;
+        jj_la1[2] = jj_gen;
         break label_1;
       }
     }
@@ -64,86 +72,103 @@ list.add(new TextPart(t.image));
     throw new Error("Missing return statement in function");
   }
 
-  final public ChatCommand CHAT_COMMAND() throws ParseException {Token t;
+  final public ChatCommand CHAT_COMMAND() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case MACRO_EXEC:{
-      t = jj_consume_token(MACRO_EXEC);
+      jj_consume_token(MACRO_EXEC);
+{if ("" != null) return ChatCommand.MACRO_EXEC;}
       break;
       }
     case CLEAR_CHAT:{
-      t = jj_consume_token(CLEAR_CHAT);
+      jj_consume_token(CLEAR_CHAT);
+{if ("" != null) return ChatCommand.CLEAR_CHAT;}
       break;
       }
     case EMIT:{
-      t = jj_consume_token(EMIT);
+      jj_consume_token(EMIT);
+{if ("" != null) return ChatCommand.EMIT;}
       break;
       }
     case EMOTE:{
-      t = jj_consume_token(EMOTE);
+      jj_consume_token(EMOTE);
+{if ("" != null) return ChatCommand.EMOTE;}
       break;
       }
     case GM:{
-      t = jj_consume_token(GM);
+      jj_consume_token(GM);
+{if ("" != null) return ChatCommand.GM;}
       break;
       }
     case GOTO:{
-      t = jj_consume_token(GOTO);
+      jj_consume_token(GOTO);
+{if ("" != null) return ChatCommand.GOTO;}
       break;
       }
-    case IMPERSONAT:{
-      t = jj_consume_token(IMPERSONAT);
+    case IMPERSONATE:{
+      jj_consume_token(IMPERSONATE);
+{if ("" != null) return ChatCommand.IMPERSONATE;}
       break;
       }
     case OOC:{
-      t = jj_consume_token(OOC);
+      jj_consume_token(OOC);
+{if ("" != null) return ChatCommand.OOC;}
       break;
       }
     case REPLY:{
-      t = jj_consume_token(REPLY);
+      jj_consume_token(REPLY);
+{if ("" != null) return ChatCommand.REPLY;}
       break;
       }
     case ROLL:{
-      t = jj_consume_token(ROLL);
+      jj_consume_token(ROLL);
+{if ("" != null) return ChatCommand.ROLL;}
       break;
       }
     case ROLL_GM:{
-      t = jj_consume_token(ROLL_GM);
+      jj_consume_token(ROLL_GM);
+{if ("" != null) return ChatCommand.ROLL_GM;}
       break;
       }
     case ROLL_ME:{
-      t = jj_consume_token(ROLL_ME);
+      jj_consume_token(ROLL_ME);
+{if ("" != null) return ChatCommand.ROLL_ME;}
       break;
       }
     case ROLL_SECRET:{
-      t = jj_consume_token(ROLL_SECRET);
+      jj_consume_token(ROLL_SECRET);
+{if ("" != null) return ChatCommand.ROLL_SECRET;}
       break;
       }
     case SELF:{
-      t = jj_consume_token(SELF);
+      jj_consume_token(SELF);
+{if ("" != null) return ChatCommand.SELF;}
       break;
       }
     case TABLE:{
-      t = jj_consume_token(TABLE);
+      jj_consume_token(TABLE);
+{if ("" != null) return ChatCommand.TABLE;}
       break;
       }
     case TOKEN_MACRO:{
-      t = jj_consume_token(TOKEN_MACRO);
+      jj_consume_token(TOKEN_MACRO);
+{if ("" != null) return ChatCommand.TOKEN_MACRO;}
       break;
       }
     case TOKEN_SPEECH:{
-      t = jj_consume_token(TOKEN_SPEECH);
+      jj_consume_token(TOKEN_SPEECH);
+{if ("" != null) return ChatCommand.TOKEN_SPEECH;}
       break;
       }
     case WHISPER:{
-      t = jj_consume_token(WHISPER);
+      jj_consume_token(WHISPER);
+{if ("" != null) return ChatCommand.WHISPER;}
       break;
       }
     default:
-      jj_la1[2] = jj_gen;
+      jj_la1[3] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
-{if ("" != null) return ChatCommand.valueOf(t.image);}
     throw new Error("Missing return statement in function");
   }
 
@@ -167,7 +192,7 @@ a.subtract(TERM());
           break;
           }
         default:
-          jj_la1[3] = jj_gen;
+          jj_la1[4] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -178,7 +203,7 @@ a.subtract(TERM());
           break;
           }
         default:
-          jj_la1[4] = jj_gen;
+          jj_la1[5] = jj_gen;
           break label_2;
         }
       }
@@ -186,7 +211,7 @@ a.subtract(TERM());
       break;
       }
     default:
-      jj_la1[5] = jj_gen;
+      jj_la1[6] = jj_gen;
       ;
     }
 {if ("" != null) return first;}
@@ -213,7 +238,7 @@ a.divideBy(PRIMARY());
           break;
           }
         default:
-          jj_la1[6] = jj_gen;
+          jj_la1[7] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -224,7 +249,7 @@ a.divideBy(PRIMARY());
           break;
           }
         default:
-          jj_la1[7] = jj_gen;
+          jj_la1[8] = jj_gen;
           break label_3;
         }
       }
@@ -232,7 +257,7 @@ a.divideBy(PRIMARY());
       break;
       }
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       ;
     }
 {if ("" != null) return first;}
@@ -258,7 +283,7 @@ Dice d;
         break;
         }
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[10] = jj_gen;
 {if ("" != null) return new NumberNode(number);}
       }
       break;
@@ -277,7 +302,7 @@ DiceExpression de;
       break;
       }
     default:
-      jj_la1[10] = jj_gen;
+      jj_la1[11] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -327,7 +352,7 @@ DiceExpression de;
         break;
         }
       default:
-        jj_la1[11] = jj_gen;
+        jj_la1[12] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -398,21 +423,21 @@ DiceExpression de;
           break;
           }
         default:
-          jj_la1[12] = jj_gen;
+          jj_la1[13] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
         }
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         ;
       }
 {if ("" != null) return new SimpleDice(count,type);}
       break;
       }
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[15] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -434,7 +459,7 @@ DiceExpression de;
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[15];
+  final private int[] jj_la1 = new int[16];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -442,10 +467,10 @@ DiceExpression de;
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x380000,0x380000,0x7fffe,0x1800000,0x1800000,0x1800000,0x6000000,0x6000000,0x6000000,0x40000000,0x29000000,0x0,0xc0000000,0xc0000000,0x40000000,};
+      jj_la1_0 = new int[] {0x80000,0x300000,0x300000,0x7fffe,0x1800000,0x1800000,0x1800000,0x6000000,0x6000000,0x6000000,0x40000000,0x29000000,0x0,0xc0000000,0xc0000000,0x40000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f80,0x0,0x1f80,0x7f,0x7f,0x1f80,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f80,0x0,0x1f80,0x7f,0x7f,0x1f80,};
    }
 
   /** Constructor with InputStream. */
@@ -459,7 +484,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -473,7 +498,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -483,7 +508,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -493,7 +518,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -502,7 +527,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -511,7 +536,7 @@ DiceExpression de;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -567,7 +592,7 @@ DiceExpression de;
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 16; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

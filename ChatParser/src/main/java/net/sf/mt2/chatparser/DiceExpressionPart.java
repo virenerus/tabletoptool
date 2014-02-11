@@ -11,14 +11,9 @@ public class DiceExpressionPart extends ChatPart {
 	public DiceExpressionPart(DiceExpression diceExpression) {
 		this.diceExpression=diceExpression;
 	}
-	
-	@Override
-	public Object getEvaluatedValue() {
-		return Integer.toString(diceExpression.evaluate(new Random()));
-	}
 
 	@Override
-	public String getText() {
-		return diceExpression.toString();
+	public String getDefaultTextRepresentation() {
+		return Integer.toString(diceExpression.evaluate(new Random()));
 	}
 }

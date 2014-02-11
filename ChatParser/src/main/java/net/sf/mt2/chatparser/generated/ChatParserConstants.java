@@ -23,7 +23,7 @@ public interface ChatParserConstants {
   /** RegularExpression Id. */
   int GOTO = 6;
   /** RegularExpression Id. */
-  int IMPERSONAT = 7;
+  int IMPERSONATE = 7;
   /** RegularExpression Id. */
   int OOC = 8;
   /** RegularExpression Id. */
@@ -47,7 +47,7 @@ public interface ChatParserConstants {
   /** RegularExpression Id. */
   int WHISPER = 18;
   /** RegularExpression Id. */
-  int CHAT_COMMAND = 19;
+  int CHAT_COMMAND_SLASH = 19;
   /** RegularExpression Id. */
   int CODE_START = 20;
   /** RegularExpression Id. */
@@ -104,7 +104,9 @@ public interface ChatParserConstants {
   /** Lexical state. */
   int DEFAULT = 1;
   /** Lexical state. */
-  int DICE_EXPR = 2;
+  int AFTER_CC = 2;
+  /** Lexical state. */
+  int DICE_EXPR = 3;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -115,7 +117,7 @@ public interface ChatParserConstants {
     "<EMOTE>",
     "<GM>",
     "<GOTO>",
-    "<IMPERSONAT>",
+    "<IMPERSONATE>",
     "\"ooc\"",
     "<REPLY>",
     "<ROLL>",
