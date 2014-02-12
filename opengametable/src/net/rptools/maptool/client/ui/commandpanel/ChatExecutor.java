@@ -42,6 +42,7 @@ public class ChatExecutor {
 							+buildDefaultStringRepresentation(parts)+"</span>");
 					break;
 				case GM:
+					MapTool.addMessage(TextMessage.gm(null, buildDefaultStringRepresentation(parts)));
 					break;
 				case GOTO:
 					break;
