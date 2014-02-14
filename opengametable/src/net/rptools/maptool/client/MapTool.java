@@ -44,6 +44,7 @@ import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.CellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -87,6 +88,7 @@ import net.rptools.maptool.model.Zone;
 import net.rptools.maptool.model.ZoneFactory;
 import net.rptools.maptool.model.campaign.Campaign;
 import net.rptools.maptool.model.campaign.CampaignFactory;
+import net.rptools.maptool.model.campaign.TokenPropertyType;
 import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.server.MapToolServer;
 import net.rptools.maptool.server.ServerCommand;
@@ -102,8 +104,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import com.jidesoft.grid.CellEditorFactory;
 import com.jidesoft.grid.CellEditorManager;
 import com.jidesoft.grid.CellRendererManager;
+import com.jidesoft.grid.ListComboBoxCellEditor;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
@@ -1152,6 +1156,12 @@ public class MapTool {
 		//add CappedIntegerCellEditor/Renderer to managers
 		CellRendererManager.registerRenderer(CappedInteger.class, new CappedIntegerCellRenderer());
 		CellEditorManager.registerEditor(CappedInteger.class, new CappedIntegerCellEditor.Factory());
+		CellEditorManager.registerEditor(TokenPropertyType.class, new CellEditorFactory() {
+			@Override
+			public CellEditor create() {
+				return new ListComboBoxCellEditor(TokenPropertyType.values());
+			}
+		});
 	}
 
 	public static void main(String[] args) {

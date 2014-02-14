@@ -24,6 +24,7 @@ public class TokenProperty implements Serializable {
 
 	public TokenProperty() {
 		// For serialization
+		type=TokenPropertyType.TEXT; //there must always be a type set
 	}
 
 	public TokenProperty(String name) {
@@ -52,6 +53,16 @@ public class TokenProperty implements Serializable {
 		this.ownerOnly = isOwnerOnly;
 		this.gmOnly = isGMOnly;
 		this.defaultValue= defaultValue;
+	}
+
+	public TokenProperty(TokenProperty p) {
+		name=p.name;
+		shortName=p.shortName;
+		highPriority=p.highPriority;
+		ownerOnly=p.ownerOnly;
+		gmOnly=p.gmOnly;
+		defaultValue=p.defaultValue;
+		type=p.type;
 	}
 
 	public boolean isOwnerOnly() {

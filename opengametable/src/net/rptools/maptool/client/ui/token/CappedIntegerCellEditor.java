@@ -51,9 +51,9 @@ public class CappedIntegerCellEditor extends AbstractCellEditor implements Table
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		capped=(CappedInteger)value;
-		valueField.setValue(capped.getValue());
-		minField.setValue(capped.getMin());
-		maxField.setValue(capped.getMax());
+		valueField.setValue(capped!=null?capped.getValue():10);
+		minField.setValue(capped!=null?capped.getMin():0);
+		maxField.setValue(capped!=null?capped.getMax():10);
 		return panel;
 	}
 

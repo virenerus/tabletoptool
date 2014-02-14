@@ -862,7 +862,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 		@Override
 		public EditTokenProperty getProperty(int index) {
-			return new EditTokenProperty(getPropertyList().get(index).getName());
+			return new EditTokenProperty(getPropertyList().get(index));
 		}
 
 		@Override
@@ -877,18 +877,12 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 			private TokenPropertyType type;
 
-			public EditTokenProperty(String key) {
-				super(key, key, null, (String) getPropertyTypeCombo().getSelectedItem());
-				this.key = key;
+			public EditTokenProperty(TokenProperty property) {
+				super(property.getName(), property.getName(), null, (String) getPropertyTypeCombo().getSelectedItem());
+				this.key = property.getName();
 				
 				//get Type from key
-				List<TokenProperty> propTypes = MapTool.getCampaign().getCampaignProperties().getTokenPropertyList(getModel().getPropertyType());
-				for(TokenProperty propType:propTypes) {
-					if(propType.getName().equals(key)) {
-						type=propType.getType();
-						break;
-					}
-				}
+				type=property.getType();
 				
 				if(type.getEditorContext()!=null)
 					this.setEditorContext(type.getEditorContext());

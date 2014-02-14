@@ -6,7 +6,7 @@ import com.jidesoft.grid.EditorContext;
 import net.rptools.maptool.util.math.CappedInteger;
 
 public enum TokenPropertyType {
-	BOOLEAN(Boolean.class) {
+	BOOLEAN("Boolean", Boolean.class) {
 		@Override
 		public Boolean parseObject(String str) {
 			return Boolean.valueOf(str);
@@ -22,7 +22,7 @@ public enum TokenPropertyType {
 			return BooleanCheckBoxCellEditor.CONTEXT;
 		}
 	},
-	TEXT(String.class) {
+	TEXT("Text", String.class) {
 		@Override
 		public String parseObject(String str) {
 			return str.trim();
@@ -33,7 +33,7 @@ public enum TokenPropertyType {
 			return (String) obj;
 		}
 	},
-	INTEGER(Integer.class) {
+	INTEGER("Integer", Integer.class) {
 		@Override
 		public Integer parseObject(String str) {
 			return Integer.valueOf(str);
@@ -44,7 +44,7 @@ public enum TokenPropertyType {
 			return ((Integer)obj).toString();
 		}
 	},
-	FLOAT(Float.class) {
+	FLOAT("Float", Float.class) {
 		@Override
 		public Float parseObject(String str) {
 			return Float.valueOf(str);
@@ -55,7 +55,7 @@ public enum TokenPropertyType {
 			return ((Float)obj).toString();
 		}
 	},
-	CAPPED(CappedInteger.class) {
+	CAPPED("Capped", CappedInteger.class) {
 		@Override
 		public CappedInteger parseObject(String str) {
 			return CappedInteger.valueOf(str.replaceAll("\\s", ""));
@@ -79,9 +79,16 @@ public enum TokenPropertyType {
 	};
 	
 	private Class<?> type;
+	private String name;
 
-	private TokenPropertyType(Class<?> type) {
+	private TokenPropertyType(String name, Class<?> type) {
 		this.type=type;
+		this.name=name;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 	
 	public Class<?> getType() {
