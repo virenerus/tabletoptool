@@ -151,7 +151,7 @@ public class CampaignPropertiesDialog extends JDialog {
 					return;
 				}
 				// TODO: Check for uniqueness
-				((DefaultListModel) getRepositoryList().getModel()).addElement(newRepo);
+				((DefaultListModel<String>) getRepositoryList().getModel()).addElement(newRepo);
 			}
 		});
 	}
@@ -161,7 +161,7 @@ public class CampaignPropertiesDialog extends JDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Check for uniqueness
-				((DefaultListModel) getRepositoryList().getModel()).addElement("http://www.rptools.net/image-indexes/gallery.rpax.gz");
+				((DefaultListModel<String>) getRepositoryList().getModel()).addElement("http://www.rptools.net/image-indexes/gallery.rpax.gz");
 			}
 		});
 	}
@@ -173,7 +173,7 @@ public class CampaignPropertiesDialog extends JDialog {
 				int[] selectedRows = getRepositoryList().getSelectedIndices();
 				Arrays.sort(selectedRows);
 				for (int i = selectedRows.length - 1; i >= 0; i--) {
-					((DefaultListModel) getRepositoryList().getModel()).remove(selectedRows[i]);
+					((DefaultListModel<String>) getRepositoryList().getModel()).remove(selectedRows[i]);
 				}
 			}
 		});
@@ -344,14 +344,14 @@ public class CampaignPropertiesDialog extends JDialog {
 	}
 
 	private void updateRepositoryList(CampaignProperties properties) {
-		DefaultListModel model = new DefaultListModel();
+		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (String repo : properties.getRemoteRepositoryList()) {
 			model.addElement(repo);
 		}
 		getRepositoryList().setModel(model);
 	}
 
-	public JList getRepositoryList() {
+	public JList<String> getRepositoryList() {
 		return formPanel.getList("repoList");
 	}
 

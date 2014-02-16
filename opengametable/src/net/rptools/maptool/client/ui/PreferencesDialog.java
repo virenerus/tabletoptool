@@ -110,10 +110,10 @@ public class PreferencesDialog extends JDialog {
 	private final JCheckBox stampsStartFreeSizeCheckBox;
 	private final JCheckBox backgroundsStartSnapToGridCheckBox;
 	private final JCheckBox backgroundsStartFreeSizeCheckBox;
-	private final JComboBox duplicateTokenCombo;
-	private final JComboBox tokenNamingCombo;
-	private final JComboBox showNumberingCombo;
-	private final JComboBox movementMetricCombo;
+	private final JComboBox<String> duplicateTokenCombo;
+	private final JComboBox<String> tokenNamingCombo;
+	private final JComboBox<String> showNumberingCombo;
+	private final JComboBox<WalkerMetric> movementMetricCombo;
 	private final JCheckBox showStatSheetCheckBox;
 
 	private final JSpinner haloLineWidthSpinner;
@@ -147,7 +147,7 @@ public class PreferencesDialog extends JDialog {
 	private final JCheckBox chatNotificationShowBackground;
 
 	// Defaults
-	private final JComboBox defaultGridTypeCombo;
+	private final JComboBox<String> defaultGridTypeCombo;
 	private final JTextField defaultGridSizeTextField;
 	private final JTextField defaultUnitsPerCellTextField;
 	private final JTextField defaultVisionDistanceTextField;
@@ -552,7 +552,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 
-		DefaultComboBoxModel gridTypeModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> gridTypeModel = new DefaultComboBoxModel<String>();
 		gridTypeModel.addElement(GridFactory.SQUARE);
 		gridTypeModel.addElement(GridFactory.HEX_HORI);
 		gridTypeModel.addElement(GridFactory.HEX_VERT);
@@ -564,7 +564,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 
-		DefaultComboBoxModel tokenNumModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> tokenNumModel = new DefaultComboBoxModel<String>();
 		tokenNumModel.addElement(Token.NUM_INCREMENT);
 		tokenNumModel.addElement(Token.NUM_RANDOM);
 		tokenNumModel.setSelectedItem(AppPreferences.getDuplicateTokenNumber());
@@ -575,7 +575,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 
-		DefaultComboBoxModel tokenNameModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> tokenNameModel = new DefaultComboBoxModel<String>();
 		tokenNameModel.addElement(Token.NAME_USE_FILENAME);
 		tokenNameModel.addElement(Token.NAME_USE_CREATURE);
 		tokenNameModel.setSelectedItem(AppPreferences.getNewTokenNaming());
@@ -586,7 +586,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 
-		DefaultComboBoxModel showNumModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> showNumModel = new DefaultComboBoxModel<String>();
 		showNumModel.addElement(Token.NUM_ON_NAME);
 		showNumModel.addElement(Token.NUM_ON_GM);
 		showNumModel.addElement(Token.NUM_ON_BOTH);
@@ -598,7 +598,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 
-		DefaultComboBoxModel movementMetricModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<WalkerMetric> movementMetricModel = new DefaultComboBoxModel<WalkerMetric>();
 		movementMetricModel.addElement(WalkerMetric.ONE_TWO_ONE);
 		movementMetricModel.addElement(WalkerMetric.ONE_ONE_ONE);
 		movementMetricModel.addElement(WalkerMetric.MANHATTAN);

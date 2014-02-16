@@ -163,8 +163,8 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 		});
 	}
 
-	public JList getLocalServerList() {
-		return (JList) getComponent("localServerList");
+	public JList<ServerInfo> getLocalServerList() {
+		return (JList<ServerInfo>) getComponent("localServerList");
 	}
 
 	private void updateLocalServerList() {
@@ -286,7 +286,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 				return;
 			}
 			// OK
-			ServerInfo info = (ServerInfo) getLocalServerList().getSelectedValue();
+			ServerInfo info = getLocalServerList().getSelectedValue();
 			port = info.port;
 			hostname = info.address.getHostAddress();
 		}

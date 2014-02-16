@@ -413,14 +413,14 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 		}
 	}
 
-	private class MessageListModel extends AbstractListModel {
+	private class MessageListModel extends AbstractListModel<String> {
 		private final String message;
 
 		public MessageListModel(String message) {
 			this.message = message;
 		}
 
-		public Object getElementAt(int index) {
+		public String getElementAt(int index) {
 			return message;
 		}
 

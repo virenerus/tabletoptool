@@ -37,7 +37,7 @@ public class VisionDialog extends JDialog {
 	private JTextField nameTextField;
 	private JTextField distanceTextField;
 	private JCheckBox enabledCheckBox;
-	private JComboBox typeCombo;
+	private JComboBox<Vision> typeCombo;
 
 	public VisionDialog(Zone zone, Token token) {
 		this(zone, token, null);
@@ -87,13 +87,13 @@ public class VisionDialog extends JDialog {
 
 	private void initTypeCombo(FormPanel panel, Token token, Vision vision) {
 		typeCombo = panel.getComboBox("typeCombo");
-		Object[] list = null;
+		Vision[] list = null;
 		if (vision != null) {
-			list = new Object[] { vision };
+			list = new Vision[] { vision };
 		} else {
-			list = new Object[] { new RoundVision(), new FacingConicVision(), new BlockyRoundVision() };
+			list = new Vision[] { new RoundVision(), new FacingConicVision(), new BlockyRoundVision() };
 		}
-		typeCombo.setModel(new DefaultComboBoxModel(list));
+		typeCombo.setModel(new DefaultComboBoxModel<Vision>(list));
 		typeCombo.setEnabled(vision == null);
 		typeCombo.setSelectedIndex(0);
 	}

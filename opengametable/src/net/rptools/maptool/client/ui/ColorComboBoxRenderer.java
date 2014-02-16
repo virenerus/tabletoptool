@@ -21,7 +21,7 @@ import net.rptools.maptool.language.I18N;
 /**
  * This class renders the list entries of a color selection combo box.
  */
-public class ColorComboBoxRenderer extends JLabel implements ListCellRenderer {
+public class ColorComboBoxRenderer extends JLabel implements ListCellRenderer<String> {
 	private static final long serialVersionUID = -8994115147056186827L;
 
 	/**
@@ -52,12 +52,11 @@ public class ColorComboBoxRenderer extends JLabel implements ListCellRenderer {
 		setOpaque(true);
 	}
 
-	//@Override
+	@Override
 	/**
 	 * Renders the label as a color selection combo box entry.
 	 */
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		String name = (String) value;
+	public Component getListCellRendererComponent(JList<? extends String> list, String name, int index, boolean isSelected, boolean cellHasFocus) {
 		String colorPropertyKey = "Color.".concat(name);
 		String colorName = I18N.getString(colorPropertyKey);
 		if (colorName == null) {
