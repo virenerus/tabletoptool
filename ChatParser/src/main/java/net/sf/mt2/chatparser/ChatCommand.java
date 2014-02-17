@@ -16,7 +16,6 @@ public enum ChatCommand {
 	ROLL_SECRET,
 	SELF,
 	TABLE,
-	TOKEN_MACRO,
 	TOKEN_SPEECH,
 	WHISPER;
 }

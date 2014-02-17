@@ -28,4 +28,9 @@ public class DiceExpressionPart extends ChatPart {
 		
 		return sb.toString();
 	}
+
+	public DiceExpression getDiceExpression() {
+		return diceExpression;
+	}
+	
 }

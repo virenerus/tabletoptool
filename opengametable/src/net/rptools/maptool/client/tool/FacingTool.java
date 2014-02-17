@@ -67,11 +67,7 @@ public class FacingTool extends DefaultTool {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				if (MapTool.confirm(I18N.getText("msg.confirm.removeFacings"))) {
-					for (GUID tokenGUID : renderer.getSelectedTokenSet()) {
-						Token token = renderer.getZone().getToken(tokenGUID);
-						if (token == null) {
-							continue;
-						}
+					for (Token token : renderer.getSelectedTokensList()) {
 						token.setFacing(null);
 						renderer.flush(token);
 					}

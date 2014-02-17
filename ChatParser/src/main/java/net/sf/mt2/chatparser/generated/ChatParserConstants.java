@@ -23,29 +23,29 @@ public interface ChatParserConstants {
   /** RegularExpression Id. */
   int GOTO = 6;
   /** RegularExpression Id. */
-  int FLOAT = 7;
+  int INTEGER = 7;
   /** RegularExpression Id. */
-  int GUID = 9;
+  int NAME = 9;
   /** RegularExpression Id. */
-  int IMPERSONATE = 10;
+  int GUID = 10;
   /** RegularExpression Id. */
-  int OOC = 11;
+  int IMPERSONATE = 11;
   /** RegularExpression Id. */
-  int REPLY = 12;
+  int OOC = 12;
   /** RegularExpression Id. */
-  int ROLL = 13;
+  int REPLY = 13;
   /** RegularExpression Id. */
-  int ROLL_GM = 14;
+  int ROLL = 14;
   /** RegularExpression Id. */
-  int ROLL_ME = 15;
+  int ROLL_GM = 15;
   /** RegularExpression Id. */
-  int ROLL_SECRET = 16;
+  int ROLL_ME = 16;
   /** RegularExpression Id. */
-  int SELF = 17;
+  int ROLL_SECRET = 17;
   /** RegularExpression Id. */
-  int TABLE = 18;
+  int SELF = 18;
   /** RegularExpression Id. */
-  int TOKEN_MACRO = 19;
+  int TABLE = 19;
   /** RegularExpression Id. */
   int TOKEN_SPEECH = 20;
   /** RegularExpression Id. */
@@ -125,8 +125,9 @@ public interface ChatParserConstants {
     "<EMOTE>",
     "<GM>",
     "<GOTO>",
-    "<FLOAT>",
+    "<INTEGER>",
     "\" \"",
+    "<NAME>",
     "<GUID>",
     "<IMPERSONATE>",
     "\"ooc\"",
@@ -137,7 +138,6 @@ public interface ChatParserConstants {
     "<ROLL_SECRET>",
     "\"self\"",
     "<TABLE>",
-    "<TOKEN_MACRO>",
     "<TOKEN_SPEECH>",
     "<WHISPER>",
     "<UNKNOWN_COMMAND>",
