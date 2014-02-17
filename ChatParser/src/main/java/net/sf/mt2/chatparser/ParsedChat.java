@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ParsedChat extends ArrayList<ChatPart> {
 	
 	private ChatCommand chatCommand;
+	private String[] arguments;
 
 	public ParsedChat() {}
 	
@@ -27,5 +28,13 @@ public class ParsedChat extends ArrayList<ChatPart> {
 			return null;
 		else
 			return get(size-1);
+	}
+
+	public String[] getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(String... arguments) {
+		this.arguments = arguments;
 	}
 }

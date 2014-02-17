@@ -1,7 +1,7 @@
 options {
 	STATIC = false ;
 	UNICODE_INPUT = true;
-	//DEBUG_PARSER = true;
+	DEBUG_PARSER = true;
 	//DEBUG_LOOKAHEAD = true;
 	//DEBUG_TOKEN_MANAGER = true;
 }
@@ -47,14 +47,17 @@ PARSER_END(ChatParser)
 <CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < GM : "gm" | "togm">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:CC_ARGUMENTS}
+<CC_ARGUMENTS> TOKEN : { < FLOAT :  ("-")?(["0"-"9"])+("."(["0"-"9"])+)?> }
+<CC_ARGUMENTS,DICE_EXPR> SKIP  : { < " " > }
+<CC_ARGUMENTS> TOKEN : { < GUID :  (["0"-"9","a"-"z","A"-"Z"]){16}> } //exactly 16 chars atm
 <CHATCOMMAND>  TOKEN : { < IMPERSONATE : "impersonate" | "im">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < OOC : "ooc">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:DICE_EXPR}
 <CHATCOMMAND>  TOKEN : { < SELF : "self">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < TOKEN_MACRO : "tmacro" | "tm">:AFTER_CC}
@@ -100,9 +103,7 @@ private ParsedChat START() throws UnknownCommandException:
 	{
 		(
 				<CHAT_COMMAND_SLASH>
-				{ChatCommand cc;}
-				cc=CHAT_COMMAND()
-				{list.setChatCommand(cc);}
+				CHAT_COMMAND(list)
 				(
 					<EOF>
 					|
@@ -135,64 +136,76 @@ private ParsedChat START() throws UnknownCommandException:
 		{return list;}
 	}
 	
-private ChatCommand CHAT_COMMAND() throws UnknownCommandException:
+private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 	{
 	}
 	{
+		{ChatCommand cc;}
 		(
 		    <MACRO_EXEC>
-		    {return ChatCommand.MACRO_EXEC;}
+		    {cc=ChatCommand.MACRO_EXEC;}
 		    |
 			<CLEAR_CHAT>
-			{return ChatCommand.CLEAR_CHAT;}
+			{cc=ChatCommand.CLEAR_CHAT;}
 		    |
 		    <EMIT>
-		    {return ChatCommand.EMIT;}
+		    {cc=ChatCommand.EMIT;}
 		    |
 		    <EMOTE>
-		    {return ChatCommand.EMOTE;}
+		    {cc=ChatCommand.EMOTE;}
 		    |
 		    <GM>
-		    {return ChatCommand.GM;}
+		    {cc=ChatCommand.GM;}
 		    |
 		    <GOTO>
-		    {return ChatCommand.GOTO;}
+		    {
+			    cc=ChatCommand.GOTO;
+			    Token a1,a2;
+		    }
+		    a1=<FLOAT>
+		    a2=<FLOAT>
+		    {pc.setArguments(a1.image,a2.image);}
 		    |
 		    <IMPERSONATE>
-		    {return ChatCommand.IMPERSONATE;}
+		    {cc=ChatCommand.IMPERSONATE;Token guid;}
+		    guid=<GUID>
+		    {pc.setArguments(guid.image);}
 		    |
 		    <OOC>
-		    {return ChatCommand.OOC;}
-		    |
+		    {cc=ChatCommand.OOC;}		    |
 		    <REPLY>
-		    {return ChatCommand.REPLY;}
+		    {cc=ChatCommand.REPLY;}
 		    |
 		    <ROLL>
-		    {return ChatCommand.ROLL;}
+		    {cc=ChatCommand.ROLL;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_GM>
-		    {return ChatCommand.ROLL_GM;}
+		    {cc=ChatCommand.ROLL_GM;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_ME>
-		    {return ChatCommand.ROLL_ME;}
+		    {cc=ChatCommand.ROLL_ME;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_SECRET>
-		    {return ChatCommand.ROLL_SECRET;}
+		    {cc=ChatCommand.ROLL_SECRET;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <SELF>
-		    {return ChatCommand.SELF;}
+		    {cc=ChatCommand.SELF;}
 		    |
 		    <TABLE>
-		    {return ChatCommand.TABLE;}
+		    {cc=ChatCommand.TABLE;}
 		    |
 		    <TOKEN_MACRO>
-		    {return ChatCommand.TOKEN_MACRO;}
+		    {cc=ChatCommand.TOKEN_MACRO;}
 		    |
 		    <TOKEN_SPEECH>
-		    {return ChatCommand.TOKEN_SPEECH;}
+		    {cc=ChatCommand.TOKEN_SPEECH;}
 		    |
 		    <WHISPER>
-		    {return ChatCommand.WHISPER;}
+		    {cc=ChatCommand.WHISPER;}
 		    |
 		    (
 		    	{StringBuilder sb=new StringBuilder();}
@@ -204,6 +217,8 @@ private ChatCommand CHAT_COMMAND() throws UnknownCommandException:
 		    	{throw new UnknownCommandException(sb.toString());}
 		    )
 		)
+		{ token_source.SwitchTo(AFTER_CC) ; } 
+		{pc.setChatCommand(cc);}
 	}
 	
 

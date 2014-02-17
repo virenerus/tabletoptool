@@ -40,10 +40,16 @@ public class AdditionNode implements DiceExpression {
 	public String toString() {
 		StringBuilder sb=new StringBuilder();
 		for(int i=0;i<nodes.size();i++) {
-			if(operations.get(i))
-				sb.append('+').append(nodes.get(i).toString());
-			else
-				sb.append('-').append(nodes.get(i).toString());
+			if(operations.get(i)) {
+				if(i>0)
+					sb.append('+');
+				sb.append(nodes.get(i).toString());
+			}
+			else {
+				if(i>0)
+					sb.append('-');
+				sb.append(nodes.get(i).toString());
+			}
 		}
 		return sb.toString();
 	}
@@ -51,10 +57,16 @@ public class AdditionNode implements DiceExpression {
 	public String toEvaluatedString() {
 		StringBuilder sb=new StringBuilder();
 		for(int i=0;i<nodes.size();i++) {
-			if(operations.get(i))
-				sb.append('+').append(nodes.get(i).toEvaluatedString());
-			else
-				sb.append('-').append(nodes.get(i).toEvaluatedString());
+			if(operations.get(i)) {
+				if(i>0)
+					sb.append('+');
+				sb.append(nodes.get(i).toEvaluatedString());
+			}
+			else {
+				if(i>0)
+					sb.append('-');
+				sb.append(nodes.get(i).toEvaluatedString());
+			}
 		}
 		return sb.toString();
 	}
