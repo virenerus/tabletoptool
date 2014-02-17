@@ -32,67 +32,48 @@ public class TextMessage {
 	private final String message;
 	private final String source;
 	private final String speaker;
-	private final List<String> transform;
 
 	////
 	// CONSTRUCTION
-	public TextMessage(int channel, String target, String source, String message, String speaker, List<String> transformHistory) {
+	public TextMessage(int channel, String target, String source, String message, String speaker) {
 		this.channel = channel;
 		this.target = target;
 		this.message = message;
 		this.source = source;
-		this.transform = transformHistory;
 		this.speaker = speaker;
 	}
 	
-	public TextMessage(int channel, String target, String source, String message, List<String> transformHistory) {
-		this(channel, target, source, message, null, transformHistory);
+	public TextMessage(int channel, String target, String source, String message) {
+		this(channel, target, source, message, null);
 	}
 
-	public static TextMessage say(List<String> transformHistory, String message, String speaker) {
-		return new TextMessage(Channel.SAY, null, MapTool.getPlayer().getName(), message, speaker, transformHistory);
+	public static TextMessage say(String message, String speaker) {
+		return new TextMessage(Channel.SAY, null, MapTool.getPlayer().getName(), message, speaker);
 	}
 	
-	public static TextMessage say(List<String> transformHistory, String message) {
-		return new TextMessage(Channel.SAY, null, MapTool.getPlayer().getName(), message, null, transformHistory);
+	public static TextMessage say(String message) {
+		return new TextMessage(Channel.SAY, null, MapTool.getPlayer().getName(), message, null);
 	}
 
-	public static TextMessage gm(List<String> transformHistory, String message) {
-		return new TextMessage(Channel.GM, null, MapTool.getPlayer().getName(), message, null, transformHistory);
+	public static TextMessage gm(String message) {
+		return new TextMessage(Channel.GM, null, MapTool.getPlayer().getName(), message, null);
 	}
 
-	public static TextMessage me(List<String> transformHistory, String message) {
-		return new TextMessage(Channel.ME, null, MapTool.getPlayer().getName(), message, null, transformHistory);
+	public static TextMessage me(String message) {
+		return new TextMessage(Channel.ME, null, MapTool.getPlayer().getName(), message, null);
 	}
 
-	public static TextMessage group(List<String> transformHistory, String target, String message) {
-		return new TextMessage(Channel.GROUP, target, MapTool.getPlayer().getName(), message, null, transformHistory);
+	public static TextMessage group(String target, String message) {
+		return new TextMessage(Channel.GROUP, target, MapTool.getPlayer().getName(), message, null);
 	}
 
-	public static TextMessage whisper(List<String> transformHistory, String target, String message) {
-		return new TextMessage(Channel.WHISPER, target, MapTool.getPlayer().getName(), message, null, transformHistory);
+	public static TextMessage whisper(String target, String message) {
+		return new TextMessage(Channel.WHISPER, target, MapTool.getPlayer().getName(), message, null);
 	}
 
 	@Override
 	public String toString() {
 		return message;
-	}
-
-	/**
-	 * Attempt to cut out any redundant information
-	 */
-	public void compact() {
-		if (transform != null) {
-			String lastTransform = null;
-			for (ListIterator<String> iter = transform.listIterator(); iter.hasNext();) {
-				String value = iter.next();
-				if (value == null || value.length() == 0 || value.equals(lastTransform) || value.equals(message)) {
-					iter.remove();
-					continue;
-				}
-				lastTransform = value;
-			}
-		}
 	}
 
 	////
@@ -115,10 +96,6 @@ public class TextMessage {
 
 	public String getSource() {
 		return source;
-	}
-
-	public List<String> getTransformHistory() {
-		return transform;
 	}
 
 	////

@@ -1083,7 +1083,7 @@ public class AppActions {
 		}
 		if (!failedPaste.isEmpty()) {
 			String mesg = "Failed to paste token(s) with duplicate name(s): " + failedPaste;
-			TextMessage msg = TextMessage.gm(null, mesg);
+			TextMessage msg = TextMessage.gm(mesg);
 			MapTool.addMessage(msg);
 //			msg.setChannel(Channel.ME);
 //			MapTool.addMessage(msg);

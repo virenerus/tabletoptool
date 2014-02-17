@@ -102,7 +102,7 @@ public class MessagePanel extends JPanel {
 								} catch (MT2ScriptException e1) {
 									e1.printStackTrace();
 									log.error("Error while trying to execute script from HTML", e1);
-									MapTool.addMessage(TextMessage.me(null, e1.getHTMLErrorMessage()));
+									MapTool.addMessage(TextMessage.me(e1.getHTMLErrorMessage()));
 								}
 							}
 						}

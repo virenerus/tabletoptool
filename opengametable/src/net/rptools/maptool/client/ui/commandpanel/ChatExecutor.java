@@ -2,6 +2,7 @@ package net.rptools.maptool.client.ui.commandpanel;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.GUID;
@@ -11,8 +12,10 @@ import net.rptools.maptool.script.ScriptManager;
 import net.rptools.maptool.script.mt2api.MT2ScriptLibrary;
 import net.rptools.maptool.script.mt2api.TokenView;
 import net.sf.mt2.chatparser.ChatPart;
+import net.sf.mt2.chatparser.DiceExpressionPart;
 import net.sf.mt2.chatparser.ParsedChat;
 import net.sf.mt2.chatparser.UnknownCommandException;
+import net.sf.mt2.dice.expression.DiceExpression;
 
 import org.codehaus.groovy.tools.shell.util.Logger;
 
@@ -84,18 +87,25 @@ public class ChatExecutor {
 						//TODO MapTool.getFrame().getCommandPanel().get
 						break;
 					case ROLL:
+						MapTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0))));
 						break;
 					case ROLL_GM:
+						MapTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0))));
 						break;
 					case ROLL_ME:
+						MapTool.addMessage(TextMessage.me(printRoll((DiceExpressionPart)parts.get(0))));
 						break;
 					case ROLL_SECRET:
+						MapTool.addMessage(TextMessage.group(target, message)(printRoll((DiceExpressionPart)parts.get(0))));
 						break;
 					case SELF:
+						MapTool.addMessage(TextMessage.me(buildDefaultStringRepresentation(parts)));
 						break;
 					case TABLE:
+						MapTool.getFrame().get
 						break;
 					case TOKEN_MACRO:
+						MapTool
 						break;
 					case TOKEN_SPEECH:
 						break;
@@ -112,6 +122,20 @@ public class ChatExecutor {
 			log.error(e);
 			e.printStackTrace();
 		}
+	}
+
+	private static String printRoll(DiceExpressionPart diceExpressionPart) {
+		DiceExpression diceExpression = diceExpressionPart.getDiceExpression();
+		int result=diceExpression.evaluate(new Random());
+		StringBuilder sb=new StringBuilder();
+		sb.append(diceExpression.toString())
+			.append(" = ")
+			.append(diceExpression.toEvaluatedString())
+			.append(" = <b>")
+			.append(result)
+			.append("</b>");
+		
+		return sb.toString();
 	}
 
 	private static String buildDefaultStringRepresentation(List<? extends ChatPart> parts) {

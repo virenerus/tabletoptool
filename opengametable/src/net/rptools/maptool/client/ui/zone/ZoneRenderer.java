@@ -3622,10 +3622,10 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		selectTokens(selectThese);
 
 		if (!isGM)
-			MapTool.addMessage(TextMessage.gm(null, "Tokens dropped onto map '" + zone.getName() + "' by player " + MapTool.getPlayer()));
+			MapTool.addMessage(TextMessage.gm("Tokens dropped onto map '" + zone.getName() + "' by player " + MapTool.getPlayer()));
 		if (!failedPaste.isEmpty()) {
 			String mesg = "Failed to paste token(s) with duplicate name(s): " + failedPaste;
-			TextMessage msg = TextMessage.gm(null, mesg);
+			TextMessage msg = TextMessage.gm(mesg);
 			MapTool.addMessage(msg);
 //			msg.setChannel(Channel.ME);
 //			MapTool.addMessage(msg);

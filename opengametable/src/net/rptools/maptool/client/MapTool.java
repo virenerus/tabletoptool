@@ -789,7 +789,7 @@ public class MapTool {
 	 * @param message
 	 */
 	public static void addLocalMessage(String message) {
-		addMessage(TextMessage.me(null, message));
+		addMessage(TextMessage.me(message));
 	}
 
 	/**
@@ -836,9 +836,9 @@ public class MapTool {
 	public static void addGlobalMessage(String message, List<String> targets) {
 		for (String target : targets) {
 			if ("gm".equalsIgnoreCase(target)) {
-				addMessage(TextMessage.gm(null, message));
+				addMessage(TextMessage.gm(message));
 			} else {
-				addMessage(TextMessage.whisper(null, target, message));
+				addMessage(TextMessage.whisper(target, message));
 			}
 		}
 	}

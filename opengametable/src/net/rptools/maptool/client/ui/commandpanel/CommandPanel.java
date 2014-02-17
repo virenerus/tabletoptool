@@ -471,7 +471,7 @@ public class CommandPanel extends JPanel implements Observer {
 			closeDivCount++;
 		}
 		if (closeDivCount > divCount) {
-			MapTool.addServerMessage(TextMessage.me(null, "You have too many &lt;/div&gt;."));
+			MapTool.addServerMessage(TextMessage.me("You have too many &lt;/div&gt;."));
 			commandTextArea.setText("");
 			return;
 		}

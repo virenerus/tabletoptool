@@ -425,7 +425,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 					o=ScriptManager.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
 			} catch (MT2ScriptException e) {
 				log.error("Error while trying to execute a macro from button",e);
-				MapTool.addMessage(TextMessage.me(null, e.getHTMLErrorMessage()));
+				MapTool.addMessage(TextMessage.me(e.getHTMLErrorMessage()));
 			}
 		}
 		MapTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
