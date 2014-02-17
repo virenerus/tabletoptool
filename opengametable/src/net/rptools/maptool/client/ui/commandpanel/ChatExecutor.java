@@ -51,15 +51,15 @@ public class ChatExecutor {
 						if(MapTool.getPlayer().isGM())
 							MapTool.addGlobalMessage(buildDefaultStringRepresentation(parts));
 						else
-							MapTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts), MapTool.getPlayer().getName()));
+							MapTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts),MapTool.getFrame().getCommandPanel().getIdentity()));
 						break;
 					case EMOTE:
 						MapTool.addGlobalMessage("<span color=\"green\" style=\"font-style: italic;\">"
-								+MapTool.getPlayer().getName()+" "
+								+MapTool.getFrame().getCommandPanel().getIdentity()+" "
 								+buildDefaultStringRepresentation(parts)+"</span>");
 						break;
 					case GM:
-						MapTool.addMessage(TextMessage.gm(buildDefaultStringRepresentation(parts)));
+						MapTool.addMessage(TextMessage.gm(buildDefaultStringRepresentation(parts),MapTool.getFrame().getCommandPanel().getIdentity()));
 						break;
 					case GOTO: {
 							try {
@@ -116,10 +116,10 @@ public class ChatExecutor {
 						break;
 					}
 					case ROLL:
-						MapTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0))));
+						MapTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0)),MapTool.getFrame().getCommandPanel().getIdentity()));
 						break;
 					case ROLL_GM:
-						MapTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0))));
+						MapTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0)),MapTool.getFrame().getCommandPanel().getIdentity()));
 						break;
 					case ROLL_ME:
 						MapTool.addMessage(TextMessage.me(printRoll((DiceExpressionPart)parts.get(0))));
@@ -180,7 +180,7 @@ public class ChatExecutor {
 						        sb.append("</span>");
 					    	}
 
-					    	MapTool.addMessage(TextMessage.say(sb.toString()));
+					    	MapTool.addMessage(TextMessage.say(sb.toString(),MapTool.getFrame().getCommandPanel().getIdentity()));
 				    	} catch (Exception pe) {
 					        MapTool.addLocalMessage("lookuptable.couldNotPerform" + pe.getMessage());
 				    	}

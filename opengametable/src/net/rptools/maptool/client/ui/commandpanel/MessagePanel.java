@@ -181,50 +181,10 @@ public class MessagePanel extends JPanel {
 	public void addMessage(final TextMessage message) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				String output;
-
-				{
-					StringBuffer text = new StringBuffer();
-					Matcher m = roll_pattern.matcher(message.getMessage());
-					while (m.find()) {
-						HashSet<String> options = new HashSet<String>();
-						if (m.group(1) != null) {
-							options.addAll(Arrays.asList(m.group(1).split(",")));
-
-							if (!options.contains("w") && !options.contains("g") && !options.contains("s"))
-								; // visible for everyone
-							else if (options.contains("w:" + MapTool.getPlayer().getName().toLowerCase()))
-								; // visible for this player
-							else if (options.contains("g") && MapTool.getPlayer().isGM())
-								; // visible for GMs
-							else if (options.contains("s") && message.getSource().equals(MapTool.getPlayer().getName()))
-								; // visible to the player who sent it
-							else {
-								m.appendReplacement(text, ""); // not visible for this player
-								continue;
-							}
-						}
-						String replacement = null;
-						if (m.group(3) != null) {
-							if (!options.contains("st") && !options.contains("gt") || options.contains("st") && message.getSource().equals(MapTool.getPlayer().getName()) || options.contains("gt")
-									&& MapTool.getPlayer().isGM())
-								replacement = "<span class='roll' title='&#171; $2 &#187;'>$3</span>";
-							else
-								replacement = "$3";
-						} else if (options.contains("u"))
-							replacement = "&#171; $2 &#187;";
-						else if (options.contains("r"))
-							replacement = "$2";
-						else
-							replacement = "&#171;<span class='roll' style='color:blue'>&nbsp;$2&nbsp;</span>&#187;";
-						m.appendReplacement(text, replacement);
-					}
-					m.appendTail(text);
-					output = text.toString();
-				}
+				String output = message.getMessage();
 				// Auto inline expansion for {HTTP|HTTPS} URLs
-//				output = output.replaceAll("(^|\\s|>|\002)(https?://[\\w.%-/~?&+#=]+)", "$1<a href='$2'>$2</a>");
-				output = output.replaceAll("(^|\\s|>|\002)(https?://[^<>\002\003]+)", "$1<a href='$2'>$2</a>");
+				//todo test this
+				output = output.replaceAll("(https?://[\\w.%-/~?&+#=]+)", "<a href='$2'>$2</a>");
 
 				if (!message.getSource().equals(MapTool.getPlayer().getName())) {
 					// TODO change this so 'macro' is case-insensitive
@@ -233,11 +193,11 @@ public class MessagePanel extends JPanel {
 						//FIXMESOON MacroLinkFunction.getInstance().processMacroLink(m.group(2));
 					}
 				}
+				output=output.trim();
 				// if rolls not being visible to this user result in an empty message, display nothing
-				// TODO The leading and trailing '.*' are probably not needed -- test this before removing them
-				if (!output.matches(".*\002\\s*\003.*")) {
-					output = output.replaceAll("\002|\003", "");
+				if(!output.isEmpty()) {
 
+					//this tries to insert the message in so that names are not printed a thousand times
 					try {
 						Element element = document.getElement("body");
 						if(lastSpeaker != null && lastSpeaker.equals(message.getSpeaker())) {

@@ -9,7 +9,7 @@ import net.sf.mt2.chatparser.generated.ParseException;
 public class Test {
 
 	public static void main(String[] args) throws IOException, ParseException {
-		ChatParser p=new ChatParser("/r 4d6+12");
+		ChatParser p=new ChatParser("/im 000000006EE643402900000000000000");
 		p.enable_tracing();
 		try {
 			ParsedChat pc=p.parse();

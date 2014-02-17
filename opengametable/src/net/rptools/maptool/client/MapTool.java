@@ -799,7 +799,7 @@ public class MapTool {
 	 * @param message
 	 */
 	public static void addGlobalMessage(String message) {
-		addMessage(TextMessage.say(null, message));
+		addMessage(TextMessage.say(message));
 	}
 
 	/**

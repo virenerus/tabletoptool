@@ -58,6 +58,10 @@ public class TextMessage {
 	public static TextMessage gm(String message) {
 		return new TextMessage(Channel.GM, null, MapTool.getPlayer().getName(), message, null);
 	}
+	
+	public static TextMessage gm(String message, String speaker) {
+		return new TextMessage(Channel.GM, null, MapTool.getPlayer().getName(), message, speaker);
+	}
 
 	public static TextMessage me(String message) {
 		return new TextMessage(Channel.ME, null, MapTool.getPlayer().getName(), message, null);
