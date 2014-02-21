@@ -153,8 +153,8 @@ public class BoardTool extends DefaultTool {
 	 * Moves the board to the nearest snap intersection. Modifies GUI.
 	 */
 	private void snapBoard() {
-		boardPosition.x = (Math.round(boardPosition.x / snap.width) * snap.width);
-		boardPosition.y = (Math.round(boardPosition.y / snap.height) * snap.height);
+		boardPosition.x = (boardPosition.x / snap.width) * snap.width;
+		boardPosition.y = (boardPosition.y / snap.height) * snap.height;
 		updateGUI();
 	}
 

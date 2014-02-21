@@ -72,8 +72,9 @@ class PropertyTypeRow extends AbstractRow {
 	@Override
 	public void setValueAt(Object value, int columnIndex) {
 		if(columnIndex==0) {
-			property.setType((TokenPropertyType)value);
-			property.setDefaultValue(null);
+			TokenPropertyType newType = (TokenPropertyType)value;
+			property.setType(newType);
+			property.setDefaultValue(newType.getDefaultDefaultValue());
 			cellUpdated(6);
 		}
 		else if(columnIndex==1)

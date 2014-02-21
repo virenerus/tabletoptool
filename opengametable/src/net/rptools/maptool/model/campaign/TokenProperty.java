@@ -45,14 +45,7 @@ public class TokenProperty implements Serializable {
 		this.ownerOnly = isOwnerOnly;
 		this.gmOnly = isGMOnly;
 		this.type=type;
-	}
-	public TokenProperty(String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly, String defaultValue) {
-		this.name = name;
-		this.shortName = shortName;
-		this.highPriority = highPriority;
-		this.ownerOnly = isOwnerOnly;
-		this.gmOnly = isGMOnly;
-		this.defaultValue= defaultValue;
+		this.defaultValue=type.getDefaultDefaultValue();
 	}
 
 	public TokenProperty(TokenProperty p) {
@@ -61,7 +54,7 @@ public class TokenProperty implements Serializable {
 		highPriority=p.highPriority;
 		ownerOnly=p.ownerOnly;
 		gmOnly=p.gmOnly;
-		defaultValue=p.defaultValue;
+		defaultValue=p.defaultValue==null?p.type.getDefaultDefaultValue():p.defaultValue;
 		type=p.type;
 	}
 
@@ -119,5 +112,6 @@ public class TokenProperty implements Serializable {
 	
 	public void setType(TokenPropertyType type) {
 		this.type=type;
+		this.defaultValue=type.getDefaultDefaultValue();
 	}
 }

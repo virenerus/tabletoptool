@@ -243,7 +243,7 @@ public class ChatExecutor {
 
 	private static String printRoll(DiceExpressionPart diceExpressionPart) {
 		DiceExpression diceExpression = diceExpressionPart.getDiceExpression();
-		int result=diceExpression.evaluate(new Random());
+		float result=diceExpression.evaluate(new Random());
 		StringBuilder sb=new StringBuilder();
 		sb.append(diceExpression.toString())
 			.append(" = ")

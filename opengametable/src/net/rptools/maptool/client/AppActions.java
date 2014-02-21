@@ -915,9 +915,6 @@ public class AppActions {
 		// Only cut if some tokens are selected.  Don't want to accidentally
 		// lose what might already be in the clipboard.
 		if (!tokenList.isEmpty()) {
-			if (tokenCopySet != null)
-				tokenCopySet.clear(); // Just to help out the garbage collector a little bit
-
 			Token topLeft = tokenList.get(0);
 			tokenCopySet = new HashSet<Token>();
 			for (Token originalToken : tokenList) {

@@ -3,70 +3,21 @@ package net.rptools.maptool.model.campaign;
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 
+import net.rptools.maptool.script.mt2api.DiceExpressionView;
 import net.rptools.maptool.util.math.CappedInteger;
+import net.sf.mt2.dice.expression.DiceExpression;
 
 public enum TokenPropertyType {
-	BOOLEAN("Boolean", Boolean.class) {
-		@Override
-		public Boolean parseObject(String str) {
-			return Boolean.valueOf(str);
-		}
-
-		@Override
-		public String printObject(Object obj) {
-			return ((Boolean)obj).toString();
-		}
-		
+	BOOLEAN("Boolean", Boolean.class, Boolean.FALSE) {
 		@Override
 		public EditorContext getEditorContext() {
 			return BooleanCheckBoxCellEditor.CONTEXT;
 		}
 	},
-	TEXT("Text", String.class) {
-		@Override
-		public String parseObject(String str) {
-			return str.trim();
-		}
-
-		@Override
-		public String printObject(Object obj) {
-			return (String) obj;
-		}
-	},
-	INTEGER("Integer", Integer.class) {
-		@Override
-		public Integer parseObject(String str) {
-			return Integer.valueOf(str);
-		}
-
-		@Override
-		public String printObject(Object obj) {
-			return ((Integer)obj).toString();
-		}
-	},
-	FLOAT("Float", Float.class) {
-		@Override
-		public Float parseObject(String str) {
-			return Float.valueOf(str);
-		}
-
-		@Override
-		public String printObject(Object obj) {
-			return ((Float)obj).toString();
-		}
-	},
-	CAPPED("Capped", CappedInteger.class) {
-		@Override
-		public CappedInteger parseObject(String str) {
-			return CappedInteger.valueOf(str.replaceAll("\\s", ""));
-		}
-		
-		@Override
-		public String printObject(Object obj) {
-			CappedInteger capped=((CappedInteger)obj);
-			return capped.getValue()+" in ["+capped.getMin()+';'+capped.getMax()+']';
-		}
-		
+	TEXT("Text", String.class, ""),
+	INTEGER("Integer", Integer.class, 0),
+	FLOAT("Float", Float.class, new Float(0)),
+	CAPPED("Capped", CappedInteger.class, new CappedInteger(0,0,0)) {
 		@Override
 		public String toStatsheetString(Object propertyValue) {
 			if(propertyValue==null)
@@ -76,14 +27,18 @@ public enum TokenPropertyType {
 				return capped.getValue()+" / "+capped.getMax();
 			}
 		}
-	};
+	},
+	DICE("Dice", DiceExpressionView.class,new DiceExpressionView(DiceExpression.ZERO_EXPRESSION));
 	
-	private Class<?> type;
-	private String name;
+	
+	private final Class<?> type;
+	private final String name;
+	private final Object defaultDefaultValue;
 
-	private TokenPropertyType(String name, Class<?> type) {
+	private <T> TokenPropertyType(String name, Class<T> type, T defaultDefaultValue) {
 		this.type=type;
 		this.name=name;
+		this.defaultDefaultValue=defaultDefaultValue;
 	}
 	
 	@Override
@@ -95,9 +50,6 @@ public enum TokenPropertyType {
 		return type;
 	}
 	
-	public abstract Object parseObject(String str);
-	public abstract String printObject(Object obj);
-
 	public boolean isInstance(Object obj) {
 		return type.isInstance(obj);
 	}
@@ -107,9 +59,14 @@ public enum TokenPropertyType {
 	}
 
 	/**
-	 * @return something diffrent than null to switch the editors used for this property in a jide grid
+	 * @return something different than null to switch the editors used for this property in a jide grid
 	 */
 	public EditorContext getEditorContext() {
 		return null;
 	}
+
+	public Object getDefaultDefaultValue() {
+		return defaultDefaultValue;
+	}
+	
 }

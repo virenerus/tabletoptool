@@ -895,6 +895,9 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 			@Override
 			public void setValue(Object value) {
+				if(value==null)
+					throw new NullPointerException("Tried to set null for "+key);
+				else
 				getPropertyMap().put(key, value);
 			}
 

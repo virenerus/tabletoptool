@@ -75,6 +75,7 @@ import net.rptools.maptool.client.ui.MapToolFrame;
 import net.rptools.maptool.client.ui.StartServerDialogPreferences;
 import net.rptools.maptool.client.ui.token.CappedIntegerCellEditor;
 import net.rptools.maptool.client.ui.token.CappedIntegerCellRenderer;
+import net.rptools.maptool.client.ui.token.DiceExpressionCellEditor;
 import net.rptools.maptool.client.ui.zone.PlayerView;
 import net.rptools.maptool.client.ui.zone.ZoneRenderer;
 import net.rptools.maptool.client.ui.zone.ZoneRendererFactory;
@@ -90,6 +91,7 @@ import net.rptools.maptool.model.campaign.Campaign;
 import net.rptools.maptool.model.campaign.CampaignFactory;
 import net.rptools.maptool.model.campaign.TokenPropertyType;
 import net.rptools.maptool.script.ScriptManager;
+import net.rptools.maptool.script.mt2api.DiceExpressionView;
 import net.rptools.maptool.server.MapToolServer;
 import net.rptools.maptool.server.ServerCommand;
 import net.rptools.maptool.server.ServerConfig;
@@ -1160,6 +1162,12 @@ public class MapTool {
 			@Override
 			public CellEditor create() {
 				return new ListComboBoxCellEditor(TokenPropertyType.values());
+			}
+		});
+		CellEditorManager.registerEditor(DiceExpressionView.class, new CellEditorFactory() {
+			@Override
+			public CellEditor create() {
+				return new DiceExpressionCellEditor();
 			}
 		});
 	}
