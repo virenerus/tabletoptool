@@ -16,8 +16,8 @@ public class AdditionNode implements DiceExpression {
 		operations.set(nodes.size()-1, true);
 	}
 
-	public int evaluate(Random random) {
-		int sum=0;
+	public float evaluate(Random random) {
+		float sum=0;
 		for(int i=0;i<nodes.size();i++) {
 			if(operations.get(i))
 				sum+=nodes.get(i).evaluate(random);

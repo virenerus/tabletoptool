@@ -15,7 +15,7 @@ public class MultiplicationNode implements DiceExpression {
 		operations.set(nodes.size()-1, true);
 	}
 
-	public int evaluate(Random random) {
+	public float evaluate(Random random) {
 		int product=1;
 		for(int i=0;i<nodes.size();i++) {
 			if(operations.get(i))

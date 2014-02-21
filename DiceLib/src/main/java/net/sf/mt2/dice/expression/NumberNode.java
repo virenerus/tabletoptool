@@ -1,24 +1,25 @@
 package net.sf.mt2.dice.expression;
 
+import java.text.NumberFormat;
 import java.util.Random;
 
 public class NumberNode implements DiceExpression {
 
-	private int number;
+	private float number;
 
-	public NumberNode(int number) {
+	public NumberNode(float number) {
 		this.number=number;
 	}
 
-	public int evaluate(Random random) {
+	public float evaluate(Random random) {
 		return number;
 	}
 	
 	public String toString() {
-		return Integer.toString(number);
+		return Float.toString(number);
 	}
 
 	public String toEvaluatedString() {
-		return Integer.toString(number);
+		return NumberFormat.getInstance().format(number);
 	}
 }

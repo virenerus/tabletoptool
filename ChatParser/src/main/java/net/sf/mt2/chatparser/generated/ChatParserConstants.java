@@ -53,57 +53,61 @@ public interface ChatParserConstants {
   /** RegularExpression Id. */
   int UNKNOWN_COMMAND = 22;
   /** RegularExpression Id. */
-  int CHAT_COMMAND_SLASH = 23;
+  int EVERYTHING = 23;
   /** RegularExpression Id. */
-  int CODE_START = 24;
+  int CHAT_COMMAND_SLASH = 24;
   /** RegularExpression Id. */
-  int TEXT = 25;
+  int CODE_START = 25;
   /** RegularExpression Id. */
-  int CODE_END = 26;
+  int TEXT = 26;
   /** RegularExpression Id. */
-  int PLUS = 27;
+  int CODE_END = 27;
   /** RegularExpression Id. */
-  int MINUS = 28;
+  int PLUS = 28;
   /** RegularExpression Id. */
-  int MULTIPLICATION = 29;
+  int MINUS = 29;
   /** RegularExpression Id. */
-  int DIVISION = 30;
+  int MULTIPLICATION = 30;
   /** RegularExpression Id. */
-  int PARANTHESES_LEFT = 31;
+  int DIVISION = 31;
   /** RegularExpression Id. */
-  int PARANTHESES_RIGHT = 32;
+  int PARANTHESES_LEFT = 32;
   /** RegularExpression Id. */
-  int NUMBER = 33;
+  int PARANTHESES_RIGHT = 33;
   /** RegularExpression Id. */
-  int DICE_D = 34;
+  int NUMBER = 34;
   /** RegularExpression Id. */
-  int DICE_KEEP = 35;
+  int FLOAT = 35;
   /** RegularExpression Id. */
-  int DICE_REROLL = 36;
+  int DICE_D = 36;
   /** RegularExpression Id. */
-  int DICE_SUCCESS = 37;
+  int DICE_KEEP = 37;
   /** RegularExpression Id. */
-  int DICE_EXPLODING_SUCCESS = 38;
+  int DICE_REROLL = 38;
   /** RegularExpression Id. */
-  int DICE_EXPLODING = 39;
+  int DICE_SUCCESS = 39;
   /** RegularExpression Id. */
-  int DICE_OPEN = 40;
+  int DICE_EXPLODING_SUCCESS = 40;
   /** RegularExpression Id. */
-  int DICE_HERO_STUN = 41;
+  int DICE_EXPLODING = 41;
   /** RegularExpression Id. */
-  int DICE_HERO_BODY = 42;
+  int DICE_OPEN = 42;
   /** RegularExpression Id. */
-  int DICE_FUDGE = 43;
+  int DICE_HERO_STUN = 43;
   /** RegularExpression Id. */
-  int DICE_UBIQUITY = 44;
+  int DICE_HERO_BODY = 44;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_EXPLODING_GREMLIN = 45;
+  int DICE_FUDGE = 45;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_EXPLODING = 46;
+  int DICE_UBIQUITY = 46;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_GREMLIN = 47;
+  int DICE_SHADOWRUN_EXPLODING_GREMLIN = 47;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN = 48;
+  int DICE_SHADOWRUN_EXPLODING = 48;
+  /** RegularExpression Id. */
+  int DICE_SHADOWRUN_GREMLIN = 49;
+  /** RegularExpression Id. */
+  int DICE_SHADOWRUN = 50;
 
   /** Lexical state. */
   int CHATCOMMAND = 0;
@@ -112,9 +116,11 @@ public interface ChatParserConstants {
   /** Lexical state. */
   int DICE_EXPR = 2;
   /** Lexical state. */
-  int DEFAULT = 3;
+  int REST = 3;
   /** Lexical state. */
-  int AFTER_CC = 4;
+  int DEFAULT = 4;
+  /** Lexical state. */
+  int AFTER_CC = 5;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -141,6 +147,7 @@ public interface ChatParserConstants {
     "<TOKEN_SPEECH>",
     "<WHISPER>",
     "<UNKNOWN_COMMAND>",
+    "<EVERYTHING>",
     "\"/\"",
     "\"\\u00a7\"",
     "<TEXT>",
@@ -152,6 +159,7 @@ public interface ChatParserConstants {
     "\"(\"",
     "\")\"",
     "<NUMBER>",
+    "<FLOAT>",
     "\"d\"",
     "\"k\"",
     "\"r\"",

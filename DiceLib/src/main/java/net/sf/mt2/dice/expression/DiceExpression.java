@@ -4,7 +4,9 @@ import java.util.Random;
 
 public interface DiceExpression {
 
-	public int evaluate(Random random);
+	public final static DiceExpression ZERO_EXPRESSION = new NumberNode(0);
+
+	public float evaluate(Random random);
 	
 	public String toEvaluatedString();
 }

@@ -24,4 +24,9 @@ public class DropDice extends SimpleDice {
 		for(int i=drop;i<count;i++)
 			result+=sorted[i];
 	}
+	
+	@Override
+	public String toString() {
+		return count+"d"+type+"d"+drop;
+	}
 }

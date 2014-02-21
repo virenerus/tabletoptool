@@ -10,7 +10,7 @@ public class NegationNode implements DiceExpression {
 		this.expr=expr;
 	}
 	
-	public int evaluate(Random random) {
+	public float evaluate(Random random) {
 		return -expr.evaluate(random);
 	}
 	

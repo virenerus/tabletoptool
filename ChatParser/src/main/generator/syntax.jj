@@ -39,10 +39,15 @@ PARSER_BEGIN(ChatParser)
 				return new ParsedChat(new TextPart(inputString));
 			}
 		}
+		
+		public DiceExpression parseDiceExpression() throws ParseException {
+			this.token_source.SwitchTo(DICE_EXPR);
+			return DICE_EXPRESSION();
+		}
 	}
 PARSER_END(ChatParser)
 
-<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:REST}
 <CHATCOMMAND>  TOKEN : { < CLEAR_CHAT : "clear" | "clr">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:AFTER_CC}
@@ -60,38 +65,42 @@ PARSER_END(ChatParser)
 <CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:DICE_EXPR}
 <CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:DICE_EXPR}
 <CHATCOMMAND>  TOKEN : { < SELF : "self">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:AFTER_CC}
-<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:CC_ARGUMENTS}
+<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:REST}
 <CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < UNKNOWN_COMMAND : ~[] >:CHATCOMMAND}
+
+<REST> TOKEN : { < EVERYTHING : (~[])+>}
+
 
 <DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
 <DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
 <DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> :AFTER_CC}
-<DICE_EXPR>TOKEN : { < CODE_END :  "§">:AFTER_CC }
-<DICE_EXPR>TOKEN : { < PLUS :  "+"> }
-<DICE_EXPR>TOKEN : { < MINUS :  "-"> }
-<DICE_EXPR>TOKEN : { < MULTIPLICATION :  "*"> }
-<DICE_EXPR>TOKEN : { < DIVISION :  "/"> }
-<DICE_EXPR>TOKEN : { < PARANTHESES_LEFT :  "("> }
-<DICE_EXPR>TOKEN : { < PARANTHESES_RIGHT :  ")"> }
-<DICE_EXPR>TOKEN : { < NUMBER :  (["0"-"9"])+> }
+<DICE_EXPR> TOKEN : { < CODE_END :  "§">:AFTER_CC }
+<DICE_EXPR> TOKEN : { < PLUS :  "+"> }
+<DICE_EXPR> TOKEN : { < MINUS :  "-"> }
+<DICE_EXPR> TOKEN : { < MULTIPLICATION :  "*"> }
+<DICE_EXPR> TOKEN : { < DIVISION :  "/"> }
+<DICE_EXPR> TOKEN : { < PARANTHESES_LEFT :  "("> }
+<DICE_EXPR> TOKEN : { < PARANTHESES_RIGHT :  ")"> }
+<DICE_EXPR> TOKEN : { < NUMBER :  (["0"-"9"])+> }
+<DICE_EXPR> TOKEN : { < FLOAT :  ("-")?(["0"-"9"])+"."(["0"-"9"])+> }
 
-<DICE_EXPR>TOKEN : { < DICE_D : "d" > }
-<DICE_EXPR>TOKEN : { < DICE_KEEP : "k" > }
-<DICE_EXPR>TOKEN : { < DICE_REROLL : "r" > }
-<DICE_EXPR>TOKEN : { < DICE_SUCCESS : "s" > }
-<DICE_EXPR>TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
-<DICE_EXPR>TOKEN : { < DICE_EXPLODING : "e" > }
-<DICE_EXPR>TOKEN : { < DICE_OPEN : "o" > }
-<DICE_EXPR>TOKEN : { < DICE_HERO_STUN : "h" > }
-<DICE_EXPR>TOKEN : { < DICE_HERO_BODY : "b" > }
-<DICE_EXPR>TOKEN : { < DICE_FUDGE : "df" > }
-<DICE_EXPR>TOKEN : { < DICE_UBIQUITY : "du" > }
-<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
-<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_EXPLODING : "sr4e" > }
-<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN_GREMLIN : "sr4g" > }
-<DICE_EXPR>TOKEN : { < DICE_SHADOWRUN : "sr4" > }
+<DICE_EXPR> TOKEN : { < DICE_D : "d" > }
+<DICE_EXPR> TOKEN : { < DICE_KEEP : "k" > }
+<DICE_EXPR> TOKEN : { < DICE_REROLL : "r" > }
+<DICE_EXPR> TOKEN : { < DICE_SUCCESS : "s" > }
+<DICE_EXPR> TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
+<DICE_EXPR> TOKEN : { < DICE_EXPLODING : "e" > }
+<DICE_EXPR> TOKEN : { < DICE_OPEN : "o" > }
+<DICE_EXPR> TOKEN : { < DICE_HERO_STUN : "h" > }
+<DICE_EXPR> TOKEN : { < DICE_HERO_BODY : "b" > }
+<DICE_EXPR> TOKEN : { < DICE_FUDGE : "df" > }
+<DICE_EXPR> TOKEN : { < DICE_UBIQUITY : "du" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING : "sr4e" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_GREMLIN : "sr4g" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN : "sr4" > }
 
 
 
@@ -147,10 +156,10 @@ private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 		    	StringBuilder sb=new StringBuilder();}
 		    	(
 		    		{Token t;}
-		    		t=<UNKNOWN_COMMAND>
+		    		t=<EVERYTHING>
 		    		{sb.append(t.image);}
-		    	)*
-		    	{pc.setArguments(sb.toString());}
+		    	)+
+		    	{pc.setArguments(sb.toString().trim());}
 		    |
 			<CLEAR_CHAT>
 			{cc=ChatCommand.CLEAR_CHAT;}
@@ -216,10 +225,10 @@ private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 		    sb=new StringBuilder();}
 		    	(
 		    		{Token t;}
-		    		t=<UNKNOWN_COMMAND>
+		    		t=<EVERYTHING>
 		    		{sb.append(t.image);}
-		    	)*
-		    	{pc.setArguments(sb.toString());}
+		    	)+
+		    	{pc.setArguments(sb.toString().trim());}
 		    |
 		    <WHISPER>
 		    {cc=ChatCommand.WHISPER;}
@@ -282,6 +291,10 @@ private DiceExpression PRIMARY():
 	}
 	{
 		(
+			{float fnumber;}
+			fnumber=FLOAT()
+			{return new NumberNode(fnumber);}
+		|
 			{int number;}
 			number=NUMBER()
 			(			  	{Dice d;}				d=DICE(number)				{return new DiceNode(d);}
@@ -383,4 +396,14 @@ private int NUMBER() :
 	}
 	{
 		number=<NUMBER>
-		{return Integer.parseInt(number.image);}	}
+		{return Integer.parseInt(number.image);}
+	}
+	
+private float FLOAT() :
+	{
+		Token number;
+	}
+	{
+		number=<FLOAT>
+		{return Float.parseFloat(number.image);}
+	}

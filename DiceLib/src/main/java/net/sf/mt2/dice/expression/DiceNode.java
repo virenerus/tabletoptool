@@ -13,7 +13,7 @@ public class DiceNode implements DiceExpression {
 		this.dice=dice;
 	}
 
-	public int evaluate(Random random) {
+	public float evaluate(Random random) {
 		if(!dice.isRolled())
 			dice.rollDice(random);
 		return dice.getResult();

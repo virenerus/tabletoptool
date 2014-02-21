@@ -33,6 +33,11 @@
                         }
                 }
 
+                public DiceExpression parseDiceExpression() throws ParseException {
+                        this.token_source.SwitchTo(DICE_EXPR);
+                        return DICE_EXPRESSION();
+                }
+
   final private ParsedChat START() throws ParseException, UnknownCommandException {
                 ParsedChat list=new ParsedChat();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -104,19 +109,19 @@
                         StringBuilder sb=new StringBuilder();
       label_2:
       while (true) {
+                                 Token t;
+        t = jj_consume_token(EVERYTHING);
+                                 sb.append(t.image);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case UNKNOWN_COMMAND:
+        case EVERYTHING:
           ;
           break;
         default:
           jj_la1[4] = jj_gen;
           break label_2;
         }
-                                 Token t;
-        t = jj_consume_token(UNKNOWN_COMMAND);
-                                 sb.append(t.image);
       }
-                         pc.setArguments(sb.toString());
+                         pc.setArguments(sb.toString().trim());
       break;
     case CLEAR_CHAT:
       jj_consume_token(CLEAR_CHAT);
@@ -201,19 +206,19 @@
                     sb=new StringBuilder();
       label_3:
       while (true) {
+                                 Token t;
+        t = jj_consume_token(EVERYTHING);
+                                 sb.append(t.image);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case UNKNOWN_COMMAND:
+        case EVERYTHING:
           ;
           break;
         default:
           jj_la1[6] = jj_gen;
           break label_3;
         }
-                                 Token t;
-        t = jj_consume_token(UNKNOWN_COMMAND);
-                                 sb.append(t.image);
       }
-                         pc.setArguments(sb.toString());
+                         pc.setArguments(sb.toString().trim());
       break;
     case WHISPER:
       jj_consume_token(WHISPER);
@@ -332,6 +337,11 @@
 
   final private DiceExpression PRIMARY() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case FLOAT:
+                         float fnumber;
+      fnumber = FLOAT();
+                         {if (true) return new NumberNode(fnumber);}
+      break;
     case NUMBER:
                          int number;
       number = NUMBER();
@@ -496,6 +506,13 @@
     throw new Error("Missing return statement in function");
   }
 
+  final private float FLOAT() throws ParseException {
+                Token number;
+    number = jj_consume_token(FLOAT);
+                 {if (true) return Float.parseFloat(number.image);}
+    throw new Error("Missing return statement in function");
+  }
+
   /** Generated Token Manager. */
   public ChatParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -513,10 +530,10 @@
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x2000001,0x800000,0x3000000,0x3000000,0x400000,0x80,0x400000,0x400000,0x7ff87e,0x18000000,0x18000000,0x18000000,0x60000000,0x60000000,0x60000000,0x0,0x90000000,0x0,0x0,0x0,0x0,};
+      jj_la1_0 = new int[] {0x4000001,0x1000000,0x6000000,0x6000000,0x800000,0x80,0x800000,0x400000,0x7ff87e,0x30000000,0x30000000,0x30000000,0xc0000000,0xc0000000,0xc0000000,0x0,0x20000000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f804,0x2,0x1f800,0x7fc,0x7fc,0x1f804,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7e010,0xd,0x7e000,0x1ff0,0x1ff0,0x7e010,};
    }
 
   /** Constructor with InputStream. */
@@ -633,7 +650,7 @@
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[49];
+    boolean[] la1tokens = new boolean[51];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -650,7 +667,7 @@
         }
       }
     }
-    for (int i = 0; i < 49; i++) {
+    for (int i = 0; i < 51; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -16,4 +16,9 @@ public class TextPart extends ChatPart {
 	public void append(String image) {
 		text.append(image);
 	}
+	
+	@Override
+	public String toString() {
+		return text.toString();
+	}
 }
