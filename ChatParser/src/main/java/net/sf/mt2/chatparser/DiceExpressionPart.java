@@ -1,9 +1,7 @@
 package net.sf.mt2.chatparser;
 
+import java.security.SecureRandom;
 import java.text.NumberFormat;
-import java.util.Random;
-
-import org.apache.commons.lang3.StringUtils;
 
 import net.sf.mt2.dice.expression.DiceExpression;
 
@@ -18,7 +16,7 @@ public class DiceExpressionPart extends ChatPart {
 
 	@Override
 	public String getDefaultTextRepresentation() {
-		float result=diceExpression.evaluate(new Random());
+		float result=diceExpression.evaluate(new SecureRandom());
 		StringBuilder sb=new StringBuilder();
 		sb.append("<span title=\"")
 			.append(diceExpression.toString())

@@ -92,12 +92,17 @@ public class MapToolUtil {
 		}
 	}
 
+	/**
+	 * Returns a random integer between 0 inclusive and max inclusive
+	 * @param max the maximum inclusive value
+	 * @return the random integer
+	 */
 	public static int getRandomNumber(int max) {
-		return getRandomNumber(0, max);
+		return random.nextInt(1+max);
 	}
 
 	public static int getRandomNumber(int min, int max) {
-		return (int) (((max - min) * random.nextDouble()) + min);
+		return random.nextInt(1+max-min)+min;
 	}
 
 	public static float getRandomRealNumber(float max) {
@@ -106,15 +111,6 @@ public class MapToolUtil {
 
 	public static float getRandomRealNumber(float min, float max) {
 		return (float) ((max - min) * random.nextDouble()) + min;
-	}
-
-	public static boolean percentageCheckAbove(int percentage) {
-		return (random.nextDouble() * 100) > percentage;
-	}
-
-	public static boolean percentageCheckBelow(int percentage) {
-		double roll = random.nextDouble() * 100;
-		return roll < percentage;
 	}
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^(.*)\\s+(\\d+)\\s*$");
@@ -284,5 +280,9 @@ public class MapToolUtil {
 		if (!MapTool.isHostingServer() && !MapTool.getCampaign().containsAsset(asset.getId())) {
 			MapTool.serverCommand().putAsset(asset);
 		}
+	}
+
+	public static Random getRandom() {
+		return random;
 	}
 }
