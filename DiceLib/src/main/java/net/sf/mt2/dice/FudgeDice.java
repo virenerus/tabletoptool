@@ -13,7 +13,13 @@ public class FudgeDice implements Dice {
 	}
 	
 	public void rollDice(Random r) {
-		throw new UnsupportedOperationException(this.getClass().getName()+" is not implemented yet.");
+		results=new int[count];
+		result=0;
+		for(int i=0;i<count;i++) {
+			results[i]=r.nextInt(3)-1;
+			result=results[i];
+		}
+		
 	}
 
 	public int getResult() {

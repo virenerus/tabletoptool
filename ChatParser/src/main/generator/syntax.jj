@@ -93,8 +93,6 @@ PARSER_END(ChatParser)
 <DICE_EXPR> TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
 <DICE_EXPR> TOKEN : { < DICE_EXPLODING : "e" > }
 <DICE_EXPR> TOKEN : { < DICE_OPEN : "o" > }
-<DICE_EXPR> TOKEN : { < DICE_HERO_STUN : "h" > }
-<DICE_EXPR> TOKEN : { < DICE_HERO_BODY : "b" > }
 <DICE_EXPR> TOKEN : { < DICE_FUDGE : "df" > }
 <DICE_EXPR> TOKEN : { < DICE_UBIQUITY : "du" > }
 <DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
@@ -376,14 +374,6 @@ private Dice DICE(int count) :
 				(
 					<DICE_OPEN>
 					{return new OpenDice(count,type);}
-				) |
-				(
-					<DICE_HERO_STUN>
-					{return new HeroStunDice(count,type);}
-				) |
-				(
-					<DICE_HERO_BODY>
-					{return new HeroBodyDice(count,type);}
 				)
 			)?
 			{return new SimpleDice(count,type);}

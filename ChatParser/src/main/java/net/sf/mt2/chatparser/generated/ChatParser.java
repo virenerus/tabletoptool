@@ -435,8 +435,6 @@
       case DICE_EXPLODING_SUCCESS:
       case DICE_EXPLODING:
       case DICE_OPEN:
-      case DICE_HERO_STUN:
-      case DICE_HERO_BODY:
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case DICE_D:
           jj_consume_token(DICE_D);
@@ -470,14 +468,6 @@
         case DICE_OPEN:
           jj_consume_token(DICE_OPEN);
                                          {if (true) return new OpenDice(count,type);}
-          break;
-        case DICE_HERO_STUN:
-          jj_consume_token(DICE_HERO_STUN);
-                                         {if (true) return new HeroStunDice(count,type);}
-          break;
-        case DICE_HERO_BODY:
-          jj_consume_token(DICE_HERO_BODY);
-                                         {if (true) return new HeroBodyDice(count,type);}
           break;
         default:
           jj_la1[18] = jj_gen;
@@ -533,7 +523,7 @@
       jj_la1_0 = new int[] {0x4000001,0x1000000,0x6000000,0x6000000,0x800000,0x80,0x800000,0x400000,0x7ff87e,0x30000000,0x30000000,0x30000000,0xc0000000,0xc0000000,0xc0000000,0x0,0x20000000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7e010,0xd,0x7e000,0x1ff0,0x1ff0,0x7e010,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f810,0xd,0x1f800,0x7f0,0x7f0,0x1f810,};
    }
 
   /** Constructor with InputStream. */
@@ -650,7 +640,7 @@
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[51];
+    boolean[] la1tokens = new boolean[49];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -667,7 +657,7 @@
         }
       }
     }
-    for (int i = 0; i < 51; i++) {
+    for (int i = 0; i < 49; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

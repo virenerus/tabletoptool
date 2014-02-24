@@ -16,7 +16,7 @@ public class DropDice extends SimpleDice {
 		results=new int[count];
 		
 		for(int i=0;i<count;i++)
-			results[i]=singleRoll(r);
+			results[i]=r.nextInt(type)+1;
 		
 		result=0;
 		int[] sorted = Arrays.copyOf(results, results.length);

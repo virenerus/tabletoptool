@@ -13,7 +13,16 @@ public class UbiquityDice implements Dice {
 	}
 	
 	public void rollDice(Random r) {
-		throw new UnsupportedOperationException(this.getClass().getName()+" is not implemented yet.");
+		results=new int[count];
+		for(int i=0;i<count;i++) {
+			if(r.nextBoolean()) {
+				results[i]=1;
+				result++;
+			}
+			else
+				results[i]=0;
+		}
+			
 	}
 
 	public int getResult() {

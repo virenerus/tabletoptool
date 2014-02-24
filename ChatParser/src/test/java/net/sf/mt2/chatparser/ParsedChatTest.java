@@ -230,7 +230,7 @@ public class ParsedChatTest {
 				null},	
 		};
 	}
-	
+
 	@Test(dataProvider="chatParserProvider")
 	public void testParsedChat(String chatText, ChatCommand expectedChatCommand, String expectedString, String[] expectedArguments, Class<? extends ChatPart> firstExpectedPart) throws UnknownCommandException {
 		ChatParser cp=new ChatParser(chatText);

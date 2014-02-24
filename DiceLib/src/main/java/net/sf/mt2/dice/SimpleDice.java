@@ -19,15 +19,11 @@ public class SimpleDice implements Dice {
 		result=0;
 		
 		for(int i=0;i<count;i++) {
-			results[i]=singleRoll(r);
+			results[i]=r.nextInt(type)+1;
 			result+=results[i];
 		}
 	}
 	
-	protected int singleRoll(Random r) {
-		return r.nextInt(type)+1;
-	}
-
 	@Override
 	public String toString() {
 		return count+"d"+type;

@@ -7,4 +7,5 @@ public interface Dice {
 	public int getResult();
 	public int[] getResults();
 	public boolean isRolled();
+	public String toString();
 }
