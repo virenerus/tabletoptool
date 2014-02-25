@@ -7,21 +7,21 @@ import net.rptools.maptool.model.LookupTable.LookupEntry;
 import net.rptools.maptool.script.MT2ScriptException;
 
 public class TableFunctions {
-	public String table(String name) throws MT2ScriptException {
-		return table(name, null);
+	public String roll(String tableName) throws MT2ScriptException {
+		return roll(tableName, null);
 	}
 	
-	public String table(String name, String roll) throws MT2ScriptException {
-		LookupTable lookupTable = MapTool.getCampaign().getLookupTableMap().get(name);
+	public String roll(String tableName, String roll) throws MT2ScriptException {
+		LookupTable lookupTable = MapTool.getCampaign().getLookupTableMap().get(tableName);
 		if (!MapTool.getPlayer().isGM() && !lookupTable.getAllowLookup()) {
 			if (lookupTable.getVisible()) {
-				throw new MT2ScriptException("table(): " + I18N.getText("msg.error.tableUnknown") + name);
+				throw new MT2ScriptException("table(): " + I18N.getText("msg.error.tableUnknown") + tableName);
 			} else {
-				throw new MT2ScriptException("table(): " + I18N.getText("msg.error.tableAccessProhibited") + ": " + name);
+				throw new MT2ScriptException("table(): " + I18N.getText("msg.error.tableAccessProhibited") + ": " + tableName);
 			}
     	}
 		if (lookupTable == null) {
-			throw new MT2ScriptException(I18N.getText("macro.function.LookupTableFunctions.unknownTable", "table", name));
+			throw new MT2ScriptException(I18N.getText("macro.function.LookupTableFunctions.unknownTable", "table", tableName));
 		}
 		
     	LookupEntry result = lookupTable.getLookup(roll);

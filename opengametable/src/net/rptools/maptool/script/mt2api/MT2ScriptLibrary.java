@@ -10,10 +10,12 @@ import java.util.Map.Entry;
 import org.codehaus.groovy.syntax.ParserException;
 
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.client.ui.commandpanel.ChatExecutor;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.model.campaign.TokenProperty;
+import net.rptools.maptool.script.MT2ScriptException;
 import net.rptools.maptool.script.ScriptLibrary;
 import net.rptools.maptool.script.mt2api.functions.DialogFunctions;
 import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
@@ -23,6 +25,9 @@ import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
 import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
 import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
+import net.sf.mt2.chatparser.generated.ChatParser;
+import net.sf.mt2.chatparser.generated.ParseException;
+import net.sf.mt2.dice.expression.DiceExpression;
 
 //FIXME make this package into a PLUG-IN
 public abstract class MT2ScriptLibrary extends Script {
@@ -112,4 +117,11 @@ public abstract class MT2ScriptLibrary extends Script {
 		return namesList;
 	}
 
+	public DiceExpression roll(String diceExpression) throws MT2ScriptException {
+		try {
+			return new ChatParser(diceExpression).parseDiceExpression();
+		} catch (ParseException e) {
+			throw new MT2ScriptException("Could not parse dice Expression '"+diceExpression+"'",e);
+		}
+	}
 }

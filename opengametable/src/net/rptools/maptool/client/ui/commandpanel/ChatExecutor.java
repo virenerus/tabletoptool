@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.rptools.maptool.client.MapTool;
+import net.rptools.maptool.client.MapToolUtil;
 import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.GUID;
@@ -243,7 +244,7 @@ public class ChatExecutor {
 
 	private static String printRoll(DiceExpressionPart diceExpressionPart) {
 		DiceExpression diceExpression = diceExpressionPart.getDiceExpression();
-		float result=diceExpression.evaluate(new Random());
+		float result=diceExpression.evaluate(MapToolUtil.getRandom());
 		StringBuilder sb=new StringBuilder();
 		sb.append(diceExpression.toString())
 			.append(" = ")
