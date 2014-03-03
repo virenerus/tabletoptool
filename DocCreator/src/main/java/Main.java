@@ -12,27 +12,25 @@ import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
 import net.rptools.maptool.script.mt2api.functions.InitiativeListView;
 import net.rptools.maptool.script.mt2api.functions.MapFunctions;
 import net.rptools.maptool.script.mt2api.functions.PathFunctions;
-import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
-import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
 import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 
 
 public class Main {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String[] files={
-			"TokenView",path("maptoolsfork",TokenView.class),
-			"MapView",path("maptoolsfork",MapView.class),
-			"MacroView",path("maptoolsfork",MacroView.class),
-			"DiceExpressionView",path("maptoolsfork",DiceExpressionView.class),
-			"InitiativeListView",path("maptoolsfork",InitiativeListView.class),
-			"global scope",path("maptoolsfork",MT2ScriptLibrary.class),
-			"InitiativeListView",path("maptoolsfork",InitiativeListView.class),
-			"input.",path("maptoolsfork",InputFunctions.class),
-			"info.",path("maptoolsfork",InfoFunctions.class),
-			"player.",path("maptoolsfork",PlayerFunctions.class),
-			"map.",path("maptoolsfork",MapFunctions.class),
-			"dialog.",path("maptoolsfork",DialogFunctions.class),
-			"path.",path("maptoolsfork",PathFunctions.class),
+			
+			"global scope",path("OpenGameTable",MT2ScriptLibrary.class),
+			"info.",path("OpenGameTable",InfoFunctions.class),
+			"player.",path("OpenGameTable",PlayerFunctions.class),
+			"map.",path("OpenGameTable",MapFunctions.class),
+			"dialog.",path("OpenGameTable",DialogFunctions.class),
+			"path.",path("OpenGameTable",PathFunctions.class),
+			"TokenView",path("OpenGameTable",TokenView.class),
+			"MapView",path("OpenGameTable",MapView.class),
+			"MacroView",path("OpenGameTable",MacroView.class),
+			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
+			"DiceExpressionView",path("OpenGameTable",DiceExpressionView.class),
+			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
 			};
 		
 		

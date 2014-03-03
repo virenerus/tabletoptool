@@ -60,9 +60,10 @@ public class DocCreator {
 	}
 	
 	public void print(PrintStream p) {
-		p.println(name);
+		p.print(name);
 		if(!name.endsWith("."))
 			p.print(":");
+		p.println();
 		for(MethodDefinition md:methods.values())
 			md.print(p);
 	}
