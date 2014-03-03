@@ -26,7 +26,7 @@ public class Main {
 			"DiceExpressionView",path("maptoolsfork",DiceExpressionView.class),
 			"InitiativeListView",path("maptoolsfork",InitiativeListView.class),
 			"global scope",path("maptoolsfork",MT2ScriptLibrary.class),
-			"ini.",path("maptoolsfork",InitiativeFunctions.class),
+			"InitiativeListView",path("maptoolsfork",InitiativeListView.class),
 			"input.",path("maptoolsfork",InputFunctions.class),
 			"info.",path("maptoolsfork",InfoFunctions.class),
 			"player.",path("maptoolsfork",PlayerFunctions.class),

@@ -42,7 +42,6 @@ import net.rptools.maptool.script.mt2api.functions.DialogFunctions;
 import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
 import net.rptools.maptool.script.mt2api.functions.MapFunctions;
 import net.rptools.maptool.script.mt2api.functions.PathFunctions;
-import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
 import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
 import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 
@@ -258,7 +257,6 @@ public class MacroButtonDialog extends JDialog {
 		// a straightforward word completion.
 		//TODO create a real xml file to parse from with comments
 		provider.addCompletion(new BasicCompletion(provider,"print","Printing a String","<b>Printing</b> a string."));
-		createDynamicCompletions(provider, "ini", InitiativeFunctions.class);
 		createDynamicCompletions(provider, "info", InfoFunctions.class);
 		createDynamicCompletions(provider, "player", PlayerFunctions.class);
 		createDynamicCompletions(provider, "map", MapFunctions.class);
