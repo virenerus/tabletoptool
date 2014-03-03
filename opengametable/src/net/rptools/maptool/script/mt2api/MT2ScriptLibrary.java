@@ -7,21 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.groovy.syntax.ParserException;
-
 import net.rptools.maptool.client.MapTool;
-import net.rptools.maptool.client.ui.commandpanel.ChatExecutor;
-import net.rptools.maptool.language.I18N;
 import net.rptools.maptool.model.CellPoint;
 import net.rptools.maptool.model.ZonePoint;
 import net.rptools.maptool.model.campaign.TokenProperty;
 import net.rptools.maptool.script.MT2ScriptException;
-import net.rptools.maptool.script.ScriptLibrary;
 import net.rptools.maptool.script.mt2api.functions.DialogFunctions;
 import net.rptools.maptool.script.mt2api.functions.InfoFunctions;
 import net.rptools.maptool.script.mt2api.functions.MapFunctions;
 import net.rptools.maptool.script.mt2api.functions.PathFunctions;
-import net.rptools.maptool.script.mt2api.functions.ini.InitiativeFunctions;
 import net.rptools.maptool.script.mt2api.functions.input.InputFunctions;
 import net.rptools.maptool.script.mt2api.functions.player.PlayerFunctions;
 import net.rptools.maptool.script.mt2api.functions.token.TokenLocation;
@@ -32,23 +26,19 @@ import net.sf.mt2.dice.expression.DiceExpression;
 //FIXME make this package into a PLUG-IN
 public abstract class MT2ScriptLibrary extends Script {
 	
-	public final InitiativeFunctions ini;
 	public final InfoFunctions info;
 	public final PlayerFunctions player;
 	public final MapFunctions map;
 	public final DialogFunctions dialog;
 	public final PathFunctions path;
-	public final InputFunctions input;
 
 	public MT2ScriptLibrary() {
 		super();
-		this.ini=new InitiativeFunctions();
 		this.info=new InfoFunctions();
 		this.player=new PlayerFunctions();
 		this.map=new MapFunctions();
 		this.dialog=new DialogFunctions();
 		this.path=new PathFunctions();
-		this.input=new InputFunctions();
 	}
 
 	public void print(int i) {
@@ -123,5 +113,127 @@ public abstract class MT2ScriptLibrary extends Script {
 		} catch (ParseException e) {
 			throw new MT2ScriptException("Could not parse dice Expression '"+diceExpression+"'",e);
 		}
+	}
+	
+	/**
+	 * <pre>
+	 * <span style="font-family:sans-serif;">The input() function prompts the user to input several variable values at once.
+	 * 
+	 * Each of the string parameters has the following format:
+	 *     "varname|value|prompt|inputType|options"
+	 * 
+	 * Only the first section is required.
+	 *     varname   - the variable name to be assigned
+	 *     value     - sets the initial contents of the input field
+	 *     prompt    - UI text shown for the variable
+	 *     inputType - specifies the type of input field
+	 *     options   - a string of the form "opt1=val1; opt2=val2; ..."
+	 * 
+	 * The inputType field can be any of the following (defaults to TEXT):
+	 *     TEXT  - A text field.
+	 *             "value" sets the initial contents.
+	 *             The return value is the string in the text field.
+	 *             Option: WIDTH=nnn sets the width of the text field (default 16).
+	 *     LIST  - An uneditable combo box.
+	 *             "value" populates the list, and has the form "item1,item2,item3..." (trailing empty strings are dropped)
+	 *             The return value is the numeric index of the selected item.
+	 *             Option: SELECT=nnn sets the initial selection (default 0).
+	 *             Option: VALUE=STRING returns the string contents of the selected item (default NUMBER).
+	 *             Option: TEXT=FALSE suppresses the text of the list item (default TRUE).
+	 *             Option: ICON=TRUE causes icon asset URLs to be extracted from the "value" and displayed (default FALSE).
+	 *             Option: ICONSIZE=nnn sets the size of the icons (default 50).
+	 *     CHECK - A checkbox.
+	 *             "value" sets the initial state of the box (anything but "" or "0" checks the box)
+	 *             The return value is 0 or 1.
+	 *             No options.
+	 *     RADIO - A group of radio buttons.
+	 *             "value" is a list "name1, name2, name3, ..." which sets the labels of the buttons.
+	 *             The return value is the index of the selected item.
+	 *             Option: SELECT=nnn sets the initial selection (default 0).
+	 *             Option: ORIENT=H causes the radio buttons to be laid out on one line (default V).
+	 *             Option: VALUE=STRING causes the return value to be the string of the selected item (default NUMBER).
+	 *     LABEL - A label.
+	 *             The "varname" is ignored and no value is assigned to it.
+	 *             Option: TEXT=FALSE, ICON=TRUE, ICONSIZE=nnn, as in the LIST type.
+	 *     PROPS - A sub-panel with multiple text boxes.
+	 *             "value" contains a StrProp of the form "key1=val1; key2=val2; ..."
+	 *             One text box is created for each key, populated with the matching value.
+	 *             Option: SETVARS=SUFFIXED causes variable assignment to each key name, with appended "_" (default NONE).
+	 *             Option: SETVARS=UNSUFFIXED causes variable assignment to each key name.
+	 *     TAB   - A tabbed dialog tab is created.  Subsequent variables are contained in the tab.
+	 *             Option: SELECT=TRUE causes this tab to be shown at start (default SELECT=FALSE).
+	 * 
+	 *  All inputTypes except TAB accept the option SPAN=TRUE, which causes the prompt to be hidden and the input
+	 *  control to span both columns of the dialog layout (default FALSE).
+	 * </span>
+	 * </pre>
+	 * @param parameters a list of strings containing information as described above
+	 * @return a HashMap with the returned values or null if the user clicked on cancel
+	 * @author knizia.fan
+	 * @throws MT2ScriptException 
+	 */
+	public static Map<String, String> input(String... parameters) throws MT2ScriptException {
+		return InputFunctions.input(null,parameters);
+	}
+	
+	/**
+	 * <pre>
+	 * <span style="font-family:sans-serif;">The input() function prompts the user to input several variable values at once.
+	 * 
+	 * Each of the string parameters has the following format:
+	 *     "varname|value|prompt|inputType|options"
+	 * 
+	 * Only the first section is required.
+	 *     varname   - the variable name to be assigned
+	 *     value     - sets the initial contents of the input field
+	 *     prompt    - UI text shown for the variable
+	 *     inputType - specifies the type of input field
+	 *     options   - a string of the form "opt1=val1; opt2=val2; ..."
+	 * 
+	 * The inputType field can be any of the following (defaults to TEXT):
+	 *     TEXT  - A text field.
+	 *             "value" sets the initial contents.
+	 *             The return value is the string in the text field.
+	 *             Option: WIDTH=nnn sets the width of the text field (default 16).
+	 *     LIST  - An uneditable combo box.
+	 *             "value" populates the list, and has the form "item1,item2,item3..." (trailing empty strings are dropped)
+	 *             The return value is the numeric index of the selected item.
+	 *             Option: SELECT=nnn sets the initial selection (default 0).
+	 *             Option: VALUE=STRING returns the string contents of the selected item (default NUMBER).
+	 *             Option: TEXT=FALSE suppresses the text of the list item (default TRUE).
+	 *             Option: ICON=TRUE causes icon asset URLs to be extracted from the "value" and displayed (default FALSE).
+	 *             Option: ICONSIZE=nnn sets the size of the icons (default 50).
+	 *     CHECK - A checkbox.
+	 *             "value" sets the initial state of the box (anything but "" or "0" checks the box)
+	 *             The return value is 0 or 1.
+	 *             No options.
+	 *     RADIO - A group of radio buttons.
+	 *             "value" is a list "name1, name2, name3, ..." which sets the labels of the buttons.
+	 *             The return value is the index of the selected item.
+	 *             Option: SELECT=nnn sets the initial selection (default 0).
+	 *             Option: ORIENT=H causes the radio buttons to be laid out on one line (default V).
+	 *             Option: VALUE=STRING causes the return value to be the string of the selected item (default NUMBER).
+	 *     LABEL - A label.
+	 *             The "varname" is ignored and no value is assigned to it.
+	 *             Option: TEXT=FALSE, ICON=TRUE, ICONSIZE=nnn, as in the LIST type.
+	 *     PROPS - A sub-panel with multiple text boxes.
+	 *             "value" contains a StrProp of the form "key1=val1; key2=val2; ..."
+	 *             One text box is created for each key, populated with the matching value.
+	 *             Option: SETVARS=SUFFIXED causes variable assignment to each key name, with appended "_" (default NONE).
+	 *             Option: SETVARS=UNSUFFIXED causes variable assignment to each key name.
+	 *     TAB   - A tabbed dialog tab is created.  Subsequent variables are contained in the tab.
+	 *             Option: SELECT=TRUE causes this tab to be shown at start (default SELECT=FALSE).
+	 * 
+	 *  All inputTypes except TAB accept the option SPAN=TRUE, which causes the prompt to be hidden and the input
+	 *  control to span both columns of the dialog layout (default FALSE).
+	 * </span>
+	 * </pre>
+	 * @param parameters a list of strings containing information as described above
+	 * @return a HashMap with the returned values or null if the user clicked on cancel
+	 * @author knizia.fan
+	 * @throws MT2ScriptException 
+	 */
+	public static Map<String, String> input(TokenView token, String... parameters) throws MT2ScriptException {
+		return InputFunctions.input(token, parameters);
 	}
 }

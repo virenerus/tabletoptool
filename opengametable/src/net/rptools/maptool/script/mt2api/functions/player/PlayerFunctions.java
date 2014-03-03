@@ -6,26 +6,42 @@ import java.util.List;
 import net.rptools.maptool.client.MapTool;
 import net.rptools.maptool.model.GUID;
 import net.rptools.maptool.model.Player;
+import net.rptools.maptool.model.Token;
 import net.rptools.maptool.script.mt2api.TokenView;
 
 public class PlayerFunctions {
-	public TokenView getImpersonatedToken() {
+	/**
+	 * @return the token the local player has impersonated or null if there is none
+	 */
+	public TokenView getLocalImpersonatedToken() {
 		GUID guid = MapTool.getFrame().getCommandPanel().getIdentityGUID();
+		Token t;
 		if (guid != null)
-			return new TokenView(MapTool.getFrame().findToken(guid));
+			t=MapTool.getFrame().findToken(guid);
 		else
-			return new TokenView(MapTool.getFrame().getCurrentZoneRenderer().getZone().resolveToken(MapTool.getFrame().getCommandPanel().getIdentity()));
+			t=MapTool.getFrame().getCurrentZoneRenderer().getZone().resolveToken(MapTool.getFrame().getCommandPanel().getIdentity());
+		
+		return t==null ? null : new TokenView(t);
 	}
 	
-	public boolean hasImpersonatedToken() {
-		return getImpersonatedToken()!=null;
+	/**
+	 * @return if the local player has a token impersonated
+	 */
+	public boolean hasLocalImpersonatedToken() {
+		return getLocalImpersonatedToken()!=null;
 	}
 	
-	public String getPlayer() {
+	/**
+	 * @return the name name of the local player
+	 */
+	public String getLocalName() {
 		return MapTool.getPlayer().getName();
 	}
 	
-	public List<String> getPlayers() {
+	/**
+	 * @return a list of all the player names
+	 */
+	public List<String> getPlayerNames() {
 		List<Player> players=MapTool.getPlayerList();
 		List<String> names=new ArrayList<String>(players.size());
 		for(Player p:players)
