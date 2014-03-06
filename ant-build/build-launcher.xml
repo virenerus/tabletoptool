@@ -1,0 +1,47 @@
+<project default="launcher.build" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<import file="build-util.xml"/>
+	
+	<!-- project folder -->
+	<property name="launcher.project" value="../Launcher"/>
+	<property name="launcher.jar.target" value=""/>
+	<property name="launcher.jar.name" value="Launcher.jar"/>
+	
+	
+    <target name="launcher.build" depends="launcher.mvn"> 	
+        <!--Copy Old Dependencies-->
+        <copy todir="${global.target}/lib" flatten="true">
+        	<fileset refid="runtime.fileset"/>
+        	<fileset dir="${launcher.project}/lib" erroronmissingdir="false">
+        		<type type="file"/>
+        		<depth max="0"/>
+        	</fileset>
+    	</copy>
+    	
+    	<!-- Build jar -->
+    	<jar destfile="${global.target}/${launcher.jar.target}/${launcher.jar.name}">
+    		<manifest>
+                <attribute name="Main-Class" value="com.t3.launcher.Launcher"/>
+            </manifest>
+    		<fileset dir="${launcher.project}/target/classes"/>
+        </jar>
+    	<artifact:install file="${global.target}/${launcher.jar.target}/${launcher.jar.name}">
+			<pom file="${launcher.project}/pom.xml"/>
+		</artifact:install>
+    </target>
+	
+	<target name="launcher.mvn" depends="mvn.init">
+		<artifact:pom file="${launcher.project}/pom.xml" id="maven.project"/>
+	    <artifact:dependencies pathId="compile.classpath" filesetId="compile.fileset" useScope="compile">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	    <artifact:dependencies pathId="test.classpath" filesetId="test.fileset" useScope="test">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	    <artifact:dependencies pathId="runtime.classpath" filesetId="runtime.fileset" useScope="runtime">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	</target>
+</project>

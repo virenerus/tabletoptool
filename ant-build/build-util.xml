@@ -1,0 +1,11 @@
+<project xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<property name="global.target" value="../tiamat-build"/>
+	
+	<target name="mvn.init" unless="compile.classpath">   
+	    <condition property="maven.repo.local" value="${maven.repo.local}" else="${user.home}/.m2/repository">
+	        <isset property="maven.repo.local"/>
+	    </condition>          
+	    <echo>maven.repo.local=${maven.repo.local}</echo>
+	    <artifact:localRepository id="local.repository" path="${maven.repo.local}"/>	
+	</target>
+</project>

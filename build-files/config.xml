@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>T³ Properties</comment>
+<entry key="Xss">512K</entry>
+<entry key="Xmx">1024M</entry>
+</properties>

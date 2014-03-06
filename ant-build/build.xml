@@ -1,0 +1,34 @@
+<project default="full_build" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<import file="build-util.xml"/>
+	
+	<target name="full_build">
+		<!--delete folder with old files-->
+		<delete dir="${global.target}"/>
+		<!--build sub projects and copy their dependencies into lib folder-->
+		<antcall target="build.subprojects"/>
+		<!--build main project-->
+		<ant antfile="build-tabletoptool.xml"/>
+		<!--build Launcher-->
+		<ant antfile="build-launcher.xml"/>
+		<!--copy files from "build files" folder-->
+		<copy todir="${global.target}">
+			<fileset dir="../build-files"/>
+		</copy>
+		<!--zip it-->
+		<zip destfile="${global.target}/t3.zip">
+			<fileset dir="${global.target}"/>
+		</zip>
+	</target>
+	
+	<target name="build.subprojects" depends="mvn.init">
+		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../DiceLib"/>
+		</ant>
+		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../ChatParser"/>
+		</ant>
+		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../rplib"/>
+		</ant>
+	</target>
+</project>

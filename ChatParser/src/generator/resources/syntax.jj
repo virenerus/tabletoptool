@@ -1,0 +1,399 @@
+options {
+	STATIC = false ;
+	UNICODE_INPUT = true;
+	//DEBUG_PARSER = true;
+	//DEBUG_LOOKAHEAD = true;
+	//DEBUG_TOKEN_MANAGER = true;
+}
+PARSER_BEGIN(ChatParser)
+	package com.t3.chatparser.generated;
+	
+	import java.util.List;
+	import java.util.LinkedList;
+	import com.t3.chatparser.ChatPart;
+	import com.t3.chatparser.DiceExpressionPart;
+	import com.t3.chatparser.TextPart;
+	import com.t3.chatparser.ChatCommand;
+	import com.t3.chatparser.UnknownCommandException;
+	import com.t3.chatparser.ParsedChat;
+	import com.t3.dice.*;
+	import com.t3.dice.expression.*;
+	import java.io.BufferedReader;
+	import java.io.StringReader;
+	import java.util.Collections;
+	
+	public class ChatParser {
+	
+		private String inputString;
+	
+		public ChatParser(String str) {
+			this(new BufferedReader(new StringReader(str)));
+			this.inputString=str;
+		}
+		
+		public ParsedChat parse() throws UnknownCommandException {
+			try {
+				return START();
+			} catch(ParseException e) {
+				e.printStackTrace();
+				return new ParsedChat(new TextPart(inputString));
+			}
+		}
+		
+		public DiceExpression parseDiceExpression() throws ParseException {
+			this.token_source.SwitchTo(DICE_EXPR);
+			return DICE_EXPRESSION();
+		}
+	}
+PARSER_END(ChatParser)
+
+<CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:REST}
+<CHATCOMMAND>  TOKEN : { < CLEAR_CHAT : "clear" | "clr">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < EMIT : "emit" | "e">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < EMOTE : "emote" | "me">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < GM : "gm" | "togm">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < GOTO : "goto" | "g">:CC_ARGUMENTS}
+<CC_ARGUMENTS> TOKEN : { < INTEGER :  ("-")?(["0"-"9"])+> }
+<CC_ARGUMENTS,DICE_EXPR> SKIP  : { < " " > }
+<CC_ARGUMENTS> TOKEN : { < NAME :  (["a"-"z","A"-"Z","-","_"])+> }
+<CC_ARGUMENTS> TOKEN : { < GUID :  (["0"-"9","a"-"z","A"-"Z"]){32}> } //exactly 16 bytes => 32 chars in hex
+<CHATCOMMAND>  TOKEN : { < IMPERSONATE : "impersonate" | "im">:CC_ARGUMENTS}
+<CHATCOMMAND>  TOKEN : { < OOC : "ooc">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < ROLL : "roll" | "r">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_GM : "rollgm" | "rgm">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_ME : "rollme" | "rme">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < ROLL_SECRET : "rollsecret" | "rsec">:DICE_EXPR}
+<CHATCOMMAND>  TOKEN : { < SELF : "self">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < TABLE : "table" | "tbl">:CC_ARGUMENTS}
+<CHATCOMMAND>  TOKEN : { < TOKEN_SPEECH : "tsay" | "ts">:REST}
+<CHATCOMMAND>  TOKEN : { < WHISPER : "whisper" | "w">:AFTER_CC}
+<CHATCOMMAND>  TOKEN : { < UNKNOWN_COMMAND : ~[] >:CHATCOMMAND}
+
+<REST> TOKEN : { < EVERYTHING : (~[])+>}
+
+
+<DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
+<DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
+<DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> :AFTER_CC}
+<DICE_EXPR> TOKEN : { < CODE_END :  "§">:AFTER_CC }
+<DICE_EXPR> TOKEN : { < PLUS :  "+"> }
+<DICE_EXPR> TOKEN : { < MINUS :  "-"> }
+<DICE_EXPR> TOKEN : { < MULTIPLICATION :  "*"> }
+<DICE_EXPR> TOKEN : { < DIVISION :  "/"> }
+<DICE_EXPR> TOKEN : { < PARANTHESES_LEFT :  "("> }
+<DICE_EXPR> TOKEN : { < PARANTHESES_RIGHT :  ")"> }
+<DICE_EXPR> TOKEN : { < NUMBER :  (["0"-"9"])+> }
+<DICE_EXPR> TOKEN : { < FLOAT :  ("-")?(["0"-"9"])+"."(["0"-"9"])+> }
+
+<DICE_EXPR> TOKEN : { < DICE_D : "d" > }
+<DICE_EXPR> TOKEN : { < DICE_KEEP : "k" > }
+<DICE_EXPR> TOKEN : { < DICE_REROLL : "r" > }
+<DICE_EXPR> TOKEN : { < DICE_SUCCESS : "s" > }
+<DICE_EXPR> TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
+<DICE_EXPR> TOKEN : { < DICE_EXPLODING : "e" > }
+<DICE_EXPR> TOKEN : { < DICE_OPEN : "o" > }
+<DICE_EXPR> TOKEN : { < DICE_FUDGE : "df" > }
+<DICE_EXPR> TOKEN : { < DICE_UBIQUITY : "du" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING : "sr4e" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_GREMLIN : "sr4g" > }
+<DICE_EXPR> TOKEN : { < DICE_SHADOWRUN : "sr4" > }
+
+
+
+
+private ParsedChat START() throws UnknownCommandException:
+	{
+		ParsedChat list=new ParsedChat();
+	}
+	{
+		(
+				<CHAT_COMMAND_SLASH>
+				CHAT_COMMAND(list)
+				(
+					<EOF>
+					|
+					{Token t;} 
+					t=<TEXT>
+					{
+						if(!" ".equals(t.image))
+							list.add(new TextPart(t.image));
+					}
+				)
+		)?
+		
+		(
+			(
+				<CODE_START>
+				{list.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+				<CODE_END>
+			)
+			|
+			{Token t;}		  
+			t=<TEXT>
+			{
+				if(list.getLast() instanceof TextPart)
+					((TextPart)list.getLast()).append(t.image);
+				else
+					list.add(new TextPart(t.image));
+			}
+		)*
+		<EOF>
+		{return list;}
+	}
+	
+private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
+	{
+	}
+	{
+		{ChatCommand cc;}
+		(
+		    <MACRO_EXEC>
+		   		{cc=ChatCommand.MACRO_EXEC;
+		    	StringBuilder sb=new StringBuilder();}
+		    	(
+		    		{Token t;}
+		    		t=<EVERYTHING>
+		    		{sb.append(t.image);}
+		    	)+
+		    	{pc.setArguments(sb.toString().trim());}
+		    |
+			<CLEAR_CHAT>
+			{cc=ChatCommand.CLEAR_CHAT;}
+		    |
+		    <EMIT>
+		    {cc=ChatCommand.EMIT;}
+		    |
+		    <EMOTE>
+		    {cc=ChatCommand.EMOTE;}
+		    |
+		    <GM>
+		    {cc=ChatCommand.GM;}
+		    |
+		    <GOTO>
+		    {
+			    cc=ChatCommand.GOTO;
+			    Token a1,a2;
+		    }
+		    a1=<INTEGER>
+		    a2=<INTEGER>
+		    {pc.setArguments(a1.image,a2.image);}
+		    |
+		    <IMPERSONATE>
+		    {cc=ChatCommand.IMPERSONATE;Token guid;}
+		    guid=<GUID>
+		    {pc.setArguments(guid.image);}
+		    |
+		    <OOC>
+		    {cc=ChatCommand.OOC;}		    |
+		    <REPLY>
+		    {cc=ChatCommand.REPLY;}
+		    |
+		    <ROLL>
+		    {cc=ChatCommand.ROLL;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    |
+		    <ROLL_GM>
+		    {cc=ChatCommand.ROLL_GM;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    |
+		    <ROLL_ME>
+		    {cc=ChatCommand.ROLL_ME;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    |
+		    <ROLL_SECRET>
+		    {cc=ChatCommand.ROLL_SECRET;}
+		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    |
+		    <SELF>
+		    {cc=ChatCommand.SELF;}
+		    |
+		    <TABLE>
+		    {cc=ChatCommand.TABLE;}
+		    a1=<NAME>
+		    {pc.setArguments(a1.image);}
+		    (
+		    	a2=<INTEGER>
+		    	{pc.setArguments(a1.image,a2.image);}
+		    )?
+		    |
+		    <TOKEN_SPEECH>
+		    {cc=ChatCommand.TOKEN_SPEECH;
+		    sb=new StringBuilder();}
+		    	(
+		    		{Token t;}
+		    		t=<EVERYTHING>
+		    		{sb.append(t.image);}
+		    	)+
+		    	{pc.setArguments(sb.toString().trim());}
+		    |
+		    <WHISPER>
+		    {cc=ChatCommand.WHISPER;}
+		    |
+		    (
+		    	{sb=new StringBuilder();}
+		    	(
+		    		{Token t;}
+		    		t=<UNKNOWN_COMMAND>
+		    		{sb.append(t.image);}
+		    	)+
+		    	{throw new UnknownCommandException(sb.toString());}
+		    )
+		)
+		{ token_source.SwitchTo(AFTER_CC) ; } 
+		{pc.setChatCommand(cc);}
+	}
+	
+
+private DiceExpression DICE_EXPRESSION() :
+	{	}
+	{
+		
+		{DiceExpression first=TERM();}
+		(
+		  	{AdditionNode a=new AdditionNode(first);}
+			(				<PLUS>
+				{a.add(TERM());}				|
+				<MINUS>
+				{a.subtract(TERM());}
+			)+
+			{return a;} //return Additionnode if there are at least 2 nodes
+		)?
+		{return first;}		  	}
+
+private DiceExpression TERM() :
+	{
+	}
+	{
+		
+		{DiceExpression first=PRIMARY();}
+
+		(
+		  	{MultiplicationNode a=new MultiplicationNode(first);}
+			(
+				<MULTIPLICATION>
+				{a.multiplyBy(PRIMARY());}
+				|
+				<DIVISION>
+				{a.divideBy(PRIMARY());}
+			)+
+			{return a;} //return Multiplactionnode if there are at least 2 nodes
+		)?
+		{return first;}
+		  
+	}
+
+private DiceExpression PRIMARY():
+	{
+	}
+	{
+		(
+			{float fnumber;}
+			fnumber=FLOAT()
+			{return new NumberNode(fnumber);}
+		|
+			{int number;}
+			number=NUMBER()
+			(			  	{Dice d;}				d=DICE(number)				{return new DiceNode(d);}
+			|
+				{return new NumberNode(number);}
+			)
+		|
+			{DiceExpression de;}
+			<PARANTHESES_LEFT>
+			de= DICE_EXPRESSION()
+			<PARANTHESES_RIGHT>
+			{return de;}
+		|
+			<MINUS> {return new NegationNode(PRIMARY());}
+		)
+	}
+private Dice DICE(int count) :
+	{
+		int type;
+		int extra;
+	}
+	{
+		(
+			<DICE_FUDGE>
+			{return new FudgeDice(count);}
+			|
+			<DICE_UBIQUITY>
+			{return new UbiquityDice(count);}
+			|
+			<DICE_SHADOWRUN>
+			{return new ShadowrunBasicDice(count);}
+			|
+			<DICE_SHADOWRUN_EXPLODING>
+			{return new ExplodingShadowrunBasicDice(count);}
+			|
+			<DICE_SHADOWRUN_GREMLIN>
+			extra=NUMBER()
+			{return new ShadowrunGremlinDice(count,extra);}
+			|
+			<DICE_SHADOWRUN_EXPLODING_GREMLIN>
+			extra=NUMBER()
+			{return new ExplodingShadowrunGremlinDice(count,extra);}
+			
+		)
+		| 
+		(
+			<DICE_D>
+			type=NUMBER()
+			(
+				(
+					<DICE_D>
+					extra=NUMBER()
+					{return new DropDice(count,type,extra);}
+				) |
+				(
+					<DICE_KEEP>
+					extra=NUMBER()
+					{return new KeepDice(count,type,extra);}
+				) |
+				(
+					<DICE_REROLL>
+					extra=NUMBER()
+					{return new RerollDice(count,type,extra);}
+				) |
+				(
+					<DICE_SUCCESS>
+					extra=NUMBER()
+					{return new SuccessDice(count,type,extra);}
+				) |
+				(
+					<DICE_EXPLODING_SUCCESS>
+					extra=NUMBER()
+					{return new ExplodingSuccessDice(count,type,extra);}
+				) |
+				(
+					<DICE_EXPLODING>
+					{return new ExplodingDice(count,type);}
+				) |
+				(
+					<DICE_OPEN>
+					{return new OpenDice(count,type);}
+				)
+			)?
+			{return new SimpleDice(count,type);}
+		)
+	}
+
+private int NUMBER() :
+	{
+		Token number;
+	}
+	{
+		number=<NUMBER>
+		{return Integer.parseInt(number.image);}
+	}
+	
+private float FLOAT() :
+	{
+		Token number;
+	}
+	{
+		number=<FLOAT>
+		{return Float.parseFloat(number.image);}
+	}

@@ -1,0 +1,41 @@
+<!-- subproject.folder must be defined -->
+
+<project default="subproject.build" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<import file="build-util.xml"/>
+	
+    <target name="subproject.build" depends="subproject.mvn"> 	
+        <!--Copy Old Dependencies-->
+        <copy todir="${global.target}/lib" flatten="true">
+        	<fileset refid="runtime.fileset"/>
+        	<fileset dir="${subproject.folder}/lib" erroronmissingdir="false">
+        		<type type="file"/>
+        		<depth max="0"/>
+        	</fileset>
+    	</copy>
+    	
+    	<!-- Build jar -->
+    	<jar destfile="tmp.jar">
+    		<fileset dir="${subproject.folder}/target/classes"/>
+        </jar>
+    	<artifact:install file="tmp.jar">
+			<pom file="${subproject.folder}/pom.xml"/>
+		</artifact:install>
+    	<delete file="tmp.jar"/>
+    </target>
+	
+	<target name="subproject.mvn" depends="mvn.init">
+		<artifact:pom file="${subproject.folder}/pom.xml" id="maven.project"/>
+	    <artifact:dependencies pathId="compile.classpath" filesetId="compile.fileset" useScope="compile">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	    <artifact:dependencies pathId="test.classpath" filesetId="test.fileset" useScope="test">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	    <artifact:dependencies pathId="runtime.classpath" filesetId="runtime.fileset" useScope="runtime">
+	        <pom refid="maven.project"/>
+	        <localRepository refid="local.repository"/>
+	    </artifact:dependencies>
+	</target>
+</project>
