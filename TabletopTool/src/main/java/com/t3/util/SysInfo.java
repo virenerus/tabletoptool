@@ -27,6 +27,7 @@ import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
@@ -43,7 +44,6 @@ import javax.swing.JTextArea;
 import net.sbbi.upnp.devices.UPNPRootDevice;
 import net.sbbi.upnp.impls.InternetGatewayDevice;
 import net.sbbi.upnp.messages.UPNPResponseException;
-import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
@@ -69,14 +69,14 @@ public class SysInfo {
 	private static String hostIP = new String();
 	private static String routerIP = new String();
 
-	public JSONObject getSysInfoJSON() {
-		JSONObject info = new JSONObject();
+	public HashMap<String, Object> getSysInfo() {
+		HashMap<String, Object> info = new HashMap<String, Object>();
 
-		JSONObject mt = new JSONObject();
+		HashMap<String, Object> mt = new HashMap<String, Object>();
 
-		JSONObject java = new JSONObject();
-		JSONObject locale = new JSONObject();
-		JSONObject os = new JSONObject();
+		HashMap<String, Object> java = new HashMap<String, Object>();
+		HashMap<String, Object> locale = new HashMap<String, Object>();
+		HashMap<String, Object> os = new HashMap<String, Object>();
 
 		Properties p = System.getProperties();
 		Map<String, String> env = System.getenv();

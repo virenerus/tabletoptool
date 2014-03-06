@@ -22,7 +22,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.collections4.map.LinkedMap;
 
 import com.t3.client.AppPreferences;
 import com.t3.client.AppStyle;
@@ -41,7 +41,7 @@ public class ChatTypingNotification extends JPanel {
 	protected void paintComponent(Graphics g) {
 //		System.out.println("Chat panel is painting itself...");
 		if (AppPreferences.getTypingNotificationDuration() != 0) {
-			LinkedMap chatTypers = TabletopTool.getFrame().getChatNotificationTimers().getChatTypers();
+			LinkedMap<String, Long> chatTypers = TabletopTool.getFrame().getChatNotificationTimers().getChatTypers();
 			if (chatTypers == null || chatTypers.isEmpty()) {
 				return;
 			}

@@ -6,7 +6,6 @@
     <target name="subproject.build" depends="subproject.mvn"> 	
         <!--Copy Old Dependencies-->
         <copy todir="${global.target}/lib" flatten="true">
-        	<fileset refid="runtime.fileset"/>
         	<fileset dir="${subproject.folder}/lib" erroronmissingdir="false">
         		<type type="file"/>
         		<depth max="0"/>

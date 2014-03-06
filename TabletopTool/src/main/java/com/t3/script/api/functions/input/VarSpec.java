@@ -3,7 +3,7 @@ package com.t3.script.api.functions.input;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.t3.language.I18N;
 import com.t3.script.MT2ScriptException;

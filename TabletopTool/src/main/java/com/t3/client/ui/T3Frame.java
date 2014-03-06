@@ -68,7 +68,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.collections4.map.LinkedMap;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -229,7 +229,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	}
 
 	public class ChatNotificationTimers extends Observable {
-		private final LinkedMap chatTypingNotificationTimers;
+		private final LinkedMap<String, Long> chatTypingNotificationTimers;
 
 		public synchronized void setChatTyper(final String playerName) {
 			if (AppPreferences.getTypingNotificationDuration() == 0) {
@@ -257,12 +257,12 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 			notifyObservers();
 		}
 
-		public synchronized LinkedMap getChatTypers() {
-			return new LinkedMap(chatTypingNotificationTimers);
+		public synchronized LinkedMap<String, Long> getChatTypers() {
+			return new LinkedMap<String, Long>(chatTypingNotificationTimers);
 		}
 
 		public ChatNotificationTimers() {
-			chatTypingNotificationTimers = new LinkedMap();
+			chatTypingNotificationTimers = new LinkedMap<String, Long>();
 		}
 	}
 

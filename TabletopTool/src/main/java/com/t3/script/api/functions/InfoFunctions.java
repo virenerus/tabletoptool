@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.json.JSONObject;
-
 import org.codehaus.groovy.syntax.ParserException;
 
 import com.t3.client.AppPreferences;
@@ -33,14 +31,13 @@ import com.t3.util.SysInfo;
 
 public class InfoFunctions {
 	/**
-	 * Retrieves the information about the current zone/map and returns it as a
-	 * JSON Object.
+	 * Retrieves the information about the current zone/map
 	 * 
 	 * @return The information about the map.
 	 * @throws ParserException
 	 *             when there is an error.
 	 */
-	public JSONObject getMapInfo() {
+	public Map<String, Object> getMapInfo() {
 		Map<String, Object> minfo = new HashMap<String, Object>();
 		Zone zone = TabletopTool.getFrame().getCurrentZoneRenderer().getZone();
 
@@ -59,17 +56,8 @@ public class InfoFunctions {
 		//}
 
 		String visionType = "off";
-		switch (zone.getVisionType()) {
-		case DAY:
-			visionType = "day";
-			break;
-		case NIGHT:
-			visionType = "night";
-			break;
-		case OFF:
-			visionType = "off";
-			break;
-		}
+		if(zone.getVisionType()!=null)
+			visionType=zone.getVisionType().name();
 		minfo.put("vision type", visionType);
 
 		Map<String, Object> ginfo = new HashMap<String, Object>();
@@ -89,16 +77,15 @@ public class InfoFunctions {
 		ginfo.put("y offset", zone.getGrid().getOffsetY());
 		ginfo.put("second dimension", grid.getSecondDimension());
 
-		return JSONObject.fromObject(minfo);
+		return minfo;
 	}
 
 	/**
 	 * Retrieves the client side preferences that do not have server over rides
-	 * as a json object.
 	 * 
 	 * @return the client side preferences
 	 */
-	public JSONObject getClientInfo() {
+	public Map<String, Object> getClientInfo() {
 		Map<String, Object> cinfo = new HashMap<String, Object>();
 
 		cinfo.put("face edge", AppPreferences.getFaceEdge() ? BigDecimal.ONE : BigDecimal.ZERO);
@@ -128,7 +115,7 @@ public class InfoFunctions {
 				cinfo.put("library tokens", libInfo);
 			}
 		//}
-		return JSONObject.fromObject(cinfo);
+		return cinfo;
 	}
 
 	private String getTimeDate() {
@@ -138,11 +125,11 @@ public class InfoFunctions {
 	}
 
 	/**
-	 * Retrieves the server side preferences as a json object.
+	 * Retrieves the server side preferences
 	 * 
 	 * @return the server side preferences
 	 */
-	public JSONObject getServerInfo() {
+	public Map<String, Object> getServerInfo() {
 		Map<String, Object> sinfo = new HashMap<String, Object>();
 		ServerPolicy sp = TabletopTool.getServerPolicy();
 
@@ -165,7 +152,7 @@ public class InfoFunctions {
 		if (ip != null) {
 			sinfo.put("initiative owner permissions", ip.isOwnerPermissions() ? BigDecimal.ONE : BigDecimal.ZERO);
 		}
-		return JSONObject.fromObject(sinfo);
+		return sinfo;
 	}
 
 	/**
@@ -175,7 +162,7 @@ public class InfoFunctions {
 	 * @throws ParserException
 	 *             if an error occurs.
 	 */
-	public JSONObject getCampaignInfo() {
+	public Map<String, Object> getCampaignInfo() {
 		Map<String, Object> cinfo = new HashMap<String, Object>();
 		Campaign c = TabletopTool.getCampaign();
 		CampaignProperties cp = c.getCampaignProperties();
@@ -265,7 +252,7 @@ public class InfoFunctions {
 		}
 		cinfo.put("bars", barinfo);
 
-		return JSONObject.fromObject(cinfo);
+		return cinfo;
 	}
 
 	/**
@@ -275,8 +262,7 @@ public class InfoFunctions {
 	 * @throws ParserException
 	 *             if an error occurs.
 	 */
-	public JSONObject getDebugInfo() {
-		SysInfo info = new SysInfo();
-		return info.getSysInfoJSON();
+	public Map<String, Object> getDebugInfo() {
+		return new SysInfo().getSysInfo();
 	}
 }

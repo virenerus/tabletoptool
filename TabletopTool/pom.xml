@@ -31,13 +31,7 @@
   	<dependency>
   		<groupId>org.apache.commons</groupId>
   		<artifactId>commons-lang3</artifactId>
-  		<version>3.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>net.sf.json-lib</groupId>
-  		<artifactId>json-lib</artifactId>
-  		<version>2.4</version>
-  		<classifier>jdk15</classifier>
+  		<version>3.2.1</version>
   	</dependency>
   	<dependency>
   		<groupId>org.codehaus.groovy</groupId>
@@ -62,11 +56,6 @@
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>rplib</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>tabletoptool</groupId>
-		<artifactId>tabletoptool-resources</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>
