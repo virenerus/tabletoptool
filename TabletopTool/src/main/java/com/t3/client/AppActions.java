@@ -55,7 +55,7 @@ import javax.swing.KeyStroke;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingworker.SwingWorker;
+import javax.swing.SwingWorker;
 
 import com.jidesoft.docking.DockableFrame;
 import com.t3.FileUtil;

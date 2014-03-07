@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.UIDefaults;
 import javax.swing.text.DefaultEditorKit;
 
-import de.muntjak.tinylookandfeel.TinyLookAndFeel;
+import net.sf.tinylaf.TinyLookAndFeel;
 
 public class TinyLookAndFeelMac extends TinyLookAndFeel {
 	private static final long serialVersionUID = 1L;

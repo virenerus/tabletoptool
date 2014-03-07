@@ -39,7 +39,7 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingworker.SwingWorker;
+import javax.swing.SwingWorker;
 
 import com.jidesoft.swing.FolderChooser;
 import com.t3.FileUtil;

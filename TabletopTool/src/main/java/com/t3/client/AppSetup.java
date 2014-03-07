@@ -26,7 +26,7 @@ import javax.swing.JTextPane;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingworker.SwingWorker;
+import javax.swing.SwingWorker;
 
 import com.t3.FileUtil;
 import com.t3.model.AssetManager;

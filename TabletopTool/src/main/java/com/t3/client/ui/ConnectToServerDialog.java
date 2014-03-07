@@ -41,7 +41,7 @@ import javax.swing.table.TableColumn;
 import net.tsc.servicediscovery.AnnouncementListener;
 import net.tsc.servicediscovery.ServiceFinder;
 
-import org.jdesktop.swingworker.SwingWorker;
+import javax.swing.SwingWorker;
 
 import com.t3.client.AppConstants;
 import com.t3.client.T3Registry;

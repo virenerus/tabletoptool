@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.t3.client.ui.htmlframe.HTMLPane;
 import com.t3.script.api.functions.input.InputType.OptionException;
 
-import de.muntjak.tinylookandfeel.TinyComboBoxButton;
+import net.sf.tinylaf.TinyComboBoxButton;
 
 /**
  * Contains input controls, which are arranged in a two-column label +

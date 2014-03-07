@@ -28,6 +28,9 @@
 			<property name="subproject.folder" value="../ChatParser"/>
 		</ant>
 		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../ClientServer"/>
+		</ant>
+		<ant antfile="build-subproject.xml">
 			<property name="subproject.folder" value="../rplib"/>
 		</ant>
 	</target>

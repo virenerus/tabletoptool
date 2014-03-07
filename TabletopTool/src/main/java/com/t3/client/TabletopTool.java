@@ -114,8 +114,8 @@ import com.t3.transfer.AssetTransferManager;
 import com.t3.util.UPnPUtil;
 import com.t3.util.math.CappedInteger;
 
-import de.muntjak.tinylookandfeel.Theme;
-import de.muntjak.tinylookandfeel.util.SBReference;
+import net.sf.tinylaf.Theme;
+import net.sf.tinylaf.util.SBReference;
 
 /**
  */
@@ -1240,7 +1240,7 @@ public class TabletopTool {
 //				menuBar = new AppMenuBar();
 //			}
 			else {
-				lafname = "de.muntjak.tinylookandfeel.TinyLookAndFeel";
+				lafname = "net.sf.tinylaf.TinyLookAndFeel";
 				UIManager.setLookAndFeel(lafname);
 				menuBar = new AppMenuBar();
 			}
