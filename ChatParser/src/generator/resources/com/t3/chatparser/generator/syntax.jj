@@ -181,9 +181,13 @@ private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 		    {pc.setArguments(a1.image,a2.image);}
 		    |
 		    <IMPERSONATE>
-		    {cc=ChatCommand.IMPERSONATE;Token guid;}
-		    guid=<GUID>
-		    {pc.setArguments(guid.image);}
+		    (
+			    {cc=ChatCommand.IMPERSONATE;Token guid;}
+			    guid=<GUID>
+			    {pc.setArguments(guid.image);}
+			    |
+			    {cc=ChatCommand.CLEAR_IMPERSONATE;}
+		    )
 		    |
 		    <OOC>
 		    {cc=ChatCommand.OOC;}		    |

@@ -478,7 +478,7 @@ public class CommandPanel extends JPanel implements Observer {
 		
 		
 		//try {
-			ChatExecutor.executeChat(text);
+			ChatExecutor.executeChat(text,this.getIdentity());
 			//FIXMESOON print the message as needed on different computers
 			//ScriptManager.getInstance().evaluate(text, macroContext);
 		/*} catch (MT2ScriptException e) {

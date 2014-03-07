@@ -40,7 +40,7 @@ public class ChatExecutor {
 		return new com.t3.chatparser.generated.ChatParser(text).parse();
 	}
 
-	public static void executeChat(String text) {
+	public static void executeChat(String text, String identity) {
 		try {
 			ParsedChat parts=parseChat(text);
 			if(parts.getChatCommand()!=null) {
@@ -52,15 +52,15 @@ public class ChatExecutor {
 						if(TabletopTool.getPlayer().isGM())
 							TabletopTool.addGlobalMessage(buildDefaultStringRepresentation(parts));
 						else
-							TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts),TabletopTool.getFrame().getCommandPanel().getIdentity()));
+							TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts),identity));
 						break;
 					case EMOTE:
 						TabletopTool.addGlobalMessage("<span color=\"green\" style=\"font-style: italic;\">"
-								+TabletopTool.getFrame().getCommandPanel().getIdentity()+" "
+								+identity+" "
 								+buildDefaultStringRepresentation(parts)+"</span>");
 						break;
 					case GM:
-						TabletopTool.addMessage(TextMessage.gm(buildDefaultStringRepresentation(parts),TabletopTool.getFrame().getCommandPanel().getIdentity()));
+						TabletopTool.addMessage(TextMessage.gm(buildDefaultStringRepresentation(parts),identity));
 						break;
 					case GOTO: {
 							try {
@@ -80,6 +80,9 @@ public class ChatExecutor {
 						} catch(Exception e) {
 							throw new IllegalArgumentException("impersonate expects one 16 characters token id");
 						}
+						break;
+					case CLEAR_IMPERSONATE: 
+						TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
 						break;
 					case MACRO_EXEC:
 						List<Token> l=TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList();
@@ -111,16 +114,16 @@ public class ChatExecutor {
 				        // Send
 				        String message=buildDefaultStringRepresentation(parts);
 				        TabletopTool.addMessage(TextMessage.whisper(playerName, "<span class='whisper' style='color:blue'>" 
-				        		+ I18N.getText("whisper.string",  TabletopTool.getFrame().getCommandPanel().getIdentity(), message)+"</span>"));
+				        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
 				        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
 				        		I18N.getText("whisper.you.string", playerName, message) + "</span>"));
 						break;
 					}
 					case ROLL:
-						TabletopTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0)),TabletopTool.getFrame().getCommandPanel().getIdentity()));
+						TabletopTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0)),identity));
 						break;
 					case ROLL_GM:
-						TabletopTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0)),TabletopTool.getFrame().getCommandPanel().getIdentity()));
+						TabletopTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0)),identity));
 						break;
 					case ROLL_ME:
 						TabletopTool.addMessage(TextMessage.me(printRoll((DiceExpressionPart)parts.get(0))));
@@ -128,12 +131,12 @@ public class ChatExecutor {
 					case ROLL_SECRET:
 						String roll=printRoll((DiceExpressionPart)parts.get(0));
 						if (!TabletopTool.getPlayer().isGM()) {
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, TabletopTool.getPlayer().getName(), "* " + 
-			            			I18N.getText("rollsecret.gm.string", TabletopTool.getPlayer().getName(), roll)));
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.ME, null, TabletopTool.getPlayer().getName(), 
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, identity, "* " + 
+			            			I18N.getText("rollsecret.gm.string", identity, roll)));
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.ME, null, identity, 
 			            			I18N.getText("rollsecret.self.string")));
 			            } else {
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, TabletopTool.getPlayer().getName(), "* " + 
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, identity, "* " + 
 			            			I18N.getText("rollsecret.gmself.string", roll)));
 			            }
 						break;
@@ -169,7 +172,7 @@ public class ChatExecutor {
 					    	}
 					    	StringBuilder sb=new StringBuilder();
 					    	sb.append("Table ").append(tableName).append(" (");
-					        sb.append(TabletopTool.getFrame().getCommandPanel().getIdentity());
+					        sb.append(identity);
 					        sb.append("): ");
 					        
 					    	if (result.getImageId() != null) {
@@ -181,7 +184,7 @@ public class ChatExecutor {
 						        sb.append("</span>");
 					    	}
 
-					    	TabletopTool.addMessage(TextMessage.say(sb.toString(),TabletopTool.getFrame().getCommandPanel().getIdentity()));
+					    	TabletopTool.addMessage(TextMessage.say(sb.toString(),identity));
 				    	} catch (Exception pe) {
 					        TabletopTool.addLocalMessage("lookuptable.couldNotPerform" + pe.getMessage());
 				    	}
@@ -222,7 +225,7 @@ public class ChatExecutor {
 					        String message=buildDefaultStringRepresentation(parts).substring(playerName.length()).trim();
 					        // Send
 					        TabletopTool.addMessage(TextMessage.whisper(playerName, "<span class='whisper' style='color:blue'>" 
-					        		+ I18N.getText("whisper.string",  TabletopTool.getFrame().getCommandPanel().getIdentity(), message)+"</span>"));
+					        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
 					        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
 					        		I18N.getText("whisper.you.string", playerName, message) + "</span>"));
 						} catch(Exception e) {
@@ -234,7 +237,7 @@ public class ChatExecutor {
 				}
 			}
 			else
-				TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts), TabletopTool.getPlayer().getName()));
+				TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts), identity));
 		} catch (MT2ScriptException | IllegalArgumentException | UnknownCommandException e) {
 			TabletopTool.addLocalMessage("<font color=\"red\">"+e.getMessage()+"</font>");
 			log.error(e);

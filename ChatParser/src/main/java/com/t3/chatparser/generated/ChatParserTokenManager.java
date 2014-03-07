@@ -2,18 +2,17 @@
 package com.t3.chatparser.generated;
 import java.util.List;
 import java.util.LinkedList;
+import com.t3.chatparser.ChatPart;
+import com.t3.chatparser.DiceExpressionPart;
+import com.t3.chatparser.TextPart;
+import com.t3.chatparser.ChatCommand;
+import com.t3.chatparser.UnknownCommandException;
+import com.t3.chatparser.ParsedChat;
+import com.t3.dice.*;
+import com.t3.dice.expression.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Collections;
-
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.ChatPart;
-import com.t3.chatparser.DiceExpressionPart;
-import com.t3.chatparser.ParsedChat;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.UnknownCommandException;
-import com.t3.dice.*;
-import com.t3.dice.expression.*;
 
 /** Token Manager. */
 public class ChatParserTokenManager implements ChatParserConstants

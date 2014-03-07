@@ -8,6 +8,7 @@ public enum ChatCommand {
 	GM,
 	GOTO,
 	IMPERSONATE,
+	CLEAR_IMPERSONATE,
 	OOC,
 	REPLY,
 	ROLL,
