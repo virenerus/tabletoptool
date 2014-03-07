@@ -17,7 +17,7 @@ import java.net.Socket;
 import com.t3.model.Player;
 import com.t3.server.Handshake;
 
-import net.rptools.clientserver.hessian.client.ClientConnection;
+import com.t3.clientserver.hessian.client.ClientConnection;
 
 /**
  * @author trevor
@@ -38,7 +38,7 @@ public class T3Connection extends ClientConnection {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.rptools.clientserver.simple.client.ClientConnection#sendHandshake(java.net.Socket)
+	 * @see com.t3.clientserver.simple.client.ClientConnection#sendHandshake(java.net.Socket)
 	 */
 	@Override
 	public boolean sendHandshake(Socket s) throws IOException {

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.t3.clientserver.hessian.AbstractMethodHandler;
+
 import com.t3.MD5Key;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.tokenpanel.InitiativePanel;
@@ -31,6 +33,7 @@ import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
 import com.t3.model.GUID;
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Player;
@@ -38,9 +41,8 @@ import com.t3.model.Pointer;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Zone.VisionType;
+import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.Drawable;
@@ -51,8 +53,6 @@ import com.t3.server.ServerPolicy;
 import com.t3.transfer.AssetChunk;
 import com.t3.transfer.AssetConsumer;
 import com.t3.transfer.AssetHeader;
-
-import net.rptools.clientserver.hessian.AbstractMethodHandler;
 
 /**
  * @author drice

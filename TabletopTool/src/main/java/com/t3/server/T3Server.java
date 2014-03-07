@@ -18,8 +18,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import net.rptools.clientserver.simple.client.ClientConnection;
-import net.rptools.clientserver.simple.server.ServerObserver;
+import com.t3.clientserver.simple.client.ClientConnection;
+import com.t3.clientserver.simple.server.ServerObserver;
 
 import org.apache.log4j.Logger;
 

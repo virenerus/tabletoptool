@@ -15,8 +15,8 @@ import java.io.IOException;
 
 import com.t3.model.campaign.CampaignFactory;
 
-import net.rptools.clientserver.simple.AbstractConnection;
-import net.rptools.clientserver.simple.DisconnectHandler;
+import com.t3.clientserver.simple.AbstractConnection;
+import com.t3.clientserver.simple.DisconnectHandler;
 
 /**
  * This class handles when the server inexplicably disconnects

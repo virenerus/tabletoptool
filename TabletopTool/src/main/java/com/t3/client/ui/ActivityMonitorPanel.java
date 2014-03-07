@@ -23,7 +23,7 @@ import com.t3.client.swing.AnimationManager;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 
-import net.rptools.clientserver.ActivityListener;
+import com.t3.clientserver.ActivityListener;
 
 /**
  * @author trevor
@@ -132,8 +132,8 @@ public class ActivityMonitorPanel extends JComponent implements ActivityListener
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.rptools.clientserver.ActivityListener#notify(net.rptools.clientserver.ActivityListener.Direction,
-	 * net.rptools.clientserver.ActivityListener.State, int, int)
+	 * @see com.t3.clientserver.ActivityListener#notify(com.t3.clientserver.ActivityListener.Direction,
+	 * com.t3.clientserver.ActivityListener.State, int, int)
 	 */
 	public void notify(Direction direction, State state, int total, int current) {
 		switch (direction) {

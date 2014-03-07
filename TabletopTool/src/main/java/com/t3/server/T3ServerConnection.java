@@ -16,8 +16,8 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.rptools.clientserver.hessian.server.ServerConnection;
-import net.rptools.clientserver.simple.server.ServerObserver;
+import com.t3.clientserver.hessian.server.ServerConnection;
+import com.t3.clientserver.simple.server.ServerObserver;
 
 import org.apache.log4j.Logger;
 
@@ -41,7 +41,7 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.rptools.clientserver.simple.server.ServerConnection#handleConnectionHandshake(java.net.Socket)
+	 * @see com.t3.clientserver.simple.server.ServerConnection#handleConnectionHandshake(java.net.Socket)
 	 */
 	@Override
 	public boolean handleConnectionHandshake(String id, Socket socket) {
@@ -82,7 +82,7 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 	/**
 	 * Handle late connections
 	 */
-	public void connectionAdded(net.rptools.clientserver.simple.client.ClientConnection conn) {
+	public void connectionAdded(com.t3.clientserver.simple.client.ClientConnection conn) {
 		server.configureClientConnection(conn);
 
 		Player player = playerMap.get(conn.getId().toUpperCase());
@@ -96,7 +96,7 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 //     }
 	}
 
-	public void connectionRemoved(net.rptools.clientserver.simple.client.ClientConnection conn) {
+	public void connectionRemoved(com.t3.clientserver.simple.client.ClientConnection conn) {
 		server.releaseClientConnection(conn.getId());
 		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, ClientCommand.COMMAND.playerDisconnected.name(), playerMap.get(conn.getId().toUpperCase()));
 		playerMap.remove(conn.getId().toUpperCase());
