@@ -69,51 +69,6 @@
 		<version>1.2.17</version>
 	</dependency>
 	<dependency>
-		<groupId>net.java.abeille</groupId>
-		<artifactId>abeille</artifactId>
-		<version>3.0</version>
-		<exclusions>
-			<exclusion>
-				<artifactId>jfreechart</artifactId>
-				<groupId>jfree</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>colt</artifactId>
-				<groupId>colt</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>mahout-collections</artifactId>
-				<groupId>org.apache.mahout</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>jcommon</artifactId>
-				<groupId>jfree</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>dsol-xml</artifactId>
-				<groupId>dsol</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>optimization</artifactId>
-				<groupId>com.github.rwl</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>jgoodies-looks</artifactId>
-				<groupId>com.jgoodies</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>
-					com.springsource.org.apache.batik.ext.awt
-				</artifactId>
-				<groupId>org.apache.batik</groupId>
-			</exclusion>
-			<exclusion>
-				<artifactId>javahelp</artifactId>
-				<groupId>javax.help</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	<dependency>
 		<groupId>com.googlecode.soundlibs</groupId>
 		<artifactId>jlayer</artifactId>
 		<version>1.0.1-1</version>
