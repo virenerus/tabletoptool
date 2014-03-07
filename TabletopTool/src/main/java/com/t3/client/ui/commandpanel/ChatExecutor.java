@@ -13,6 +13,8 @@ import com.t3.dice.expression.DiceExpression;
 import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
+import com.t3.macro.MacroException;
+import com.t3.macro.MacroEngine;
 import com.t3.model.CellPoint;
 import com.t3.model.GUID;
 import com.t3.model.LookupTable;
@@ -20,8 +22,6 @@ import com.t3.model.Player;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.LookupTable.LookupEntry;
-import com.t3.script.MT2ScriptException;
-import com.t3.script.ScriptManager;
 
 /**
  * This is the class responsible for starting the chat parser on a given string and executing 
@@ -87,9 +87,9 @@ public class ChatExecutor {
 					case MACRO_EXEC:
 						List<Token> l=TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList();
 						if(l==null || l.isEmpty())
-							ScriptManager.getInstance().evaluate(buildDefaultStringRepresentation(parts));
+							MacroEngine.getInstance().evaluate(buildDefaultStringRepresentation(parts));
 						else
-							ScriptManager.getInstance().evaluate(buildDefaultStringRepresentation(parts),l.get(0));
+							MacroEngine.getInstance().evaluate(buildDefaultStringRepresentation(parts),l.get(0));
 						break;
 					case OOC:
 						TabletopTool.addMessage(TextMessage.say("(( "+buildDefaultStringRepresentation(parts)+" ))", TabletopTool.getPlayer().getName()));
@@ -167,7 +167,7 @@ public class ChatExecutor {
 					
 					    	// Command handling
 					    	if (result != null && lookupValue.startsWith("/")) {
-					    		ScriptManager.getInstance().evaluate(lookupValue);
+					    		MacroEngine.getInstance().evaluate(lookupValue);
 					    		return;
 					    	}
 					    	StringBuilder sb=new StringBuilder();
@@ -238,7 +238,7 @@ public class ChatExecutor {
 			}
 			else
 				TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts), identity));
-		} catch (MT2ScriptException | IllegalArgumentException | UnknownCommandException e) {
+		} catch (MacroException | IllegalArgumentException | UnknownCommandException e) {
 			TabletopTool.addLocalMessage("<font color=\"red\">"+e.getMessage()+"</font>");
 			log.error(e);
 			e.printStackTrace();

@@ -32,8 +32,8 @@ import com.t3.client.ui.MacroButtonHotKeyManager;
 import com.t3.client.ui.macrobuttons.buttons.MacroButton;
 import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.script.MT2ScriptException;
-import com.t3.script.ScriptManager;
+import com.t3.macro.MacroException;
+import com.t3.macro.MacroEngine;
 import com.t3.util.StringUtil;
 
 /**
@@ -422,8 +422,8 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 				if(compiledCommand==null)
 					compileCommand();
 				if(compiledCommand!=null)
-					o=ScriptManager.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
-			} catch (MT2ScriptException e) {
+					o=MacroEngine.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
+			} catch (MacroException e) {
 				log.error("Error while trying to execute a macro from button",e);
 				TabletopTool.addMessage(TextMessage.me(e.getHTMLErrorMessage()));
 			}
@@ -432,9 +432,9 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		return o;
 	}
 
-	private void compileCommand() throws MT2ScriptException {
+	private void compileCommand() throws MacroException {
 		if(command!=null && !StringUtils.isEmpty(command))
-			this.compiledCommand=ScriptManager.getInstance().compile(command);
+			this.compiledCommand=MacroEngine.getInstance().compile(command);
 	}
 
 	public Token getToken() {
@@ -493,7 +493,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		try {
 			this.command = command;
 			compileCommand();
-		} catch (MT2ScriptException e) {
+		} catch (MacroException e) {
 			//TODO replace this with a better error dialog
 			throw new RuntimeException("This script you tried to save is not valid.", e);
 		}
@@ -657,7 +657,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 						+ "----------------------------------------------------------------------------------");
 			}
 			return TabletopTool.getParser().parseLine(token, toolTip, context);
-		} catch (MT2ScriptException pe) {
+		} catch (MacroException pe) {
 			return toolTip;
 		}
 	}

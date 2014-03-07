@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.swing.JDialog;
 
 import com.t3.client.TabletopTool;
-import com.t3.script.api.MacroView;
+import com.t3.macro.api.views.MacroView;
 import com.t3.swing.SwingUtil;
 
 @SuppressWarnings("serial")

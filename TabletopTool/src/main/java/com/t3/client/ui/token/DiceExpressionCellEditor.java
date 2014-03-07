@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
-import com.t3.script.api.DiceExpressionView;
+import com.t3.macro.api.views.DiceExpressionView;
 
 public class DiceExpressionCellEditor extends AbstractCellEditor implements TableCellEditor {
 	

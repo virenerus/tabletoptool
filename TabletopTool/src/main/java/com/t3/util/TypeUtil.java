@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.t3.macro.api.views.TokenView;
 import com.t3.model.Token;
-import com.t3.script.api.TokenView;
 
 public class TypeUtil {
 	/**

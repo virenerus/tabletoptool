@@ -3,24 +3,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.t3.script.api.DiceExpressionView;
-import com.t3.script.api.MT2ScriptLibrary;
-import com.t3.script.api.MacroView;
-import com.t3.script.api.MapView;
-import com.t3.script.api.TokenView;
-import com.t3.script.api.functions.DialogFunctions;
-import com.t3.script.api.functions.InfoFunctions;
-import com.t3.script.api.functions.InitiativeListView;
-import com.t3.script.api.functions.MapFunctions;
-import com.t3.script.api.functions.PathFunctions;
-import com.t3.script.api.functions.player.PlayerFunctions;
+import com.t3.macro.api.MacroAPI;
+import com.t3.macro.api.functions.DialogFunctions;
+import com.t3.macro.api.functions.InfoFunctions;
+import com.t3.macro.api.functions.InitiativeListView;
+import com.t3.macro.api.functions.MapFunctions;
+import com.t3.macro.api.functions.PathFunctions;
+import com.t3.macro.api.functions.player.PlayerFunctions;
+import com.t3.macro.api.views.DiceExpressionView;
+import com.t3.macro.api.views.MacroView;
+import com.t3.macro.api.views.MapView;
+import com.t3.macro.api.views.TokenView;
 
 
 public class Main {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String[] files={
 			
-			"global scope",path("OpenGameTable",MT2ScriptLibrary.class),
+			"global scope",path("OpenGameTable",MacroAPI.class),
 			"info.",path("OpenGameTable",InfoFunctions.class),
 			"player.",path("OpenGameTable",PlayerFunctions.class),
 			"map.",path("OpenGameTable",MapFunctions.class),

@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.MessagePanel;
-import com.t3.script.api.MacroView;
+import com.t3.macro.api.views.MacroView;
 
 @SuppressWarnings("serial")
 public class HTMLPane extends JEditorPane {

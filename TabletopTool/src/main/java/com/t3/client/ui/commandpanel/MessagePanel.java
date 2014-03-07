@@ -41,9 +41,9 @@ import org.apache.log4j.Logger;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.swing.MessagePanelEditorKit;
+import com.t3.macro.MacroException;
+import com.t3.macro.MacroEngine;
 import com.t3.model.TextMessage;
-import com.t3.script.MT2ScriptException;
-import com.t3.script.ScriptManager;
 
 //FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here
 public class MessagePanel extends JPanel {
@@ -98,8 +98,8 @@ public class MessagePanel extends JPanel {
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
 								try {
-									ScriptManager.getInstance().evaluate(e.getDescription());
-								} catch (MT2ScriptException e1) {
+									MacroEngine.getInstance().evaluate(e.getDescription());
+								} catch (MacroException e1) {
 									e1.printStackTrace();
 									log.error("Error while trying to execute script from HTML", e1);
 									TabletopTool.addMessage(TextMessage.me(e1.getHTMLErrorMessage()));

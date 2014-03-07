@@ -24,7 +24,7 @@ import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
 import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
-import com.t3.script.api.MacroView;
+import com.t3.macro.api.views.MacroView;
 
 @SuppressWarnings("serial")
 public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {

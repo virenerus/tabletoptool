@@ -3,7 +3,7 @@ package com.t3.model.campaign;
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 import com.t3.dice.expression.DiceExpression;
-import com.t3.script.api.DiceExpressionView;
+import com.t3.macro.api.views.DiceExpressionView;
 import com.t3.util.math.CappedInteger;
 
 public enum TokenPropertyType {

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.t3.MD5Key;
-import com.t3.script.MT2ScriptException;
+import com.t3.macro.MacroException;
 
 public class LookupTable {
 
@@ -55,7 +55,7 @@ public class LookupTable {
 		getInternalEntryList().add(new LookupEntry(min, max, result, imageId));
 	}
 	
-	public LookupEntry getLookup() throws MT2ScriptException {
+	public LookupEntry getLookup() throws MacroException {
 		return getLookup(null);
 	}
 
@@ -71,7 +71,7 @@ public class LookupTable {
 		return name;
 	}
 	
-	public LookupEntry getLookup(String roll) throws MT2ScriptException {
+	public LookupEntry getLookup(String roll) throws MacroException {
 
 		if (roll == null) {
 			roll = getDefaultRoll();
@@ -101,10 +101,10 @@ public class LookupTable {
 			}
 			
 		} catch (NumberFormatException nfe) {
-			throw new MT2ScriptException("Error lookup up value: " + tableResult,nfe); 
+			throw new MacroException("Error lookup up value: " + tableResult,nfe); 
 		}
 		
-		throw new MT2ScriptException("Unknown table lookup: " + tableResult);
+		throw new MacroException("Unknown table lookup: " + tableResult);
 	}
 
 	private String getDefaultRoll() {

@@ -57,6 +57,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 import com.t3.clientserver.hessian.client.ClientConnection;
+
 import net.tsc.servicediscovery.ServiceAnnouncer;
 
 import org.apache.commons.io.FileUtils;
@@ -91,6 +92,8 @@ import com.t3.client.ui.zone.ZoneRendererFactory;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
+import com.t3.macro.MacroEngine;
+import com.t3.macro.api.views.DiceExpressionView;
 import com.t3.model.AssetManager;
 import com.t3.model.GUID;
 import com.t3.model.ObservableList;
@@ -102,8 +105,6 @@ import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.campaign.TokenPropertyType;
 import com.t3.net.RPTURLStreamHandlerFactory;
-import com.t3.script.ScriptManager;
-import com.t3.script.api.DiceExpressionView;
 import com.t3.server.ServerCommand;
 import com.t3.server.ServerConfig;
 import com.t3.server.ServerPolicy;
@@ -631,7 +632,7 @@ public class TabletopTool {
 
 		handler = new ClientMethodHandler();
 
-		ScriptManager.getInstance().initialize();
+		MacroEngine.getInstance().initialize();
 		
 		setClientFrame(new T3Frame(menuBar));
 
@@ -1498,7 +1499,7 @@ public class TabletopTool {
 		}
 	}
 
-	public static ScriptManager getParser() {
-		return ScriptManager.getInstance();
+	public static MacroEngine getParser() {
+		return MacroEngine.getInstance();
 	}
 }
