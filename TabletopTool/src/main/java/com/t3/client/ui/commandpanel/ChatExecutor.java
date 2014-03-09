@@ -46,21 +46,16 @@ public class ChatExecutor {
 			if(parts.getChatCommand()!=null) {
 				switch(parts.getChatCommand()) {
 					case CLEAR_CHAT:
-						TabletopTool.getFrame().getCommandPanel().clearMessagePanel();
+						clearChat();
 						break;
 					case EMIT:
-						if(TabletopTool.getPlayer().isGM())
-							TabletopTool.addGlobalMessage(buildDefaultStringRepresentation(parts));
-						else
-							TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts),identity));
+						emit(buildDefaultStringRepresentation(parts), identity);
 						break;
 					case EMOTE:
-						TabletopTool.addGlobalMessage("<span color=\"green\" style=\"font-style: italic;\">"
-								+identity+" "
-								+buildDefaultStringRepresentation(parts)+"</span>");
+						emote(buildDefaultStringRepresentation(parts),identity);
 						break;
 					case GM:
-						TabletopTool.addMessage(TextMessage.gm(buildDefaultStringRepresentation(parts),identity));
+						gm(buildDefaultStringRepresentation(parts),identity);
 						break;
 					case GOTO: {
 							try {
@@ -92,33 +87,11 @@ public class ChatExecutor {
 							MacroEngine.getInstance().evaluate(buildDefaultStringRepresentation(parts),l.get(0));
 						break;
 					case OOC:
-						TabletopTool.addMessage(TextMessage.say("(( "+buildDefaultStringRepresentation(parts)+" ))", TabletopTool.getPlayer().getName()));
+						outOfCharacter(buildDefaultStringRepresentation(parts));
 						break;
-					case REPLY: {
-						String playerName = TabletopTool.getLastWhisperer();
-				        if (playerName == null) 
-				        {
-				        	TabletopTool.addMessage(TextMessage.me("<b>You have no one to which to reply.</b>"));
-				        }
-				        
-				        // Validate
-				        if (!TabletopTool.isPlayerConnected(playerName)) {
-				            TabletopTool.addMessage(TextMessage.me(I18N.getText("msg.error.playerNotConnected", playerName)));
-				            return;
-				        }
-				        if (TabletopTool.getPlayer().getName().equalsIgnoreCase(playerName)) {
-				            TabletopTool.addMessage(TextMessage.me(I18N.getText("whisper.toSelf")));
-				            return;
-				        }
-				        
-				        // Send
-				        String message=buildDefaultStringRepresentation(parts);
-				        TabletopTool.addMessage(TextMessage.whisper(playerName, "<span class='whisper' style='color:blue'>" 
-				        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
-				        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
-				        		I18N.getText("whisper.you.string", playerName, message) + "</span>"));
+					case REPLY:
+						reply(buildDefaultStringRepresentation(parts), identity);
 						break;
-					}
 					case ROLL:
 						TabletopTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0)),identity));
 						break;
@@ -141,7 +114,7 @@ public class ChatExecutor {
 			            }
 						break;
 					case SELF:
-						TabletopTool.addMessage(TextMessage.me(buildDefaultStringRepresentation(parts)));
+						self(buildDefaultStringRepresentation(parts));
 						break;
 					case TABLE:
 						try {
@@ -204,45 +177,108 @@ public class ChatExecutor {
 						}
 						break;
 					case WHISPER:
-						try {
-							String playerName=null;
-							String part1=parts.get(0).getDefaultTextRepresentation();
-							for(Player p:TabletopTool.getPlayerList()) {
-								if(part1.startsWith(p.getName()))
-									playerName=p.getName();
-							}
-					       
-							// Validate
-					        if (!TabletopTool.isPlayerConnected(playerName)) {
-					            TabletopTool.addMessage(TextMessage.me(I18N.getText("msg.error.playerNotConnected", playerName)));
-					            return;
-					        }
-					        if (TabletopTool.getPlayer().getName().equalsIgnoreCase(playerName)) {
-					            TabletopTool.addMessage(TextMessage.me(I18N.getText("whisper.toSelf")));
-					            return;
-					        }
-					        
-					        String message=buildDefaultStringRepresentation(parts).substring(playerName.length()).trim();
-					        // Send
-					        TabletopTool.addMessage(TextMessage.whisper(playerName, "<span class='whisper' style='color:blue'>" 
-					        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
-					        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
-					        		I18N.getText("whisper.you.string", playerName, message) + "</span>"));
-						} catch(Exception e) {
-							
+						String playerName=null;
+						String part1=parts.get(0).getDefaultTextRepresentation();
+						for(Player p:TabletopTool.getPlayerList()) {
+							if(part1.startsWith(p.getName()))
+								playerName=p.getName();
 						}
+						
+						String message=buildDefaultStringRepresentation(parts).substring(playerName.length()).trim();
+						
+						whisper(message, identity, playerName);
 						break;
 					default:
 						break;
 				}
 			}
 			else
-				TabletopTool.addMessage(TextMessage.say(buildDefaultStringRepresentation(parts), identity));
+				say(buildDefaultStringRepresentation(parts), identity);
 		} catch (MacroException | IllegalArgumentException | UnknownCommandException e) {
 			TabletopTool.addLocalMessage("<font color=\"red\">"+e.getMessage()+"</font>");
 			log.error(e);
 			e.printStackTrace();
 		}
+	}
+
+	public static void gm(String message, String identity) {
+		TabletopTool.addMessage(TextMessage.gm(message, identity));
+	}
+
+	public static void say(String message, String identity) {
+		TabletopTool.addMessage(TextMessage.say(message, identity));
+	}
+
+	public static void whisper(String message, String identity, String targetPlayer) {
+		try {
+			
+	       
+			// Validate
+	        if (!TabletopTool.isPlayerConnected(targetPlayer)) {
+	            TabletopTool.addMessage(TextMessage.me(I18N.getText("msg.error.playerNotConnected", targetPlayer)));
+	            return;
+	        }
+	        if (TabletopTool.getPlayer().getName().equalsIgnoreCase(targetPlayer)) {
+	            TabletopTool.addMessage(TextMessage.me(I18N.getText("whisper.toSelf")));
+	            return;
+	        }
+	        
+	        // Send
+	        TabletopTool.addMessage(TextMessage.whisper(targetPlayer, "<span class='whisper' style='color:blue'>" 
+	        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
+	        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
+	        		I18N.getText("whisper.you.string", targetPlayer, message) + "</span>"));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void self(String message) {
+		TabletopTool.addMessage(TextMessage.me(message));
+	}
+
+	public static void reply(String message, String identity) {
+		String playerName = TabletopTool.getLastWhisperer();
+        if (playerName == null) 
+        {
+        	TabletopTool.addMessage(TextMessage.me("<b>You have no one to which to reply.</b>"));
+        }
+        
+        // Validate
+        if (!TabletopTool.isPlayerConnected(playerName)) {
+            TabletopTool.addMessage(TextMessage.me(I18N.getText("msg.error.playerNotConnected", playerName)));
+            return;
+        }
+        if (TabletopTool.getPlayer().getName().equalsIgnoreCase(playerName)) {
+            TabletopTool.addMessage(TextMessage.me(I18N.getText("whisper.toSelf")));
+            return;
+        }
+        
+        // Send
+        TabletopTool.addMessage(TextMessage.whisper(playerName, "<span class='whisper' style='color:blue'>" 
+        		+ I18N.getText("whisper.string",  identity, message)+"</span>"));
+        TabletopTool.addMessage(TextMessage.me("<span class='whisper' style='color:blue'>" + 
+        		I18N.getText("whisper.you.string", playerName, message) + "</span>"));
+	}
+
+	public static void outOfCharacter(String message) {
+		TabletopTool.addMessage(TextMessage.say("(( "+message+" ))", TabletopTool.getPlayer().getName()));
+	}
+
+	public static void emote(String message, String identity) {
+		TabletopTool.addGlobalMessage("<span color=\"green\" style=\"font-style: italic;\">"
+				+identity+" "+message+"</span>");
+	}
+
+	public static void emit(String message, String identity) {
+		if(TabletopTool.getPlayer().isGM())
+			TabletopTool.addGlobalMessage(message);
+		else
+			TabletopTool.addMessage(TextMessage.say(message,identity));
+	}
+
+	public static void clearChat() {
+		TabletopTool.getFrame().getCommandPanel().clearMessagePanel();
 	}
 
 	private static String printRoll(DiceExpressionPart diceExpressionPart) {

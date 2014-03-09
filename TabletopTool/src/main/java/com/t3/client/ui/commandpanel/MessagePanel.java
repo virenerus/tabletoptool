@@ -183,7 +183,7 @@ public class MessagePanel extends JPanel {
 			public void run() {
 				String output = message.getMessage();
 				// Auto inline expansion for {HTTP|HTTPS} URLs
-				//todo test this
+				//TODO test this
 				output = output.replaceAll("(https?://[\\w.%-/~?&+#=]+)", "<a href='$2'>$2</a>");
 
 				if (!message.getSource().equals(TabletopTool.getPlayer().getName())) {
@@ -197,7 +197,7 @@ public class MessagePanel extends JPanel {
 				// if rolls not being visible to this user result in an empty message, display nothing
 				if(!output.isEmpty()) {
 
-					//this tries to insert the message in so that names are not printed a thousand times
+					//this tries to insert the message so that names are not printed a thousand times
 					try {
 						Element element = document.getElement("body");
 						if(lastSpeaker != null && lastSpeaker.equals(message.getSpeaker())) {

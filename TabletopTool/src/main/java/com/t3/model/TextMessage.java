@@ -19,16 +19,16 @@ import com.t3.client.TabletopTool;
 //TODO refactor this so that a message contains a player that sent it and if applicable the token GUID
 public class TextMessage {
 	// Not an enum so that it can be hessian serialized
-	public interface Channel {
-		public static final int ALL = 0; // General message channel
-		public static final int SAY = 1; // Player/character speech
-		public static final int GM = 2; // GM visible only
-		public static final int ME = 3; // Targeted to the current tabletoptool client
-		public static final int GROUP = 4; // All in the group
-		public static final int WHISPER = 5; // To a specific player/character
+	public enum Channel {
+		ALL, // General message channel
+		SAY, // Player/character speech
+		GM, // GM visible only
+		ME, // Targeted to the current tabletoptool client
+		GROUP, // All in the group
+		WHISPER; // To a specific player/character
 	}
 
-	private int channel;
+	private Channel channel;
 	private final String target;
 	private final String message;
 	private final String source;
@@ -36,7 +36,7 @@ public class TextMessage {
 
 	////
 	// CONSTRUCTION
-	public TextMessage(int channel, String target, String source, String message, String speaker) {
+	public TextMessage(Channel channel, String target, String source, String message, String speaker) {
 		this.channel = channel;
 		this.target = target;
 		this.message = message;
@@ -44,7 +44,7 @@ public class TextMessage {
 		this.speaker = speaker;
 	}
 	
-	public TextMessage(int channel, String target, String source, String message) {
+	public TextMessage(Channel channel, String target, String source, String message) {
 		this(channel, target, source, message, null);
 	}
 
@@ -83,11 +83,11 @@ public class TextMessage {
 
 	////
 	// PROPERTIES
-	public int getChannel() {
+	public Channel getChannel() {
 		return channel;
 	}
 
-	public void setChannel(int c) {
+	public void setChannel(Channel c) {
 		channel = c;
 	}
 

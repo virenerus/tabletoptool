@@ -11,6 +11,8 @@ import com.t3.chatparser.generated.ChatParser;
 import com.t3.chatparser.generated.ParseException;
 import com.t3.dice.expression.DiceExpression;
 import com.t3.client.TabletopTool;
+import com.t3.client.ui.commandpanel.ChatExecutor;
+import com.t3.language.I18N;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
@@ -21,6 +23,8 @@ import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.views.TokenView;
 import com.t3.model.CellPoint;
+import com.t3.model.Player;
+import com.t3.model.TextMessage;
 import com.t3.model.ZonePoint;
 import com.t3.model.campaign.TokenProperty;
 
@@ -42,18 +46,66 @@ public abstract class MacroAPI extends Script {
 		this.path=new PathFunctions();
 	}
 
-	public void print(int i) {
-		print(Integer.toString(i));
+	/**
+	 * Simply writes to the chat
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void say(Object message) {
+		ChatExecutor.say(message.toString(),TabletopTool.getPlayer().getName());
 	}
 	
-	public void print(float f) {
-		print(Float.toString(f));
+	/**
+	 * Whispers to a certain player so that only you two can see it
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void whisper(Object message, String targetPlayer) {
+		ChatExecutor.whisper(message.toString(), TabletopTool.getPlayer().getName(), targetPlayer);		
 	}
 	
-	public void print(boolean b) {
-		print(Boolean.toString(b));
+	/**
+	 * Whispers to to the GM so that only you two can see it
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void whisperToGM(Object message) {
+		ChatExecutor.gm(message.toString(), TabletopTool.getPlayer().getName());
 	}
 	
+	/**
+	 * Says something out of character
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void sayOOC(Object message) {
+		ChatExecutor.outOfCharacter(message.toString());
+	}
+	
+	/**
+	 * This writes a message without your name to the chat if you are the GM
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void emit(Object message) {
+		ChatExecutor.emit(message.toString(), TabletopTool.getPlayer().getName());
+	}
+
+	/**
+	 * This writes a message about you to the chat
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void emote(Object message) {
+		ChatExecutor.emote(message.toString(), TabletopTool.getPlayer().getName());
+	}
+	
+	/**
+	 * This whispers an answer back to last person that wrote to you
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void reply(Object message) {
+		ChatExecutor.reply(message.toString(), TabletopTool.getPlayer().getName());
+	}
+	
+	/**
+	 * This writes a message to the chat so that only you can see it
+	 * @param o a string or some other kind of objects that is written to the chat
+	 */
 	public void print(Object o) {
 		TabletopTool.addLocalMessage(o==null?"null":o.toString());
 	}

@@ -307,7 +307,8 @@ public class TabletopTool {
 	public static void showError(String msgKey, Throwable t) {
 		String msg = generateMessage(msgKey, t);
 		log.error(msgKey, t);
-		t.printStackTrace();
+		if(t!=null)
+			t.printStackTrace();
 		showMessage(msg, "msg.title.messageDialogError", JOptionPane.ERROR_MESSAGE);
 	}
 

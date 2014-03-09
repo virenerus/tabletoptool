@@ -23,6 +23,7 @@ import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
+import com.t3.client.ui.commandpanel.ChatExecutor;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ImageTokenOverlay;
 import com.t3.client.ui.zone.ZoneRenderer;
@@ -41,6 +42,7 @@ import com.t3.model.InitiativeList;
 import com.t3.model.LightSource;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
+import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.TokenFootprint;
 import com.t3.model.Zone;
@@ -98,6 +100,45 @@ public class TokenView extends TokenPropertyView {
 	// Implementation of available functions //
 	///////////////////////////////////////////
 	
+	/**
+	 * Simply writes to the chat as this token
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void say(Object message) {
+		ChatExecutor.say(message.toString(),token.getId().toString());
+	}
+	
+	/**
+	 * Whispers to a certain player as this token so that only you two can see it
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void whisper(Object message, String targetPlayer) {
+		ChatExecutor.whisper(message.toString(), token.getId().toString(), targetPlayer);		
+	}
+	
+	/**
+	 * Whispers to to the GM as this token so that only you two can see it
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void whisperToGM(Object message) {
+		ChatExecutor.gm(message.toString(), token.getId().toString());
+	}
+
+	/**
+	 * This writes a message about the token to the chat
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void emote(Object message) {
+		ChatExecutor.emote(message.toString(), token.getId().toString());
+	}
+	
+	/**
+	 * This whispers an answer as this token back to last person that wrote to you
+	 * @param message a string or some other kind of objects that is written to the chat
+	 */
+	public void reply(Object message) {
+		ChatExecutor.reply(message.toString(), token.getId().toString());
+	}
 	
 	/**
 	 * The method returns the value of a bar or null if the bar is not visible at the moment.
