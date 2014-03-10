@@ -46,6 +46,8 @@ import com.t3.client.TabletopTool;
  */
 
 public class I18N {
+	//for eclipse to find this class as a i18n accessor
+	private static final String BUNDLE_NAME = "com.t3.language.i18n"; //$NON-NLS-1$
 	private static final ResourceBundle BUNDLE;
 	private static final Logger log = Logger.getLogger(I18N.class);
 
@@ -54,7 +56,7 @@ public class I18N {
 
 	static {
 		// Put here to make breakpointing easier. :)
-		BUNDLE = ResourceBundle.getBundle("com.t3.language.i18n");
+		BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 	}
 
 	/**
@@ -160,7 +162,7 @@ public class I18N {
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Returns the text associated with the given key after removing any menu
 	 * mnemonic. So for the key <b>action.loadMap</b> that has the value

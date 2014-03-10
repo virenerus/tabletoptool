@@ -24,7 +24,7 @@ public class WebDownloader {
 
 	public WebDownloader(URL url) {
 		if (url == null) {
-			throw new IllegalArgumentException("URL cannot be null");
+			throw new IllegalArgumentException("url can not be null");
 		}
 		this.url = url;
 	}
@@ -65,7 +65,7 @@ public class WebDownloader {
 	}
 
 	public static void main(String[] args) throws Exception {
-		WebDownloader downloader = new WebDownloader(new URL("http://library.rptools.net/1.3/listArtPacks"));
+		WebDownloader downloader = new WebDownloader(new URL("http://library.rptools.net/1.3/listArtPacks")); //$NON-NLS-1$
 		String result = downloader.read();
 		System.out.println(result);
 	}
