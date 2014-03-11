@@ -15,7 +15,7 @@ public class DiceNode implements DiceExpression {
 
 	public float evaluate(Random random) {
 		if(!dice.isRolled())
-			dice.rollDice(random);
+			dice.roll(random);
 		return dice.getResult();
 	}
 
