@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import com.t3.chatparser.generated.ChatParser;
 import com.t3.chatparser.generated.ParseException;
+import com.t3.dice.DiceBuilder;
 import com.t3.dice.expression.DiceExpression;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.ChatExecutor;
@@ -163,6 +164,10 @@ public abstract class MacroAPI extends Script {
 		} catch (ParseException e) {
 			throw new MacroException("Could not parse dice Expression '"+diceExpression+"'",e);
 		}
+	}
+	
+	public DiceBuilder roll(int numberOfDices) {
+		return DiceBuilder.roll(numberOfDices);
 	}
 	
 	/**
