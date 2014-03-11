@@ -321,24 +321,24 @@ private Dice DICE(int count) :
 	{
 		(
 			<DICE_FUDGE>
-			{return new FudgeDice(count);}
+			{return DiceBuilder.roll(count).df();}
 			|
 			<DICE_UBIQUITY>
-			{return new UbiquityDice(count);}
+			{return DiceBuilder.roll(count).du();}
 			|
 			<DICE_SHADOWRUN>
-			{return new ShadowrunBasicDice(count);}
+			{return DiceBuilder.roll(count).sr4();}
 			|
 			<DICE_SHADOWRUN_EXPLODING>
-			{return new ExplodingShadowrunBasicDice(count);}
+			{return DiceBuilder.roll(count).sr4().e();}
 			|
 			<DICE_SHADOWRUN_GREMLIN>
 			extra=NUMBER()
-			{return new ShadowrunGremlinDice(count,extra);}
+			{return DiceBuilder.roll(count).sr4().g(extra);}
 			|
 			<DICE_SHADOWRUN_EXPLODING_GREMLIN>
 			extra=NUMBER()
-			{return new ExplodingShadowrunGremlinDice(count,extra);}
+			{return DiceBuilder.roll(count).sr4().e().g(extra);}
 			
 		)
 		| 
@@ -349,38 +349,38 @@ private Dice DICE(int count) :
 				(
 					<DICE_D>
 					extra=NUMBER()
-					{return new DropDice(count,type,extra);}
+					{return DiceBuilder.roll(count).d(type).drop(extra);}
 				) |
 				(
 					<DICE_KEEP>
 					extra=NUMBER()
-					{return new KeepDice(count,type,extra);}
+					{return DiceBuilder.roll(count).d(type).keep(extra);}
 				) |
 				(
 					<DICE_REROLL>
 					extra=NUMBER()
-					{return new RerollDice(count,type,extra);}
+					{return DiceBuilder.roll(count).d(type).reroll(extra);}
 				) |
 				(
 					<DICE_SUCCESS>
 					extra=NUMBER()
-					{return new SuccessDice(count,type,extra);}
+					{return DiceBuilder.roll(count).d(type).successIf(extra);}
 				) |
 				(
 					<DICE_EXPLODING_SUCCESS>
 					extra=NUMBER()
-					{return new ExplodingSuccessDice(count,type,extra);}
+					{return DiceBuilder.roll(count).d(type).explode().successIf(extra);}
 				) |
 				(
 					<DICE_EXPLODING>
-					{return new ExplodingDice(count,type);}
+					{return DiceBuilder.roll(count).d(type).explode();}
 				) |
 				(
 					<DICE_OPEN>
-					{return new OpenDice(count,type);}
+					{return DiceBuilder.roll(count).d(type).explode();}
 				)
 			)?
-			{return new SimpleDice(count,type);}
+			{return DiceBuilder.roll(count).d(type);}
 		)
 	}
 

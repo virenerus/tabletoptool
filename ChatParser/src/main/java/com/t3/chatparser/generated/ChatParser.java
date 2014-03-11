@@ -401,29 +401,29 @@
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case DICE_FUDGE:
         jj_consume_token(DICE_FUDGE);
-                         {if (true) return new FudgeDice(count);}
+                         {if (true) return DiceBuilder.roll(count).df();}
         break;
       case DICE_UBIQUITY:
         jj_consume_token(DICE_UBIQUITY);
-                         {if (true) return new UbiquityDice(count);}
+                         {if (true) return DiceBuilder.roll(count).du();}
         break;
       case DICE_SHADOWRUN:
         jj_consume_token(DICE_SHADOWRUN);
-                         {if (true) return new ShadowrunBasicDice(count);}
+                         {if (true) return DiceBuilder.roll(count).sr4();}
         break;
       case DICE_SHADOWRUN_EXPLODING:
         jj_consume_token(DICE_SHADOWRUN_EXPLODING);
-                         {if (true) return new ExplodingShadowrunBasicDice(count);}
+                         {if (true) return DiceBuilder.roll(count).sr4().e();}
         break;
       case DICE_SHADOWRUN_GREMLIN:
         jj_consume_token(DICE_SHADOWRUN_GREMLIN);
         extra = NUMBER();
-                         {if (true) return new ShadowrunGremlinDice(count,extra);}
+                         {if (true) return DiceBuilder.roll(count).sr4().g(extra);}
         break;
       case DICE_SHADOWRUN_EXPLODING_GREMLIN:
         jj_consume_token(DICE_SHADOWRUN_EXPLODING_GREMLIN);
         extra = NUMBER();
-                         {if (true) return new ExplodingShadowrunGremlinDice(count,extra);}
+                         {if (true) return DiceBuilder.roll(count).sr4().e().g(extra);}
         break;
       default:
         jj_la1[18] = jj_gen;
@@ -446,35 +446,35 @@
         case DICE_D:
           jj_consume_token(DICE_D);
           extra = NUMBER();
-                                         {if (true) return new DropDice(count,type,extra);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).drop(extra);}
           break;
         case DICE_KEEP:
           jj_consume_token(DICE_KEEP);
           extra = NUMBER();
-                                         {if (true) return new KeepDice(count,type,extra);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).keep(extra);}
           break;
         case DICE_REROLL:
           jj_consume_token(DICE_REROLL);
           extra = NUMBER();
-                                         {if (true) return new RerollDice(count,type,extra);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).reroll(extra);}
           break;
         case DICE_SUCCESS:
           jj_consume_token(DICE_SUCCESS);
           extra = NUMBER();
-                                         {if (true) return new SuccessDice(count,type,extra);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).successIf(extra);}
           break;
         case DICE_EXPLODING_SUCCESS:
           jj_consume_token(DICE_EXPLODING_SUCCESS);
           extra = NUMBER();
-                                         {if (true) return new ExplodingSuccessDice(count,type,extra);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).explode().successIf(extra);}
           break;
         case DICE_EXPLODING:
           jj_consume_token(DICE_EXPLODING);
-                                         {if (true) return new ExplodingDice(count,type);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).explode();}
           break;
         case DICE_OPEN:
           jj_consume_token(DICE_OPEN);
-                                         {if (true) return new OpenDice(count,type);}
+                                         {if (true) return DiceBuilder.roll(count).d(type).explode();}
           break;
         default:
           jj_la1[19] = jj_gen;
@@ -486,7 +486,7 @@
         jj_la1[20] = jj_gen;
         ;
       }
-                         {if (true) return new SimpleDice(count,type);}
+                         {if (true) return DiceBuilder.roll(count).d(type);}
       break;
     default:
       jj_la1[21] = jj_gen;
