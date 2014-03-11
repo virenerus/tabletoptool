@@ -111,15 +111,30 @@ public abstract class MacroAPI extends Script {
 		TabletopTool.addLocalMessage(o==null?"null":o.toString());
 	}
 
+	/**
+	 * This moves your camera to the given token
+	 * @param token the token you want to focus on
+	 */
 	public void goTo(TokenView token) {
 		TokenLocation tl=token.getLocation(false);
 		TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new ZonePoint(tl.getX(), tl.getY()));
 	}
 	
+	/**
+	 * This moves your camera to the point
+	 * @param x the x part of the coordinate
+	 * @param x the x part of the coordinate
+	 */
 	public void goTo(int x, int y) {
 		goTo(x,y,true);
 	}
 	
+	/**
+	 * This moves your camera to the point
+	 * @param x the x part of the coordinate
+	 * @param x the x part of the coordinate
+	 * @param gridUnit if the given coordinates are in grid or zone units
+	 */
 	public void goTo(int x, int y, boolean gridUnit) {
 		if(gridUnit)
 			TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new CellPoint(x, y));
@@ -166,6 +181,14 @@ public abstract class MacroAPI extends Script {
 		}
 	}
 	
+	/**
+	 * This will allow you to roll dice.<br>
+	 * Example:<br>
+	 * 1d6: roll(1).{@link DiceBuilder#d d}(6).{@link com.t3.dice.Dice#getResult getResult}();<br>
+	 * 3d6e: roll(3).{@link DiceBuilder#d d}(6).{@link com.t3.dice.ExtendableDice#explode explode}().{@link com.t3.dice.Dice#getResult getResult}();
+	 * @param numberOfDices
+	 * @return
+	 */
 	public DiceBuilder roll(int numberOfDices) {
 		return DiceBuilder.roll(numberOfDices);
 	}

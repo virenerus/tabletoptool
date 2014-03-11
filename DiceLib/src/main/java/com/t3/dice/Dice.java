@@ -17,6 +17,9 @@ public abstract class Dice {
 		this.maximumValue=maximumValue;
 	}
 
+	/**
+	 * @return an array with the result of every die in the roll
+	 */
 	public int[] getResults() {
 		rollIfNeeded();
 		return modifiedResult;
@@ -55,6 +58,9 @@ public abstract class Dice {
 		return max;
 	}
 
+	/**
+	 * @return the sum of all the dice in the roll
+	 */
 	public int getResult() {
 		rollIfNeeded();
 		return result;
@@ -65,6 +71,11 @@ public abstract class Dice {
 			roll();
 	}
 
+	/**
+	 * This will roll or reroll this dice with the given random number generator. 
+	 * This is useful if you want to generate the random values from a seed.
+	 * @param r the random generator to be used
+	 */
 	public void roll(Random r) {
 		originalResult=new int[numberOfDices];
 		int range=maximumValue-minimumValue+1;
@@ -80,18 +91,30 @@ public abstract class Dice {
 
 	protected abstract int[] modifyResult(int[] orig, Random r);
 
+	/**
+	 * This will roll or reroll this dice with the given random number generator. 
+	 */
 	public void roll() {
 		roll(new Random());
 	}
 
+	/**
+	 * @return the value of the highest rolled die
+	 */
 	public int getMaximumDiceValue() {
 		return maximumValue;
 	}
 
+	/**
+	 * @return the value of the lowest rolled die
+	 */
 	public int getMinimumDiceValue() {
 		return minimumValue;
 	}
 
+	/**
+	 * @return if this dice were rolled at least once
+	 */
 	public boolean isRolled() {
 		return originalResult!=null;
 	}

@@ -296,6 +296,10 @@ public class TokenView extends TokenPropertyView {
         return ret;
     }
     
+    /**
+     * This lets you set the initiative of a token.
+     * @param state the new initiative of the token
+     */
     public void setTokenInitiative(String state) {
     	InitiativeList list=token.getZone().getInitiativeList();
     	for(Integer index:list.indexOf(token)) {
@@ -312,69 +316,128 @@ public class TokenView extends TokenPropertyView {
     	return !(token.isVisibleOnlyToOwner() && !AppUtil.playerOwns(token)) && token.isVisible();
     }
     
+    /**
+     * @param visible if this token should be made visible or not
+     */
     public void setVisible(boolean visible) {
 		token.setVisible(visible);
 		this.sendUpdateToServer();
     }
-
+ 
+    /**
+     * @return if this token is visible to its owner only
+     */
     public boolean isVisibleToOwnerOnly() {
     	return token.isVisibleOnlyToOwner();
     }
     
+    /**
+     * @param ownerOnlyVisible if this token should be made visible to its owner only
+     */
     public void setVisibleToOwnerOnly(boolean ownerOnlyVisible) {
 		token.setVisibleOnlyToOwner(ownerOnlyVisible);
 		this.sendUpdateToServer();
 	}
     
+    /**
+     * This method is used to access the speeches defined in the token properties.
+     * @param speechKey the key of the speech
+     * @return the text associated with the speech key
+     */
     public String getSpeech(String speechKey) {
     	return token.getSpeech(speechKey);
     }
     
+    /**
+     * This method is used to change the speeches defined in the token properties.
+     * @param speechKey the key to access the speech in the future
+     * @param speech the text to store as a speech
+     */
     public void setSpeech(String speechKey, String speech) {
     	token.setSpeech(speechKey, speech);
+    	this.sendUpdateToServer();
     }
     
-    public Set<String> getSpeechNames() {
-    	return token.getSpeechNames();
+    /**
+     * @return a set of all the speech keys that are defined for this token
+     */
+    public Set<String> getSpeechKeys() {
+    	return Collections.unmodifiableSet(token.getSpeechNames());
     }
     
+    /**
+     * @return the notes ostored on this token
+     */
     public String getNotes() {
     	return token.getNotes();
     }
     
+    /**
+     * This sets the notes of the token
+     * @param notes the new notes
+     */
     public void setNotes(String notes) {
     	token.setNotes(notes);
     	this.sendUpdateToServer();
     }
     
+    /**
+     * @return the GM notes of the token
+     */
     public String getGMNotes() {
     	return token.getGMNotes();
     }
     
+    /**
+     * This sets the GM notes of the token
+     * @param notes the new GM notes
+     */
     public void setGMNotes(String notes) {
     	token.setGMNotes(notes);
     	this.sendUpdateToServer();
     }
     
+    /**
+     * This method allows you to check the token for a certain state.
+     * @param state the state to check for
+     * @return if the token has this state
+     */
     public boolean isState(String state) {
     	return TypeUtil.getBooleanValue(token.getState(state));
     }
     
+    /**
+     * This method allows you to check the token for a certain 
+     * @param state the state you want to enable or disable 
+     * @param value if this value should be enabled
+     */
     public void setState(String state, boolean value) {
     	token.setState(state, value);
     	this.sendUpdateToServer();
     }
     
+    /**
+     * This method allows you to change all the states at once. This is usefull
+     * to clear a token of all its states.
+     * @param value if all values should be enabled
+     */
     public void setAllStates(boolean value) {
     	for (String stateName : TabletopTool.getCampaign().getTokenStatesMap().keySet())
 			token.setState(stateName, value);
 		this.sendUpdateToServer();
     }
 
-    public Set<String> getStateName() {
+    /**
+     * @return the names of all the states defined in the campaign settings
+     */
+    public Set<String> getStateNames() {
     	return Collections.unmodifiableSet(TabletopTool.getCampaign().getTokenStatesMap().keySet());
     }
     
+    /**
+     * @param group the group which state names you want
+     * @return the names of all the states defined in the campaign settings for the given group
+     */
     public Set<String> getStateNames(String group) {
     	Set<String> stateNames;
 		Map<String, BooleanTokenOverlay> states = TabletopTool.getCampaign().getTokenStatesMap();
@@ -391,6 +454,9 @@ public class TokenView extends TokenPropertyView {
 		TabletopTool.serverCommand().putToken(token.getZone().getId(), token);
 	}
 
+	/**
+	 * @return the id of the token
+	 */
 	public GUID getId() {
 		return token.getId();
 	}
@@ -444,32 +510,56 @@ public class TokenView extends TokenPropertyView {
 		return ret;
 	}
 	
+	/**
+	 * @return if this token has sight
+	 */
 	public boolean hasSight() {
 		return token.getHasSight();
 	}
 	
+	/**
+	 * @param value if this token should have sight
+	 */
 	public void setHasSight(boolean value) {
 		token.setHasSight(value);
 		this.sendUpdateToServer();
 		TabletopTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
-	public String getSightType() {
+	/**
+	 * @return the type of vision this token is using
+	 * @see #getHasSight
+	 */
+	public String getVisionType() {
 		return token.getSightType();
 	}
 	
-	public void setSightType(String sightType) {
-		token.setSightType(sightType);
+	/**
+	 * This allows you to set the type of vision this token should use. Be aware that to token can
+	 * only see things if {@link #setHasSight} is set.
+	 * @param visionType the type of vision this token should use 
+	 * @see #setHasSight
+	 */
+	public void setVisionType(String visionType) {
+		token.setSightType(visionType);
 		this.sendUpdateToServer();
 		TabletopTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
+	/**
+	 * This sets the label of the token. Te label will be shown below the name of the token on the map.
+	 * @param label the new label
+	 */
 	public void setLabel(String label) {
 		token.setLabel(label);
 		token.getZone().putToken(token);
 		this.sendUpdateToServer();
 	}
 	
+	/**
+	 * @return the label of the token. 
+	 * @see #setLabel
+	 */
 	public String getLabel() {
 		return token.getLabel();
 	}
@@ -508,7 +598,6 @@ public class TokenView extends TokenPropertyView {
 			token.setHaloColor(color);
 		}
 		
-		// TODO: This works for now but could result in a lot of resending of data
 		Zone zone = token.getZone();
 		zone.putToken(token);
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
