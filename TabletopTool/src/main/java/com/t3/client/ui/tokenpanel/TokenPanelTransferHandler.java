@@ -79,7 +79,7 @@ public class TokenPanelTransferHandler extends TransferHandler {
   @Override
   protected Transferable createTransferable(JComponent aC) {
     if (aC instanceof JList) {
-      List<?> selectedValues = ((JList)aC).getSelectedValuesList();
+      List<Token> selectedValues = ((JList<Token>)aC).getSelectedValuesList();
       return new TokenPanelTransferable(selectedValues);
     } // endif
     return null;
@@ -97,7 +97,7 @@ class TokenPanelTransferable implements Transferable {
   /**
    * The array of tokens read from the token panel when the transferable was created
    */
-  private List<?> tokens;
+  private List<Token> tokens;
   
   /**
    * Create the transferable for the given tokens. 
@@ -105,19 +105,19 @@ class TokenPanelTransferable implements Transferable {
    * @param theTokens Tokens being transfered. Uses object array since that is what is 
    * provided by the list.
    */
-  TokenPanelTransferable(List<?> theTokens) {
+  TokenPanelTransferable(List<Token> theTokens) {
     tokens = theTokens;
   }
   
   /**
    * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
    */
-  public Object getTransferData(DataFlavor aFlavor) throws UnsupportedFlavorException, IOException {
+  public T3TokenTransferData getTransferData(DataFlavor aFlavor) throws UnsupportedFlavorException, IOException {
     if (!isDataFlavorSupported(aFlavor)) 
       throw new UnsupportedFlavorException(aFlavor);
     T3TokenTransferData tokenList = new T3TokenTransferData();
-    for (Object t:tokens)
-      tokenList.add(((Token)t).toTransferData());
+    for (Token t:tokens)
+      tokenList.add(t.toTransferData());
     return tokenList;
   }
 

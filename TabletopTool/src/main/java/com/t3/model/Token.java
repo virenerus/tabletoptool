@@ -184,8 +184,7 @@ public class Token extends BaseModel {
 	 */
 	private CaseInsensitiveMap<String,Object> propertyMap;
 
-	private Map<String, String> macroMap;
-	private Map<Integer, Object> macroPropertiesMap;
+	private Map<Integer, MacroButtonProperties> macroPropertiesMap;
 
 	private Map<String, String> speechMap;
 
@@ -257,12 +256,7 @@ public class Token extends BaseModel {
 			getPropertyMap().putAll(token.propertyMap);
 		}
 		if (token.macroPropertiesMap != null) {
-			macroPropertiesMap = new HashMap<Integer, Object>(token.macroPropertiesMap);
-		}
-		// convert old-style macros
-		if (token.macroMap != null) {
-			macroMap = new HashMap<String, String>(token.macroMap);
-			loadOldMacros();
+			macroPropertiesMap = new HashMap<Integer, MacroButtonProperties>(token.macroPropertiesMap);
 		}
 		if (token.speechMap != null) {
 			speechMap = new HashMap<String, String>(token.speechMap);
@@ -291,11 +285,6 @@ public class Token extends BaseModel {
 
 		// NULL key is the default
 		imageAssetMap.put(null, assetId);
-
-		// convert old-style macros
-		if (macroMap != null) {
-			loadOldMacros();
-		}
 	}
 
 	/**
@@ -314,7 +303,6 @@ public class Token extends BaseModel {
 		lastPath = null;
 		lastX = lastY = 0;
 		// lightSourceList?
-		macroMap = null;
 //		macroPropertiesMap = null;
 		ownerList = null;
 //		propertyMapCI = null;
@@ -973,27 +961,9 @@ public class Token extends BaseModel {
 		return propertyMap;
 	}
 
-	private void loadOldMacros() {
-		if (macroMap == null) {
-			return;
-		}
-		MacroButtonProperties prop;
-		Set<String> oldMacros = macroMap.keySet();
-		for (String macro : oldMacros) {
-			prop = new MacroButtonProperties(getMacroNextIndex());
-			prop.setLabel(macro);
-			prop.setCommand(macroMap.get(macro));
-			prop.setApplyToTokens(true);
-			macroPropertiesMap.put(prop.getIndex(), prop);
-		}
-		macroMap = null;
-		if (log.isDebugEnabled())
-			log.debug("Token.loadOldMacros() set up " + macroPropertiesMap.size() + " new macros.");
-	}
-
 	public int getMacroNextIndex() {
 		if (macroPropertiesMap == null) {
-			macroPropertiesMap = new HashMap<Integer, Object>();
+			macroPropertiesMap = new HashMap<Integer, MacroButtonProperties>();
 		}
 		Set<Integer> indexSet = macroPropertiesMap.keySet();
 		int maxIndex = 0;
@@ -1004,15 +974,12 @@ public class Token extends BaseModel {
 		return maxIndex + 1;
 	}
 
-	public Map<Integer, Object> getMacroPropertiesMap(boolean secure) {
+	public Map<Integer, MacroButtonProperties> getMacroPropertiesMap(boolean secure) {
 		if (macroPropertiesMap == null) {
-			macroPropertiesMap = new HashMap<Integer, Object>();
-		}
-		if (macroMap != null) {
-			loadOldMacros();
+			macroPropertiesMap = new HashMap<Integer, MacroButtonProperties>();
 		}
 		if (secure && !AppUtil.playerOwns(this)) {
-			return new HashMap<Integer, Object>();
+			return new HashMap<Integer, MacroButtonProperties>();
 		} else {
 			return macroPropertiesMap;
 		}
@@ -1059,10 +1026,8 @@ public class Token extends BaseModel {
 
 	public List<String> getMacroNames(boolean secure) {
 		List<String> list = new ArrayList<String>();
-		for (Entry<Integer, Object> entry : getMacroPropertiesMap(secure).entrySet()) {
-			MacroButtonProperties prop = (MacroButtonProperties) entry.getValue();
-			list.add(prop.getLabel());
-		}
+		for (Entry<Integer, MacroButtonProperties> entry : getMacroPropertiesMap(secure).entrySet())
+			list.add(entry.getValue().getLabel());
 		return list;
 	}
 
@@ -1274,26 +1239,18 @@ public class Token extends BaseModel {
 
 		// Get the macros
 		@SuppressWarnings("unchecked")
-		Map<String, Object> macros = (Map<String, Object>) td.get(TokenTransferData.MACROS);
-		macroMap = new HashMap<String, String>();
-		for (String macroName : macros.keySet()) {
-			Object macro = macros.get(macroName);
-			if (macro instanceof String) {
-				macroMap.put(macroName, (String) macro);
-			} else if (macro instanceof Map) {
-				@SuppressWarnings("unchecked")
-				MacroButtonProperties mbp = new MacroButtonProperties(this, (Map<String, String>) macro);
-				getMacroPropertiesMap(false).put(mbp.getIndex(), mbp);
-			} // endif
-		} // endfor
-		loadOldMacros();
+		Map<String, Map<String, String>> macros = (Map<String, Map<String, String>>) td.get(TokenTransferData.MACROS);
+		for (Map<String, String> macroButtonProperties : macros.values()) {
+			MacroButtonProperties mbp = new MacroButtonProperties(this, macroButtonProperties);
+			getMacroPropertiesMap(false).put(mbp.getIndex(), mbp);
+		}
 
 		// Get all of the non tabletoptool specific state
 		for (String key : td.keySet()) {
 			if (key.startsWith(TokenTransferData.T3PREFIX))
 				continue;
 			setProperty(key, td.get(key));
-		} // endfor
+		}
 	}
 
 	private Asset createAssetFromIcon(ImageIcon icon) {
