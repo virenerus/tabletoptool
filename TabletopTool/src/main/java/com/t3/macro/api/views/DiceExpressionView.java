@@ -8,7 +8,7 @@ import com.t3.dice.expression.DiceExpression;
 
 public class DiceExpressionView {
 	private DiceExpression expression;
-	private Number currentResult;
+	private float currentResult;
 	
 	public DiceExpressionView(DiceExpression expression) {
 		this.expression=expression;
@@ -24,15 +24,28 @@ public class DiceExpressionView {
 		this.expression=new ChatParser(text).parseDiceExpression();
 	}
 
-	public Number roll() {
+	/**
+	 * This method tells the expression to be calculated. If there are any dice in this expression
+	 * they will be rolled again.
+	 * @return the result of the whole expression
+	 */
+	public float evaluate() {
 		currentResult=expression.evaluate(new Random());
 		return currentResult;
 	}
 	
+	/**
+	 * @return a complex string representing this expression suitable for direct printing to the chat
+	 * @see #getChatString()
+	 */
 	public String getChatString() {
 		return expression.toEvaluatedString();
 	}
 	
+	/**
+	 * @return a simple string representing this expression
+	 * @see #getSimpleString()
+	 */
 	public String getSimpleString() {
 		return expression.toString();
 	}

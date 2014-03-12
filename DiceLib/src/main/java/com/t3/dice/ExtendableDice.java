@@ -134,4 +134,19 @@ public class ExtendableDice extends Dice {
 			modified=dm.modify(this, modified, r);
 		return modified;
 	}
+	
+	public String toString() {
+		String type;
+		if(minimumValue==-1)
+			type = "f";
+		else if(minimumValue==0)
+			type = "u";
+		else
+			type = Integer.toString(maximumValue);
+		StringBuilder sb=new StringBuilder();
+		sb.append(numberOfDices).append("d").append(type);
+		for(DiceModifier dm:modifiers)
+			sb.append(dm.getToStringSuffix());
+		return sb.toString();
+	}
 }

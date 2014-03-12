@@ -20,4 +20,8 @@ public class SuccessModifier implements DiceModifier {
 				results[i]=0;
 		return results;
 	}
+	
+	public String getToStringSuffix() {
+		return "s"+neededNumber;
+	}
 }

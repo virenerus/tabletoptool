@@ -17,4 +17,8 @@ public class KeepModifier implements DiceModifier {
 		Arrays.sort(results);
 		return Arrays.copyOfRange(results, results.length-numberOfKept, results.length);
 	}
+	
+	public String getToStringSuffix() {
+		return "k"+numberOfKept;
+	}
 }

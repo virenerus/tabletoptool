@@ -81,4 +81,14 @@ public class ShadowrunDice extends Dice {
 		this.gremlinValue=gremlinValue;
 		return this;
 	}
+	
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append(numberOfDices).append("sr4");
+		if(exploding)
+			sb.append('e');
+		if(isGremlinRoll())
+			sb.append('g').append(gremlinValue);
+		return sb.toString();
+	}
 }

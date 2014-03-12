@@ -23,7 +23,14 @@ import com.t3.util.math.IntLine;
 import com.t3.util.math.IntPoint;
 
 public class PathFunctions {
-	public double getMoveCount(List<IntPoint> path, boolean followGrid) {
+	
+	/**
+	 * This method calculates the cost of a given path
+	 * @param path the path of which you want the cost
+	 * @param followGrid if the cost should be calculated following the grid cells
+	 * @return the cost of the path
+	 */
+	public double getCost(List<IntPoint> path, boolean followGrid) {
 		ZoneWalker walker = null;
 
 		WalkerMetric metric = TabletopTool.isPersonalServer() ? 
@@ -129,13 +136,13 @@ public class PathFunctions {
 	}
 	
 	/**
-	 * 
+	 * This method allows you to determine if a token moved over a number of points
 	 * @param token the token that moved on the path
 	 * @param path the path the token took (gridless unit)
-	 * @param points the points of which you want to check if the token walked over them
-	 * @return the points that the token walked over
+	 * @param points the points of which you want to check if the token walked over
+	 * @return the points that the token actually walked over
 	 */
-	public List<IntPoint> movedOverPoint(TokenView token, List<IntPoint> path, List<IntPoint> points) {
+	public List<IntPoint> movedOverPoints(TokenView token, List<IntPoint> path, List<IntPoint> points) {
 		List<IntPoint> returnPoints = new ArrayList<IntPoint>(points.size());
 
 		Polygon targetArea = new Polygon();
@@ -154,6 +161,13 @@ public class PathFunctions {
 		return returnPoints;
 	}
 	
+	/**
+	 * This method allows you to determine if a token moved over another token.
+	 * @param token the token that moved on the path
+	 * @param path the path the token took
+	 * @param target the token you want to test against
+	 * @return the points where the path of the token crossed the target
+	 */
 	public List<IntPoint> movedOverToken(TokenView token, List<IntPoint> path, TokenView target) {
 		List<IntPoint> returnPoints = new ArrayList<IntPoint>();
 

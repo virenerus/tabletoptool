@@ -17,4 +17,8 @@ public class DropModifier implements DiceModifier {
 		Arrays.sort(results);
 		return Arrays.copyOfRange(results, numberOfDropped, results.length);
 	}
+
+	public String getToStringSuffix() {
+		return "d"+numberOfDropped;
+	}
 }

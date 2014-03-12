@@ -9,6 +9,7 @@ import com.t3.chatparser.ChatPart;
 import com.t3.chatparser.DiceExpressionPart;
 import com.t3.chatparser.ParsedChat;
 import com.t3.chatparser.UnknownCommandException;
+import com.t3.dice.NumberUtil;
 import com.t3.dice.expression.DiceExpression;
 import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
@@ -289,7 +290,7 @@ public class ChatExecutor {
 			.append(" = ")
 			.append(diceExpression.toEvaluatedString())
 			.append(" = <b>")
-			.append(result)
+			.append(NumberUtil.formatFloat(result))
 			.append("</b>");
 		
 		return sb.toString();

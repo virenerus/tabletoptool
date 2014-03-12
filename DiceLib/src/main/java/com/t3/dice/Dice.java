@@ -2,6 +2,8 @@ package com.t3.dice;
 
 import java.util.Random;
 
+import com.t3.dice.modifiers.DiceModifier;
+
 public abstract class Dice {
 
 	protected int	numberOfDices;
@@ -118,5 +120,4 @@ public abstract class Dice {
 	public boolean isRolled() {
 		return originalResult!=null;
 	}
-
 }

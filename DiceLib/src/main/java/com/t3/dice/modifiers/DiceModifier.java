@@ -6,6 +6,8 @@ import com.t3.dice.Dice;
 
 public interface DiceModifier {
 
-	int[] modify(Dice basicDice, int[] results, Random r);
+	public int[] modify(Dice basicDice, int[] results, Random r);
+
+	public String getToStringSuffix();
 	
 }

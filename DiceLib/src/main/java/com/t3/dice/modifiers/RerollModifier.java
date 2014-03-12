@@ -19,4 +19,8 @@ public class RerollModifier implements DiceModifier {
 				results[i]=r.nextInt(range)+d.getMinimumDiceValue();
 		return results;
 	}
+	
+	public String getToStringSuffix() {
+		return "r"+minNumberRequired;
+	}
 }

@@ -1,7 +1,8 @@
 package com.t3.dice.expression;
 
-import java.text.NumberFormat;
 import java.util.Random;
+
+import com.t3.dice.NumberUtil;
 
 public class NumberNode implements DiceExpression {
 
@@ -16,10 +17,10 @@ public class NumberNode implements DiceExpression {
 	}
 	
 	public String toString() {
-		return Float.toString(number);
+		return NumberUtil.formatFloat(number);
 	}
 
 	public String toEvaluatedString() {
-		return NumberFormat.getInstance().format(number);
+		return NumberUtil.formatFloat(number);
 	}
 }

@@ -20,4 +20,8 @@ public class ExplodingModifier implements DiceModifier {
 			res[i]=a.get(i);
 		return res;
 	}
+	
+	public String getToStringSuffix() {
+		return "e";
+	}
 }

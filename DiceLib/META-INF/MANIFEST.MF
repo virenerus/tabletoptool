@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: mt2-DiceLib
-Bundle-SymbolicName: mt2-DiceLib
-Bundle-Version: 1.0.0.qualifier
-Export-Package: com.t3.dice,
- com.t3.dice.expression
