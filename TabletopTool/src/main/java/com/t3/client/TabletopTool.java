@@ -86,6 +86,7 @@ import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.token.CappedIntegerCellEditor;
 import com.t3.client.ui.token.CappedIntegerCellRenderer;
 import com.t3.client.ui.token.DiceExpressionCellEditor;
+import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
@@ -94,6 +95,7 @@ import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.api.views.DiceExpressionView;
+import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
 import com.t3.model.GUID;
 import com.t3.model.ObservableList;
@@ -1165,6 +1167,12 @@ public class TabletopTool {
 			@Override
 			public CellEditor create() {
 				return new ListComboBoxCellEditor(TokenPropertyType.values());
+			}
+		});
+		CellEditorManager.registerEditor(PropertyMacroView.class, new CellEditorFactory() {
+			@Override
+			public CellEditor create() {
+				return new PropertyMacroViewCellEditor();
 			}
 		});
 		CellEditorManager.registerEditor(DiceExpressionView.class, new CellEditorFactory() {

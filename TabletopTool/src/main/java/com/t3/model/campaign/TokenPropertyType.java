@@ -4,6 +4,7 @@ import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 import com.t3.dice.expression.DiceExpression;
 import com.t3.macro.api.views.DiceExpressionView;
+import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.util.math.CappedInteger;
 
 public enum TokenPropertyType {
@@ -27,8 +28,8 @@ public enum TokenPropertyType {
 			}
 		}
 	},
-	DICE("Dice", DiceExpressionView.class,new DiceExpressionView(DiceExpression.ZERO_EXPRESSION));
-	
+	EXPRESSION("Expression", DiceExpressionView.class,new DiceExpressionView(DiceExpression.ZERO_EXPRESSION)),
+	MACRO("Macro", PropertyMacroView.class,PropertyMacroView.EMPTY_MACRO);	
 	
 	private final Class<?> type;
 	private final String name;

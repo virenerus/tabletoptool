@@ -47,11 +47,11 @@ public abstract class MacroEngine<T> {
 		return run(script,null,token,null);
 	}
 
-	public Object run(T script, HashMap<String, Object> arguments, Token token, T3MacroContext context) throws MacroException {
+	public Object run(T script, Map<String, Object> arguments, Token token, T3MacroContext context) throws MacroException {
 		return run(script, arguments, token, context, scriptBindings);
 	}
 	
-	protected abstract Object run(T script, HashMap<String, Object> arguments, Token token, T3MacroContext context, Map<String, Object> scriptBindings2) throws MacroException;
+	protected abstract Object run(T script, Map<String, Object> arguments, Token token, T3MacroContext context, Map<String, Object> scriptBindings2) throws MacroException;
 
 	public Object evaluate(String script, Token token) throws MacroException {
 		return evaluate(script, token, null);

@@ -11,7 +11,7 @@ import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.views.DiceExpressionView;
-import com.t3.macro.api.views.MacroView;
+import com.t3.macro.api.views.ButtonMacroView;
 import com.t3.macro.api.views.MapView;
 import com.t3.macro.api.views.TokenView;
 
@@ -28,7 +28,7 @@ public class Main {
 			"path.",path("OpenGameTable",PathFunctions.class),
 			"TokenView",path("OpenGameTable",TokenView.class),
 			"MapView",path("OpenGameTable",MapView.class),
-			"MacroView",path("OpenGameTable",MacroView.class),
+			"ButtonMacroView",path("OpenGameTable",ButtonMacroView.class),
 			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
 			"DiceExpressionView",path("OpenGameTable",DiceExpressionView.class),
 			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),

@@ -24,7 +24,7 @@ import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
 import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
-import com.t3.macro.api.views.MacroView;
+import com.t3.macro.api.views.ButtonMacroView;
 
 @SuppressWarnings("serial")
 public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {
@@ -158,7 +158,7 @@ public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {
 		if (e instanceof HTMLPane.FormActionEvent) {
 			HTMLPane.FormActionEvent fae = (HTMLPane.FormActionEvent) e;
 			//FIXME why would we need the action?
-			MacroView.executeLink(/*fae.getAction() + */fae.getData());
+			ButtonMacroView.executeLink(/*fae.getAction() + */fae.getData());
 		}
 		if (e instanceof HTMLPane.RegisterMacroActionEvent) {
 			HTMLPane.RegisterMacroActionEvent rmae = (HTMLPane.RegisterMacroActionEvent) e;

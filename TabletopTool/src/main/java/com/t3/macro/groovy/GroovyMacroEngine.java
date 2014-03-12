@@ -37,7 +37,7 @@ public class GroovyMacroEngine extends MacroEngine<Script> {
 	}
 
 	@Override
-	protected Object run(Script script, HashMap<String, Object> arguments, Token token, T3MacroContext context, Map<String, Object> scriptBindings) throws MacroException {
+	protected Object run(Script script, Map<String, Object> arguments, Token token, T3MacroContext context, Map<String, Object> scriptBindings) throws MacroException {
 		try {
 			Binding b=new Binding(scriptBindings);
 			if(token!=null)

@@ -376,7 +376,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		return executeCommand(token,null);
 	}
 	
-	private Object executeCommand(Token contextToken, HashMap<String, Object> arguments) {
+	private Object executeCommand(Token contextToken, Map<String, Object> arguments) {
 		//FIXMESOON print label of macro button when executed and option is selected: 
 		/*if (getIncludeLabel()) {
 			String commandToExecute = getLabel();
@@ -978,7 +978,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		return this;
 	}
 
-	public Object executeMacro(Token token, HashMap<String, Object> arguments) {
+	public Object executeMacro(Token token, Map<String, Object> arguments) {
 		return executeCommand(token,arguments);
 	}
 }

@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.swing.JDialog;
 
 import com.t3.client.TabletopTool;
-import com.t3.macro.api.views.MacroView;
+import com.t3.macro.api.views.ButtonMacroView;
 import com.t3.swing.SwingUtil;
 
 @SuppressWarnings("serial")
@@ -173,7 +173,7 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 			}
 			HTMLPane.FormActionEvent fae = (HTMLPane.FormActionEvent) e;
 			//FIXME why would we need the action?
-			MacroView.executeLink(/*fae.getAction() + */fae.getData());
+			ButtonMacroView.executeLink(/*fae.getAction() + */fae.getData());
 		}
 		if (e instanceof HTMLPane.ChangeTitleActionEvent) {
 			this.setTitle(((HTMLPane.ChangeTitleActionEvent) e).getNewTitle());
