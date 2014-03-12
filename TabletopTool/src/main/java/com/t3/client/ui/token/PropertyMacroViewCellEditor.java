@@ -7,7 +7,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
-import com.t3.macro.api.views.DiceExpressionView;
 import com.t3.macro.api.views.PropertyMacroView;
 
 public class PropertyMacroViewCellEditor extends AbstractCellEditor implements TableCellEditor {
@@ -18,7 +17,10 @@ public class PropertyMacroViewCellEditor extends AbstractCellEditor implements T
 	@Override
 	public PropertyMacroView getCellEditorValue() {
 		try {
-			return new PropertyMacroView(pmv, textField.getText());
+			if(textField.getText()==null || textField.getText().trim().isEmpty())
+				return PropertyMacroView.EMPTY_MACRO;
+			else
+				return new PropertyMacroView(pmv, textField.getText());
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}

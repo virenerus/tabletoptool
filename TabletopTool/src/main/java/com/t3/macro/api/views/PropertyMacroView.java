@@ -9,9 +9,9 @@ import com.t3.model.Token;
 public class PropertyMacroView implements MacroView {
 
 	public static final PropertyMacroView	EMPTY_MACRO;
-	private final Token	token;
-	private final Script	script;
-	private final String	macroText;
+	private Token	token;
+	private Script	script;
+	private String	macroText;
 	
 	static {
 		try {
@@ -21,6 +21,11 @@ public class PropertyMacroView implements MacroView {
 		}
 	}
 
+	/**
+	 * for hessian serializer
+	 */
+	public PropertyMacroView() {}
+	
 	public PropertyMacroView(String macroText, Token t) throws MacroException {
 		this.token=t;
 		this.macroText=macroText;
