@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.server;
+package com.t3.networking;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -22,7 +22,6 @@ import com.t3.clientserver.connection.ServerObserver;
 
 import org.apache.log4j.Logger;
 
-import com.t3.client.ClientCommand;
 import com.t3.model.Player;
 
 /**
@@ -88,18 +87,18 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 
 		Player player = playerMap.get(conn.getId().toUpperCase());
 		for (String id : playerMap.keySet()) {
-			server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.playerConnected, playerMap.get(id));
+			server.getConnection().callMethod(conn.getId(), NetworkCommand.playerConnected, playerMap.get(id));
 		}
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.playerConnected, player);
+		server.getConnection().broadcastCallMethod(NetworkCommand.playerConnected, player);
 //     if (!server.isHostId(player.getName())) {
 		// Don't bother sending the campaign file if we're hosting it ourselves
-		server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.setCampaign, server.getCampaign());
+		server.getConnection().callMethod(conn.getId(), NetworkCommand.setCampaign, server.getCampaign());
 //     }
 	}
 
 	public void connectionRemoved(ClientConnection conn) {
 		server.releaseClientConnection(conn.getId());
-		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, ClientCommand.COMMAND.playerDisconnected, playerMap.get(conn.getId().toUpperCase()));
+		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, NetworkCommand.playerDisconnected, playerMap.get(conn.getId().toUpperCase()));
 		playerMap.remove(conn.getId().toUpperCase());
 	}
 }

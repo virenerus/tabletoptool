@@ -35,7 +35,7 @@ import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.server.ServerPolicy;
+import com.t3.networking.ServerPolicy;
 
 public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 	private static final String _TOKENS = "panel.MapExplorer.View.TOKENS";

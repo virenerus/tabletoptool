@@ -55,6 +55,7 @@ import javax.swing.KeyStroke;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
 import javax.swing.SwingWorker;
 
 import com.jidesoft.docking.DockableFrame;
@@ -110,8 +111,9 @@ import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.DrawableTexturePaint;
 import com.t3.model.grid.Grid;
-import com.t3.server.ServerConfig;
-import com.t3.server.ServerPolicy;
+import com.t3.networking.ServerConfig;
+import com.t3.networking.ServerDisconnectHandler;
+import com.t3.networking.ServerPolicy;
 import com.t3.util.ImageManager;
 import com.t3.util.PersistenceUtil;
 import com.t3.util.SysInfo;

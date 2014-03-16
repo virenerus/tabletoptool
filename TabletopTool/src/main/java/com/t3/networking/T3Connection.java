@@ -9,13 +9,13 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.client;
+package com.t3.networking;
 
 import java.io.IOException;
 import java.net.Socket;
 
 import com.t3.model.Player;
-import com.t3.server.Handshake;
+import com.t3.client.TabletopTool;
 import com.t3.clientserver.connection.ClientConnection;
 
 /**

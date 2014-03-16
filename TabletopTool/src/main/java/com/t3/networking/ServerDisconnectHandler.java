@@ -9,11 +9,12 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.client;
+package com.t3.networking;
 
 import java.io.IOException;
 
 import com.t3.model.campaign.CampaignFactory;
+import com.t3.client.TabletopTool;
 import com.t3.clientserver.connection.AbstractConnection;
 import com.t3.clientserver.handler.DisconnectHandler;
 

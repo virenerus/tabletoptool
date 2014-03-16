@@ -15,7 +15,7 @@ import java.util.prefs.Preferences;
 
 import com.t3.client.AppConstants;
 import com.t3.model.Player;
-import com.t3.server.ServerConfig;
+import com.t3.networking.ServerConfig;
 
 public class ConnectToServerDialogPreferences {
 

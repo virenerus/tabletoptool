@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.client;
+package com.t3.networking;
 
 import java.awt.geom.Area;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.t3.MD5Key;
+import com.t3.client.TabletopTool;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
@@ -34,8 +35,6 @@ import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
-import com.t3.server.ServerCommand;
-import com.t3.server.ServerPolicy;
 
 public class ServerCommandClientImpl implements ServerCommand {
 
@@ -48,64 +47,64 @@ public class ServerCommandClientImpl implements ServerCommand {
 	}
 
 	public void heartbeat(String data) {
-		makeServerCall(COMMAND.heartbeat, data);
+		makeServerCall(NetworkCommand.heartbeat, data);
 	}
 
 	public void movePointer(String player, int x, int y) {
-		makeServerCall(COMMAND.movePointer, player, x, y);
+		makeServerCall(NetworkCommand.movePointer, player, x, y);
 	}
 
 	public void bootPlayer(String player) {
-		makeServerCall(COMMAND.bootPlayer, player);
+		makeServerCall(NetworkCommand.bootPlayer, player);
 	}
 
 	public void setCampaign(Campaign campaign) {
 		try {
 			campaign.setBeingSerialized(true);
-			makeServerCall(COMMAND.setCampaign, campaign);
+			makeServerCall(NetworkCommand.setCampaign, campaign);
 		} finally {
 			campaign.setBeingSerialized(false);
 		}
 	}
 
 	public void setVisionType(GUID zoneGUID, VisionType visionType) {
-		makeServerCall(COMMAND.setVisionType, zoneGUID, visionType);
+		makeServerCall(NetworkCommand.setVisionType, zoneGUID, visionType);
 	}
 
 	public void updateCampaign(CampaignProperties properties) {
-		makeServerCall(COMMAND.updateCampaign, properties);
+		makeServerCall(NetworkCommand.updateCampaign, properties);
 	}
 
 	public void getZone(GUID zoneGUID) {
-		makeServerCall(COMMAND.getZone, zoneGUID);
+		makeServerCall(NetworkCommand.getZone, zoneGUID);
 	}
 
 	public void putZone(Zone zone) {
-		makeServerCall(COMMAND.putZone, zone);
+		makeServerCall(NetworkCommand.putZone, zone);
 	}
 
 	public void removeZone(GUID zoneGUID) {
-		makeServerCall(COMMAND.removeZone, zoneGUID);
+		makeServerCall(NetworkCommand.removeZone, zoneGUID);
 	}
 
 	public void renameZone(GUID zoneGUID, String name) {
-		makeServerCall(COMMAND.renameZone, zoneGUID, name);
+		makeServerCall(NetworkCommand.renameZone, zoneGUID, name);
 	}
 
 	public void putAsset(Asset asset) {
-		makeServerCall(COMMAND.putAsset, asset);
+		makeServerCall(NetworkCommand.putAsset, asset);
 	}
 
 	public void getAsset(MD5Key assetID) {
-		makeServerCall(COMMAND.getAsset, assetID);
+		makeServerCall(NetworkCommand.getAsset, assetID);
 	}
 
 	public void removeAsset(MD5Key assetID) {
-		makeServerCall(COMMAND.removeAsset, assetID);
+		makeServerCall(NetworkCommand.removeAsset, assetID);
 	}
 
 	public void enforceZoneView(GUID zoneGUID, int x, int y, double scale, int width, int height) {
-		makeServerCall(COMMAND.enforceZoneView, zoneGUID, x, y, scale, width, height);
+		makeServerCall(NetworkCommand.enforceZoneView, zoneGUID, x, y, scale, width, height);
 	}
 
 	public void putToken(GUID zoneGUID, Token token) {
@@ -113,137 +112,137 @@ public class ServerCommandClientImpl implements ServerCommand {
 		// after changing the token. But they don't tell the zone about it so classes
 		// waiting for the zone change event don't get it.
 		TabletopTool.getCampaign().getZone(zoneGUID).putToken(token);
-		makeServerCall(COMMAND.putToken, zoneGUID, token);
+		makeServerCall(NetworkCommand.putToken, zoneGUID, token);
 	}
 
 	public void removeToken(GUID zoneGUID, GUID tokenGUID) {
-		makeServerCall(COMMAND.removeToken, zoneGUID, tokenGUID);
+		makeServerCall(NetworkCommand.removeToken, zoneGUID, tokenGUID);
 	}
 
 	public void putLabel(GUID zoneGUID, Label label) {
-		makeServerCall(COMMAND.putLabel, zoneGUID, label);
+		makeServerCall(NetworkCommand.putLabel, zoneGUID, label);
 	}
 
 	public void removeLabel(GUID zoneGUID, GUID labelGUID) {
-		makeServerCall(COMMAND.removeLabel, zoneGUID, labelGUID);
+		makeServerCall(NetworkCommand.removeLabel, zoneGUID, labelGUID);
 	}
 
 	public void draw(GUID zoneGUID, Pen pen, Drawable drawable) {
-		makeServerCall(COMMAND.draw, zoneGUID, pen, drawable);
+		makeServerCall(NetworkCommand.draw, zoneGUID, pen, drawable);
 	}
 
 	public void clearAllDrawings(GUID zoneGUID, Zone.Layer layer) {
-		makeServerCall(COMMAND.clearAllDrawings, zoneGUID, layer);
+		makeServerCall(NetworkCommand.clearAllDrawings, zoneGUID, layer);
 	}
 
 	public void undoDraw(GUID zoneGUID, GUID drawableGUID) {
-		makeServerCall(COMMAND.undoDraw, zoneGUID, drawableGUID);
+		makeServerCall(NetworkCommand.undoDraw, zoneGUID, drawableGUID);
 	}
 
 	public void setZoneGridSize(GUID zoneGUID, int xOffset, int yOffset, int size, int color) {
-		makeServerCall(COMMAND.setZoneGridSize, zoneGUID, xOffset, yOffset, size, color);
+		makeServerCall(NetworkCommand.setZoneGridSize, zoneGUID, xOffset, yOffset, size, color);
 	}
 
 	public void setZoneVisibility(GUID zoneGUID, boolean visible) {
-		makeServerCall(COMMAND.setZoneVisibility, zoneGUID, visible);
+		makeServerCall(NetworkCommand.setZoneVisibility, zoneGUID, visible);
 	}
 
 	public void message(TextMessage message) {
-		makeServerCall(COMMAND.message, message);
+		makeServerCall(NetworkCommand.message, message);
 	}
 
 	public void showPointer(String player, Pointer pointer) {
-		makeServerCall(COMMAND.showPointer, player, pointer);
+		makeServerCall(NetworkCommand.showPointer, player, pointer);
 	}
 
 	public void hidePointer(String player) {
-		makeServerCall(COMMAND.hidePointer, player);
+		makeServerCall(NetworkCommand.hidePointer, player);
 	}
 
 	public void setLiveTypingLabel(String label, boolean show) {
-		makeServerCall(COMMAND.setLiveTypingLabel, label, show);
+		makeServerCall(NetworkCommand.setLiveTypingLabel, label, show);
 	}
 
 	public void enforceNotification(Boolean enforce) {
 		// TabletopTool.showInformation(enforce.toString());
-		makeServerCall(COMMAND.enforceNotification, enforce);
+		makeServerCall(NetworkCommand.enforceNotification, enforce);
 	}
 
 	public void startTokenMove(String playerId, GUID zoneGUID, GUID tokenGUID, Set<GUID> tokenList) {
-		makeServerCall(COMMAND.startTokenMove, playerId, zoneGUID, tokenGUID, tokenList);
+		makeServerCall(NetworkCommand.startTokenMove, playerId, zoneGUID, tokenGUID, tokenList);
 	}
 
 	public void stopTokenMove(GUID zoneGUID, GUID tokenGUID) {
 		movementUpdateQueue.flush();
-		makeServerCall(COMMAND.stopTokenMove, zoneGUID, tokenGUID);
+		makeServerCall(NetworkCommand.stopTokenMove, zoneGUID, tokenGUID);
 	}
 
 	public void updateTokenMove(GUID zoneGUID, GUID tokenGUID, int x, int y) {
-		movementUpdateQueue.enqueue(COMMAND.updateTokenMove, zoneGUID, tokenGUID, x, y);
+		movementUpdateQueue.enqueue(NetworkCommand.updateTokenMove, zoneGUID, tokenGUID, x, y);
 	}
 
 	public void toggleTokenMoveWaypoint(GUID zoneGUID, GUID tokenGUID, ZonePoint cp) {
 		movementUpdateQueue.flush();
-		makeServerCall(COMMAND.toggleTokenMoveWaypoint, zoneGUID, tokenGUID, cp);
+		makeServerCall(NetworkCommand.toggleTokenMoveWaypoint, zoneGUID, tokenGUID, cp);
 	}
 
 	public void addTopology(GUID zoneGUID, Area area) {
-		makeServerCall(COMMAND.addTopology, zoneGUID, area);
+		makeServerCall(NetworkCommand.addTopology, zoneGUID, area);
 	}
 
 	public void removeTopology(GUID zoneGUID, Area area) {
-		makeServerCall(COMMAND.removeTopology, zoneGUID, area);
+		makeServerCall(NetworkCommand.removeTopology, zoneGUID, area);
 	}
 
 	public void exposePCArea(GUID zoneGUID) {
-		makeServerCall(COMMAND.exposePCArea, zoneGUID);
+		makeServerCall(NetworkCommand.exposePCArea, zoneGUID);
 	}
 
 	public void exposeFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
-		makeServerCall(COMMAND.exposeFoW, zoneGUID, area, selectedToks);
+		makeServerCall(NetworkCommand.exposeFoW, zoneGUID, area, selectedToks);
 	}
 
 	public void setFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
-		makeServerCall(COMMAND.setFoW, zoneGUID, area, selectedToks);
+		makeServerCall(NetworkCommand.setFoW, zoneGUID, area, selectedToks);
 	}
 
 	public void hideFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
-		makeServerCall(COMMAND.hideFoW, zoneGUID, area, selectedToks);
+		makeServerCall(NetworkCommand.hideFoW, zoneGUID, area, selectedToks);
 	}
 
 	public void setZoneHasFoW(GUID zoneGUID, boolean hasFog) {
-		makeServerCall(COMMAND.setZoneHasFoW, zoneGUID, hasFog);
+		makeServerCall(NetworkCommand.setZoneHasFoW, zoneGUID, hasFog);
 	}
 
 	public void bringTokensToFront(GUID zoneGUID, Set<GUID> tokenList) {
-		makeServerCall(COMMAND.bringTokensToFront, zoneGUID, tokenList);
+		makeServerCall(NetworkCommand.bringTokensToFront, zoneGUID, tokenList);
 	}
 
 	public void sendTokensToBack(GUID zoneGUID, Set<GUID> tokenList) {
-		makeServerCall(COMMAND.sendTokensToBack, zoneGUID, tokenList);
+		makeServerCall(NetworkCommand.sendTokensToBack, zoneGUID, tokenList);
 	}
 
 	public void enforceZone(GUID zoneGUID) {
-		makeServerCall(COMMAND.enforceZone, zoneGUID);
+		makeServerCall(NetworkCommand.enforceZone, zoneGUID);
 	}
 
 	public void setServerPolicy(ServerPolicy policy) {
-		makeServerCall(COMMAND.setServerPolicy, policy);
+		makeServerCall(NetworkCommand.setServerPolicy, policy);
 	}
 
 	public void updateInitiative(InitiativeList list, Boolean ownerPermission) {
-		makeServerCall(COMMAND.updateInitiative, list, ownerPermission);
+		makeServerCall(NetworkCommand.updateInitiative, list, ownerPermission);
 	}
 
 	public void updateTokenInitiative(GUID zone, GUID token, Boolean holding, String state, Integer index) {
-		makeServerCall(COMMAND.updateTokenInitiative, zone, token, holding, state, index);
+		makeServerCall(NetworkCommand.updateTokenInitiative, zone, token, holding, state, index);
 	}
 
 	public void updateCampaignMacros(List<MacroButtonProperties> properties) {
-		makeServerCall(COMMAND.updateCampaignMacros, properties);
+		makeServerCall(NetworkCommand.updateCampaignMacros, properties);
 	}
 
-	private static void makeServerCall(ServerCommand.COMMAND command, Object... params) {
+	private static void makeServerCall(NetworkCommand command, Object... params) {
 		if (TabletopTool.getConnection() != null) {
 			TabletopTool.getConnection().callMethod(command, params);
 		}
@@ -257,17 +256,17 @@ public class ServerCommandClientImpl implements ServerCommand {
 		//       there seem to be other ways to upload textures (?) (e.g. in T3Util)
 		putAsset(AssetManager.getAsset(mapAssetId));
 		// Second, tell the client to change the zone's board info
-		makeServerCall(COMMAND.setBoard, zoneGUID, mapAssetId, x, y);
+		makeServerCall(NetworkCommand.setBoard, zoneGUID, mapAssetId, x, y);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.t3.server.ServerCommand#updateExposedAreaMeta(com.t3.model.GUID,
+	 * @see com.t3.networking.ServerNetworkCommand#updateExposedAreaMeta(com.t3.model.GUID,
 	 * com.t3.model.GUID, com.t3.model.ExposedAreaMetaData)
 	 */
 	public void updateExposedAreaMeta(GUID zoneGUID, GUID tokenExposedAreaGUID, ExposedAreaMetaData meta) {
-		makeServerCall(COMMAND.updateExposedAreaMeta, zoneGUID, tokenExposedAreaGUID, meta);
+		makeServerCall(NetworkCommand.updateExposedAreaMeta, zoneGUID, tokenExposedAreaGUID, meta);
 	}
 
 	/**
@@ -278,7 +277,7 @@ public class ServerCommandClientImpl implements ServerCommand {
 	 */
 	private static class TimedEventQueue extends Thread {
 
-		ServerCommand.COMMAND command;
+		NetworkCommand command;
 		Object[] params;
 
 		long delay;
@@ -289,7 +288,7 @@ public class ServerCommandClientImpl implements ServerCommand {
 			delay = millidelay;
 		}
 
-		public synchronized void enqueue(ServerCommand.COMMAND command, Object... params) {
+		public synchronized void enqueue(NetworkCommand command, Object... params) {
 
 			this.command = command;
 			this.params = params;

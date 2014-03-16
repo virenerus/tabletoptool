@@ -17,13 +17,13 @@ import com.t3.clientserver.Command;
 import com.t3.clientserver.NetworkSerializer;
 import com.t3.clientserver.NetworkSerializer.TransferredMessage;
 
-public abstract class AbstractMethodHandler implements MessageHandler {
+public abstract class AbstractMethodHandler<T extends Enum<T> & Command> implements MessageHandler {
 
 	@Override
     public void handleMessage(String id, byte[] message) {
-        TransferredMessage tm=NetworkSerializer.deserialize(message);
+        TransferredMessage<T> tm=NetworkSerializer.<T>deserialize(message);
 		handleMethod(id, tm.getMessage(), tm.getParameters());
     }
 
-	public abstract void handleMethod(String id, Enum<? extends Command> message,Object... parameters);
+	public abstract void handleMethod(String id, T message,Object... parameters);
 }

@@ -26,7 +26,7 @@ import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.GridFactory;
-import com.t3.server.ServerPolicy;
+import com.t3.networking.ServerPolicy;
 import com.t3.util.SysInfo;
 
 public class InfoFunctions {

@@ -15,16 +15,15 @@ public class NetworkSerializer {
 	private static final KryoPool kryoPool=new KryoPool();
 	
 	
-	public static TransferredMessage deserialize(byte[] bytes) {
+	public static <T extends Enum<T> & Command> TransferredMessage<T> deserialize(byte[] bytes) {
 		try (Input in = new Input(new InflaterInputStream(new ByteArrayInputStream(bytes)))) {
 			Kryo kryo = kryoPool.borrowObject();
-			Enum<? extends Command> message = (Enum<? extends Command>) kryo.readClassAndObject(in);
+			T message = (T) kryo.readClassAndObject(in);
 			LinkedList<Object> parameters = new LinkedList<Object>();
 			while(!in.eof())
 				parameters.add(kryo.readClassAndObject(in));
 			kryoPool.returnObject(kryo);
-			System.out.println("Kryo Pool:"+kryoPool.getCreatedCount());        
-			return new TransferredMessage(message, parameters.toArray());
+			return new TransferredMessage<T>(message, parameters.toArray());
 		} catch (Exception e) {
 			throw new Error(e);
 		}
@@ -45,27 +44,22 @@ public class NetworkSerializer {
 	    	}
 	    	kryoOut.close();
 	    	kryoPool.returnObject(kryo);
-	    	byte[] bytes=bout.toByteArray();
-	
-	    	System.out.println(bytes.length);
-	    	System.out.println("Kryo Pool:"+kryoPool.getCreatedCount());        
-	    	
-	        return bytes;
+	    	return bout.toByteArray();
 	 	} catch (Exception e) {
 			throw new Error(e);
 		}
     }
 	
-	public static class TransferredMessage {
-		private final Enum<? extends Command> message;
+	public static class TransferredMessage<T extends Enum<T> & Command> {
+		private final T message;
 		private final Object[] parameters;
 	
-		public TransferredMessage(Enum<? extends Command> message, Object[] parameters) {
+		public TransferredMessage(T message, Object[] parameters) {
 			this.message = message;
 			this.parameters = parameters;
 		}
 
-		public Enum<? extends Command> getMessage() {
+		public T getMessage() {
 			return message;
 		}
 	

@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.server;
+package com.t3.networking;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 import com.jeta.forms.components.panel.FormPanel;
 import com.t3.client.T3Registry;
 import com.t3.client.TabletopTool;
-import com.t3.server.T3Server;
+import com.t3.networking.T3Server;
 import com.t3.swing.SwingUtil;
 
 public class ConnectionInfoDialog extends JDialog {

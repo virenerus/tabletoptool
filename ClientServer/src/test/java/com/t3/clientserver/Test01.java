@@ -13,29 +13,32 @@
  */
 package com.t3.clientserver;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import com.t3.clientserver.connection.ClientConnection;
 import com.t3.clientserver.connection.ServerConnection;
 import com.t3.clientserver.handler.AbstractMethodHandler;
 
-/**
- * @author drice
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
- */
 public class Test01 {
 	
 	private enum NetworkMessage implements Command {A,B};
 
-    public static void main(String[] args) throws Exception {
+	@Test
+    public void simpleNetworkTest() throws Exception {
         ServerConnection server = new ServerConnection(4444);
-        server.addMessageHandler(new ServerHandler());
+        ServerHandler sh = new ServerHandler();
+        server.addMessageHandler(sh);
         
         ClientConnection client = new ClientConnection("127.0.0.1", 4444, "Testing");
-        client.addMessageHandler(new ClientHandler());
+        ClientHandler ch = new ClientHandler();
+        client.addMessageHandler(ch);
         client.start();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i % 3 == 0) {
                 client.callMethod(NetworkMessage.A, new Float(2.3f), new Double(7.035923057230));
             }
@@ -46,26 +49,43 @@ public class Test01 {
         client.close();
         server.close();
 
+        for(Exception t:ch.exceptions)
+        	throw t;
+        for(Exception t:sh.exceptions)
+        	throw t;
     }
 
-    private static class ServerHandler extends AbstractMethodHandler {
-
+    private static class ServerHandler extends AbstractMethodHandler<NetworkMessage> {
+    	public List<Exception> exceptions=new LinkedList<Exception>();
+    	
     	@Override
-        public void handleMethod(String id, Enum<? extends Command> method, Object... parameters) {
+        public void handleMethod(String id, NetworkMessage method, Object... parameters) {
             System.out.println("Server received: " + method + " from " + id + " args=" + parameters.length);
-            for (Object param : parameters) {
-                System.out.println("\t" + param);
+            
+            try {
+	            Assert.assertEquals(parameters.length, 2);
+	            Assert.assertEquals(parameters[0], 2.3f);
+	            Assert.assertEquals(parameters[1], 7.035923057230);
             }
+	        catch(Exception e) {
+	        	exceptions.add(e);
+	        }
         }
     }
 
-    private static class ClientHandler extends AbstractMethodHandler {
+    private static class ClientHandler extends AbstractMethodHandler<NetworkMessage> {
+    	public List<Exception> exceptions=new LinkedList<Exception>();
+    	
     	@Override
-        public void handleMethod(String id, Enum<? extends Command> method, Object... parameters) {
+        public void handleMethod(String id, NetworkMessage method, Object... parameters) {
             System.out.println("Client received: " + method + " from " + id + " args=" + parameters.length);
-            for (Object param : parameters) {
-                System.out.println("\t" + param);
-            }
+            try {
+	            Assert.assertEquals(parameters.length, 1);
+	            Assert.assertEquals(parameters[0], 5.3f);
+			}
+		    catch(Exception e) {
+		    	exceptions.add(e);
+		    }
         }
     }
 }

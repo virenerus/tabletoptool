@@ -9,7 +9,7 @@
  * See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.client;
+package com.t3.networking;
 
 import java.awt.EventQueue;
 import java.awt.Point;
@@ -19,14 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.t3.clientserver.Command;
-import com.t3.clientserver.handler.AbstractMethodHandler;
 import com.t3.MD5Key;
+import com.t3.client.AppActions;
+import com.t3.client.AppPreferences;
+import com.t3.client.AppUtil;
+import com.t3.client.ScreenPoint;
+import com.t3.client.TabletopTool;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.tokenpanel.InitiativePanel;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
+import com.t3.clientserver.handler.AbstractMethodHandler;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
@@ -49,25 +53,23 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
-import com.t3.server.ServerPolicy;
 import com.t3.transfer.AssetChunk;
 import com.t3.transfer.AssetConsumer;
 import com.t3.transfer.AssetHeader;
 
-public class ClientMethodHandler extends AbstractMethodHandler {
+public class ClientMethodHandler extends AbstractMethodHandler<NetworkCommand> {
 	public ClientMethodHandler() {
 	}
 
 	@Override
-	public void handleMethod(final String id, final Enum<? extends Command> method, final Object... parameters) {
+	public void handleMethod(final String id, final NetworkCommand method, final Object... parameters) {
 
-		final ClientCommand.COMMAND cmd=(ClientCommand.COMMAND)method;
 		
 //		System.out.println("ClientMethodHandler#handleMethod: " + cmd.name());
 
 		// These commands are safe to do in the background, any events that cause model updates need
 		// to be on the EDT (See next section)
-		switch (cmd) {
+		switch (method) {
 		case putAsset:
 			AssetManager.putAsset((Asset) parameters[0]);
 			TabletopTool.getFrame().getCurrentZoneRenderer().flushDrawableRenderer();
@@ -103,7 +105,7 @@ public class ClientMethodHandler extends AbstractMethodHandler {
 				Zone zone;
 				Set<GUID> selectedToks = null;
 
-				switch (cmd) {
+				switch (method) {
 				case bootPlayer:
 					String playerName = (String) parameters[0];
 					if (TabletopTool.getPlayer().getName().equals(playerName)) {

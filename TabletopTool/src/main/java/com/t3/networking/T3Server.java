@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.server;
+package com.t3.networking;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -23,7 +23,6 @@ import com.t3.clientserver.connection.ServerObserver;
 
 import org.apache.log4j.Logger;
 
-import com.t3.client.ClientCommand;
 import com.t3.client.T3Registry;
 import com.t3.common.T3Constants;
 import com.t3.model.campaign.Campaign;
@@ -214,7 +213,7 @@ public class T3Server {
 						AssetChunk chunk = entry.getValue().nextChunk(ASSET_CHUNK_SIZE);
 						if (chunk != null) {
 							lookForMore = true;
-							getConnection().callMethod(entry.getKey(), T3Constants.Channel.IMAGE, ClientCommand.COMMAND.updateAssetTransfer, chunk);
+							getConnection().callMethod(entry.getKey(), T3Constants.Channel.IMAGE, NetworkCommand.updateAssetTransfer, chunk);
 						}
 					}
 					if (lookForMore) {

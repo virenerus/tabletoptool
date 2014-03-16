@@ -17,7 +17,7 @@ import com.t3.client.AppConstants;
 import com.t3.client.AppPreferences;
 import com.t3.client.walker.WalkerMetric;
 import com.t3.model.Player;
-import com.t3.server.ServerConfig;
+import com.t3.networking.ServerConfig;
 
 public class StartServerDialogPreferences {
 	private static Preferences prefs = Preferences.userRoot().node(AppConstants.APP_NAME + "/prefs/server");

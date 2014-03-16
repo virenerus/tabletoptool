@@ -9,7 +9,7 @@
  *  See the file LICENSE elsewhere in this distribution for license details.
  */
 
-package com.t3.server;
+package com.t3.networking;
 
 import java.awt.geom.Area;
 import java.util.List;
@@ -35,57 +35,6 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
 
 public interface ServerCommand {
-	public static enum COMMAND implements Command {
-		bootPlayer,
-		setCampaign,
-		getZone,
-		putZone,
-		removeZone,
-		putAsset,
-		getAsset,
-		removeAsset,
-		putToken,
-		removeToken,
-		draw,
-		clearAllDrawings,
-		setZoneGridSize,
-		message,
-		undoDraw,
-		showPointer,
-		movePointer,
-		hidePointer,
-		startTokenMove,
-		stopTokenMove,
-		toggleTokenMoveWaypoint,
-		updateTokenMove,
-		setZoneVisibility,
-		enforceZoneView,
-		setZoneHasFoW,
-		exposeFoW,
-		hideFoW,
-		setFoW,
-		putLabel,
-		removeLabel,
-		sendTokensToBack,
-		bringTokensToFront,
-		enforceZone,
-		setServerPolicy,
-		addTopology,
-		removeTopology,
-		renameZone,
-		heartbeat,
-		updateCampaign,
-		updateInitiative,
-		updateTokenInitiative,
-		setVisionType,
-		updateCampaignMacros,
-		setTokenLocation, // NOTE: This is to support third party token placement and shouldn't be depended on for general purpose token movement
-		setLiveTypingLabel, // Experimental
-		enforceNotification, // Override toggle button to show typing notifications
-		exposePCArea,
-		setBoard,
-		updateExposedAreaMeta
-	};
 
 	public void bootPlayer(String player);
 
