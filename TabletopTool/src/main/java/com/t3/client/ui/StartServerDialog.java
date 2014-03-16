@@ -15,8 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.IOException;
-import java.net.ConnectException;
 import java.text.DecimalFormat;
 
 import javax.swing.DefaultComboBoxModel;
@@ -27,17 +25,13 @@ import javax.swing.JTextField;
 
 import yasb.Binder;
 
-import com.caucho.hessian.client.HessianRuntimeException;
 import com.t3.client.AppPreferences;
-import com.t3.client.T3Registry;
 import com.t3.client.TabletopTool;
 import com.t3.client.swing.AbeillePanel;
 import com.t3.client.swing.GenericDialog;
 import com.t3.client.walker.WalkerMetric;
 import com.t3.language.I18N;
-import com.t3.service.EchoServer;
 import com.t3.util.StringUtil;
-import com.t3.util.UPnPUtil;
 
 /**
  * @author trevor

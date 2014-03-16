@@ -115,6 +115,10 @@ public class TokenTransferData extends HashMap<String, Object> implements Serial
     /** Maptool's name for the portrait. The value is an {@link Map}<code><String, String></code>. */
     public final static String MACROS = T3PREFIX + "macros";
     
+    public static final String	STATES	= T3PREFIX + "states";
+    
+    public static final String	BARS	= T3PREFIX + "bars";
+    
     /** Serial version id to hide changes during transfer */
     private static final long serialVersionUID = -1838917777325573062L;
 

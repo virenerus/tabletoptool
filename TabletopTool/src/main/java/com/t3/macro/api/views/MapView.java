@@ -24,7 +24,6 @@ import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
-import com.t3.util.TypeUtil;
 
 public class MapView {
 
@@ -148,33 +147,33 @@ public class MapView {
 	}
 	
 	public List<TokenView> getTokens() {
-		return TypeUtil.makeTokenViewList(zr.getZone().getTokensFiltered(new AllFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new AllFilter()));
 	}
 	
 	public List<TokenView> getSelectedTokens() {
-		return TypeUtil.makeTokenViewList(zr.getSelectedTokensList());
+		return TokenView.makeTokenViewList(zr.getSelectedTokensList());
 	}
 	
 	public List<TokenView> getExposedTokens() {
 		Zone zone = zr.getZone();
-		return TypeUtil.makeTokenViewList(zone.getTokensFiltered(new ExposedFilter(zone)));
+		return TokenView.makeTokenViewList(zone.getTokensFiltered(new ExposedFilter(zone)));
 	}
 	
 	
 	public List<TokenView> getPCTokens() {
-		return TypeUtil.makeTokenViewList(zr.getZone().getTokensFiltered(new PCFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new PCFilter()));
 	}
 	
 	public List<TokenView> getNPCTokens() {
-		return TypeUtil.makeTokenViewList(zr.getZone().getTokensFiltered(new NPCFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new NPCFilter()));
 	}
 	
 	public List<TokenView> getTokensWithState(String state) {
-		return TypeUtil.makeTokenViewList(zr.getZone().getTokensFiltered(new StateFilter(state)));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new StateFilter(state)));
 	}
 	
 	public List<TokenView> getOwnedTokens(String playerID) {
-		return TypeUtil.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(playerID)));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(playerID)));
 	}
 
 	public ArrayList<TokenView> getVisibleTokens() {

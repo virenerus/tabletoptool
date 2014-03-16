@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.t3.clientserver.hessian.AbstractMethodHandler;
-
+import com.t3.clientserver.Command;
+import com.t3.clientserver.handler.AbstractMethodHandler;
 import com.t3.MD5Key;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.tokenpanel.InitiativePanel;
@@ -54,19 +54,15 @@ import com.t3.transfer.AssetChunk;
 import com.t3.transfer.AssetConsumer;
 import com.t3.transfer.AssetHeader;
 
-/**
- * @author drice
- * 
- *         TODO To change the template for this generated type comment go to
- *         Window - Preferences - Java - Code Style - Code Templates
- */
 public class ClientMethodHandler extends AbstractMethodHandler {
 	public ClientMethodHandler() {
 	}
 
-	public void handleMethod(final String id, final String method, final Object... parameters) {
-		final ClientCommand.COMMAND cmd = Enum.valueOf(ClientCommand.COMMAND.class, method);
+	@Override
+	public void handleMethod(final String id, final Enum<? extends Command> method, final Object... parameters) {
 
+		final ClientCommand.COMMAND cmd=(ClientCommand.COMMAND)method;
+		
 //		System.out.println("ClientMethodHandler#handleMethod: " + cmd.name());
 
 		// These commands are safe to do in the background, any events that cause model updates need

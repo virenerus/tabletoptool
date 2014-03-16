@@ -11,9 +11,11 @@
 
 package com.t3.client;
 
+import com.t3.clientserver.Command;
+
 public class ClientCommand {
 
-    public static enum COMMAND { 
+    public static enum COMMAND implements Command { 
     	startAssetTransfer,
     	updateAssetTransfer,
     	bootPlayer,

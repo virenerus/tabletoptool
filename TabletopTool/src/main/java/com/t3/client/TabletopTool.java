@@ -56,7 +56,7 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-import com.t3.clientserver.hessian.client.ClientConnection;
+import com.t3.clientserver.connection.ClientConnection;
 
 import net.tsc.servicediscovery.ServiceAnnouncer;
 

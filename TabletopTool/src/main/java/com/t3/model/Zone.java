@@ -129,6 +129,7 @@ public class Zone extends BaseModel {
 	private final Map<GUID, Label> labels = new LinkedHashMap<GUID, Label>();
 	private final Map<GUID, Token> tokenMap = new HashMap<GUID, Token>();
 	private Map<GUID, ExposedAreaMetaData> exposedAreaMeta = new HashMap<GUID, ExposedAreaMetaData>();
+	//FIXME replace this with by making the token hashmap a linkedhashmap
 	private final List<Token> tokenOrderedList = new LinkedList<Token>();
 
 	private InitiativeList initiativeList = new InitiativeList(this);

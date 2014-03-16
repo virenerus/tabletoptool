@@ -15,7 +15,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +26,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +37,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-import com.caucho.hessian.io.HessianInput;
 import com.t3.CodeTimer;
 import com.t3.FileUtil;
 import com.t3.MD5Key;
@@ -444,54 +441,8 @@ public class PersistenceUtil {
 			if (pakFile != null)
 				pakFile.close();
 		}
-		log.warn("Could not load campaign in the current format...  trying the legacy format.");
-		persistedCampaign = loadLegacyCampaign(campaignFile);
 		if (persistedCampaign == null)
 			TabletopTool.showWarning("PersistenceUtil.warn.campaignNotLoaded");
-		return persistedCampaign;
-	}
-
-	public static PersistedCampaign loadLegacyCampaign(File campaignFile) {
-		HessianInput his = null;
-		PersistedCampaign persistedCampaign = null;
-		try {
-			InputStream is = new BufferedInputStream(new FileInputStream(campaignFile));
-			his = new HessianInput(is);
-			persistedCampaign = (PersistedCampaign) his.readObject(null);
-
-			for (MD5Key key : persistedCampaign.assetMap.keySet()) {
-				Asset asset = persistedCampaign.assetMap.get(key);
-				if (!AssetManager.hasAsset(key))
-					AssetManager.putAsset(asset);
-				if (!TabletopTool.isHostingServer() && !TabletopTool.isPersonalServer()) {
-					// If we are remotely installing this campaign, we'll need to
-					// send the image data to the server
-					TabletopTool.serverCommand().putAsset(asset);
-				}
-			}
-			// Do some sanity work on the campaign
-			// This specifically handles the case when the zone mappings
-			// are out of sync in the save file
-			Campaign campaign = persistedCampaign.campaign;
-			Set<Zone> zoneSet = new HashSet<Zone>(campaign.getZones());
-			campaign.removeAllZones();
-			for (Zone zone : zoneSet) {
-				campaign.putZone(zone);
-			}
-		} catch (FileNotFoundException fnfe) {
-			if (log.isInfoEnabled())
-				log.info("Campaign file not found -- this can't happen?!", fnfe);
-			persistedCampaign = null;
-		} catch (IOException ioe) {
-			if (log.isInfoEnabled())
-				log.info("Campaign is not in legacy Hessian format either.", ioe);
-			persistedCampaign = null;
-		} finally {
-			try {
-				his.close();
-			} catch (Exception e) {
-			}
-		}
 		return persistedCampaign;
 	}
 

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple.server;
+package com.t3.clientserver.connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -27,17 +27,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.t3.clientserver.simple.AbstractConnection;
-import com.t3.clientserver.simple.DisconnectHandler;
-import com.t3.clientserver.simple.MessageHandler;
-import com.t3.clientserver.simple.client.ClientConnection;
+import com.t3.clientserver.Command;
+import com.t3.clientserver.NetworkSerializer;
+import com.t3.clientserver.handler.DisconnectHandler;
+import com.t3.clientserver.handler.MessageHandler;
 
 
 /**
  * @author drice
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
  */
 public class ServerConnection extends AbstractConnection implements MessageHandler, DisconnectHandler {
 	
@@ -258,35 +255,6 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
         }
     }
     
-
-    private class ReaperThread extends Thread {
-    	
-        private boolean stopRequested = false;
-
-        public void requestStop() {
-            stopRequested = true;
-        }
-
-        @Override
-    	public void run() {
-        	while (!stopRequested) {
-        		try {
-        			reapClients();
-        		} catch (Throwable t) {
-                	log.error(t.getMessage(), t);
-        		}
-        		
-        		synchronized(this) {
-        			try {
-        				Thread.sleep(4000);
-        			} catch (InterruptedException e) {
-        				// Whatever.
-        			}
-        		}
-        	}
-    	}
-    }
-    
     private static class DispatchThread extends Thread implements MessageHandler {
         private final ServerConnection server;
 
@@ -295,6 +263,7 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
         private boolean stopRequested = false;
 
         public DispatchThread(ServerConnection server) {
+        	super("Dispatcher Thread");
             this.server = server;
         }
 
@@ -347,5 +316,24 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
             this.id = id;
             this.message = message;
         }
+    }
+    
+    public void broadcastCallMethod(Enum<? extends Command> method, Object... parameters) {
+        broadcastMessage(NetworkSerializer.serialize(method, parameters));
+    }
+    
+    public void broadcastCallMethod(String[] exclude, Enum<? extends Command> method, Object... parameters) {
+    	byte[] data  = NetworkSerializer.serialize(method, parameters);
+        broadcastMessage(exclude, data);
+    }
+    
+    public void callMethod(String id, Enum<? extends Command> method, Object... parameters) {
+    	byte[] data = NetworkSerializer.serialize(method, parameters);
+        sendMessage(id, null, data);
+    }
+
+    public void callMethod(String id, Object channel, Enum<? extends Command> method, Object... parameters) {
+    	byte[] data = NetworkSerializer.serialize(method, parameters);
+        sendMessage(id, channel, data);
     }
 }

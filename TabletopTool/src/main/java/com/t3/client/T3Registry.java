@@ -16,6 +16,9 @@ import java.util.List;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 
+//FIXMESOON --> this is used to register you game online for others to easily find it
+//would work if we used hessian again but is currently running on foreign server
+//here we could also implement hole punching
 public class T3Registry {
 	private static final String SERVICE_URL = "http://services.rptools.net/tabletoptool_registry-1_3.php";
 	private static T3RegistryService service;

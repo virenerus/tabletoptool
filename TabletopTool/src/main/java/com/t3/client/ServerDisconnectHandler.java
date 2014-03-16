@@ -14,9 +14,8 @@ package com.t3.client;
 import java.io.IOException;
 
 import com.t3.model.campaign.CampaignFactory;
-
-import com.t3.clientserver.simple.AbstractConnection;
-import com.t3.clientserver.simple.DisconnectHandler;
+import com.t3.clientserver.connection.AbstractConnection;
+import com.t3.clientserver.handler.DisconnectHandler;
 
 /**
  * This class handles when the server inexplicably disconnects

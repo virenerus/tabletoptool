@@ -11,7 +11,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver;
+package com.t3.clientserver.handler;
+
+import com.t3.clientserver.Command;
+
+
 
 /**
  * @author drice
@@ -19,11 +23,8 @@ package com.t3.clientserver;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public interface ActivityListener {
-    public static enum Direction { Inbound, Outbound };
-    public static enum State { Start, Progress, Complete };
-    public static final int CHUNK_SIZE = 4 * 1024;
+public interface MethodHandler extends MessageHandler {
     
-    public void notify(Direction direction, State state, int totalTransferSize, int currentTransferSize);
+    public void handleMethod(String id, Enum<? extends Command> method, Object... parameters);
 
 }

@@ -11,15 +11,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple.server;
-
-import com.t3.clientserver.simple.client.ClientConnection;
+package com.t3.clientserver.handler;
 
 /**
+ * @author drice
  */
-public interface ServerObserver {
+public interface MessageHandler {
 
-	public void connectionAdded(ClientConnection conn);
-	
-	public void connectionRemoved(ClientConnection conn);
+	void handleMessage(String id, byte[] message);
 }

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple;
+package com.t3.clientserver.connection;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +24,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.t3.clientserver.ActivityListener;
-import com.t3.clientserver.ActivityListener.Direction;
-import com.t3.clientserver.ActivityListener.State;
+import com.t3.clientserver.connection.ActivityListener.Direction;
+import com.t3.clientserver.connection.ActivityListener.State;
+import com.t3.clientserver.handler.DisconnectHandler;
+import com.t3.clientserver.handler.MessageHandler;
 
 /**
  * @author drice

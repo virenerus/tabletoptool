@@ -677,14 +677,10 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			for (GUID tokenGUID : selectedTokenSet) {
 				Token token = renderer.getZone().getToken(tokenGUID);
 				if (aE.getActionCommand().equals("clear")) {
-					// Wipe out the entire state HashMap, this is what the previous
-					// code attempted to do but was failing due to the Set returned
-					// by getStatePropertyNames being a non-static view into a set.
-					// Removing items from the map was messing up the iteration.
-					// Here, clear all states, unfortunately, including light.
-					token.getStatePropertyNames().clear();
+					token.removeAllStates();
+					token.removeAllBars();
 				} else {
-					token.setState(aE.getActionCommand(), ((JCheckBoxMenuItem) aE.getSource()).isSelected() ? Boolean.TRUE : null);
+					token.setState(aE.getActionCommand(), ((JCheckBoxMenuItem) aE.getSource()).isSelected());
 				}
 				renderer.flush(token);
 				TabletopTool.serverCommand().putToken(renderer.getZone().getId(), token);

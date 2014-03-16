@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
-import com.t3.util.TypeUtil;
 
 /**
  * An overlay that may be applied to a token to show state.
@@ -23,7 +22,7 @@ import com.t3.util.TypeUtil;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
-public abstract class BooleanTokenOverlay extends AbstractTokenOverlay {
+public abstract class BooleanTokenOverlay extends AbstractTokenOverlay<Boolean> {
 
   /*---------------------------------------------------------------------------------------------
    * Constructors
@@ -46,8 +45,8 @@ public abstract class BooleanTokenOverlay extends AbstractTokenOverlay {
    * @see com.t3.client.ui.token.AbstractTokenOverlay#paintOverlay(java.awt.Graphics2D, com.t3.model.Token, java.awt.Rectangle, java.lang.Object)
    */
   @Override
-  public void paintOverlay(Graphics2D g, Token token, Rectangle bounds, Object value) {
-      if (TypeUtil.getBooleanValue(value))
+  public void paintOverlay(Graphics2D g, Token token, Rectangle bounds, Boolean value) {
+      if (value)
         paintOverlay(g, token, bounds);
   }
   

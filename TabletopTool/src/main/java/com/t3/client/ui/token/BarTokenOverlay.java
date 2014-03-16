@@ -24,7 +24,7 @@ import com.t3.model.Token;
  * 
  * @author Jay
  */
-public abstract class BarTokenOverlay extends AbstractTokenOverlay {
+public abstract class BarTokenOverlay extends AbstractTokenOverlay<Float> {
 
     /*---------------------------------------------------------------------------------------------
      * Instance Variables
@@ -121,21 +121,12 @@ public abstract class BarTokenOverlay extends AbstractTokenOverlay {
      * @see com.t3.client.ui.token.AbstractTokenOverlay#paintOverlay(java.awt.Graphics2D, com.t3.model.Token, java.awt.Rectangle, java.lang.Object)
      */
     @Override
-    public void paintOverlay(Graphics2D g, Token token, Rectangle bounds, Object value) {
+    public void paintOverlay(Graphics2D g, Token token, Rectangle bounds, Float value) {
         if (value == null) return;
-        double val = 0; 
-        if (value instanceof Number) {
-            val = ((Number)value).doubleValue();
-        } else {
-            try {
-                val = Double.parseDouble(value.toString());
-            } catch (NumberFormatException e) {
-               return; // Bad value so don't paint. 
-            } // endtry
-        } // endif
-        if (val < 0) val = 0;
-        if (val > 1) val = 1;
-        paintOverlay(g, token, bounds, val);
+        float val=value;
+        if (val < 0) val = 0f;
+        else if (val > 1) val = 1f;
+        safePaintOverlay(g, token, bounds, val);
     }
     
     /*---------------------------------------------------------------------------------------------
@@ -154,7 +145,7 @@ public abstract class BarTokenOverlay extends AbstractTokenOverlay {
      * based on the clip it will be off for partial token painting.
      * @param value A value between 0 and 1 inclusive used to paint the bar.
      */
-    public abstract void paintOverlay(Graphics2D g, Token token, Rectangle bounds, double value);
+    public abstract void safePaintOverlay(Graphics2D g, Token token, Rectangle bounds, float value);
     
     /*---------------------------------------------------------------------------------------------
      * Side enumeration

@@ -24,7 +24,7 @@ import com.t3.model.Token;
  * @author jgorrell
  * @version $Revision: 4531 $ $Date: 2008-08-20 14:15:46 -0500 (Wed, 20 Aug 2008) $ $Author: coloneldork $
  */
-public abstract class AbstractTokenOverlay implements Cloneable {
+public abstract class AbstractTokenOverlay<T> implements Cloneable {
 
     /*---------------------------------------------------------------------------------------------
      * Instance Variables
@@ -228,9 +228,9 @@ public abstract class AbstractTokenOverlay implements Cloneable {
      * @param bounds The bounds of the actual token. This will be different than the clip
      * since the clip also has to take into account the edge of the window. If you draw 
      * based on the clip it will be off for partial token painting.
-     * @param value The value for the token state.
+     * @param name the name of the state or bar
      */
-    public abstract void paintOverlay(Graphics2D g, Token token, Rectangle bounds, Object value);
+    public abstract void paintOverlay(Graphics2D g, Token token, Rectangle bounds, T name);
     
     /**
      * @see java.lang.Object#clone()

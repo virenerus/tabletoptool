@@ -115,7 +115,6 @@ public class SightType {
 		int visionDistance = zone.getTokenVisionInPixels();
 		Area visibleArea = new Area();
 
-		// FIXME This next formula is identical to the one in zone.getTokenVisionInPixels() called two lines above!!
 		visionRange = (visionRange == 0) ? visionDistance : visionRange * zone.getGrid().getSize() / zone.getUnitsPerCell();
 
 		//now calculate the shape and return the shaped Area to the caller

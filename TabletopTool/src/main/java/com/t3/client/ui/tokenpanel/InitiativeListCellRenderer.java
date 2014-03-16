@@ -44,6 +44,7 @@ import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.token.AbstractTokenOverlay;
 import com.t3.client.ui.token.BarTokenOverlay;
+import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.image.ImageUtil;
 import com.t3.model.Token;
 import com.t3.model.InitiativeList.TokenInitiative;
@@ -382,14 +383,13 @@ public class InitiativeListCellRenderer extends JPanel implements ListCellRender
 			Shape old = g.getClip();
 			g.setClip(bounds.intersection(old.getBounds()));
 			for (String state : TabletopTool.getCampaign().getTokenStatesMap().keySet()) {
-				Object stateSet = token.getState(state);
-				AbstractTokenOverlay overlay = TabletopTool.getCampaign().getTokenStatesMap().get(state);
-				if (stateSet instanceof AbstractTokenOverlay || overlay == null || !overlay.showPlayer(token, TabletopTool.getPlayer()))
+				BooleanTokenOverlay overlay = TabletopTool.getCampaign().getTokenStatesMap().get(state);
+				if (overlay == null || !overlay.showPlayer(token, TabletopTool.getPlayer()))
 					continue;
-				overlay.paintOverlay((Graphics2D) g, token, bounds, stateSet);
+				overlay.paintOverlay((Graphics2D) g, token, bounds, token.hasState(state));
 			} // endfor
 			for (String bar : TabletopTool.getCampaign().getTokenBarsMap().keySet()) {
-				Object barSet = token.getState(bar);
+				Float barSet = token.getBar(bar);
 				BarTokenOverlay overlay = TabletopTool.getCampaign().getTokenBarsMap().get(bar);
 				if (overlay == null || !overlay.showPlayer(token, TabletopTool.getPlayer()))
 					continue;

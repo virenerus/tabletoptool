@@ -7,6 +7,11 @@ public class CappedInteger {
 	private int max;
 	private int min;
 	
+	/**
+	 * This constructor is for serialization only
+	 */
+	public CappedInteger() {}
+	
 	public CappedInteger(int value, int min, int max) {
 		super();
 		this.value = value;

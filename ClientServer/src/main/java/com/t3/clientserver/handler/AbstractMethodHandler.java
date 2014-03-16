@@ -11,13 +11,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple;
+package com.t3.clientserver.handler;
 
+import com.t3.clientserver.Command;
+import com.t3.clientserver.NetworkSerializer;
+import com.t3.clientserver.NetworkSerializer.TransferredMessage;
 
-/**
- * @author trevor
- */
-public interface DisconnectHandler {
+public abstract class AbstractMethodHandler implements MessageHandler {
 
-	public void handleDisconnect(AbstractConnection conn);
+	@Override
+    public void handleMessage(String id, byte[] message) {
+        TransferredMessage tm=NetworkSerializer.deserialize(message);
+		handleMethod(id, tm.getMessage(), tm.getParameters());
+    }
+
+	public abstract void handleMethod(String id, Enum<? extends Command> message,Object... parameters);
 }

@@ -11,18 +11,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.hessian;
+package com.t3.clientserver.connection;
 
-import com.t3.clientserver.simple.MessageHandler;
+public interface ServerObserver {
 
-/**
- * @author drice
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-public interface MethodHandler extends MessageHandler {
-    
-    public void handleMethod(String id, String method, Object... parameters);
-
+	public void connectionAdded(ClientConnection conn);
+	
+	public void connectionRemoved(ClientConnection conn);
 }

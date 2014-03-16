@@ -16,6 +16,8 @@ import java.net.Socket;
 
 import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
 import com.t3.model.Player;
@@ -40,7 +42,8 @@ public class Handshake {
 
 		HessianInput input = new HessianInput(s.getInputStream());
 		HessianOutput output = new HessianOutput(s.getOutputStream());
-		output.findSerializerFactory().setAllowNonSerializable(true);
+		output.getSerializerFactory().setAllowNonSerializable(true);
+		//output.findSerializerFactory().setAllowNonSerializable(true);
 
 		Request request = (Request) input.readObject();
 

@@ -175,9 +175,15 @@ public class Token extends BaseModel {
 	private String gmName;
 
 	/**
-	 * A state properties for this token. This allows state to be added that can change appearance of the token.
+	 * The states this token has
 	 */
-	private Map<String, Object> state;
+	private Set<String> states;
+
+	/**
+	 * The bars and its values of this token
+	 */
+	private HashMap<String, Float> bars;
+	
 
 	/**
 	 * Properties
@@ -248,9 +254,10 @@ public class Token extends BaseModel {
 		if (token.lightSourceList != null) {
 			lightSourceList = new ArrayList<AttachedLightSource>(token.lightSourceList);
 		}
-		if (token.state != null) {
-			state.putAll(token.state);
-		}
+		if (token.states != null)
+			states.addAll(token.states);
+		if (token.bars != null)
+			bars.putAll(token.bars);
 		if (token.propertyMap != null) {
 			getPropertyMap().clear();
 			getPropertyMap().putAll(token.propertyMap);
@@ -280,7 +287,8 @@ public class Token extends BaseModel {
 
 	public Token(String name, MD5Key assetId) {
 		this.name = name;
-		state = new HashMap<String, Object>();
+		states = new HashSet<String>();
+		bars = new HashMap<String, Float>();
 		imageAssetMap = new HashMap<String, MD5Key>();
 
 		// NULL key is the default
@@ -896,32 +904,51 @@ public class Token extends BaseModel {
 	public void setSnapToGrid(boolean snapToGrid) {
 		this.snapToGrid = snapToGrid;
 	}
-
+	
 	/**
-	 * Get a particular state property for this Token.
-	 * 
-	 * @param property
-	 *            The name of the property being read.
-	 * @return Returns the current value of property.
+	 * Get if this token has a certain state
+	 * @param state the name of the state you want to check for
+	 * @return if the token has the state
 	 */
-	public Object getState(String property) {
-		return state.get(property);
+	public boolean hasState(String state) {
+		return states.contains(state);
 	}
-
+	
 	/**
-	 * Set the value of state for this Token.
-	 * 
-	 * @param aState
-	 *            The property to set.
-	 * @param aValue
-	 *            The new value for the property.
-	 * @return The original value of the state, if any.
+	 * Get the value of a bar of this token
+	 * @param barName the name of the bar you want to get
+	 * @return the value of the bar ior null if the bar is not visible
 	 */
-	public Object setState(String aState, Object aValue) {
-		if (aValue == null)
-			return state.remove(aState);
-		return state.put(aState, aValue);
+	public Float getBar(String barName) {
+		return bars.get(barName);
 	}
+	
+	/**
+	 * This adds or removes a state from this token
+	 * @param state the state you want to set
+	 * @param value if the token should have the state or not
+	 * @return if the token had the state before the change
+	 */
+	public boolean setState(String state, boolean value) {
+		if(value)
+			return !states.add(state);
+		else
+			return states.remove(state);
+	}
+	
+	/**
+	 * This sets a bar of this token
+	 * @param barName the name of the bar you want to set
+	 * @param value the value the bar should have between 0 and 1 or null if it should be hidden
+	 * @return the bar value the token had before the change
+	 */
+	public Float setBar(String barName, Float value) {
+		if(value==null)
+			return bars.remove(barName);
+		else
+			return bars.put(barName, value);
+	}
+	
 
 	public void resetProperty(String key) {
 		getPropertyMap().remove(key);
@@ -1081,12 +1108,17 @@ public class Token extends BaseModel {
 	}
 
 	/**
-	 * Get a set containing the names of all set properties on this token.
-	 * 
-	 * @return The set of state property names that have a value associated with them.
+	 * This will remove all states from this token
 	 */
-	public Set<String> getStatePropertyNames() {
-		return state.keySet();
+	public void removeAllStates() {
+		states.clear();
+	}
+	
+	/**
+	 * This will remove all bars from this token
+	 */
+	public void removeAllBars() {
+		bars.clear();
 	}
 
 	/** @return Getter for notes */
@@ -1184,14 +1216,8 @@ public class Token extends BaseModel {
 		td.put(TokenTransferData.NOTES, notes);
 		td.put(TokenTransferData.GM_NOTES, gmNotes);
 		td.put(TokenTransferData.GM_NAME, gmName);
-
-		// Put all of the serializable state into the map
-		for (String key : getStatePropertyNames()) {
-			Object value = getState(key);
-			if (value instanceof Serializable)
-				td.put(key, value);
-		}
-		td.putAll(state);
+		td.put(TokenTransferData.STATES, states);
+		td.put(TokenTransferData.BARS, bars);
 
 		// Create the image from the asset and add it to the map
 		Image image = ImageManager.getImageAndWait(imageAssetMap.get(null));
@@ -1209,7 +1235,12 @@ public class Token extends BaseModel {
 	 */
 	public Token(TokenTransferData td) {
 		imageAssetMap = new HashMap<String, MD5Key>();
-		state = new HashMap<String, Object>();
+		states = new HashSet<String>();
+		if(td.get(TokenTransferData.STATES)!=null)
+			states.addAll((Set<String>)td.get(TokenTransferData.STATES));
+		bars = new HashMap<String, Float>();
+		if(td.get(TokenTransferData.BARS)!=null)
+			bars.putAll((HashMap<String, Float>)td.get(TokenTransferData.BARS));
 		if (td.getLocation() != null) {
 			x = td.getLocation().x;
 			y = td.getLocation().y;

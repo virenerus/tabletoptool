@@ -16,8 +16,7 @@ import java.net.Socket;
 
 import com.t3.model.Player;
 import com.t3.server.Handshake;
-
-import com.t3.clientserver.hessian.client.ClientConnection;
+import com.t3.clientserver.connection.ClientConnection;
 
 /**
  * @author trevor

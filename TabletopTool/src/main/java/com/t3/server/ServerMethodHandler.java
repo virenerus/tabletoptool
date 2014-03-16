@@ -45,8 +45,8 @@ import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
 import com.t3.transfer.AssetProducer;
-
-import com.t3.clientserver.hessian.AbstractMethodHandler;
+import com.t3.clientserver.Command;
+import com.t3.clientserver.handler.AbstractMethodHandler;
 
 /**
  * @author drice
@@ -59,12 +59,13 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		this.server = server;
 	}
 
-	public void handleMethod(String id, String method, Object... parameters) {
-		ServerCommand.COMMAND cmd = Enum.valueOf(ServerCommand.COMMAND.class, method);
-//		System.out.println("ServerMethodHandler#handleMethod: " + id + " - " + cmd.name());
+	@Override
+	public void handleMethod(String id, Enum<? extends Command> method, Object... parameters) {
+		final ServerCommand.COMMAND cmd = (ServerCommand.COMMAND) method;
+//		System.out.println("ServerMethodHandler#handleMethod: " + id + " - " + cmd);
 
 		try {
-			RPCContext context = new RPCContext(id, method, parameters);
+			RPCContext context = new RPCContext(id, cmd, parameters);
 			RPCContext.setCurrent(context);
 			switch (cmd) {
 			case bootPlayer:
@@ -234,11 +235,11 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		server.getConnection().broadcastCallMethod(new String[] {}, RPCContext.getCurrent().method, RPCContext.getCurrent().parameters);
 	}
 
-	private void broadcastToClients(String exclude, String method, Object... parameters) {
+	private void broadcastToClients(String exclude, ServerCommand.COMMAND method, Object... parameters) {
 		server.getConnection().broadcastCallMethod(new String[] { exclude }, method, parameters);
 	}
 
-	private void broadcastToAllClients(String method, Object... parameters) {
+	private void broadcastToAllClients(ClientCommand.COMMAND method, Object... parameters) {
 		server.getConnection().broadcastCallMethod(new String[] {}, method, parameters);
 	}
 
@@ -247,7 +248,7 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 	public void setVisionType(GUID zoneGUID, VisionType visionType) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setVisionType(visionType);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setUseVision.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setUseVision, RPCContext.getCurrent().parameters);
 	}
 
 	public void heartbeat(String data) {
@@ -285,7 +286,7 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 			}
 			// Broadcast
 			for (Token token : tokenList) {
-				broadcastToAllClients(ClientCommand.COMMAND.putToken.name(), zoneGUID, token);
+				broadcastToAllClients(ClientCommand.COMMAND.putToken, zoneGUID, token);
 			}
 		}
 	}
@@ -298,7 +299,7 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 	}
 
 	public void draw(GUID zoneGUID, Pen pen, Drawable drawable) {
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.draw.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.draw, RPCContext.getCurrent().parameters);
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.addDrawable(new DrawnElement(drawable, pen));
 	}
@@ -310,13 +311,13 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 	public void exposeFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID); // this can return a zone that's not in T3Frame.zoneRenderList???
 		zone.exposeArea(area, selectedToks);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.exposeFoW.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.exposeFoW, RPCContext.getCurrent().parameters);
 	}
 
 	public void exposePCArea(GUID zoneGUID) {
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(zoneGUID);
 		FogUtil.exposePCArea(renderer);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.exposePCArea.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.exposePCArea, RPCContext.getCurrent().parameters);
 	}
 
 	public void getAsset(MD5Key assetID) {
@@ -325,37 +326,37 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		}
 		try {
 			AssetProducer producer = new AssetProducer(assetID, AssetManager.getAssetInfo(assetID).getProperty(AssetManager.NAME), AssetManager.getAssetCacheFile(assetID));
-			server.getConnection().callMethod(RPCContext.getCurrent().id, T3Constants.Channel.IMAGE, ClientCommand.COMMAND.startAssetTransfer.name(), producer.getHeader());
+			server.getConnection().callMethod(RPCContext.getCurrent().id, T3Constants.Channel.IMAGE, ClientCommand.COMMAND.startAssetTransfer, producer.getHeader());
 			server.addAssetProducer(RPCContext.getCurrent().id, producer);
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 
 			// Old fashioned way
-			server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putAsset.name(), AssetManager.getAsset(assetID));
+			server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putAsset, AssetManager.getAsset(assetID));
 		} catch (IllegalArgumentException iae) {
 			// Sending an empty asset will cause a failure of the image to load on the client side, showing a broken
 			// image instead of blowing up
 			Asset asset = new Asset("broken", new byte[] {});
 			asset.setId(assetID);
-			server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putAsset.name(), asset);
+			server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putAsset, asset);
 		}
 	}
 
 	public void getZone(GUID zoneGUID) {
-		server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putZone.name(), server.getCampaign().getZone(zoneGUID));
+		server.getConnection().callMethod(RPCContext.getCurrent().id, ClientCommand.COMMAND.putZone, server.getCampaign().getZone(zoneGUID));
 	}
 
 	public void hideFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.hideArea(area, selectedToks);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.hideFoW.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.hideFoW, RPCContext.getCurrent().parameters);
 	}
 
 	public void setFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setFogArea(area, selectedToks);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setFoW.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setFoW, RPCContext.getCurrent().parameters);
 	}
 
 	public void hidePointer(String player) {
@@ -448,13 +449,13 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 	public void removeLabel(GUID zoneGUID, GUID labelGUID) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeLabel(labelGUID);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.removeLabel.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.removeLabel, RPCContext.getCurrent().parameters);
 	}
 
 	public void removeToken(GUID zoneGUID, GUID tokenGUID) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeToken(tokenGUID);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.removeToken.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.removeToken, RPCContext.getCurrent().parameters);
 	}
 
 	public void removeZone(GUID zoneGUID) {
@@ -484,7 +485,7 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 			}
 			// Broadcast
 			for (Token token : tokenList) {
-				broadcastToAllClients(ClientCommand.COMMAND.putToken.name(), zoneGUID, token);
+				broadcastToAllClients(ClientCommand.COMMAND.putToken, zoneGUID, token);
 			}
 		}
 	}
@@ -500,22 +501,22 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		grid.setSize(size);
 		grid.setOffset(offsetX, offsetY);
 		zone.setGridColor(color);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneGridSize.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneGridSize, RPCContext.getCurrent().parameters);
 	}
 
 	public void setZoneHasFoW(GUID zoneGUID, boolean hasFog) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setHasFog(hasFog);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneHasFoW.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneHasFoW, RPCContext.getCurrent().parameters);
 	}
 
 	public void setZoneVisibility(GUID zoneGUID, boolean visible) {
 		server.getCampaign().getZone(zoneGUID).setVisible(visible);
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneVisibility.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.setZoneVisibility, RPCContext.getCurrent().parameters);
 	}
 
 	public void showPointer(String player, Pointer pointer) {
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.showPointer.name(), RPCContext.getCurrent().parameters);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.showPointer, RPCContext.getCurrent().parameters);
 	}
 
 	public void setLiveTypingLabel(String label, boolean show) {
@@ -558,7 +559,7 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		// would need to be cleared and duplicating a zone means doing a deep copy on the UndoManager
 		// or flushing it entirely in the new zone.  We'll save all of this for a separate patch against 1.3 or
 		// for 1.4.
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.undoDraw.name(), zoneGUID, drawableGUID);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.undoDraw, zoneGUID, drawableGUID);
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeDrawable(drawableGUID);
 	}
@@ -612,10 +613,10 @@ public class ServerMethodHandler extends AbstractMethodHandler implements Server
 		private static ThreadLocal<RPCContext> threadLocal = new ThreadLocal<RPCContext>();
 
 		public String id;
-		public String method;
+		public ServerCommand.COMMAND method;
 		public Object[] parameters;
 
-		public RPCContext(String id, String method, Object[] parameters) {
+		public RPCContext(String id, ServerCommand.COMMAND method, Object[] parameters) {
 			this.id = id;
 			this.method = method;
 			this.parameters = parameters;

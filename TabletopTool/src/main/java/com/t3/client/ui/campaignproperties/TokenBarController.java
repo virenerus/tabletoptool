@@ -84,7 +84,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	private PreviewPanelFileChooser imageFileChooser;
 
 	/** Renderer used to paint the bars */
-	private final StateListRenderer renderer = new StateListRenderer();
+	private final StateListRenderer<Float> renderer = new StateListRenderer<Float>(1f);
 
 	/** Name of the text field containing the name {@link String} value */
 	public static final String NAME = "tokenBarName";
@@ -683,7 +683,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	 */
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == formPanel.getComponentByName(TESTER)) {
-			renderer.value = new Double(((JSlider) formPanel.getComponentByName(TESTER)).getValue() / 100.0);
+			renderer.value = (float)((JSlider) formPanel.getComponentByName(TESTER)).getValue() / 100f;
 			formPanel.getList(BARS).repaint();
 		} else {
 			changedUpdate(null);

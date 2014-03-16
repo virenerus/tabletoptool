@@ -84,7 +84,6 @@ import com.t3.model.campaign.TokenProperty;
 import com.t3.model.campaign.TokenPropertyType;
 import com.t3.model.grid.Grid;
 import com.t3.util.ImageManager;
-import com.t3.util.TypeUtil;
 
 /**
  * This dialog is used to display all of the token states and notes to the user.
@@ -162,7 +161,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			Component[] states = ((Container) statePanels[j]).getComponents();
 			for (int i = 0; i < states.length; i++) {
 				JCheckBox state = (JCheckBox) states[i];
-				state.setSelected(TypeUtil.getBooleanValue(token.getState(state.getText())));
+				state.setSelected(token.hasState(state.getText()));
 			}
 		}
 
@@ -172,14 +171,14 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			for (int i = 0; i < bars.length; i += 2) {
 				JCheckBox cb = (JCheckBox) ((Container) bars[i]).getComponent(1);
 				JSlider bar = (JSlider) bars[i + 1];
-				if (token.getState(bar.getName()) == null) {
+				if (token.getBar(bar.getName()) == null) {
 					cb.setSelected(true);
 					bar.setEnabled(false);
 					bar.setValue(100);
 				} else {
 					cb.setSelected(false);
 					bar.setEnabled(true);
-					bar.setValue((int) (TypeUtil.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
+					bar.setValue((int) (token.getBar(bar.getName()) * 100));
 				}
 			}
 		}
@@ -410,7 +409,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			for (int i = 0; i < components.length; i++) {
 				JCheckBox cb = (JCheckBox) components[i];
 				String state = cb.getText();
-				token.setState(state, cb.isSelected() ? Boolean.TRUE : Boolean.FALSE);
+				token.setState(state, cb.isSelected());
 			}
 		} // endfor
 
@@ -420,9 +419,9 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			for (int i = 0; i < bars.length; i += 2) {
 				JCheckBox cb = (JCheckBox) ((Container) bars[i]).getComponent(1);
 				JSlider bar = (JSlider) bars[i + 1];
-				BigDecimal value = cb.isSelected() ? null : new BigDecimal(bar.getValue()).divide(new BigDecimal(100));
-				token.setState(bar.getName(), value);
-				bar.setValue((int) (TypeUtil.getBigDecimalValue(token.getState(bar.getName())).doubleValue() * 100));
+				Float value = cb.isSelected() ? null : new Float((float)bar.getValue()/100f);
+				token.setBar(bar.getName(), value);
+				bar.setValue((int) (token.getBar(bar.getName()) * 100));
 			}
 		}
 		// Ownership

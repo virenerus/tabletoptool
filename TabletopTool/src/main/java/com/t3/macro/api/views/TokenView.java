@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,23 +38,21 @@ import com.t3.model.CellPoint;
 import com.t3.model.Direction;
 import com.t3.model.GUID;
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.LightSource;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
-import com.t3.model.TextMessage;
 import com.t3.model.Token;
+import com.t3.model.Token.Type;
 import com.t3.model.TokenFootprint;
 import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
-import com.t3.model.InitiativeList.TokenInitiative;
-import com.t3.model.Token.Type;
 import com.t3.model.Zone.Layer;
+import com.t3.model.ZonePoint;
 import com.t3.model.campaign.TokenProperty;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
 import com.t3.util.ImageManager;
 import com.t3.util.TokenUtil;
-import com.t3.util.TypeUtil;
 import com.t3.util.math.IntPoint;
 
 public class TokenView extends TokenPropertyView {
@@ -145,12 +142,8 @@ public class TokenView extends TokenPropertyView {
 	 * @param barName the name of the bar you want the value of
 	 * @return the value of the bar or null if the bar is invisible
 	 */
-	public Integer getBar(String barName) {
-		BigDecimal i=(BigDecimal) token.getState(barName);
-		if(i==null)
-			return null;
-		else
-			return i.intValue();
+	public Float getBar(String barName) {
+		return token.getBar(barName);
 	}
 	
 	/**
@@ -158,9 +151,8 @@ public class TokenView extends TokenPropertyView {
 	 * @param barName the name of the bar you want to set the value of
 	 * @param value the value the bar should have between 0 and 100
 	 */
-	public void setBar(String barName, int value) {
-		BigDecimal val = new BigDecimal(value);
-		token.setState(barName, val);
+	public void setBar(String barName, float value) {
+		token.setBar(barName, value);
 		this.sendUpdateToServer();
 	}
 	
@@ -170,7 +162,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return if this bar is currently visible on this token
 	 */
 	public boolean isBarVisible(String barName) {
-		return token.getState(barName) != null;
+		return token.getBar(barName) != null;
 	}
 
 	/**
@@ -179,7 +171,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param show if the bar should be visible or not
 	 */
 	public void setBarVisible(String barName, boolean show) {
-		token.setState(barName, show ? BigDecimal.ONE : null);
+		token.setBar(barName, show ? 1f : null);
 		this.sendUpdateToServer();
 	}
 	
@@ -402,8 +394,8 @@ public class TokenView extends TokenPropertyView {
      * @param state the state to check for
      * @return if the token has this state
      */
-    public boolean isState(String state) {
-    	return TypeUtil.getBooleanValue(token.getState(state));
+    public boolean hasState(String state) {
+    	return token.hasState(state);
     }
     
     /**
@@ -1368,5 +1360,12 @@ public class TokenView extends TokenPropertyView {
 	public Object executeMacro(String name) {
 		MacroButtonProperties mbp=token.getMacro(name, false);
 		return mbp.executeMacro(token);
+	}
+	
+	public static List<TokenView> makeTokenViewList(List<Token> list) {
+		ArrayList<TokenView> l=new ArrayList<TokenView>(list.size());
+		for(Token t:list)
+			l.add(new TokenView(t));
+		return l;
 	}
 }

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple.client;
+package com.t3.clientserver.connection;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -20,17 +20,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.t3.clientserver.simple.AbstractConnection;
+import com.t3.clientserver.Command;
+import com.t3.clientserver.NetworkSerializer;
 
-
-/**
- * @author drice
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
- */
 public class ClientConnection extends AbstractConnection {
-    private final Socket socket;
+
+	private final Socket socket;
 
     private SendThread send;
 
@@ -190,4 +185,9 @@ public class ClientConnection extends AbstractConnection {
         }
     }
 
+    public void callMethod(Enum<? extends Command> method, Object... parameters) {
+
+    	byte[] message = NetworkSerializer.serialize(method, parameters);
+        sendMessage(message);
+    }
 }

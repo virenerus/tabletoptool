@@ -92,6 +92,7 @@ import com.t3.client.ui.Scale;
 import com.t3.client.ui.Tool;
 import com.t3.client.ui.token.AbstractTokenOverlay;
 import com.t3.client.ui.token.BarTokenOverlay;
+import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.NewTokenDialog;
 import com.t3.client.walker.ZoneWalker;
 import com.t3.image.ImageUtil;
@@ -2613,21 +2614,17 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 
 			// Check each of the set values
 			for (String state : TabletopTool.getCampaign().getTokenStatesMap().keySet()) {
-				Object stateValue = token.getState(state);
-				AbstractTokenOverlay overlay = TabletopTool.getCampaign().getTokenStatesMap().get(state);
-				if (stateValue instanceof AbstractTokenOverlay) {
-					overlay = (AbstractTokenOverlay) stateValue;
+				boolean stateValue = token.hasState(state);
+				BooleanTokenOverlay overlay = TabletopTool.getCampaign().getTokenStatesMap().get(state);
+				if (! (overlay == null || overlay.isMouseover() && token != tokenUnderMouse || !overlay.showPlayer(token, TabletopTool.getPlayer()))) {
+					overlay.paintOverlay(locg, token, bounds, stateValue);
 				}
-				if (overlay == null || overlay.isMouseover() && token != tokenUnderMouse || !overlay.showPlayer(token, TabletopTool.getPlayer())) {
-					continue;
-				}
-				overlay.paintOverlay(locg, token, bounds, stateValue);
 			}
 			timer.stop("tokenlist-9");
 
 			timer.start("tokenlist-10");
 			for (String bar : TabletopTool.getCampaign().getTokenBarsMap().keySet()) {
-				Object barValue = token.getState(bar);
+				Float barValue = token.getBar(bar);
 				BarTokenOverlay overlay = TabletopTool.getCampaign().getTokenBarsMap().get(bar);
 				if (overlay == null || overlay.isMouseover() && token != tokenUnderMouse || !overlay.showPlayer(token, TabletopTool.getPlayer())) {
 					continue;

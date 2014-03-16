@@ -16,8 +16,9 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.t3.clientserver.hessian.server.ServerConnection;
-import com.t3.clientserver.simple.server.ServerObserver;
+import com.t3.clientserver.connection.ClientConnection;
+import com.t3.clientserver.connection.ServerConnection;
+import com.t3.clientserver.connection.ServerObserver;
 
 import org.apache.log4j.Logger;
 
@@ -82,23 +83,23 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 	/**
 	 * Handle late connections
 	 */
-	public void connectionAdded(com.t3.clientserver.simple.client.ClientConnection conn) {
+	public void connectionAdded(ClientConnection conn) {
 		server.configureClientConnection(conn);
 
 		Player player = playerMap.get(conn.getId().toUpperCase());
 		for (String id : playerMap.keySet()) {
-			server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.playerConnected.name(), playerMap.get(id));
+			server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.playerConnected, playerMap.get(id));
 		}
-		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.playerConnected.name(), player);
+		server.getConnection().broadcastCallMethod(ClientCommand.COMMAND.playerConnected, player);
 //     if (!server.isHostId(player.getName())) {
 		// Don't bother sending the campaign file if we're hosting it ourselves
-		server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.setCampaign.name(), server.getCampaign());
+		server.getConnection().callMethod(conn.getId(), ClientCommand.COMMAND.setCampaign, server.getCampaign());
 //     }
 	}
 
-	public void connectionRemoved(com.t3.clientserver.simple.client.ClientConnection conn) {
+	public void connectionRemoved(ClientConnection conn) {
 		server.releaseClientConnection(conn.getId());
-		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, ClientCommand.COMMAND.playerDisconnected.name(), playerMap.get(conn.getId().toUpperCase()));
+		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, ClientCommand.COMMAND.playerDisconnected, playerMap.get(conn.getId().toUpperCase()));
 		playerMap.remove(conn.getId().toUpperCase());
 	}
 }

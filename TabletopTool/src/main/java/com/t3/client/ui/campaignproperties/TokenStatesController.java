@@ -217,7 +217,7 @@ public class TokenStatesController implements ActionListener, DocumentListener, 
 		panel.getSpinner(WIDTH).setModel(new SpinnerNumberModel(5, 1, 10, 1));
 		panel.getSpinner(FLOW_GRID).setModel(new SpinnerListModel(new String[] { "2x2", "3x3", "4x4", "5x5", "8x8" }));
 		panel.getSpinner(OPACITY).setModel(new SpinnerNumberModel(100, 1, 100, 5));
-		panel.getList(STATES).setCellRenderer(new StateListRenderer());
+		panel.getList(STATES).setCellRenderer(new StateListRenderer<Boolean>(Boolean.TRUE));
 		panel.getList(STATES).addListSelectionListener(this);
 		panel.getTextComponent(NAME).getDocument().addDocumentListener(this);
 		panel.getTextComponent(IMAGE).getDocument().addDocumentListener(this);
@@ -461,19 +461,22 @@ public class TokenStatesController implements ActionListener, DocumentListener, 
 	 * 
 	 * @author Jay
 	 */
-	public static class StateListRenderer extends DefaultListCellRenderer {
+	public static class StateListRenderer<T> extends DefaultListCellRenderer {
 
+		public StateListRenderer (T defaultValue) {
+			this.value=defaultValue;
+		}
+		
 		/** Bounds sent to the token state */
 		Rectangle bounds = new Rectangle(0, 0, ICON_SIZE, ICON_SIZE);
 
 		/** Fake token sent to the token state */
 		Token token = new Token("name", null);
 
-		/** Value passed to the overlay painter. */
-		Double value = Double.valueOf(1);
-
 		/** Overlay being painted by the icon */
-		AbstractTokenOverlay overlay;
+		AbstractTokenOverlay<T> overlay;
+		
+		T value;
 
 		/**
 		 * Create an icon from the token state. The icon has a black rectangle and the actual state is drawn inside of

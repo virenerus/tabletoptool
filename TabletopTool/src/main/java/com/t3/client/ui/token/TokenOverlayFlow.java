@@ -119,7 +119,8 @@ public class TokenOverlayFlow {
 			if (!found && savedState.equals(state)) {
 				found = true;
 			} else {
-				Object stateValue = token.getState(savedState);
+				//FIXME if something redery is weird look here^^
+				/*Object stateValue = token.getState(savedState);
 				if (stateValue == null) {
 					i.remove();
 				} else if (stateValue instanceof Boolean) {
@@ -130,9 +131,11 @@ public class TokenOverlayFlow {
 					BigDecimal bd = (BigDecimal) stateValue;
 					if (bd.compareTo(BigDecimal.ZERO) == 0)
 						i.remove();
-				}
-			} // endif
-		} // endwhile
+				}*/
+				if(!token.hasState(savedState))
+					i.remove();
+			}
+		}
 
 		// Find the index of the state, then convert it into row & column
 		int index = states.size();

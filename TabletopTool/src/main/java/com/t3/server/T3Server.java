@@ -18,8 +18,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import com.t3.clientserver.simple.client.ClientConnection;
-import com.t3.clientserver.simple.server.ServerObserver;
+import com.t3.clientserver.connection.ClientConnection;
+import com.t3.clientserver.connection.ServerObserver;
 
 import org.apache.log4j.Logger;
 
@@ -214,7 +214,7 @@ public class T3Server {
 						AssetChunk chunk = entry.getValue().nextChunk(ASSET_CHUNK_SIZE);
 						if (chunk != null) {
 							lookForMore = true;
-							getConnection().callMethod(entry.getKey(), T3Constants.Channel.IMAGE, ClientCommand.COMMAND.updateAssetTransfer.name(), chunk);
+							getConnection().callMethod(entry.getKey(), T3Constants.Channel.IMAGE, ClientCommand.COMMAND.updateAssetTransfer, chunk);
 						}
 					}
 					if (lookForMore) {

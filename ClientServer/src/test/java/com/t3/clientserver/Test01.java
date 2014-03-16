@@ -13,13 +13,9 @@
  */
 package com.t3.clientserver;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import com.caucho.hessian.io.HessianOutput;
-import com.t3.clientserver.hessian.AbstractMethodHandler;
-import com.t3.clientserver.hessian.client.ClientConnection;
-import com.t3.clientserver.hessian.server.ServerConnection;
+import com.t3.clientserver.connection.ClientConnection;
+import com.t3.clientserver.connection.ServerConnection;
+import com.t3.clientserver.handler.AbstractMethodHandler;
 
 /**
  * @author drice
@@ -28,19 +24,22 @@ import com.t3.clientserver.hessian.server.ServerConnection;
  * Preferences - Java - Code Style - Code Templates
  */
 public class Test01 {
+	
+	private enum NetworkMessage implements Command {A,B};
 
     public static void main(String[] args) throws Exception {
         ServerConnection server = new ServerConnection(4444);
         server.addMessageHandler(new ServerHandler());
-
-        ClientConnection client = new ClientConnection("192.168.1.102", 4444, "Testing");
+        
+        ClientConnection client = new ClientConnection("127.0.0.1", 4444, "Testing");
         client.addMessageHandler(new ClientHandler());
-
-        for (int i = 0; i < 1000; i++) {
+        client.start();
+        
+        for (int i = 0; i < 10; i++) {
             if (i % 3 == 0) {
-                client.callMethod("fromClient", "arg1", "arg2");
+                client.callMethod(NetworkMessage.A, new Float(2.3f), new Double(7.035923057230));
             }
-            server.broadcastCallMethod("fromServer", "arg1");
+            server.broadcastCallMethod(NetworkMessage.B, new Float(5.3f));
             Thread.sleep(1000);
         }
 
@@ -49,18 +48,10 @@ public class Test01 {
 
     }
 
-    private static byte[] getOutput(String method) throws IOException {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        HessianOutput hout = new HessianOutput(bout);
-
-        hout.call(method, new Object[0]);
-
-        return bout.toByteArray();
-    }
-
     private static class ServerHandler extends AbstractMethodHandler {
 
-        public void handleMethod(String id, String method, Object... parameters) {
+    	@Override
+        public void handleMethod(String id, Enum<? extends Command> method, Object... parameters) {
             System.out.println("Server received: " + method + " from " + id + " args=" + parameters.length);
             for (Object param : parameters) {
                 System.out.println("\t" + param);
@@ -69,7 +60,8 @@ public class Test01 {
     }
 
     private static class ClientHandler extends AbstractMethodHandler {
-        public void handleMethod(String id, String method, Object... parameters) {
+    	@Override
+        public void handleMethod(String id, Enum<? extends Command> method, Object... parameters) {
             System.out.println("Client received: " + method + " from " + id + " args=" + parameters.length);
             for (Object param : parameters) {
                 System.out.println("\t" + param);

@@ -64,7 +64,6 @@ import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.model.Player.Role;
-import com.t3.util.TypeUtil;
 
 public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private static final long serialVersionUID = -622385975780832588L;
@@ -557,18 +556,19 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	 */
 	private JCheckBoxMenuItem createStateItem(String state, JMenu menu, Token token) {
 		JCheckBoxMenuItem item = new JCheckBoxMenuItem(new ChangeStateAction(state));
-		Object value = token.getState(state);
-		if (TypeUtil.getBooleanValue(value))
-			item.setSelected(true);
+		item.setSelected(token.hasState(state));
 		menu.add(item);
 		return item;
 	}
 
 	private JMenuItem createBarItem(String bar, JMenu menu, Token token) {
 		JMenuItem item = new JMenuItem(new ChangeBarAction(bar));
-		Object value = token.getState(bar);
-		int percent = (int) (TypeUtil.getBigDecimalValue(value).doubleValue() * 100);
-		item.setText(bar + " (" + Integer.toString(percent) + "%)");
+		Float value = token.getBar(bar);
+		if(value==null)
+			item.setText(bar + " (hidden)");
+		else
+			item.setText(bar + " (" + (int) (value * 100) + "%)");
+		
 		menu.add(item);
 		return item;
 	}
@@ -712,14 +712,14 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			slider.setMajorTickSpacing(20);
 			slider.createStandardLabels(20);
 			slider.setMajorTickSpacing(10);
-			if (getTokenUnderMouse().getState(name) == null) {
+			if (getTokenUnderMouse().getBar(name) == null) {
 				hide.setSelected(true);
 				slider.setEnabled(false);
 				slider.setValue(100);
 			} else {
 				hide.setSelected(false);
 				slider.setEnabled(true);
-				slider.setValue((int) (TypeUtil.getBigDecimalValue(getTokenUnderMouse().getState(name)).doubleValue() * 100));
+				slider.setValue((int) (getTokenUnderMouse().getBar(name) * 100));
 			}
 			JPanel barPanel = new JPanel(new FormLayout("right:pref 2px pref", "pref"));
 			barPanel.add(labelPanel, new CellConstraints(1, 1));
@@ -728,8 +728,8 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 				Zone zone = TabletopTool.getFrame().getCurrentZoneRenderer().getZone();
 				for (GUID tokenGUID : selectedTokenSet) {
 					Token token = zone.getToken(tokenGUID);
-					BigDecimal val = hide.isSelected() ? null : new BigDecimal(slider.getValue() / 100.0);
-					token.setState(name, val);
+					Float val = hide.isSelected() ? null : new Float((float)slider.getValue() / 100.0);
+					token.setBar(name, val);
 					TabletopTool.serverCommand().putToken(zone.getId(), token);
 				}
 			}
@@ -784,9 +784,9 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 				Token token = renderer.getZone().getToken(tokenGUID);
 				if (aE.getActionCommand().equals("clear")) {
 					for (String state : TabletopTool.getCampaign().getTokenStatesMap().keySet())
-						token.setState(state, null);
+						token.setState(state, false);
 				} else {
-					token.setState(aE.getActionCommand(), ((JCheckBoxMenuItem) aE.getSource()).isSelected() ? Boolean.TRUE : null);
+					token.setState(aE.getActionCommand(), ((JCheckBoxMenuItem) aE.getSource()).isSelected());
 				} // endif
 				TabletopTool.serverCommand().putToken(renderer.getZone().getId(), token);
 			} // endfor

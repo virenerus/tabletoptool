@@ -11,16 +11,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package com.t3.clientserver.simple;
+package com.t3.clientserver.connection;
 
-/**
- * @author drice
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-public interface MessageHandler {
-	
-	public void handleMessage(String id, byte[] message);
+
+public interface ActivityListener {
+    public static enum Direction { Inbound, Outbound };
+    public static enum State { Start, Progress, Complete };
+    public static final int CHUNK_SIZE = 4 * 1024;
+    
+    public void notify(Direction direction, State state, int totalTransferSize, int currentTransferSize);
 
 }

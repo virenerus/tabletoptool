@@ -245,7 +245,7 @@ public class ServerCommandClientImpl implements ServerCommand {
 
 	private static void makeServerCall(ServerCommand.COMMAND command, Object... params) {
 		if (TabletopTool.getConnection() != null) {
-			TabletopTool.getConnection().callMethod(command.name(), params);
+			TabletopTool.getConnection().callMethod(command, params);
 		}
 	}
 

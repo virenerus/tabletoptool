@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.t3.MD5Key;
+import com.t3.clientserver.Command;
 import com.t3.model.Asset;
 import com.t3.model.ExposedAreaMetaData;
 import com.t3.model.GUID;
@@ -34,7 +35,7 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
 
 public interface ServerCommand {
-	public static enum COMMAND {
+	public static enum COMMAND implements Command {
 		bootPlayer,
 		setCampaign,
 		getZone,

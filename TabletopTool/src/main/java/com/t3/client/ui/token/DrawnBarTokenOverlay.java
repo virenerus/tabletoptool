@@ -58,7 +58,7 @@ public class DrawnBarTokenOverlay extends BarTokenOverlay {
      * @see com.t3.client.ui.token.BarTokenOverlay#paintOverlay(java.awt.Graphics2D, com.t3.model.Token, java.awt.Rectangle, double)
      */
     @Override
-    public void paintOverlay(Graphics2D g, Token token, Rectangle bounds, double value) {
+    public void safePaintOverlay(Graphics2D g, Token token, Rectangle bounds, float value) {
         int width = (getSide() == Side.TOP || getSide() == Side.BOTTOM) ? bounds.width : thickness;
         int height = (getSide() == Side.LEFT || getSide() == Side.RIGHT) ? bounds.height : thickness;
         int x = 0;
