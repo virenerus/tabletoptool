@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.t3.dice.NumberUtil;
 
-public class NumberNode implements DiceExpression {
+public class NumberNode extends Expression {
 
 	private float number;
 
@@ -12,7 +12,7 @@ public class NumberNode implements DiceExpression {
 		this.number=number;
 	}
 
-	public float evaluate(Random random) {
+	public float getResult(Random random) {
 		return number;
 	}
 	

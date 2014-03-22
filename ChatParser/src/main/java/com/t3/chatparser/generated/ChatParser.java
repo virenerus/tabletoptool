@@ -4,7 +4,7 @@
         import java.util.List;
         import java.util.LinkedList;
         import com.t3.chatparser.ChatPart;
-        import com.t3.chatparser.DiceExpressionPart;
+        import com.t3.chatparser.ExpressionPart;
         import com.t3.chatparser.TextPart;
         import com.t3.chatparser.ChatCommand;
         import com.t3.chatparser.UnknownCommandException;
@@ -33,7 +33,7 @@
                         }
                 }
 
-                public DiceExpression parseDiceExpression() throws ParseException {
+                public Expression parseExpression() throws ParseException {
                         this.token_source.SwitchTo(DICE_EXPR);
                         return DICE_EXPRESSION();
                 }
@@ -78,7 +78,7 @@
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case CODE_START:
         jj_consume_token(CODE_START);
-                                 list.add(new DiceExpressionPart(DICE_EXPRESSION()));
+                                 list.add(new ExpressionPart(DICE_EXPRESSION()));
         jj_consume_token(CODE_END);
         break;
       case TEXT:
@@ -171,22 +171,22 @@
     case ROLL:
       jj_consume_token(ROLL);
                      cc=ChatCommand.ROLL;
-                     pc.add(new DiceExpressionPart(DICE_EXPRESSION()));
+                     pc.add(new ExpressionPart(DICE_EXPRESSION()));
       break;
     case ROLL_GM:
       jj_consume_token(ROLL_GM);
                      cc=ChatCommand.ROLL_GM;
-                     pc.add(new DiceExpressionPart(DICE_EXPRESSION()));
+                     pc.add(new ExpressionPart(DICE_EXPRESSION()));
       break;
     case ROLL_ME:
       jj_consume_token(ROLL_ME);
                      cc=ChatCommand.ROLL_ME;
-                     pc.add(new DiceExpressionPart(DICE_EXPRESSION()));
+                     pc.add(new ExpressionPart(DICE_EXPRESSION()));
       break;
     case ROLL_SECRET:
       jj_consume_token(ROLL_SECRET);
                      cc=ChatCommand.ROLL_SECRET;
-                     pc.add(new DiceExpressionPart(DICE_EXPRESSION()));
+                     pc.add(new ExpressionPart(DICE_EXPRESSION()));
       break;
     case SELF:
       jj_consume_token(SELF);
@@ -258,8 +258,8 @@
                  pc.setChatCommand(cc);
   }
 
-  final private DiceExpression DICE_EXPRESSION() throws ParseException {
-                 DiceExpression first=TERM();
+  final private Expression DICE_EXPRESSION() throws ParseException {
+                 Expression first=TERM();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PLUS:
     case MINUS:
@@ -300,8 +300,8 @@
     throw new Error("Missing return statement in function");
   }
 
-  final private DiceExpression TERM() throws ParseException {
-                 DiceExpression first=PRIMARY();
+  final private Expression TERM() throws ParseException {
+                 Expression first=PRIMARY();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case MULTIPLICATION:
     case DIVISION:
@@ -342,7 +342,7 @@
     throw new Error("Missing return statement in function");
   }
 
-  final private DiceExpression PRIMARY() throws ParseException {
+  final private Expression PRIMARY() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case FLOAT:
                          float fnumber;
@@ -370,7 +370,7 @@
       }
       break;
     case PARANTHESES_LEFT:
-                         DiceExpression de;
+                         Expression de;
       jj_consume_token(PARANTHESES_LEFT);
       de = DICE_EXPRESSION();
       jj_consume_token(PARANTHESES_RIGHT);

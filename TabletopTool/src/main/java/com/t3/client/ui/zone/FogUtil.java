@@ -185,6 +185,27 @@ public class FogUtil {
 			}
 		}
 	}
+	
+	public static void exposeVisibleArea(ZoneRenderer renderer, List<Token> tokenSet) {
+		Zone zone = renderer.getZone();
+
+		for (Token token : tokenSet) {
+			if (!token.getHasSight()) {
+				continue;
+			}
+			if (token.isVisibleOnlyToOwner() && !AppUtil.playerOwns(token)) {
+				continue;
+			}
+			renderer.flush(token);
+			Area tokenVision = renderer.getVisibleArea(token);
+			if (tokenVision != null) {
+				Set<GUID> filteredToks = new HashSet<GUID>();
+				filteredToks.add(token.getId());
+				zone.exposeArea(tokenVision, filteredToks);
+				TabletopTool.serverCommand().exposeFoW(zone.getId(), tokenVision, filteredToks);
+			}
+		}
+	}
 
 	public static void exposePCArea(ZoneRenderer renderer) {
 		Set<GUID> tokenSet = new HashSet<GUID>();

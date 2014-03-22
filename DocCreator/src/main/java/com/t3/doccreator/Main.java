@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.t3.dice.expression.Expression;
 import com.t3.macro.api.MacroAPI;
 import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
@@ -10,7 +11,6 @@ import com.t3.macro.api.functions.InitiativeListView;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
-import com.t3.macro.api.views.DiceExpressionView;
 import com.t3.macro.api.views.ButtonMacroView;
 import com.t3.macro.api.views.MapView;
 import com.t3.macro.api.views.TokenView;
@@ -30,7 +30,7 @@ public class Main {
 			"MapView",path("OpenGameTable",MapView.class),
 			"ButtonMacroView",path("OpenGameTable",ButtonMacroView.class),
 			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
-			"DiceExpressionView",path("OpenGameTable",DiceExpressionView.class),
+			"ExpressionView",path("OpenGameTable",Expression.class),
 			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
 			};
 		

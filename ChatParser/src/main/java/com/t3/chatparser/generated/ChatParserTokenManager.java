@@ -3,7 +3,7 @@ package com.t3.chatparser.generated;
 import java.util.List;
 import java.util.LinkedList;
 import com.t3.chatparser.ChatPart;
-import com.t3.chatparser.DiceExpressionPart;
+import com.t3.chatparser.ExpressionPart;
 import com.t3.chatparser.TextPart;
 import com.t3.chatparser.ChatCommand;
 import com.t3.chatparser.UnknownCommandException;

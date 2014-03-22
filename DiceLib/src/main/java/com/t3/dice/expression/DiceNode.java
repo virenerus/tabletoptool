@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.t3.dice.Dice;
 
-public class DiceNode implements DiceExpression {
+public class DiceNode extends Expression {
 
 	private Dice dice;
 
@@ -13,7 +13,7 @@ public class DiceNode implements DiceExpression {
 		this.dice=dice;
 	}
 
-	public float evaluate(Random random) {
+	public float getResult(Random random) {
 		if(!dice.isRolled())
 			dice.roll(random);
 		return dice.getResult();

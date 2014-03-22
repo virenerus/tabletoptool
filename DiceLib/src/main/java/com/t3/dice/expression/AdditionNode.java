@@ -4,35 +4,35 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Random;
 
-public class AdditionNode implements DiceExpression {
+public class AdditionNode extends Expression {
 
-	private ArrayList<DiceExpression> nodes;
+	private ArrayList<Expression> nodes;
 	private BitSet operations;
 
-	public AdditionNode(DiceExpression first) {
-		nodes=new ArrayList<DiceExpression>(10);
+	public AdditionNode(Expression first) {
+		nodes=new ArrayList<Expression>(10);
 		nodes.add(first);
 		operations=new BitSet();
 		operations.set(nodes.size()-1, true);
 	}
 
-	public float evaluate(Random random) {
+	public float getResult(Random random) {
 		float sum=0;
 		for(int i=0;i<nodes.size();i++) {
 			if(operations.get(i))
-				sum+=nodes.get(i).evaluate(random);
+				sum+=nodes.get(i).getResult(random);
 			else
-				sum-=nodes.get(i).evaluate(random);
+				sum-=nodes.get(i).getResult(random);
 		}
 		return sum;
 	}
 
-	public void add(DiceExpression term) {
+	public void add(Expression term) {
 		nodes.add(term);
 		operations.set(nodes.size()-1, true);
 	}
 	
-	public void subtract(DiceExpression term) {
+	public void subtract(Expression term) {
 		nodes.add(term);
 		operations.set(nodes.size()-1, false);
 	}

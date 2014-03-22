@@ -2,16 +2,16 @@ package com.t3.dice.expression;
 
 import java.util.Random;
 
-public class NegationNode implements DiceExpression {
+public class NegationNode extends Expression {
 
-	private DiceExpression expr;
+	private Expression expr;
 
-	public NegationNode(DiceExpression expr) {
+	public NegationNode(Expression expr) {
 		this.expr=expr;
 	}
 	
-	public float evaluate(Random random) {
-		return -expr.evaluate(random);
+	public float getResult(Random random) {
+		return -expr.getResult(random);
 	}
 	
 

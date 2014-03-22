@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Random;
 
-public class MultiplicationNode implements DiceExpression {
-	private ArrayList<DiceExpression> nodes;
+public class MultiplicationNode extends Expression {
+	private ArrayList<Expression> nodes;
 	private BitSet operations;
 
-	public MultiplicationNode(DiceExpression first) {
-		nodes=new ArrayList<DiceExpression>(10);
+	public MultiplicationNode(Expression first) {
+		nodes=new ArrayList<Expression>(10);
 		nodes.add(first);
 		operations=new BitSet();
 		operations.set(nodes.size()-1, true);
 	}
 
-	public float evaluate(Random random) {
+	public float getResult(Random random) {
 		int product=1;
 		for(int i=0;i<nodes.size();i++) {
 			if(operations.get(i))
-				product*=nodes.get(i).evaluate(random);
+				product*=nodes.get(i).getResult(random);
 			else
-				product/=nodes.get(i).evaluate(random);
+				product/=nodes.get(i).getResult(random);
 		}
 		return product;
 	}
 
-	public void multiplyBy(DiceExpression term) {
+	public void multiplyBy(Expression term) {
 		nodes.add(term);
 		operations.set(nodes.size()-1, true);
 	}
 	
-	public void divideBy(DiceExpression term) {
+	public void divideBy(Expression term) {
 		nodes.add(term);
 		operations.set(nodes.size()-1, false);
 	}

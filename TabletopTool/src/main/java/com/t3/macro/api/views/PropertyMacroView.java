@@ -37,6 +37,10 @@ public class PropertyMacroView implements MacroView {
 	}
 
 	@Override
+	/**
+	 * This will try to execute the macro and return its result if there are any.
+	 * @returns the object returned by the called macro
+	 */
 	public Object execute() throws MacroException {
 		return MacroEngine.getInstance().run(script, token);
 	}

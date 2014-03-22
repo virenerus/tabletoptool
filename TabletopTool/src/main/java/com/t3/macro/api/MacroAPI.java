@@ -9,23 +9,19 @@ import java.util.Map.Entry;
 
 import com.t3.chatparser.generated.ChatParser;
 import com.t3.chatparser.generated.ParseException;
-import com.t3.dice.DiceBuilder;
-import com.t3.dice.expression.DiceExpression;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.ChatExecutor;
-import com.t3.language.I18N;
+import com.t3.dice.DiceBuilder;
+import com.t3.dice.expression.Expression;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
-import com.t3.macro.api.functions.input.InputFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.views.TokenView;
 import com.t3.model.CellPoint;
-import com.t3.model.Player;
-import com.t3.model.TextMessage;
 import com.t3.model.ZonePoint;
 import com.t3.model.campaign.TokenProperty;
 
@@ -173,9 +169,23 @@ public abstract class MacroAPI extends Script {
 		return namesList;
 	}
 
-	public DiceExpression roll(String diceExpression) throws MacroException {
+	/**
+	 * This method allows you to roll dice by parsing a string into a dice expression. The String can contain
+	 * the same types of values as the expression property.
+	 * Examples:
+	 * <ul>
+	 * 	<li>1d6</li>
+	 *  <li>4d6d1</li>
+	 *  <li>4d6+13+2d4</li>
+	 * </ul>
+	 * The most interesting methods of the returned object are getResult, toString and toEvaluatedString and toCompleteChatString
+	 * @param diceExpression the string that should be parsed
+	 * @return a Expression representing your expression
+	 * @throws MacroException
+	 */
+	public Expression roll(String diceExpression) throws MacroException {
 		try {
-			return new ChatParser(diceExpression).parseDiceExpression();
+			return new ChatParser(diceExpression).parseExpression();
 		} catch (ParseException e) {
 			throw new MacroException("Could not parse dice Expression '"+diceExpression+"'",e);
 		}

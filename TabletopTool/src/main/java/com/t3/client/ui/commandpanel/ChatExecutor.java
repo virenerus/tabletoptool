@@ -6,11 +6,11 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import com.t3.chatparser.ChatPart;
-import com.t3.chatparser.DiceExpressionPart;
+import com.t3.chatparser.ExpressionPart;
 import com.t3.chatparser.ParsedChat;
 import com.t3.chatparser.UnknownCommandException;
 import com.t3.dice.NumberUtil;
-import com.t3.dice.expression.DiceExpression;
+import com.t3.dice.expression.Expression;
 import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
@@ -94,16 +94,16 @@ public class ChatExecutor {
 						reply(buildDefaultStringRepresentation(parts), identity);
 						break;
 					case ROLL:
-						TabletopTool.addMessage(TextMessage.say(printRoll((DiceExpressionPart)parts.get(0)),identity));
+						TabletopTool.addMessage(TextMessage.say(((ExpressionPart)parts.get(0)).getDiceExpression().toCompleteChatString(),identity));
 						break;
 					case ROLL_GM:
-						TabletopTool.addMessage(TextMessage.gm(printRoll((DiceExpressionPart)parts.get(0)),identity));
+						TabletopTool.addMessage(TextMessage.gm(((ExpressionPart)parts.get(0)).getDiceExpression().toCompleteChatString(),identity));
 						break;
 					case ROLL_ME:
-						TabletopTool.addMessage(TextMessage.me(printRoll((DiceExpressionPart)parts.get(0))));
+						TabletopTool.addMessage(TextMessage.me(((ExpressionPart)parts.get(0)).getDiceExpression().toCompleteChatString()));
 						break;
 					case ROLL_SECRET:
-						String roll=printRoll((DiceExpressionPart)parts.get(0));
+						String roll=((ExpressionPart)parts.get(0)).getDiceExpression().toCompleteChatString();
 						if (!TabletopTool.getPlayer().isGM()) {
 			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, identity, "* " + 
 			            			I18N.getText("rollsecret.gm.string", identity, roll)));
@@ -282,19 +282,7 @@ public class ChatExecutor {
 		TabletopTool.getFrame().getCommandPanel().clearMessagePanel();
 	}
 
-	private static String printRoll(DiceExpressionPart diceExpressionPart) {
-		DiceExpression diceExpression = diceExpressionPart.getDiceExpression();
-		float result=diceExpression.evaluate(T3Util.getRandom());
-		StringBuilder sb=new StringBuilder();
-		sb.append(diceExpression.toString())
-			.append(" = ")
-			.append(diceExpression.toEvaluatedString())
-			.append(" = <b>")
-			.append(NumberUtil.formatFloat(result))
-			.append("</b>");
-		
-		return sb.toString();
-	}
+	
 
 	private static String buildDefaultStringRepresentation(List<? extends ChatPart> parts) {
 		StringBuilder sb=new StringBuilder();

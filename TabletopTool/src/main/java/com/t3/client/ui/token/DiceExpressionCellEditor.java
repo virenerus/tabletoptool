@@ -7,16 +7,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
-import com.t3.macro.api.views.DiceExpressionView;
+import com.t3.chatparser.generated.ChatParser;
+import com.t3.dice.expression.Expression;
 
 public class DiceExpressionCellEditor extends AbstractCellEditor implements TableCellEditor {
 	
 	JTextField textField=new JTextField();
 	
 	@Override
-	public DiceExpressionView getCellEditorValue() {
+	public Expression getCellEditorValue() {
 		try {
-			return new DiceExpressionView(textField.getText());
+			return new ChatParser(textField.getText()).parseExpression();
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -24,7 +25,7 @@ public class DiceExpressionCellEditor extends AbstractCellEditor implements Tabl
 
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		DiceExpressionView dev=(DiceExpressionView) value;
+		Expression dev=(Expression) value;
 		textField.setText(dev.toString());
 		return textField;
 	}

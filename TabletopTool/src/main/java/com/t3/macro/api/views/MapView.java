@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
 
+//TODO rework the way VBL is manipulated
 public class MapView {
 
 	private final ZoneRenderer zr;
@@ -33,22 +35,38 @@ public class MapView {
 		this.zr=zr;
 	}
 	
+	/**
+	 * @return the name of the map
+	 */
 	public String getName() {
 		return zr.getZone().getName();
 	}
 
+	/**
+	 * This method will make this map the current map on your T³
+	 */
 	public void makeCurrentMap() {
 		TabletopTool.getFrame().setCurrentZoneRenderer(zr);
 	}
 	
+	/**
+	 * This method will expose all fog currently visible for the PCs
+	 */
 	public void exposePCAreaFog() {
 		FogUtil.exposePCArea(zr);
 	}
 
-	public void exposeVisibleAreaGof() {
-		Set<GUID> tokens = zr.getSelectedTokenSet();
-		Set<GUID> ownedTokens = zr.getOwnedTokens(tokens);
-		FogUtil.exposeVisibleArea(zr, ownedTokens);
+	/**
+	 * This method exposes all fog currently visible for the given tokens. It will
+	 * only expose the visible areas of the tokens you own.
+	 * @param tokens the tokens
+	 */
+	public void exposeVisibleAreaOfOwnedTokens(List<TokenView> tokens) {
+		List<Token> owned=new ArrayList<Token>(tokens.size());
+		for(TokenView t:tokens)
+			if(t.isOwner(TabletopTool.getPlayer().getName()))
+				owned.add(t.token);
+		FogUtil.exposeVisibleArea(zr, owned);
 	}
 	
 	public void drawVBL(Shape shape) {
@@ -138,6 +156,11 @@ public class MapView {
 		zr.repaint();
 	}
 
+	/**
+	 * This returns a token from this map given its name, gm name or GUID
+	 * @param identifier
+	 * @return
+	 */
 	public TokenView findToken(String identifier) {
 		Token t=zr.getZone().resolveToken(identifier);
 		if(t==null)
@@ -146,28 +169,45 @@ public class MapView {
 			return new TokenView(t);
 	}
 	
+	/**
+	 * @return a list of all the tokens on this map
+	 */
 	public List<TokenView> getTokens() {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new AllFilter()));
 	}
 	
+	/**
+	 * @return a list of all the selected tokens on this map
+	 */
 	public List<TokenView> getSelectedTokens() {
 		return TokenView.makeTokenViewList(zr.getSelectedTokensList());
 	}
 	
+	/**
+	 * @return a list of all the tokens on this map currently visible
+	 */
 	public List<TokenView> getExposedTokens() {
 		Zone zone = zr.getZone();
 		return TokenView.makeTokenViewList(zone.getTokensFiltered(new ExposedFilter(zone)));
 	}
 	
-	
+	/**
+	 * @return a list of all the tokens on this map that are PCs
+	 */
 	public List<TokenView> getPCTokens() {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new PCFilter()));
 	}
 	
+	/**
+	 * @return a list of all the tokens on this map that are NPCs
+	 */
 	public List<TokenView> getNPCTokens() {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new NPCFilter()));
 	}
 	
+	/**
+	 * @return a list of all the tokens on this map that have the gien state
+	 */
 	public List<TokenView> getTokensWithState(String state) {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new StateFilter(state)));
 	}

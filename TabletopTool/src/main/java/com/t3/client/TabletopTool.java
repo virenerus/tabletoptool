@@ -90,11 +90,11 @@ import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
+import com.t3.dice.expression.Expression;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
-import com.t3.macro.api.views.DiceExpressionView;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
 import com.t3.model.GUID;
@@ -1179,7 +1179,7 @@ public class TabletopTool {
 				return new PropertyMacroViewCellEditor();
 			}
 		});
-		CellEditorManager.registerEditor(DiceExpressionView.class, new CellEditorFactory() {
+		CellEditorManager.registerEditor(Expression.class, new CellEditorFactory() {
 			@Override
 			public CellEditor create() {
 				return new DiceExpressionCellEditor();

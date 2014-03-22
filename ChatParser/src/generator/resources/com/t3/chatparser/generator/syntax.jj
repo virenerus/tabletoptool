@@ -11,7 +11,7 @@ PARSER_BEGIN(ChatParser)
 	import java.util.List;
 	import java.util.LinkedList;
 	import com.t3.chatparser.ChatPart;
-	import com.t3.chatparser.DiceExpressionPart;
+	import com.t3.chatparser.ExpressionPart;
 	import com.t3.chatparser.TextPart;
 	import com.t3.chatparser.ChatCommand;
 	import com.t3.chatparser.UnknownCommandException;
@@ -40,7 +40,7 @@ PARSER_BEGIN(ChatParser)
 			}
 		}
 		
-		public DiceExpression parseDiceExpression() throws ParseException {
+		public Expression parseExpression() throws ParseException {
 			this.token_source.SwitchTo(DICE_EXPR);
 			return DICE_EXPRESSION();
 		}
@@ -126,7 +126,7 @@ private ParsedChat START() throws UnknownCommandException:
 		(
 			(
 				<CODE_START>
-				{list.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+				{list.add(new ExpressionPart(DICE_EXPRESSION()));}
 				<CODE_END>
 			)
 			|
@@ -196,19 +196,19 @@ private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 		    |
 		    <ROLL>
 		    {cc=ChatCommand.ROLL;}
-		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    {pc.add(new ExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_GM>
 		    {cc=ChatCommand.ROLL_GM;}
-		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    {pc.add(new ExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_ME>
 		    {cc=ChatCommand.ROLL_ME;}
-		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    {pc.add(new ExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <ROLL_SECRET>
 		    {cc=ChatCommand.ROLL_SECRET;}
-		    {pc.add(new DiceExpressionPart(DICE_EXPRESSION()));}
+		    {pc.add(new ExpressionPart(DICE_EXPRESSION()));}
 		    |
 		    <SELF>
 		    {cc=ChatCommand.SELF;}
@@ -250,11 +250,11 @@ private void CHAT_COMMAND(ParsedChat pc) throws UnknownCommandException:
 	}
 	
 
-private DiceExpression DICE_EXPRESSION() :
+private Expression DICE_EXPRESSION() :
 	{	}
 	{
 		
-		{DiceExpression first=TERM();}
+		{Expression first=TERM();}
 		(
 		  	{AdditionNode a=new AdditionNode(first);}
 			(				<PLUS>
@@ -266,12 +266,12 @@ private DiceExpression DICE_EXPRESSION() :
 		)?
 		{return first;}		  	}
 
-private DiceExpression TERM() :
+private Expression TERM() :
 	{
 	}
 	{
 		
-		{DiceExpression first=PRIMARY();}
+		{Expression first=PRIMARY();}
 
 		(
 		  	{MultiplicationNode a=new MultiplicationNode(first);}
@@ -288,7 +288,7 @@ private DiceExpression TERM() :
 		  
 	}
 
-private DiceExpression PRIMARY():
+private Expression PRIMARY():
 	{
 	}
 	{
@@ -304,7 +304,7 @@ private DiceExpression PRIMARY():
 				{return new NumberNode(number);}
 			)
 		|
-			{DiceExpression de;}
+			{Expression de;}
 			<PARANTHESES_LEFT>
 			de= DICE_EXPRESSION()
 			<PARANTHESES_RIGHT>
