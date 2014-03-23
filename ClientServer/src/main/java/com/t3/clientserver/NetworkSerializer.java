@@ -39,8 +39,8 @@ public class NetworkSerializer {
 	    	//write Parameters
 	    	for(Object p:parameters) {
 	    		kryo.writeClassAndObject(kryoOut, p);
-	    		System.out.println(p.getClass().getName());
-	    		System.out.println(p.toString());
+	    		//System.out.println(p.getClass().getName());
+	    		//System.out.println(p.toString());
 	    	}
 	    	kryoOut.close();
 	    	kryoPool.returnObject(kryo);

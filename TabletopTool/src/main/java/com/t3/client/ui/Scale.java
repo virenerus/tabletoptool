@@ -37,9 +37,6 @@ public class Scale implements Serializable {
 
 	private boolean initialized;
 
-	// LEGACY for 1.3b31 and earlier
-	transient private int              scaleIndex;		// 'transient' prevents serialization; prep for 1.4
-
 	public Scale() {
 		this(0, 0);
 	}

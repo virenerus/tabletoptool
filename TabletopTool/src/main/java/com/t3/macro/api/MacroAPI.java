@@ -20,6 +20,7 @@ import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.functions.token.TokenLocation;
+import com.t3.macro.api.views.InitiativeListView;
 import com.t3.macro.api.views.TokenView;
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
@@ -114,6 +115,14 @@ public abstract class MacroAPI extends Script {
 	public void goTo(TokenView token) {
 		TokenLocation tl=token.getLocation(false);
 		TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new ZonePoint(tl.getX(), tl.getY()));
+	}
+	
+	/**
+	 * An convenience method. This will return the initiative list of the current map. 
+	 * @return the initiative list of the current map
+	 */
+	public InitiativeListView getInitiativeList() {
+		return new InitiativeListView(TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList());
 	}
 	
 	/**

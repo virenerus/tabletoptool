@@ -26,7 +26,7 @@ public class Pointer {
 	private int x;
 	private int y;
 	private double direction; // 
-	private String type;
+	private Type type;
 	
 	public Pointer() {/* Hessian serializable */}
 	
@@ -35,7 +35,7 @@ public class Pointer {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
-		this.type = type.name();
+		this.type = type;
 	}
 	
 	public String toString() {
@@ -43,7 +43,7 @@ public class Pointer {
 	}
 
 	public Type getType() {
-		return type != null ? Type.valueOf(type) : Type.ARROW;
+		return type != null ? type : Type.ARROW;
 	}
 	
 	public GUID getZoneGUID() {

@@ -62,7 +62,7 @@ public class LineTemplate extends AbstractTemplate {
 	 * The line is drawn in this quadrant. A string is used as a hack to get
 	 * around the hessian library's problem w/ serialization of enums
 	 */
-	private String quadrant = null;
+	private Quadrant quadrant = null;
 
 	/**
 	 * Flag used to determine mouse position relative to vertex position
@@ -336,9 +336,7 @@ public class LineTemplate extends AbstractTemplate {
 	 * @return Returns the current value of quadrant.
 	 */
 	public Quadrant getQuadrant() {
-		if (quadrant != null)
-			return Quadrant.valueOf(quadrant);
-		return null;
+		return quadrant;
 	}
 
 	/**
@@ -348,10 +346,7 @@ public class LineTemplate extends AbstractTemplate {
 	 *            The quadrant to set.
 	 */
 	public void setQuadrant(Quadrant quadrant) {
-		if (quadrant != null)
-			this.quadrant = quadrant.name();
-		else
-			this.quadrant = null;
+		this.quadrant = quadrant;
 	}
 
 	/**

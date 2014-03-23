@@ -50,7 +50,7 @@ public class Handshake {
 		Response response = new Response();
 		response.code = Code.OK;
 
-		boolean passwordMatches = Player.Role.valueOf(request.role) == Player.Role.GM ? config.gmPasswordMatches(request.password) : config.playerPasswordMatches(request.password);
+		boolean passwordMatches = request.role == Player.Role.GM ? config.gmPasswordMatches(request.password) : config.playerPasswordMatches(request.password);
 		if (!passwordMatches) {
 
 			// PASSWORD
@@ -72,7 +72,7 @@ public class Handshake {
 		}
 		response.policy = server.getPolicy();
 		output.writeObject(response);
-		return response.code == Code.OK ? new Player(request.name, Player.Role.valueOf(request.role), request.password) : null;
+		return response.code == Code.OK ? new Player(request.name, request.role, request.password) : null;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class Handshake {
 	public static class Request {
 		public String name;
 		public String password;
-		public String role;
+		public Player.Role role;
 		public String version;
 
 		public Request() {
@@ -100,7 +100,7 @@ public class Handshake {
 		public Request(String name, String password, Player.Role role, String version) {
 			this.name = name;
 			this.password = password;
-			this.role = role.name();
+			this.role = role;
 			this.version = version;
 		}
 	}

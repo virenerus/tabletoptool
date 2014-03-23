@@ -7,11 +7,11 @@ import com.t3.dice.expression.Expression;
 import com.t3.macro.api.MacroAPI;
 import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
-import com.t3.macro.api.functions.InitiativeListView;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.views.ButtonMacroView;
+import com.t3.macro.api.views.InitiativeListView;
 import com.t3.macro.api.views.MapView;
 import com.t3.macro.api.views.TokenView;
 

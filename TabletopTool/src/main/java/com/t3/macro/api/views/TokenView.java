@@ -33,6 +33,7 @@ import com.t3.language.I18N;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.functions.token.TokenPart;
+import com.t3.macro.api.views.InitiativeListView.InitiativeEntry;
 import com.t3.model.AbstractPoint;
 import com.t3.model.CellPoint;
 import com.t3.model.Direction;
@@ -265,11 +266,11 @@ public class TokenView extends TokenPropertyView {
      * @param token Get it for this token
      * @return The first token initiative value for the passed token
      */
-    public String getInitiative() {
+    public InitiativeEntry getInitiative() {
         Zone zone = token.getZone();
         List<Integer> list = zone.getInitiativeList().indexOf(token);
         if (list.isEmpty()) return null; 
-        return zone.getInitiativeList().getTokenInitiative(list.get(0).intValue()).getState(); 
+        return new InitiativeEntry(zone.getInitiativeList().getTokenInitiative(list.get(0).intValue())); 
     }
     
     /**
@@ -278,13 +279,13 @@ public class TokenView extends TokenPropertyView {
      * @param token Get it for this token
      * @return The first token initiative value for the passed token
      */
-    public List<String> getInitiatives() {
+    public List<InitiativeEntry> getInitiatives() {
         Zone zone = token.getZone();
         List<Integer> list = zone.getInitiativeList().indexOf(token);
         if (list.isEmpty()) return Collections.emptyList();
-        List<String> ret = new ArrayList<String>(list.size());
+        List<InitiativeEntry> ret = new ArrayList<InitiativeEntry>(list.size());
         for (Integer index : list)
-            ret.add(zone.getInitiativeList().getTokenInitiative(index.intValue()).getState());
+            ret.add(new InitiativeEntry(zone.getInitiativeList().getTokenInitiative(index.intValue())));
         return ret;
     }
     
@@ -556,10 +557,17 @@ public class TokenView extends TokenPropertyView {
 		return token.getLabel();
 	}
 	
+	/**
+	 * @return the GM name of the token
+	 */
 	public String getGMName() {
 		return token.getGMName();
 	}
 	
+	/**
+	 * This method sets the GM name of the token
+	 * @param name the new GM name
+	 */
 	public void setGMName(String name) {
 		token.setGMName(name);
 		Zone zone = token.getZone();
@@ -593,21 +601,6 @@ public class TokenView extends TokenPropertyView {
 		Zone zone = token.getZone();
 		zone.putToken(token);
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
-	}
-	
-	public boolean getInitiativeHold() {
-		Zone zone = token.getZone();
-        List<Integer> list = zone.getInitiativeList().indexOf(token);
-        if (list.isEmpty())
-        	throw new IllegalArgumentException("The accessed token is not on the current map"); 
-        return zone.getInitiativeList().getTokenInitiative(list.get(0).intValue()).isHolding(); 
-	}
-	
-	public void setInitiativeHold(boolean value) {
-		Zone zone = token.getZone();
-        for(TokenInitiative ti : zone.getInitiativeList().getTokens())
-        	if(ti.getToken().equals(token))
-        		ti.setHolding(value);
 	}
 	
 	public boolean hasLightSource() {

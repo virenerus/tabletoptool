@@ -110,8 +110,8 @@ public class PersistenceUtil {
 		//  modify the object's readResolve() function, because XStream does _not_ call the
 		//  regular constructors! Using factory methods won't help here, since it won't be called by XStream.
 
-		// Notes:							any XML earlier than this ---v		will have this --v applied to it
-		//																					V								V
+		// Notes:			any XML earlier than this ---v		will have this --v applied to it
+		//																		V								V
 		campaignVersionManager.registerTransformation("1.3.51", new PCVisionTransform());
 		campaignVersionManager.registerTransformation("1.3.75", new ExportInfoTransform());
 		campaignVersionManager.registerTransformation("1.3.78", new TokenPropertyMapTransform()); // FJE 2010-12-29
@@ -434,8 +434,6 @@ public class PersistenceUtil {
 		} catch (RuntimeException rte) {
 			TabletopTool.showError("PersistenceUtil.error.campaignRead", rte);
 		} catch (Error e) {
-			// Probably an issue with XStream not being able to instantiate a given class
-			// The old legacy technique probably won't work, but we should at least try...
 			TabletopTool.showError("PersistenceUtil.error.unknown", e);
 		} finally {
 			if (pakFile != null)
@@ -540,11 +538,7 @@ public class PersistenceUtil {
 		pakFile.getXStream().processAnnotations(Asset.class);
 
 		String campaignVersion = (String) pakFile.getProperty(PROP_CAMPAIGN_VERSION);
-		String progVersion = (String) pakFile.getProperty(PROP_VERSION);
 		List<Asset> addToServer = new ArrayList<Asset>(assetIds.size());
-
-		// FJE: Ugly fix for a bug I introduced in b64. :(
-		boolean fixRequired = "1.3.b64".equals(progVersion);
 
 		for (MD5Key key : assetIds) {
 			if (key == null)
@@ -553,26 +547,14 @@ public class PersistenceUtil {
 			if (!AssetManager.hasAsset(key)) {
 				String pathname = ASSET_DIR + key;
 				Asset asset = null;
-				if (fixRequired) {
-					InputStream is = null;
-					try {
-						is = pakFile.getFileAsInputStream(pathname);
-						asset = new Asset(key.toString(), IOUtils.toByteArray(is)); // Ugly bug fix :(
-					} catch (FileNotFoundException fnf) {
-						// Doesn't need to be reported, since that's handled below.
-					} catch (Exception e) {
-						log.error("Could not load asset from 1.3.b64 file in compatibility mode", e);
-					} finally {
-						IOUtils.closeQuietly(is);
-					}
-				} else {
-					try {
-						asset = (Asset) pakFile.getFileObject(pathname); // XML deserialization
-					} catch (Exception e) {
-						// Do nothing.  The asset will be 'null' and it'll be handled below.
-						log.info("Exception while handling asset '" + pathname + "'", e);
-					}
+				
+				try {
+					asset = (Asset) pakFile.getFileObject(pathname); // XML deserialization
+				} catch (Exception e) {
+					// Do nothing.  The asset will be 'null' and it'll be handled below.
+					log.info("Exception while handling asset '" + pathname + "'", e);
 				}
+				
 				if (asset == null) { // Referenced asset not included in PackedFile??
 					log.error("Referenced asset '" + pathname + "' not found while loading?!");
 					continue;

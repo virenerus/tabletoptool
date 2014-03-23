@@ -1,12 +1,10 @@
-package com.t3.macro.api.functions;
+package com.t3.macro.api.views;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.t3.client.TabletopTool;
-import com.t3.macro.api.views.TokenView;
 import com.t3.model.InitiativeList;
 import com.t3.model.InitiativeListModel;
 import com.t3.model.Token;
@@ -21,8 +19,8 @@ public class InitiativeListView {
 	 * This creates a safe view of the initiative list for the script engine. If
 	 * the NPCs are visible depends on the settings of the initiative panel.
 	 */
-	public InitiativeListView() {
-		list = list;
+	public InitiativeListView(InitiativeList list) {
+		this.list = list;
 		this.hideNPCs = list.isHideNPC();
 	}
 
@@ -32,9 +30,9 @@ public class InitiativeListView {
 	 * @param hideNPCs
 	 *            if this is true all NPCs are invisible if you are not the GM
 	 */
-	public InitiativeListView(boolean hideNPCs) {
+	public InitiativeListView(InitiativeList list, boolean hideNPCs) {
 		this.hideNPCs = hideNPCs;
-		list = list;
+		this.list = list;
 	}
 
 	/**
@@ -268,7 +266,7 @@ public class InitiativeListView {
 	public static class InitiativeEntry {
 		private TokenInitiative ti;
 
-		private InitiativeEntry(TokenInitiative ti) {
+		InitiativeEntry(TokenInitiative ti) {
 			this.ti = ti;
 		}
 

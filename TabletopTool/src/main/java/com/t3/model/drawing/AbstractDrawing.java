@@ -34,7 +34,7 @@ public abstract class AbstractDrawing implements Drawable, ImageObserver {
 	 */
 	private final GUID id = new GUID();
 
-	private String layer;
+	private Zone.Layer layer;
 
 	/*
 	 * (non-Javadoc)
@@ -90,11 +90,11 @@ public abstract class AbstractDrawing implements Drawable, ImageObserver {
 	}
 
 	public void setLayer(Zone.Layer layer) {
-		this.layer = layer != null ? layer.name() : null;
+		this.layer = layer;
 	}
 
 	public Zone.Layer getLayer() {
-		return layer != null ? Zone.Layer.valueOf(layer) : Zone.Layer.BACKGROUND;
+		return layer != null ? layer : Zone.Layer.BACKGROUND;
 	}
 
 	/**

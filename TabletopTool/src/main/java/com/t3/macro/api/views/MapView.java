@@ -6,7 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -67,6 +66,14 @@ public class MapView {
 			if(t.isOwner(TabletopTool.getPlayer().getName()))
 				owned.add(t.token);
 		FogUtil.exposeVisibleArea(zr, owned);
+	}
+	
+	/**
+	 * An convenience method. This will return the initiative list of the current map. 
+	 * @return the initiative list of the current map
+	 */
+	public InitiativeListView getInitiativeList() {
+		return new InitiativeListView(zr.getZone().getInitiativeList());
 	}
 	
 	public void drawVBL(Shape shape) {
@@ -206,14 +213,20 @@ public class MapView {
 	}
 	
 	/**
+	 * @param state the state you want to filter for
 	 * @return a list of all the tokens on this map that have the gien state
 	 */
 	public List<TokenView> getTokensWithState(String state) {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new StateFilter(state)));
 	}
 	
-	public List<TokenView> getOwnedTokens(String playerID) {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(playerID)));
+	/**
+	 * This method returns a list of all tokens that are owned by the given player on this map.
+	 * @param player the given player
+	 * @return a list of the found tokens
+	 */
+	public List<TokenView> getOwnedTokens(String player) {
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(player)));
 	}
 
 	public ArrayList<TokenView> getVisibleTokens() {
