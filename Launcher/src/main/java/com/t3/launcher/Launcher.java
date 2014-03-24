@@ -1,14 +1,22 @@
 package com.t3.launcher;
 
+import java.awt.Color;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Scanner;
+
+import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 public class Launcher {
 
@@ -47,29 +55,62 @@ public class Launcher {
 			error("Could not store config.xml.",e);
 		}
 		
-		
-		File javaExecutable=new File(System.getProperty("java.home"),"/bin/java");
-		File t3jar=new File(mainFolder,"t3.jar");
-		if(!t3jar.exists()) 
-			error("Could not find tabletop tool jar at '"+t3jar.getAbsolutePath()+"'",null);
-		
-		//execute it
-		ArrayList<String> execution=new ArrayList<String>();
-		execution.add(javaExecutable.getAbsolutePath());
-		for(Entry<Object, Object> p:properties.entrySet())
-			execution.add("-"+p.getKey()+p.getValue());
-		execution.add("-jar");
-		execution.add(t3jar.getName());
-		for(String a:args)
-			execution.add(a);
-		
-		try {
-			ProcessBuilder pb=new ProcessBuilder(execution).directory(mainFolder);
-			System.out.println("Executing "+pb.toString());
-			pb.start();
-		} catch (IOException e) {
-			error("Could not launch Tabletop Tool",e);
+		//check jre version
+		String[] versionParts=System.getProperty("java.version").split("\\.");
+		if(Integer.parseInt(versionParts[0])<1 ||
+				(Integer.parseInt(versionParts[0])==1 && 
+				 Integer.parseInt(versionParts[1])<8)) {
+			JOptionPane.showMessageDialog(null,generateErrorPanel(
+							"T³ will need at least Java 1.8.<br>"
+							+"You can download the JRE 8 here: <a href=\"https://jdk8.java.net/download.html\">https://jdk8.java.net/download.html</a>.<br>"
+							+"Your version is "+System.getProperty("java.version")		
+							),
+					"Java 1.8 required", JOptionPane.ERROR_MESSAGE);
 		}
+		else {
+			File javaExecutable=new File(System.getProperty("java.home"),"/bin/java");
+			File t3jar=new File(mainFolder,"t3.jar");
+			if(!t3jar.exists()) 
+				error("Could not find tabletop tool jar at '"+t3jar.getAbsolutePath()+"'",null);
+			
+			//execute it
+			ArrayList<String> execution=new ArrayList<String>();
+			execution.add(javaExecutable.getAbsolutePath());
+			for(Entry<Object, Object> p:properties.entrySet())
+				execution.add("-"+p.getKey()+p.getValue());
+			execution.add("-jar");
+			execution.add(t3jar.getName());
+			for(String a:args)
+				execution.add(a);
+			
+			try {
+				ProcessBuilder pb=new ProcessBuilder(execution).directory(mainFolder);
+				System.out.println("Executing "+pb.toString());
+				pb.start();
+			} catch (IOException e) {
+				error("Could not launch Tabletop Tool",e);
+			}
+		}
+	}
+
+	private static Object generateErrorPanel(String text) {
+		JEditorPane ep = new JEditorPane("text/html", "<html><body>"
+	            + text
+	            + "</body></html>");
+
+	    // handle link events
+	    ep.addHyperlinkListener(new HyperlinkListener() {
+	        @Override
+	        public void hyperlinkUpdate(HyperlinkEvent e) {
+	            if (e.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED))
+					try {
+						Desktop.getDesktop().browse(e.getURL().toURI());
+					} catch (URISyntaxException | IOException e1) {}
+	        }
+	    });
+	    ep.setEditable(false);
+	    ep.setBackground(UIManager.getColor("Panel.background"));
+	    return ep;
 	}
 
 	private static void error(String msg, Exception e) {
