@@ -56,7 +56,7 @@ PARSER_END(ChatParser)
 <CC_ARGUMENTS> TOKEN : { < INTEGER :  ("-")?(["0"-"9"])+> }
 <CC_ARGUMENTS,DICE_EXPR> SKIP  : { < " " > }
 <CC_ARGUMENTS> TOKEN : { < NAME :  (["a"-"z","A"-"Z","-","_"])+> }
-<CC_ARGUMENTS> TOKEN : { < GUID :  (["0"-"9","a"-"z","A"-"Z"]){32}> } //exactly 16 bytes => 32 chars in hex
+<CC_ARGUMENTS> TOKEN : { < GUID :  (["0"-"9","a"-"z","A"-"Z","-","/","="]){24}> } //exactly 16 bytes => 24 chars in Base64
 <CHATCOMMAND>  TOKEN : { < IMPERSONATE : "impersonate" | "im">:CC_ARGUMENTS}
 <CHATCOMMAND>  TOKEN : { < OOC : "ooc">:AFTER_CC}
 <CHATCOMMAND>  TOKEN : { < REPLY : "reply" | "rep">:AFTER_CC}

@@ -1209,6 +1209,10 @@ public class TokenView extends TokenPropertyView {
 		return token.isOwner(player);
 	}
 	
+	/**
+	 * This method will reset the given property of this token to the default value
+	 * @param property the property to reset
+	 */
 	public void resetProperty(String property) {
 		Zone zone=token.getZone();
 		token.resetProperty(property);
@@ -1216,11 +1220,19 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
-	
+	/**
+	 * @param property the name of the property you want
+	 * @return the value of the given property
+	 */
 	public Object getProperty(String property) {
 		return token.getProperty(property);
 	}
 	
+	/**
+	 * This method sets a property of this token
+	 * @param property the name of the property you want to set
+	 * @param value the value the property should have
+	 */
 	public void setProperty(String property, Object value) {
 		Zone zone=token.getZone();
 		token.setProperty(property, value);
@@ -1228,9 +1240,12 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
+	/**
+	 * @param property 
+	 * @return the default value of the given property
+	 */
 	public Object getPropertyDefault(String property) {
 		Object val = null;
-
 		List<TokenProperty> propertyList = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
 		if (propertyList != null) {
 			for (TokenProperty tp : propertyList) {

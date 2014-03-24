@@ -14,9 +14,9 @@ package com.t3.model;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.util.Base64;
 
 import com.t3.client.ui.io.ResolveLocalHostname;
-import com.withay.util.HexCode;
 
 /**
  * Global unique identificator object.
@@ -64,7 +64,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 		if (strGUID == null)
 			throw new InvalidGUIDException("GUID is null");
 
-		this.baGUID = HexCode.decode(strGUID);
+		this.baGUID = Base64.getUrlDecoder().decode(strGUID);
 		validateGUID();
 	}
 
@@ -126,7 +126,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 	/** Returns a string for the GUID. */
 	@Override
 	public String toString() {
-		return HexCode.encode(baGUID, false); // false means uppercase
+		return Base64.getUrlEncoder().encodeToString(baGUID);
 	}
 
 	/**
@@ -185,6 +185,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 		for (int i = 0; i < 10; i++) {
 			GUID guid = new GUID();
 			System.out.println("insert into sys_guids values ('" + guid.toString() + "');");
+			Thread.sleep(100);
 		}
 	}
 

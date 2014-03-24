@@ -40,7 +40,6 @@
 	<classpathentry kind="lib" path="lib/renderpack-1.2004.jar"/>
 	<classpathentry kind="lib" path="lib/servicediscoverylib-1.0.b5.jar"/>
 	<classpathentry kind="lib" path="lib/upnplib-1.0.9-nodebug.jar"/>
-	<classpathentry kind="lib" path="lib/withay-util.jar"/>
 	<classpathentry kind="lib" path="lib/yasb-0.2-21012007.jar"/>
 	<classpathentry kind="lib" path="lib/abeille-formsrt-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/hessian-4.0.37.jar"/>
