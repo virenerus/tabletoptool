@@ -16,8 +16,7 @@ package com.t3;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import com.withay.util.HexCode;
+import java.util.Base64;
 
 /**
  * Global unique identificator object.
@@ -54,7 +53,7 @@ public class GUID extends Object implements Serializable {
     public GUID(String strGUID) {
         if (strGUID == null) throw new InvalidGUIDException("GUID is null");
 
-        this.baGUID = HexCode.decode(strGUID);
+        this.baGUID = Base64.getUrlDecoder().decode(strGUID);
         validateGUID();
     }
 
@@ -109,7 +108,7 @@ public class GUID extends Object implements Serializable {
 
     /** Returns a string for the GUID. */
     public String toString() {
-        return HexCode.encode(baGUID, false); // false means uppercase
+        return Base64.getUrlEncoder().encodeToString(baGUID);
     }
 
     /**
