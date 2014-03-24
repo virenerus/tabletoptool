@@ -12,8 +12,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
-          <source>7</source> <!-- see here, says only 7, not 1.7 -->
-          <target>7</target> <!-- here as well -->
+          <source>7</source>
+          <target>7</target>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
           <executable>${env.JAVA_HOME_7}/bin/javac</executable>

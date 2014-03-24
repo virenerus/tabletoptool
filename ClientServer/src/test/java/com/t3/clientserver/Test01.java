@@ -40,7 +40,7 @@ public class Test01 {
         
         for (int i = 0; i < 5; i++) {
             if (i % 3 == 0) {
-                client.callMethod(NetworkMessage.A, new Float(2.3f), new Double(7.035923057230));
+                client.callMethod(NetworkMessage.A, new Float(2.3f));
             }
             server.broadcastCallMethod(NetworkMessage.B, new Float(5.3f));
             Thread.sleep(1000);

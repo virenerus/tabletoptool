@@ -60,8 +60,6 @@ public class Campaign {
 	private GUID id = new GUID();
 	private Map<GUID, Zone> zones = Collections.synchronizedMap(new LinkedHashMap<GUID, Zone>());
 
-	@SuppressWarnings("unused")
-	private transient static ExportDialog exportInfo = null; // transient so it is not written out; entire element ignore when reading
 	private static ExportDialog exportDialog; // this is the new export dialog (different name for upward compatibility)
 
 	// Static data isn't written to the campaign file when saved; these two fields hold the output location and type, and the
@@ -85,9 +83,6 @@ public class Campaign {
 
 	private Map<String, Map<GUID, LightSource>> lightSourcesMap;
 	private Map<String, LookupTable> lookupTableMap;
-
-	// DEPRECATED: as of 1.3b19 here to support old serialized versions
-	private Map<GUID, LightSource> lightSourceMap;
 
 	/**
 	 * This flag indicates whether the manual fog tools have been used in this campaign while a server is not running.

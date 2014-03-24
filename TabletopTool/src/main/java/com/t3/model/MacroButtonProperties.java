@@ -404,15 +404,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			} else if (saveLocation.equals("CampaignPanel")) {
 				loc = "campaign";
 			} else if (contextToken != null) {
-				// Should this IF stmt really be:
-				//		contextToken.matches("^[^:\\s]+:")
-				// That would match any token with a string of text followed by a colon
-				// with no spaces in front of the colon.
-				if (contextToken.getName().toLowerCase().startsWith("lib:")) {
-					loc = contextToken.getName();
-				} else {
-					loc = "Token:" + contextToken.getName();
-				}
+				loc = "Token:" + contextToken.getName();
 			} else {
 				loc = "chat";
 			}

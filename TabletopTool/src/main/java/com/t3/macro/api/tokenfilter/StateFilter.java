@@ -8,7 +8,7 @@ import com.t3.model.Zone;
 /**
  * Filter for finding tokens by set state.
  */
-public class StateFilter implements Zone.Filter {
+public class StateFilter implements TokenFilter {
 	private final String stateName;
 
 	public StateFilter(String stateName) {
@@ -16,11 +16,6 @@ public class StateFilter implements Zone.Filter {
 	}
 
 	public boolean matchToken(Token t) {
-		// Filter out the utility lib: and image: tokens
-		if (t.getName().toLowerCase().startsWith("image:") || t.getName().toLowerCase().startsWith("lib:")) {
-			return false;
-		}
-		else
-			return t.hasState(stateName);
+		return t.hasState(stateName);
 	}
 }

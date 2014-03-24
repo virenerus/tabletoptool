@@ -96,25 +96,6 @@ public class InfoFunctions {
 		cinfo.put("isFullScreen", TabletopTool.getFrame().isFullScreen() ? BigDecimal.ONE : BigDecimal.ZERO);
 		cinfo.put("timeInMs", System.currentTimeMillis());
 		cinfo.put("timeDate", getTimeDate());
-		//FIXME trusted?
-		//if (TabletopTool.getParser().isMacroTrusted()) {
-			Map<String, Object> libInfo = new HashMap<String, Object>();
-			for (ZoneRenderer zr : TabletopTool.getFrame().getZoneRenderers()) {
-				Zone zone = zr.getZone();
-				for (Token token : zone.getTokens()) {
-					if (token.getName().toLowerCase().startsWith("lib:")) {
-						if (token.getProperty("libversion") != null) {
-							libInfo.put(token.getName(), token.getProperty("libversion"));
-						} else {
-							libInfo.put(token.getName(), "unknown");
-						}
-					}
-				}
-			}
-			if (libInfo.size() > 0) {
-				cinfo.put("library tokens", libInfo);
-			}
-		//}
 		return cinfo;
 	}
 

@@ -603,11 +603,19 @@ public class TokenView extends TokenPropertyView {
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
-	public boolean hasLightSource() {
+	/**
+	 * @return if this token has any light source
+	 */
+	public boolean hasLight() {
 		return token.hasLightSources();
 	}
 	
-	public boolean hasLightSource(String category) {
+	/**
+	 * 
+	 * @param category the category
+	 * @return if this token has any light source of the given category
+	 */
+	public boolean hasLight(String category) {
 
 			for (LightSource ls : TabletopTool.getCampaign().getLightSourcesMap().get(category).values()) {
 				if (token.hasLightSource(ls))
@@ -616,7 +624,13 @@ public class TokenView extends TokenPropertyView {
 			return false;
 	}
 	
-	public boolean hasLightSource(String category, String name) {
+	/**
+	 * 
+	 * @param category the category of the light source you are looking for
+	 * @param name the name of the light source you are looking for
+	 * @return if this token has the given light source
+	 */
+	public boolean hasLight(String category, String name) {
 		for (LightSource ls : TabletopTool.getCampaign().getLightSourcesMap().get(category).values()) {
 			if (ls.getName().equals(name)) {
 				if (token.hasLightSource(ls)) {
@@ -627,6 +641,9 @@ public class TokenView extends TokenPropertyView {
 		return false;
 	}
 	
+	/**
+	 * This method will remove all light sources from the token.
+	 */
 	public void clearLightSources() {
 		token.clearLightSources();
 		this.sendUpdateToServer();
@@ -695,10 +712,17 @@ public class TokenView extends TokenPropertyView {
 		return lightList;
 	}
 	
+	/**
+	 * @return the location of the token
+	 */
 	public TokenLocation getLocation() {
 		return getLocation(true);
 	}
 
+	/**
+	 * @param useDistancePerCell if you want the location as distance per cell
+	 * @return the location of the token
+	 */
 	public TokenLocation getLocation(boolean useDistancePerCell) {
 		if (useDistancePerCell) {
 			Rectangle tokenBounds = token.getBounds(token.getZone());
@@ -710,12 +734,20 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 	
-	public int getDrawOrder() {
+	/**
+	 * @return the z order of this token. The z value gives the order in which the tokens
+	 * are drawn.
+	 */
+	public int getZOrder() {
 		return token.getZOrder();
 	}
 	
-	public void setDrawOrder(int newOrder) {
-		token.setZOrder(newOrder);
+	/**
+	 * This methods sets the z order of this token.
+	 * @param newZ the new z order
+	 */
+	public void setZOrder(int newZ) {
+		token.setZOrder(newZ);
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
 		zone.putToken(token);
@@ -723,25 +755,43 @@ public class TokenView extends TokenPropertyView {
 		renderer.flushLight();
 	}
 	
+	/**
+	 * Gets the distance between this token and this one.
+	 * @param target the token to calculate the distance to
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(TokenView target) {
 		return getDistance(target,true,null);
 	}
 	
+	/**
+	 * Gets the distance between this token and this one.
+	 * @param target the token to calculate the distance to
+	 * @param metric the metric that should be used to calculate the distance. Can be
+	 * NO_GRID, NO_DIAGONALS, MANHATTAN, ONE_TWO_ONE or ONE_ONE_ONE
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(TokenView target, String metric) {
 		return getDistance(target,true,metric);
 	}
 	
+	/**
+	 * Gets the distance between this token and this one.
+	 * @param target the token to calculate the distance to
+	 * @param gridUnits if you want the result in grid units
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(TokenView target, boolean gridUnits) {
 		return getDistance(target,gridUnits,null);
 	}
 	
 	/**
-	 * Gets the distance between two tokens.
-	 * 
-	 * @param target.token
-	 * @param gridUnits
-	 * @return the distance between this token and target
-	 * @throws ParserException
+	 * Gets the distance between this token and the given one.
+	 * @param target the token to calculate the distance to
+	 * @param gridUnits if you want the result in grid units
+	 * @param metric the metric that should be used to calculate the distance. Can be
+	 * NO_GRID, NO_DIAGONALS, MANHATTAN, ONE_TWO_ONE or ONE_ONE_ONE
+	 * @return the distance between this token and target.
 	 */
 	public double getDistance(TokenView target, boolean gridUnits, String metric) {
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(token.getZone());
@@ -799,18 +849,48 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 	
+	/**
+	 * Gets the distance between this token and a given Point.
+	 * @param x the x value of the target point
+	 * @param y the y value of the target point
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(int x, int y) {
 		return getDistance(x, y,true,null);
 	}
 	
+	/**
+	 * Gets the distance between this token and a given Point.
+	 * @param x the x value of the target point
+	 * @param y the y value of the target point
+	 * @param metric the metric that should be used to calculate the distance. Can be
+	 * NO_GRID, NO_DIAGONALS, MANHATTAN, ONE_TWO_ONE or ONE_ONE_ONE
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(int x, int y, String metric) {
 		return getDistance(x,y,true,metric);
 	}
 	
+	/**
+	 * Gets the distance between this token and a given Point.
+	 * @param x the x value of the target point
+	 * @param y the y value of the target point
+	 * @param gridUnits if you want the result in grid units
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(int x, int y, boolean gridUnits) {
 		return getDistance(x,y,gridUnits,null);
 	}
 	
+	/**
+	 * Gets the distance between this token and a given Point.
+	 * @param x the x value of the target point
+	 * @param y the y value of the target point
+	 * @param gridUnits if you want the result in grid units
+	 * @param metric the metric that should be used to calculate the distance. Can be
+	 * NO_GRID, NO_DIAGONALS, MANHATTAN, ONE_TWO_ONE or ONE_ONE_ONE
+	 * @return the distance between this token and target.
+	 */
 	public double getDistance(int x, int y, boolean gridUnits, String metric) {
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(token.getZone());
 		Grid grid = renderer.getZone().getGrid();
@@ -864,8 +944,8 @@ public class TokenView extends TokenPropertyView {
 		
 	/**
 	 * Moves a token to the specified x,y location instantly.
-	 * @param x the x co-ordinate of the destination.
-	 * @param y  the y co-ordinate of the destination.
+	 * @param x the x coordinate of the destination.
+	 * @param y  the y coordinate of the destination.
 	 * @param gridUnits  whether the (x,y) coordinates are in zone coordinates or point to a grid cell
 	 */
 	public void moveToken(int x, int y, boolean gridUnits) {
@@ -889,24 +969,10 @@ public class TokenView extends TokenPropertyView {
 		renderer.flushLight();
 	}
 	
-	public String getStateImage(String stateName, int size) throws MacroException {
-		return getStateImage(stateName)+"-"+Math.max(Math.min(size, 500),1);
-	}
-	
-	public String getStateImage(String stateName) throws MacroException {
-		BooleanTokenOverlay over = TabletopTool.getCampaign().getTokenStatesMap().get(stateName);
-		if (over == null) {
-			throw new MacroException(I18N.getText("macro.function.stateImage.unknownState", "getStateImage()", stateName ));
-		}
-		if (over instanceof ImageTokenOverlay) {
-			StringBuilder assetId = new StringBuilder("asset://");
-			assetId.append(((ImageTokenOverlay)over).getAssetId().toString());
-			return assetId.toString();
-		} else {
-			throw new MacroException(I18N.getText("macro.function.stateImage.notImage", "getStateImage()", stateName));
-		}
-	}
-	
+	/**
+	 * @param gridUnits   whether the coordinates are in zone coordinates or point to a grid cell
+	 * @return the last path this unit took.
+	 */
 	public List<IntPoint> getLastPath(boolean gridUnits) {
 		Path<? extends AbstractPoint> path = token.getLastPath();
 		List<IntPoint> points = new ArrayList<IntPoint>();
@@ -933,6 +999,9 @@ public class TokenView extends TokenPropertyView {
 		return points;
 	}
 
+	/**
+	 * @return if this token is snap to grid
+	 */
 	public boolean isSnapToGrid() {
 		return token.isSnapToGrid();
 	}
@@ -953,27 +1022,47 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 
+	/**
+	 * Returns the Rectangle the token fills.
+	 * @return the bounding rectangle
+	 */
 	public Rectangle getBounds() {
 		return getBounds(token.getX(),token.getY());
 	}
 	
+	/**
+	 * @return the names of all properties this token has
+	 */
 	public Set<String> getPropertyNames() {
 		return Collections.unmodifiableSet(token.getPropertyNames());
 	}
 	
+	/**
+	 * @param name the name of the property
+	 * @return if this token has the given property and if it is not null
+	 */
 	public boolean hasProperty(String name) {
 		Object o=token.getProperty(name);
 		return o!=null && StringUtils.isEmpty(o.toString());
 	}
 	
+	/**
+	 * @return if this token is a PC
+	 */
 	public boolean isPC() {
 		return token.getType()==Type.PC;
 	}
 	
+	/**
+	 * @return if this token is a NPC
+	 */
 	public boolean isNPC() {
 		return token.getType()==Type.NPC;
 	}
 	
+	/**
+	 * This method makes this token a PC.
+	 */
 	public void setPC() {
 		if(token.getType()!=Type.PC) {
 			ZoneRenderer zr=TabletopTool.getFrame().getZoneRenderer(token.getZone());
@@ -986,6 +1075,9 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 	
+	/**
+	 * This method makes this token a NPC.
+	 */
 	public void setNPC() {
 		if(token.getType()!=Type.NPC) {
 			ZoneRenderer zr=TabletopTool.getFrame().getZoneRenderer(token.getZone());
@@ -998,10 +1090,18 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 	
+	/**
+	 * @return the layer this token is one
+	 */
 	public String getLayer() {
 		return token.getLayer().toString();
 	}
 	
+	/**
+	 * This method moves the token to the given layer
+	 * @param layer the layer to move this token to
+	 * @param forceShape if the shape type of this token should be reset
+	 */
 	public void setLayer(String layer, boolean forceShape) {
 		Layer l=Zone.Layer.valueOf(layer);
 		ZoneRenderer zr=TabletopTool.getFrame().getZoneRenderer(token.getZone());
@@ -1048,11 +1148,7 @@ public class TokenView extends TokenPropertyView {
 	public String getSize() {
 		Grid grid = token.getZone().getGrid();
 		if (token.isSnapToScale()) {
-			for (TokenFootprint footprint : grid.getFootprints()) {
-				if (token.getFootprint(grid) == footprint) {
-					return footprint.getName();
-				}
-			}
+			return token.getFootprint(grid).getName();
 		}
 		return "";
 	}
@@ -1091,14 +1187,24 @@ public class TokenView extends TokenPropertyView {
 		throw new MacroException(I18N.getText("macro.function.tokenProperty.invalidSize", "setSize", size));
 	}
 	
+	/**
+	 * @return a list of all the explicit owners
+	 */
 	public Set<String> getOwners() {
 		return Collections.unmodifiableSet(token.getOwners());
 	}
 	
+	/**
+	 * @return if this token is owned by all
+	 */
 	public boolean isOwnedByAll() {
 		return token.isOwnedByAll();
 	}
 	
+	/**
+	 * @param player
+	 * @return if this token is owned by the given player (explicitly or through owned by all)
+	 */
 	public boolean isOwner(String player) {
 		return token.isOwner(player);
 	}
@@ -1181,7 +1287,7 @@ public class TokenView extends TokenPropertyView {
 		Zone zone = renderer.getZone();
 		token.setFacing(direction);
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
-		if(this.hasLightSource())
+		if(this.hasLight())
 			renderer.flushLight();
 		zone.putToken(token);
 	}

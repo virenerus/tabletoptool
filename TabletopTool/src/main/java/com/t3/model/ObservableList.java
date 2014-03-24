@@ -45,7 +45,8 @@ public class ObservableList<K> extends Observable implements List<K> {
         return list.subList(fromIndex, toIndex);
     }
     
-    public void sort(Comparator<K> comparitor) {
+    @Override
+    public void sort(Comparator<? super K> comparitor) {
         Collections.sort(list, comparitor);
     }
     

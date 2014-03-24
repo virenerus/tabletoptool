@@ -35,7 +35,7 @@ public class NetworkSerializer {
 	    	ByteArrayOutputStream bout = new ByteArrayOutputStream();
 	    	Output kryoOut=new Output(new DeflaterOutputStream(bout));
 	    	//write Message
-	    	kryo.writeClassAndObject(kryoOut, method);
+	    	kryo.writeObject(kryoOut, method);
 	    	//write Parameters
 	    	for(Object p:parameters) {
 	    		kryo.writeClassAndObject(kryoOut, p);

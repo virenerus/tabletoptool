@@ -6,12 +6,8 @@ import com.t3.model.Zone;
 /**
  * Filter for PC tokens.
  */
-public class PCFilter implements Zone.Filter {
+public class PCFilter implements TokenFilter {
 	public boolean matchToken(Token t) {
-		// Filter out the utility lib: and image: tokens
-		if (t.getName().toLowerCase().startsWith("image:") || t.getName().toLowerCase().startsWith("lib:")) {
-			return false;
-		}
 		return t.getType() == Token.Type.PC;
 	}
 }

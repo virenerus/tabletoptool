@@ -29,6 +29,7 @@ import com.t3.client.AppState;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.vbl.AreaTree;
+import com.t3.macro.api.tokenfilter.TokenFilter;
 import com.t3.model.AttachedLightSource;
 import com.t3.model.Direction;
 import com.t3.model.GUID;
@@ -39,7 +40,6 @@ import com.t3.model.ModelChangeListener;
 import com.t3.model.SightType;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.Zone.Filter;
 import com.t3.model.campaign.Campaign;
 
 public class ZoneView implements ModelChangeListener {
@@ -407,7 +407,7 @@ public class ZoneView implements ModelChangeListener {
 		// Calculate it
 		final boolean isGMview = view.isGMView();
 		final boolean checkOwnership = TabletopTool.getServerPolicy().isUseIndividualViews() || TabletopTool.isPersonalServer();
-		List<Token> tokenList = view.isUsingTokenView() ? view.getTokens() : zone.getTokensFiltered(new Filter() {
+		List<Token> tokenList = view.isUsingTokenView() ? view.getTokens() : zone.getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.isToken() && t.getHasSight() && (isGMview || t.isVisible());
 			}

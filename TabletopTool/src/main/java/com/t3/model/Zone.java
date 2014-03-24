@@ -40,6 +40,7 @@ import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneView;
 import com.t3.language.I18N;
+import com.t3.macro.api.tokenfilter.TokenFilter;
 import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawableColorPaint;
@@ -1148,7 +1149,7 @@ public class Zone extends BaseModel {
 		return idSet;
 	}
 
-	public List<Token> getTokensFiltered(Filter filter) {
+	public List<Token> getTokensFiltered(TokenFilter filter) {
 		ArrayList<Token> copy = new ArrayList<Token>(getTokenCount());
 
 		for (Token token : tokenOrderedList) {
@@ -1163,7 +1164,7 @@ public class Zone extends BaseModel {
 	 * This is the list of non-stamp tokens, both pc and npc
 	 */
 	public List<Token> getTokens() {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return !t.isStamp();
 			}
@@ -1171,7 +1172,7 @@ public class Zone extends BaseModel {
 	}
 
 	public List<Token> getStampTokens() {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.isObjectStamp();
 			}
@@ -1179,7 +1180,7 @@ public class Zone extends BaseModel {
 	}
 
 	public List<Token> getPlayerTokens() {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.getType() == Token.Type.PC;
 			}
@@ -1187,7 +1188,7 @@ public class Zone extends BaseModel {
 	}
 
 	public List<Token> getPlayerOwnedTokensWithSight(Player p) {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.getType() == Token.Type.PC && t.getHasSight() && AppUtil.playerOwns(t);
 			}
@@ -1195,7 +1196,7 @@ public class Zone extends BaseModel {
 	}
 
 	public List<Token> getBackgroundStamps() {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.isBackgroundStamp();
 			}
@@ -1203,7 +1204,7 @@ public class Zone extends BaseModel {
 	}
 
 	public List<Token> getGMStamps() {
-		return getTokensFiltered(new Filter() {
+		return getTokensFiltered(new TokenFilter() {
 			public boolean matchToken(Token t) {
 				return t.isGMStamp();
 			}
@@ -1243,10 +1244,6 @@ public class Zone extends BaseModel {
 		}
 		tokenNumberCache.put(tokenBaseName, lastUsed);
 		return lastUsed;
-	}
-
-	public static interface Filter {
-		public boolean matchToken(Token t);
 	}
 
 	public static final Comparator<Token> TOKEN_Z_ORDER_COMPARATOR = new TokenZOrderComparator();
@@ -1365,7 +1362,7 @@ public class Zone extends BaseModel {
 
 		// 1.3b47 -> 1.3b48
 		if (visionType == null) {
-			if (getTokensFiltered(new Filter() {
+			if (getTokensFiltered(new TokenFilter() {
 				public boolean matchToken(Token token) {
 					return token.hasLightSources();
 				}

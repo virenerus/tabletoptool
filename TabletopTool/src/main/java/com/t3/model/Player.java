@@ -21,10 +21,8 @@ public class Player {
 	}
 
 	private String name; // Primary Key
-	private String role;
+	private Role role;
 	private String password;
-
-	private transient Role actualRole;
 
 	public Player() {
 		// For serialization
@@ -32,9 +30,8 @@ public class Player {
 
 	public Player(String name, Role role, String password) {
 		this.name = name;
-		this.role = role.name();
+		this.role = role;
 		this.password = password;
-		actualRole = role;
 	}
 
 	@Override
@@ -81,10 +78,7 @@ public class Player {
 	 * @return Returns the role.
 	 */
 	public Role getRole() {
-		if (actualRole == null) {
-			actualRole = Role.valueOf(role);
-		}
-		return actualRole;
+		return role;
 	}
 
 	@Override
