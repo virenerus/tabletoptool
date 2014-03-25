@@ -71,7 +71,6 @@ public class FileUtil {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<String> getLines(File file) throws IOException {
 		List<String> list;
 		list = IOUtils.readLines(new FileReader(file));

@@ -13,8 +13,6 @@
  */
 package com.t3.util;
 
-import com.t3.util.StringUtil;
-
 import junit.framework.TestCase;
 
 public class StringUtilTest extends TestCase {

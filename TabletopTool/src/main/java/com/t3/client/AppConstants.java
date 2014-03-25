@@ -14,10 +14,10 @@ package com.t3.client;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import net.tsc.servicediscovery.ServiceGroup;
+
 import com.t3.model.Token;
 import com.t3.swing.ImageBorder;
-
-import net.tsc.servicediscovery.ServiceGroup;
 
 public class AppConstants {
 

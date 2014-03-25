@@ -13,8 +13,9 @@
  */
 package com.t3.service;
 
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -63,7 +64,7 @@ public class EchoServer {
 				while (!stop) {
 					
 					Socket clientSocket = server.accept();
-					DataInputStream is = new DataInputStream(clientSocket.getInputStream());
+					BufferedReader is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					PrintStream os = new PrintStream(clientSocket.getOutputStream());
 					
 					String line = null;

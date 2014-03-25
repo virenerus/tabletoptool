@@ -14,7 +14,6 @@
 package com.t3.swing;
 
 import java.awt.Component;
-import java.awt.Graphics;
 
 import javax.swing.JPanel;
 

@@ -1,7 +1,6 @@
 package com.t3.macro.api.tokenfilter;
 
 import com.t3.model.Token;
-import com.t3.model.Zone;
 
 /**
  * Filter for NPC tokens.

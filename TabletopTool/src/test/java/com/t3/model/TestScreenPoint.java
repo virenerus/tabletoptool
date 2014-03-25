@@ -10,13 +10,11 @@
  */
 package com.t3.model;
 
+import junit.framework.TestCase;
+
 import com.t3.client.ScreenPoint;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
-import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
-
-import junit.framework.TestCase;
 
 public class TestScreenPoint extends TestCase {
 	public void testConversion() throws Exception {

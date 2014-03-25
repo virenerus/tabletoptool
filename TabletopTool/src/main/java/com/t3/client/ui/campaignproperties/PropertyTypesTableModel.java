@@ -1,13 +1,11 @@
 package com.t3.client.ui.campaignproperties;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.jidesoft.grid.AbstractRow;
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
-import com.jidesoft.grid.IndexReferenceRow;
 import com.jidesoft.grid.TreeTableModel;
 import com.t3.model.campaign.TokenProperty;
 import com.t3.model.campaign.TokenPropertyType;

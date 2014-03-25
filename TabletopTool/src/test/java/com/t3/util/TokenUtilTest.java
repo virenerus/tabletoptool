@@ -18,11 +18,10 @@ import java.awt.Graphics2D;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 
+import junit.framework.TestCase;
+
 import com.t3.image.ImageUtil;
 import com.t3.model.Token;
-import com.t3.util.TokenUtil;
-
-import junit.framework.TestCase;
 
 public class TokenUtilTest extends TestCase {
 

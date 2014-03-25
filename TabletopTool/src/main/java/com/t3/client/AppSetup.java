@@ -12,21 +12,16 @@
 package com.t3.client;
 
 import java.awt.EventQueue;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import javax.swing.SwingWorker;
+
+import org.apache.log4j.Logger;
 
 import com.t3.FileUtil;
 import com.t3.model.AssetManager;

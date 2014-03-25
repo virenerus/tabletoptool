@@ -11,9 +11,6 @@
 
 package com.t3.model;
 
-import java.util.List;
-import java.util.ListIterator;
-
 import com.t3.client.TabletopTool;
 
 //TODO refactor this so that a message contains a player that sent it and if applicable the token GUID

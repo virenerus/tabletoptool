@@ -37,7 +37,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.regex.Pattern;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -59,7 +58,6 @@ import javax.swing.plaf.basic.BasicToggleButtonUI;
 
 import org.apache.log4j.Logger;
 
-import com.t3.chatparser.generated.ParseException;
 import com.t3.AppEvent;
 import com.t3.AppEventListener;
 import com.t3.client.AppActions;

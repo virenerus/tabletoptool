@@ -18,12 +18,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import com.t3.clientserver.connection.ClientConnection;
-import com.t3.clientserver.connection.ServerObserver;
-
 import org.apache.log4j.Logger;
 
 import com.t3.client.T3Registry;
+import com.t3.clientserver.connection.ClientConnection;
+import com.t3.clientserver.connection.ServerObserver;
 import com.t3.common.T3Constants;
 import com.t3.model.campaign.Campaign;
 import com.t3.transfer.AssetChunk;

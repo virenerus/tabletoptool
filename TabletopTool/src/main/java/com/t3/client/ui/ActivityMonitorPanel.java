@@ -20,9 +20,9 @@ import javax.swing.JComponent;
 
 import com.t3.client.swing.Animatable;
 import com.t3.client.swing.AnimationManager;
+import com.t3.clientserver.connection.ActivityListener;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
-import com.t3.clientserver.connection.ActivityListener;
 
 /**
  * @author trevor

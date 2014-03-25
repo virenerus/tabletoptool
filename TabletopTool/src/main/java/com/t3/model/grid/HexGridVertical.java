@@ -33,8 +33,8 @@ import com.t3.client.walker.astar.AStarVertHexEuclideanWalker;
 import com.t3.model.CellPoint;
 import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
-import com.t3.model.ZonePoint;
 import com.t3.model.TokenFootprint.OffsetTranslator;
+import com.t3.model.ZonePoint;
 
 public class HexGridVertical extends HexGrid {
 

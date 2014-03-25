@@ -63,8 +63,8 @@ import com.t3.model.CellPoint;
 import com.t3.model.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
 import com.t3.model.Zone.Layer;
+import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 

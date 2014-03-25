@@ -1,18 +1,30 @@
 package com.t3.chatparser;
 
+import static com.t3.chatparser.ChatCommand.CLEAR_CHAT;
+import static com.t3.chatparser.ChatCommand.CLEAR_IMPERSONATE;
+import static com.t3.chatparser.ChatCommand.EMIT;
+import static com.t3.chatparser.ChatCommand.EMOTE;
+import static com.t3.chatparser.ChatCommand.GM;
+import static com.t3.chatparser.ChatCommand.GOTO;
+import static com.t3.chatparser.ChatCommand.IMPERSONATE;
+import static com.t3.chatparser.ChatCommand.MACRO_EXEC;
+import static com.t3.chatparser.ChatCommand.OOC;
+import static com.t3.chatparser.ChatCommand.REPLY;
+import static com.t3.chatparser.ChatCommand.ROLL;
+import static com.t3.chatparser.ChatCommand.ROLL_GM;
+import static com.t3.chatparser.ChatCommand.ROLL_ME;
+import static com.t3.chatparser.ChatCommand.ROLL_SECRET;
+import static com.t3.chatparser.ChatCommand.SELF;
+import static com.t3.chatparser.ChatCommand.TABLE;
+import static com.t3.chatparser.ChatCommand.TOKEN_SPEECH;
+import static com.t3.chatparser.ChatCommand.WHISPER;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.ChatPart;
-import com.t3.chatparser.ExpressionPart;
-import com.t3.chatparser.ParsedChat;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.UnknownCommandException;
 import com.t3.chatparser.generated.ChatParser;
-
-import static com.t3.chatparser.ChatCommand.*;
-import static org.testng.Assert.*;
 
 public class ParsedChatTest {
 	

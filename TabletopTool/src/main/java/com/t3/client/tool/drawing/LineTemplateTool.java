@@ -28,9 +28,9 @@ import com.t3.client.ScreenPoint;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.model.ZonePoint;
 import com.t3.model.drawing.AbstractTemplate;
+import com.t3.model.drawing.AbstractTemplate.Quadrant;
 import com.t3.model.drawing.LineTemplate;
 import com.t3.model.drawing.Pen;
-import com.t3.model.drawing.AbstractTemplate.Quadrant;
 import com.t3.swing.SwingUtil;
 
 /**

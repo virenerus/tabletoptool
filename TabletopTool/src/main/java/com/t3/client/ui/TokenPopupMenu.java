@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.lang.reflect.Constructor;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -60,10 +59,10 @@ import com.t3.model.InitiativeList;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
 import com.t3.model.Player;
+import com.t3.model.Player.Role;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
-import com.t3.model.Player.Role;
 
 public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private static final long serialVersionUID = -622385975780832588L;
@@ -526,7 +525,6 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			addActionListener(this);
 		}
 
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			for (GUID guid : tokenSet) {
 				Token token = zone.getToken(guid);

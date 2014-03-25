@@ -3,7 +3,6 @@ package com.t3.dice;
 import java.util.Arrays;
 import java.util.Random;
 
-import com.t3.dice.modifiers.DiceModifier;
 import com.t3.dice.modifiers.ExplodingModifier;
 import com.t3.dice.modifiers.SuccessModifier;
 

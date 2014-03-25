@@ -16,8 +16,6 @@ import java.net.Socket;
 
 import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
 import com.t3.model.Player;

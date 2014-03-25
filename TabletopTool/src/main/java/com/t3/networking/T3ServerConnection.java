@@ -16,12 +16,11 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.log4j.Logger;
+
 import com.t3.clientserver.connection.ClientConnection;
 import com.t3.clientserver.connection.ServerConnection;
 import com.t3.clientserver.connection.ServerObserver;
-
-import org.apache.log4j.Logger;
-
 import com.t3.model.Player;
 
 /**

@@ -1,9 +1,9 @@
 package net.rptools.lib;
 
+import junit.framework.TestCase;
+
 import com.t3.ModelVersionManager;
 import com.t3.ModelVersionTransformation;
-
-import junit.framework.TestCase;
 
 public class ModelVersionManagerTest extends TestCase {
 

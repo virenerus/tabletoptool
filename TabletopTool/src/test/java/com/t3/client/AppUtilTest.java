@@ -2,8 +2,6 @@ package com.t3.client;
 
 import java.io.File;
 
-import com.t3.client.AppUtil;
-
 import junit.framework.TestCase;
 
 /**

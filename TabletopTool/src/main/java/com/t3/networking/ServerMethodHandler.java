@@ -22,21 +22,22 @@ import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.clientserver.handler.AbstractMethodHandler;
 import com.t3.common.T3Constants;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
 import com.t3.model.GUID;
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Pointer;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Zone.VisionType;
+import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.Drawable;
@@ -44,8 +45,6 @@ import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
 import com.t3.transfer.AssetProducer;
-import com.t3.clientserver.Command;
-import com.t3.clientserver.handler.AbstractMethodHandler;
 
 /**
  * @author drice

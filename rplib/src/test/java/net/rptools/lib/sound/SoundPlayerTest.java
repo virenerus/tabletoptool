@@ -13,9 +13,9 @@
  */
 package net.rptools.lib.sound;
 
-import com.t3.sound.SoundPlayer;
-
 import junit.framework.TestCase;
+
+import com.t3.sound.SoundPlayer;
 
 public class SoundPlayerTest extends TestCase {
 

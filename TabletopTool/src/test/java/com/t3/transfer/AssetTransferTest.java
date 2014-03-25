@@ -18,11 +18,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.t3.transfer.AssetChunk;
-import com.t3.transfer.AssetConsumer;
-import com.t3.transfer.AssetHeader;
-import com.t3.transfer.AssetProducer;
-
 import junit.framework.TestCase;
 
 public class AssetTransferTest extends TestCase {

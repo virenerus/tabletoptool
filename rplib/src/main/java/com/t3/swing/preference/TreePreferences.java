@@ -15,7 +15,6 @@ package com.t3.swing.preference;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;

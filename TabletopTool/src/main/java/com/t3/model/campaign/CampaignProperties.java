@@ -27,7 +27,6 @@ import java.util.TreeMap;
 import com.t3.MD5Key;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
-import com.t3.client.ui.token.AbstractTokenOverlay;
 import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ColorDotTokenOverlay;
@@ -381,7 +380,7 @@ public class CampaignProperties {
 		}
 
 		// States have images as well
-		for (AbstractTokenOverlay overlay : getTokenStatesMap().values()) {
+		for (BooleanTokenOverlay overlay : getTokenStatesMap().values()) {
 			if (overlay instanceof ImageTokenOverlay)
 				set.add(((ImageTokenOverlay) overlay).getAssetId());
 		}

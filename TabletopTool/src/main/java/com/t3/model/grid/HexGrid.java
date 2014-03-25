@@ -29,9 +29,8 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
 import com.t3.model.CellPoint;
 import com.t3.model.Token;
-import com.t3.model.TokenFootprint;
-import com.t3.model.ZonePoint;
 import com.t3.model.TokenFootprint.OffsetTranslator;
+import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
 
 /**

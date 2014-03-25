@@ -27,12 +27,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import net.sf.tinylaf.TinyComboBoxButton;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.t3.client.ui.htmlframe.HTMLPane;
 import com.t3.macro.api.functions.input.InputType.OptionException;
-
-import net.sf.tinylaf.TinyComboBoxButton;
 
 /**
  * Contains input controls, which are arranged in a two-column label +

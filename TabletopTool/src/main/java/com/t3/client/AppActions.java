@@ -52,11 +52,10 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingWorker;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-
-import javax.swing.SwingWorker;
 
 import com.jidesoft.docking.DockableFrame;
 import com.t3.FileUtil;
@@ -84,10 +83,10 @@ import com.t3.client.ui.assetpanel.Directory;
 import com.t3.client.ui.campaignproperties.CampaignPropertiesDialog;
 import com.t3.client.ui.io.FTPClient;
 import com.t3.client.ui.io.FTPTransferObject;
+import com.t3.client.ui.io.FTPTransferObject.Direction;
 import com.t3.client.ui.io.LoadSaveImpl;
 import com.t3.client.ui.io.ProgressBarList;
 import com.t3.client.ui.io.UpdateRepoDialog;
-import com.t3.client.ui.io.FTPTransferObject.Direction;
 import com.t3.client.ui.token.TransferProgressDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
@@ -102,10 +101,10 @@ import com.t3.model.Player;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.ZoneFactory;
-import com.t3.model.ZonePoint;
 import com.t3.model.Zone.Layer;
 import com.t3.model.Zone.VisionType;
+import com.t3.model.ZoneFactory;
+import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.campaign.CampaignProperties;
@@ -116,10 +115,10 @@ import com.t3.networking.ServerDisconnectHandler;
 import com.t3.networking.ServerPolicy;
 import com.t3.util.ImageManager;
 import com.t3.util.PersistenceUtil;
-import com.t3.util.SysInfo;
-import com.t3.util.UPnPUtil;
 import com.t3.util.PersistenceUtil.PersistedCampaign;
 import com.t3.util.PersistenceUtil.PersistedMap;
+import com.t3.util.SysInfo;
+import com.t3.util.UPnPUtil;
 
 /**
  * This class acts as a container for a wide variety of {@link Action}s that are

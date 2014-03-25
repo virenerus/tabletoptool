@@ -90,7 +90,6 @@ import com.t3.client.tool.drawing.PolygonExposeTool;
 import com.t3.client.tool.drawing.RectangleExposeTool;
 import com.t3.client.ui.Scale;
 import com.t3.client.ui.Tool;
-import com.t3.client.ui.token.AbstractTokenOverlay;
 import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.NewTokenDialog;

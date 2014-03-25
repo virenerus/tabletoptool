@@ -150,7 +150,7 @@ public class TaskPanelGroupPreferences implements PropertyChangeListener {
 	private void saveStates(List<String> stateList) {
 		
 		StringBuilder builder = new StringBuilder();
-		for (Iterator iter = stateList.iterator(); iter.hasNext();) {
+		for (Iterator<String> iter = stateList.iterator(); iter.hasNext();) {
 			
 			builder.append(iter.next()).append("|").append(iter.next());
 			

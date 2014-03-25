@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.InitiativeListModel;
 import com.t3.model.Token;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Token.Type;
 
 public class InitiativeListView {

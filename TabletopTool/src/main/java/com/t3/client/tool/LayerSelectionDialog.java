@@ -27,7 +27,7 @@ import com.t3.model.Zone;
 public class LayerSelectionDialog extends JPanel {
 
 	private final FormPanel panel;
-	private JList list;
+	private JList<Zone.Layer> list;
 	private final LayerSelectionListener listener;
 	private final Zone.Layer[] layerList;
 
@@ -55,12 +55,12 @@ public class LayerSelectionDialog extends JPanel {
 		getLayerList().setSelectedValue(TabletopTool.getFrame().getCurrentZoneRenderer().getActiveLayer(), true);
 	}
 
-	private JList getLayerList() {
+	private JList<Zone.Layer> getLayerList() {
 
 		if (list == null) {
 			list = panel.getList("layerList");
 
-			DefaultListModel model = new DefaultListModel();
+			DefaultListModel<Zone.Layer> model = new DefaultListModel<Zone.Layer>();
 			for (Zone.Layer layer : layerList) {
 				model.addElement(layer);
 			}

@@ -34,14 +34,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import net.tsc.servicediscovery.AnnouncementListener;
 import net.tsc.servicediscovery.ServiceFinder;
-
-import javax.swing.SwingWorker;
+import yasb.Binder;
 
 import com.t3.client.AppConstants;
 import com.t3.client.T3Registry;
@@ -50,8 +50,6 @@ import com.t3.client.swing.AbeillePanel;
 import com.t3.client.swing.GenericDialog;
 import com.t3.language.I18N;
 import com.t3.swing.SwingUtil;
-
-import yasb.Binder;
 
 /**
  * @author trevor
@@ -144,12 +142,12 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 		return accepted;
 	}
 
-	public JComboBox getRoleComboBox() {
-		return (JComboBox) getComponent("@role");
+	public JComboBox<String> getRoleComboBox() {
+		return (JComboBox<String>) getComponent("@role");
 	}
 
 	public void initRoleComboBox() {
-		getRoleComboBox().setModel(new DefaultComboBoxModel(new String[] { "Player", "GM" }));
+		getRoleComboBox().setModel(new DefaultComboBoxModel<String>(new String[] { "Player", "GM" }));
 	}
 
 	public void initLocalServerList() {
@@ -230,7 +228,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 	public void initRescanButton() {
 		getRescanButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((DefaultListModel) getLocalServerList().getModel()).clear();
+				((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).clear();
 				finder.find();
 			}
 		});
@@ -409,7 +407,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	// ANNOUNCEMENT LISTENER
 	public void serviceAnnouncement(String type, InetAddress address, int port, byte[] data) {
-		((DefaultListModel) getLocalServerList().getModel()).addElement(new ServerInfo(new String(data), address, port));
+		((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).addElement(new ServerInfo(new String(data), address, port));
 	}
 
 	private class ServerInfo {

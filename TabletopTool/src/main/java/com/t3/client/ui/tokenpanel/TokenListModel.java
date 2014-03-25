@@ -26,7 +26,7 @@ import com.t3.client.TabletopTool;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 
-public class TokenListModel implements ListModel {
+public class TokenListModel implements ListModel<Token> {
 
     private List<ListDataListener> listenerList = new CopyOnWriteArrayList<ListDataListener>();
 
@@ -44,7 +44,7 @@ public class TokenListModel implements ListModel {
         return getTokenList().size();
     }
 
-    public Object getElementAt(int index) {
+    public Token getElementAt(int index) {
         return getTokenList().get(index);
     }
 

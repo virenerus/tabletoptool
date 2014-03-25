@@ -79,13 +79,13 @@ import com.t3.AppEventListener;
 import com.t3.FileUtil;
 import com.t3.MD5Key;
 import com.t3.client.AppActions;
+import com.t3.client.AppActions.ClientAction;
 import com.t3.client.AppConstants;
 import com.t3.client.AppPreferences;
 import com.t3.client.AppState;
 import com.t3.client.AppStyle;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
-import com.t3.client.AppActions.ClientAction;
 import com.t3.client.swing.CoordinateStatusBar;
 import com.t3.client.swing.DragImageGlassPane;
 import com.t3.client.swing.GlassPane;
@@ -1421,14 +1421,12 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		Timer tm = new Timer(500, new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				long currentTime = System.currentTimeMillis();
-				LinkedMap chatTimers = chatTyperTimers.getChatTypers();
+				LinkedMap<String,Long> chatTimers = chatTyperTimers.getChatTypers();
 				List<String> removeThese = new ArrayList<String>(chatTimers.size());
 
-				@SuppressWarnings("unchecked")
 				Set<String> playerTimers = chatTimers.keySet();
 				for (String player : playerTimers) {
-					long playerTime = (Long) chatTimers.get(player);
-					if (currentTime - playerTime >= (chatNotifyDuration * 1000)) {
+					if (currentTime - chatTimers.get(player) >= (chatNotifyDuration * 1000)) {
 						// set up a temp place and remove them after the loop
 						removeThese.add(player);
 					}

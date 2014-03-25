@@ -33,7 +33,7 @@ public class SoundManager {
 	
 	public void configure(Properties properties) {
 
-		for (Enumeration e = properties.propertyNames(); e.hasMoreElements();) {
+		for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
 			String key = (String)e.nextElement();
 			registerSound(key, properties.getProperty(key));
 		}

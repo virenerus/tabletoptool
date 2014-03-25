@@ -13,12 +13,10 @@
  */
 package com.t3.model;
 
-import com.t3.model.CellPoint;
-import com.t3.model.ZonePoint;
+import junit.framework.TestCase;
+
 import com.t3.model.grid.HexGrid;
 import com.t3.model.grid.HexGridHorizontal;
-
-import junit.framework.TestCase;
 
 public class TestHexGrid extends TestCase {
 	public void testConvertCellToZone() throws Exception {

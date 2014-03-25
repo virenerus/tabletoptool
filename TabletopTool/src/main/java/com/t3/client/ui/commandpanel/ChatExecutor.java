@@ -1,7 +1,6 @@
 package com.t3.client.ui.commandpanel;
 
 import java.util.List;
-import java.util.Random;
 
 import org.apache.log4j.Logger;
 
@@ -9,20 +8,17 @@ import com.t3.chatparser.ChatPart;
 import com.t3.chatparser.ExpressionPart;
 import com.t3.chatparser.ParsedChat;
 import com.t3.chatparser.UnknownCommandException;
-import com.t3.dice.NumberUtil;
-import com.t3.dice.expression.Expression;
-import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
-import com.t3.macro.MacroException;
 import com.t3.macro.MacroEngine;
+import com.t3.macro.MacroException;
 import com.t3.model.CellPoint;
 import com.t3.model.GUID;
 import com.t3.model.LookupTable;
+import com.t3.model.LookupTable.LookupEntry;
 import com.t3.model.Player;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
-import com.t3.model.LookupTable.LookupEntry;
 
 /**
  * This is the class responsible for starting the chat parser on a given string and executing 

@@ -33,7 +33,7 @@ import javax.swing.JList;
  * @author Jay
  * @version $Revision: 1307 $ $Date: 2005-10-18 19:51:22 -0500 (Tue, 18 Oct 2005) $ $Author:&
  */
-public class PenWidthChooser extends JComboBox {
+public class PenWidthChooser extends JComboBox<Integer> {
 
   /**
    * The renderer for this chooser.
@@ -60,7 +60,7 @@ public class PenWidthChooser extends JComboBox {
    */
   public PenWidthChooser(int defaultThickness) {
     setRenderer(renderer);
-    DefaultComboBoxModel model = new DefaultComboBoxModel();
+    DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<Integer>();
     int selected = -1;
     for (int i = 0; i < WIDTHS.length; i += 1) {
       model.addElement(WIDTHS[i]);

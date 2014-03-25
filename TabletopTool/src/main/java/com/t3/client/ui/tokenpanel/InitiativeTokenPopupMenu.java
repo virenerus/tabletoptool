@@ -25,9 +25,9 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.language.I18N;
 import com.t3.model.GUID;
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Token;
 import com.t3.model.ZonePoint;
-import com.t3.model.InitiativeList.TokenInitiative;
 
 /**
  * The popup menu for initiative tokens.

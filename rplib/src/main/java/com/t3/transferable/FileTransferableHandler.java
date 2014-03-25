@@ -16,7 +16,6 @@ package com.t3.transferable;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;

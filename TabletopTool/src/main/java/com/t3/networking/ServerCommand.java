@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.t3.MD5Key;
-import com.t3.clientserver.Command;
 import com.t3.model.Asset;
 import com.t3.model.ExposedAreaMetaData;
 import com.t3.model.GUID;
@@ -27,8 +26,8 @@ import com.t3.model.Pointer;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
 import com.t3.model.Zone.VisionType;
+import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.Drawable;

@@ -1,21 +1,19 @@
 package com.t3.macro.groovy;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.builder.ImportCustomizerFactory;
-
-import com.t3.client.T3MacroContext;
-import com.t3.macro.MacroException;
-import com.t3.macro.MacroEngine;
-import com.t3.macro.api.MacroAPI;
-import com.t3.macro.api.views.TokenView;
-import com.t3.model.Token;
-
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
+
+import java.util.Map;
+
+import org.codehaus.groovy.control.CompilerConfiguration;
+
+import com.t3.client.T3MacroContext;
+import com.t3.macro.MacroEngine;
+import com.t3.macro.MacroException;
+import com.t3.macro.api.MacroAPI;
+import com.t3.macro.api.views.TokenView;
+import com.t3.model.Token;
 
 public class GroovyMacroEngine extends MacroEngine<Script> {
 

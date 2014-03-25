@@ -16,9 +16,9 @@ package net.rptools.lib.io;
 import java.io.File;
 import java.io.IOException;
 
-import com.t3.io.PackedFile;
-
 import junit.framework.TestCase;
+
+import com.t3.io.PackedFile;
 
 public class PackedFileTest extends TestCase {
 

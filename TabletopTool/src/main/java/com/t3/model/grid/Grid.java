@@ -36,10 +36,10 @@ import com.t3.model.GUID;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.Token;
 import com.t3.model.TokenFootprint;
-import com.t3.model.Zone;
-import com.t3.model.ZonePoint;
 import com.t3.model.TokenFootprint.OffsetTranslator;
+import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
+import com.t3.model.ZonePoint;
 
 /**
  * Base class for grids.

@@ -20,8 +20,6 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,8 +39,8 @@ import org.apache.log4j.Logger;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.swing.MessagePanelEditorKit;
-import com.t3.macro.MacroException;
 import com.t3.macro.MacroEngine;
+import com.t3.macro.MacroException;
 import com.t3.model.TextMessage;
 
 //FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here

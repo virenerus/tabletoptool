@@ -17,8 +17,6 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 
 public class TaskBarFlasher {

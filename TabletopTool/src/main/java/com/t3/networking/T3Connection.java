@@ -14,9 +14,9 @@ package com.t3.networking;
 import java.io.IOException;
 import java.net.Socket;
 
-import com.t3.model.Player;
 import com.t3.client.TabletopTool;
 import com.t3.clientserver.connection.ClientConnection;
+import com.t3.model.Player;
 
 /**
  * @author trevor

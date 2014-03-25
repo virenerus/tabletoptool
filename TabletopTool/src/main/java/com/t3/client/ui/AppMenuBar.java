@@ -28,13 +28,13 @@ import javax.swing.JSeparator;
 
 import com.t3.FileUtil;
 import com.t3.client.AppActions;
+import com.t3.client.AppActions.OpenUrlAction;
 import com.t3.client.AppConstants;
 import com.t3.client.AppSetup;
 import com.t3.client.AppState;
 import com.t3.client.AppUtil;
 import com.t3.client.MRUCampaignManager;
 import com.t3.client.TabletopTool;
-import com.t3.client.AppActions.OpenUrlAction;
 import com.t3.client.ui.T3Frame.MTFrame;
 import com.t3.language.I18N;
 import com.t3.model.Zone;

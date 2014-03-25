@@ -4,11 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.ASTVisitor;

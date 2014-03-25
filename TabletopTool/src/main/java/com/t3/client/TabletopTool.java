@@ -56,8 +56,8 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-import com.t3.clientserver.connection.ClientConnection;
-
+import net.sf.tinylaf.Theme;
+import net.sf.tinylaf.util.SBReference;
 import net.tsc.servicediscovery.ServiceAnnouncer;
 
 import org.apache.commons.io.FileUtils;
@@ -90,6 +90,7 @@ import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
+import com.t3.clientserver.connection.ClientConnection;
 import com.t3.dice.expression.Expression;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
@@ -120,9 +121,6 @@ import com.t3.swing.SwingUtil;
 import com.t3.transfer.AssetTransferManager;
 import com.t3.util.UPnPUtil;
 import com.t3.util.math.CappedInteger;
-
-import net.sf.tinylaf.Theme;
-import net.sf.tinylaf.util.SBReference;
 
 /**
  */

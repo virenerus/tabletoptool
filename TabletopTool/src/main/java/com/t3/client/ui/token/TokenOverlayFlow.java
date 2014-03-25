@@ -13,7 +13,6 @@ package com.t3.client.ui.token;
 
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

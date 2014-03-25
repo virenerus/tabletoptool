@@ -13,11 +13,10 @@
  */
 package com.t3.model;
 
-import com.t3.model.CellPoint;
+import junit.framework.TestCase;
+
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
-
-import junit.framework.TestCase;
 
 public class TestSquareGrid extends TestCase {
 	public void testSpotCheck() throws Exception {

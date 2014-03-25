@@ -37,8 +37,8 @@ import javax.swing.event.DocumentListener;
 import com.t3.client.AppConstants;
 import com.t3.model.Asset;
 import com.t3.swing.ImagePanel;
-import com.t3.swing.SelectionListener;
 import com.t3.swing.ImagePanel.SelectionMode;
+import com.t3.swing.SelectionListener;
 import com.t3.swing.preference.SplitPanePreferences;
 import com.t3.swing.preference.TreePreferences;
 

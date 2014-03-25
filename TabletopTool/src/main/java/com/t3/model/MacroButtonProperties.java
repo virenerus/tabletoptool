@@ -15,7 +15,6 @@ import groovy.lang.Script;
 
 import java.awt.Color;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -31,9 +30,8 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.MacroButtonHotKeyManager;
 import com.t3.client.ui.macrobuttons.buttons.MacroButton;
 import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
-import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.macro.MacroException;
 import com.t3.macro.MacroEngine;
+import com.t3.macro.MacroException;
 import com.t3.util.StringUtil;
 
 /**

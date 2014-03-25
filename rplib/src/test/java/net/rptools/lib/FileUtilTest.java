@@ -16,9 +16,9 @@ package net.rptools.lib;
 import java.io.File;
 import java.util.zip.ZipInputStream;
 
-import com.t3.FileUtil;
-
 import junit.framework.TestCase;
+
+import com.t3.FileUtil;
 
 public class FileUtilTest extends TestCase {
 

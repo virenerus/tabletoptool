@@ -13,9 +13,6 @@
  */
 package com.t3.client.ui.chat;
 
-import com.t3.client.ui.chat.ChatTranslationRule;
-import com.t3.client.ui.chat.RegularExpressionTranslationRule;
-
 import junit.framework.TestCase;
 
 public class RegularExpressionTranslationRuleTest extends TestCase {

@@ -23,7 +23,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -292,11 +291,11 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 	}
 
 	public void initShapeCombo() {
-		getShapeCombo().setModel(new DefaultComboBoxModel(Token.TokenShape.values()));
+		getShapeCombo().setModel(new DefaultComboBoxModel<Token.TokenShape>(Token.TokenShape.values()));
 	}
 
-	public JComboBox getShapeCombo() {
-		return (JComboBox) getComponent("shape");
+	public JComboBox<Token.TokenShape> getShapeCombo() {
+		return (JComboBox<Token.TokenShape>) getComponent("shape");
 	}
 
 	public void setSizeCombo(Token token) {

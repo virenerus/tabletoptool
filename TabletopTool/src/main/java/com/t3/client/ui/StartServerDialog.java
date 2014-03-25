@@ -41,7 +41,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 	private StartServerDialogPreferences prefs;
 	private GenericDialog dialog;
-	private JComboBox movementMetricCombo;
+	private JComboBox<WalkerMetric> movementMetricCombo;
 	private JCheckBox useIndividualFOW;
 	private JCheckBox useIndividualViews;
 	private JCheckBox autoRevealOnMovement;
@@ -91,7 +91,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 		});
 
 		movementMetricCombo = getMovementMetric();
-		DefaultComboBoxModel movementMetricModel = new DefaultComboBoxModel();
+		DefaultComboBoxModel<WalkerMetric> movementMetricModel = new DefaultComboBoxModel<WalkerMetric>();
 		movementMetricModel.addElement(WalkerMetric.ONE_TWO_ONE);
 		movementMetricModel.addElement(WalkerMetric.ONE_ONE_ONE);
 		movementMetricModel.addElement(WalkerMetric.MANHATTAN);
@@ -140,8 +140,8 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 		return (JCheckBox) getComponent("@useToolTipsForUnformattedRolls");
 	}
 
-	public JComboBox getMovementMetric() {
-		return (JComboBox) getComponent("movementMetric");
+	public JComboBox<WalkerMetric> getMovementMetric() {
+		return (JComboBox<WalkerMetric>) getComponent("movementMetric");
 	}
 
 	@Override

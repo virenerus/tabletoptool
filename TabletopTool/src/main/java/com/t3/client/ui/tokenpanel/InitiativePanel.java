@@ -56,14 +56,14 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.language.I18N;
 import com.t3.model.GUID;
 import com.t3.model.InitiativeList;
+import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.InitiativeListModel;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;
-import com.t3.model.Zone;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Token.Type;
+import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 
 /**

@@ -20,7 +20,7 @@ import com.t3.macro.api.views.InitiativeListView;
 import com.t3.macro.api.views.TokenView;
 import com.t3.model.ZonePoint;
 
-//FIXME make this package into a PLUG-IN
+//FIXME make PLUG-INs for this package
 public abstract class MacroAPI extends Script {
 	
 	public final InfoFunctions info;

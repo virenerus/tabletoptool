@@ -1,9 +1,6 @@
 package com.t3.macro.api.tokenfilter;
 
-import java.math.BigDecimal;
-
 import com.t3.model.Token;
-import com.t3.model.Zone;
 
 /**
  * Filter for finding tokens by set state.

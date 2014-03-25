@@ -10,7 +10,6 @@
  */
 package com.t3.client.ui;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -21,11 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 
 import org.fife.ui.autocomplete.AutoCompletion;
@@ -34,13 +29,11 @@ import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.autocomplete.FunctionCompletion;
 import org.fife.ui.autocomplete.ParameterizedCompletion.Parameter;
-import org.fife.ui.autocomplete.ShorthandCompletion;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import com.jeta.forms.components.panel.FormPanel;
-import com.jeta.forms.gui.form.FormAccessor;
 import com.jeta.forms.gui.form.GridView;
 import com.t3.client.AppConstants;
 import com.t3.client.AppUtil;
@@ -103,14 +96,14 @@ public class MacroButtonDialog extends JDialog {
 
 	private void installHotKeyCombo() {
 		String[] hotkeys = MacroButtonHotKeyManager.HOTKEYS;
-		JComboBox combo = panel.getComboBox("hotKey");
+		JComboBox<String> combo = panel.getComboBox("hotKey");
 		for (int i = 0; i < hotkeys.length; i++)
 			combo.insertItemAt(hotkeys[i], i);
 	}
 
 	private void installColorCombo() {
-		JComboBox combo = panel.getComboBox("colorComboBox");
-		combo.setModel(new DefaultComboBoxModel(T3Util.getColorNames().toArray()));
+		JComboBox<String> combo = panel.getComboBox("colorComboBox");
+		combo.setModel(new DefaultComboBoxModel<String>(T3Util.getColorNames().toArray(new String[0])));
 		combo.insertItemAt("default", 0);
 		combo.setSelectedItem("default");
 		combo.setRenderer(new ColorComboBoxRenderer());

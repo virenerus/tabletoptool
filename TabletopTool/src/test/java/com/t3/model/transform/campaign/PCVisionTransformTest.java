@@ -1,7 +1,5 @@
 package com.t3.model.transform.campaign;
 
-import com.t3.model.transform.campaign.PCVisionTransform;
-
 import junit.framework.TestCase;
 
 public class PCVisionTransformTest extends TestCase {

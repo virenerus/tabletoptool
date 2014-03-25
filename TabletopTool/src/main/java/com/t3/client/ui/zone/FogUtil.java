@@ -50,10 +50,10 @@ import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
 import com.t3.model.GUID;
 import com.t3.model.Path;
+import com.t3.model.Player.Role;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
-import com.t3.model.Player.Role;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.GridCapabilities;
 

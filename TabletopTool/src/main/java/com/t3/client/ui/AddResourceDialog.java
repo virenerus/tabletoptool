@@ -34,12 +34,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import javax.swing.SwingWorker;
 
 import com.jidesoft.swing.FolderChooser;
 import com.t3.FileUtil;

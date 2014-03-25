@@ -24,7 +24,6 @@ import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.ChatExecutor;
 import com.t3.client.ui.token.BooleanTokenOverlay;
-import com.t3.client.ui.token.ImageTokenOverlay;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.walker.WalkerMetric;
 import com.t3.client.walker.ZoneWalker;

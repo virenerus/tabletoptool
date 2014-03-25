@@ -38,11 +38,11 @@ import com.t3.swing.SwingUtil;
 public class TokenPanel extends JPanel implements ModelChangeListener {
 
     private ZoneRenderer currentZoneRenderer;
-    private JList tokenList;
+    private JList<Token> tokenList;
 
     public TokenPanel() {
         setLayout(new BorderLayout());
-        tokenList = new JList();
+        tokenList = new JList<Token>();
         tokenList.setCellRenderer(new TokenListCellRenderer());
         tokenList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

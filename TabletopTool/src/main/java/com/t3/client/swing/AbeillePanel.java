@@ -184,9 +184,9 @@ public class AbeillePanel<T> extends JPanel {
 		model = null;
 	}
 
-	public static class RadioButtonAdapter extends AbstractComponentAdapter implements ItemListener {
+	public static class RadioButtonAdapter<T extends Enum<T>> extends AbstractComponentAdapter implements ItemListener {
 		private JRadioButton button;
-		private Enum selected;
+		private T selected;
 
 		// COMPONENT ADAPTER
 		@Override
@@ -200,7 +200,7 @@ public class AbeillePanel<T> extends JPanel {
 		}
 
 		@Override
-		protected Object getValue() throws Exception {
+		protected T getValue() throws Exception {
 			return button.isSelected() ? selected : null;
 		}
 
@@ -234,7 +234,7 @@ public class AbeillePanel<T> extends JPanel {
 				String bindVal = button.getName();
 				bindVal = bindVal.substring(bindVal.indexOf(".") + 1);
 
-				selected = Enum.valueOf(property.getType(), bindVal);
+				selected = Enum.valueOf((Class<T>)property.getType(), bindVal);
 			}
 		}
 

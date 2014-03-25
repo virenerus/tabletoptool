@@ -18,7 +18,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Paint;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -29,18 +28,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 
 import com.jeta.forms.components.panel.FormPanel;
 import com.jeta.forms.gui.form.FormAccessor;
@@ -66,7 +58,6 @@ public class ColorPicker extends JPanel {
             new Color(127, 0, 0), Color.red, Color.orange, Color.yellow, new Color(0, 127, 0), Color.green, Color.blue, Color.cyan,
             new Color(127, 0, 127), Color.magenta, new Color(127 + 32, 127, 61), };
 
-    @SuppressWarnings("unchecked")
     public ColorPicker(Component owner) {
         this.owner = owner;
         

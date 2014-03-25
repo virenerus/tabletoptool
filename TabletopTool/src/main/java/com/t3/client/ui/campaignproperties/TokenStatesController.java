@@ -510,7 +510,7 @@ public class TokenStatesController implements ActionListener, DocumentListener, 
 		 *      int, boolean, boolean)
 		 */
 		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			overlay = (AbstractTokenOverlay) value;
 			setText(overlay.getName());
