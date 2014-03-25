@@ -69,6 +69,28 @@ public class MapView {
 	}
 	
 	/**
+	 * This moves your camera to the point
+	 * @param x the x part of the coordinate
+	 * @param x the x part of the coordinate
+	 */
+	public void goTo(int x, int y) {
+		goTo(x,y,true);
+	}
+	
+	/**
+	 * This moves your camera to the point
+	 * @param x the x part of the coordinate
+	 * @param x the x part of the coordinate
+	 * @param gridUnit if the given coordinates are in grid or zone units
+	 */
+	public void goTo(int x, int y, boolean gridUnit) {
+		if(gridUnit)
+			zr.centerOn(new CellPoint(x, y));
+		else
+			zr.centerOn(new ZonePoint(x, y));
+	}
+	
+	/**
 	 * An convenience method. This will return the initiative list of the current map. 
 	 * @return the initiative list of the current map
 	 */

@@ -9,7 +9,7 @@ import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
-import com.t3.macro.api.functions.StatesFunctions;
+import com.t3.macro.api.functions.CampaignFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.views.ButtonMacroView;
 import com.t3.macro.api.views.InitiativeListView;
@@ -27,7 +27,7 @@ public class Main {
 			"map.",path("OpenGameTable",MapFunctions.class),
 			"dialog.",path("OpenGameTable",DialogFunctions.class),
 			"path.",path("OpenGameTable",PathFunctions.class),
-			"states.",path("OpenGameTable",StatesFunctions.class),
+			"states.",path("OpenGameTable",CampaignFunctions.class),
 			"TokenView",path("OpenGameTable",TokenView.class),
 			"MapView",path("OpenGameTable",MapView.class),
 			"ButtonMacroView",path("OpenGameTable",ButtonMacroView.class),

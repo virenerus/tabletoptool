@@ -375,10 +375,6 @@ public class Campaign {
 	}
 
 	public List<MacroButtonProperties> getMacroButtonPropertiesArray() {
-		if (macroButtonProperties == null) {
-			// macroButtonProperties is null if you are loading an old campaign file < 1.3b32
-			macroButtonProperties = new ArrayList<MacroButtonProperties>();
-		}
 		return macroButtonProperties;
 	}
 

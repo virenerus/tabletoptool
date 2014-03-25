@@ -2,11 +2,6 @@ package com.t3.macro.api;
 
 import groovy.lang.Script;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.t3.chatparser.generated.ChatParser;
 import com.t3.chatparser.generated.ParseException;
 import com.t3.client.TabletopTool;
@@ -14,18 +9,16 @@ import com.t3.client.ui.commandpanel.ChatExecutor;
 import com.t3.dice.DiceBuilder;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.MacroException;
+import com.t3.macro.api.functions.CampaignFunctions;
 import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
-import com.t3.macro.api.functions.StatesFunctions;
 import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.views.InitiativeListView;
 import com.t3.macro.api.views.TokenView;
-import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
-import com.t3.model.campaign.TokenProperty;
 
 //FIXME make this package into a PLUG-IN
 public abstract class MacroAPI extends Script {
@@ -35,7 +28,7 @@ public abstract class MacroAPI extends Script {
 	public final MapFunctions map;
 	public final DialogFunctions dialog;
 	public final PathFunctions path;
-	public final StatesFunctions states;
+	public final CampaignFunctions campaign;
 
 	public MacroAPI() {
 		super();
@@ -44,7 +37,7 @@ public abstract class MacroAPI extends Script {
 		this.map=new MapFunctions();
 		this.dialog=new DialogFunctions();
 		this.path=new PathFunctions();
-		this.states=new StatesFunctions();
+		this.campaign=new CampaignFunctions();
 	}
 
 	/**
@@ -126,59 +119,6 @@ public abstract class MacroAPI extends Script {
 	 */
 	public InitiativeListView getInitiativeList() {
 		return new InitiativeListView(TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getInitiativeList());
-	}
-	
-	/**
-	 * This moves your camera to the point
-	 * @param x the x part of the coordinate
-	 * @param x the x part of the coordinate
-	 */
-	public void goTo(int x, int y) {
-		goTo(x,y,true);
-	}
-	
-	/**
-	 * This moves your camera to the point
-	 * @param x the x part of the coordinate
-	 * @param x the x part of the coordinate
-	 * @param gridUnit if the given coordinates are in grid or zone units
-	 */
-	public void goTo(int x, int y, boolean gridUnit) {
-		if(gridUnit)
-			TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new CellPoint(x, y));
-		else
-			TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new ZonePoint(x, y));
-	}
-	
-	/**
-	 * Gets all the property names.
-	 * @return a string list containing the property names.
-	 */
-	public List<String> getAllPropertyNames() {
-		Map<String, List<TokenProperty>> pmap = TabletopTool.getCampaign().getCampaignProperties().getTokenTypeMap();
-		ArrayList<String> namesList = new ArrayList<String>();
-
-		for (Entry<String, List<TokenProperty>> entry : pmap.entrySet()) {
-			for (TokenProperty tp : entry.getValue()) {
-				namesList.add(tp.getName());
-			}
-		}
-		return namesList;
-	}
-	
-	/**
-	 * Gets all the property names for the specified type.
-	 * 
-	 * @param type  The type of property.
-	 * @return a string list containing the property names.
-	 */
-	public List<String> getAllPropertyNames(String type) {
-		List<TokenProperty> props = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(type);
-		ArrayList<String> namesList = new ArrayList<String>();
-		for (TokenProperty tp : props) {
-			namesList.add(tp.getName());
-		}
-		return namesList;
 	}
 
 	/**

@@ -97,7 +97,6 @@ public class CampaignProperties {
 		// TODO: This doesn't feel right, should we deep copy, or does this do that automatically ?
 		lightSourcesMap = new TreeMap<String, Map<GUID, LightSource>>(properties.lightSourcesMap);
 
-		// TODO: fix for when old campaigns have been loaded into b33+
 		tokenStates = new LinkedHashMap<String, BooleanTokenOverlay>();
 		if (properties.tokenStates == null || properties.tokenStates.isEmpty()) {
 			properties.initTokenStatesMap();

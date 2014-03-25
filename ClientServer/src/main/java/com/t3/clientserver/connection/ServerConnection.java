@@ -58,8 +58,6 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
         dispatchThread.start();
         listeningThread = new ListeningThread(this, socket);
         listeningThread.start();
-//        reaperThread = new ReaperThread();
-//        reaperThread.start();  // There's a deadlock in there, no time to find it now though, so revert to the old way
     }
 
     public void addObserver(ServerObserver observer) {
