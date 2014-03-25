@@ -1445,8 +1445,8 @@ public class TokenView extends TokenPropertyView {
 		return token.getMacroNames(false).contains(macroName);
 	}
 	
-	public ButtonMacroView getMacro(String macroName) {
-		return new ButtonMacroView(token.getMacro(macroName,false));
+	public MacroButtonView getMacro(String macroName) {
+		return new MacroButtonView(token.getMacro(macroName,false));
 	}
 	
 	public boolean removeMacro(String macroName) {
@@ -1459,11 +1459,11 @@ public class TokenView extends TokenPropertyView {
 		return false;
 	}
 	
-	public ButtonMacroView createMacro(String label) {
+	public MacroButtonView createMacro(String label) {
 		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
 		mbp.setToken(token);
 		TabletopTool.serverCommand().putToken(token.getZone().getId(), token);
-		return new ButtonMacroView(mbp);
+		return new MacroButtonView(mbp);
 	}
 	
 	public void testInt() {

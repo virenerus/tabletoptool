@@ -55,9 +55,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	private String label;
 	private String group;
 	private String sortby;
-	private boolean autoExecute;
-	private boolean includeLabel; //include the macro label when printing output?
-	private boolean applyToTokens; //when the button is clicked it will impersonate every selected token when executing the macro
 	private String fontColorKey;
 	private String fontSize;
 	private String minWidth;
@@ -68,8 +65,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	private transient Script compiledCommand;
 
 	// constructor that creates a new instance, doesn't auto-save
-	public MacroButtonProperties(int index, String colorKey, String hotKey, String command, String label, String group, String sortby, boolean autoExecute, boolean includeLabel,
-			boolean applyToTokens, String fontColorKey, String fontSize, String minWidth, String maxWidth, String toolTip) {
+	public MacroButtonProperties(int index, String colorKey, String hotKey, String command, String label, String group, String sortby, String fontColorKey, String fontSize, String minWidth, String maxWidth, String toolTip) {
 		setIndex(index);
 		setColorKey(colorKey);
 		setHotKey(hotKey);
@@ -77,9 +73,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setLabel(label);
 		setGroup(group);
 		setSortby(sortby);
-		setAutoExecute(autoExecute);
-		setIncludeLabel(includeLabel);
-		setApplyToTokens(applyToTokens);
 		setFontColorKey(fontColorKey);
 		setFontSize(fontSize);
 		setMinWidth(minWidth);
@@ -91,9 +84,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setCompareGroup(true);
 		setCompareSortPrefix(true);
 		setCompareCommand(true);
-		setCompareIncludeLabel(true);
-		setCompareAutoExecute(true);
-		setCompareApplyToSelectedTokens(true);
 		setToolTip(toolTip);
 	}
 
@@ -106,9 +96,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setLabel("(new)");
 		setGroup("");
 		setSortby("");
-		setAutoExecute(true);
-		setIncludeLabel(false);
-		setApplyToTokens(false);
 		setFontColorKey("");
 		setFontSize("");
 		setMinWidth("");
@@ -120,9 +107,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setCompareGroup(true);
 		setCompareSortPrefix(true);
 		setCompareCommand(true);
-		setCompareIncludeLabel(true);
-		setCompareAutoExecute(true);
-		setCompareApplyToSelectedTokens(true);
 		setToolTip(null);
 	}
 
@@ -135,9 +119,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setCompareGroup(true);
 		setCompareSortPrefix(true);
 		setCompareCommand(true);
-		setCompareIncludeLabel(true);
-		setCompareAutoExecute(true);
-		setCompareApplyToSelectedTokens(true);
 		setToolTip(null);
 		save();
 	}
@@ -152,9 +133,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setCompareGroup(true);
 		setCompareSortPrefix(true);
 		setCompareCommand(true);
-		setCompareIncludeLabel(true);
-		setCompareAutoExecute(true);
-		setCompareApplyToSelectedTokens(true);
 		setToolTip(null);
 		save();
 	}
@@ -169,17 +147,11 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setLabel(properties.getLabel());
 		setGroup(properties.getGroup());
 		setSortby(properties.getSortby());
-		setAutoExecute(properties.getAutoExecute());
-		setIncludeLabel(properties.getIncludeLabel());
-		setApplyToTokens(properties.getApplyToTokens());
 		setFontColorKey(properties.getFontColorKey());
 		setFontSize(properties.getFontSize());
 		setMinWidth(properties.getMinWidth());
 		setMaxWidth(properties.getMaxWidth());
 		setAllowPlayerEdits(properties.getAllowPlayerEdits());
-		setCompareIncludeLabel(properties.getCompareIncludeLabel());
-		setCompareAutoExecute(properties.getCompareAutoExecute());
-		setCompareApplyToSelectedTokens(properties.getCompareApplyToSelectedTokens());
 		setCompareGroup(properties.getCompareGroup());
 		setCompareSortPrefix(properties.getCompareSortPrefix());
 		setCompareCommand(properties.getCompareCommand());
@@ -199,17 +171,11 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setLabel(properties.getLabel());
 		setGroup(properties.getGroup());
 		setSortby(properties.getSortby());
-		setAutoExecute(properties.getAutoExecute());
-		setIncludeLabel(properties.getIncludeLabel());
-		setApplyToTokens(properties.getApplyToTokens());
 		setFontColorKey(properties.getFontColorKey());
 		setFontSize(properties.getFontSize());
 		setMinWidth(properties.getMinWidth());
 		setMaxWidth(properties.getMaxWidth());
 		setAllowPlayerEdits(properties.getAllowPlayerEdits());
-		setCompareIncludeLabel(properties.getCompareIncludeLabel());
-		setCompareAutoExecute(properties.getCompareAutoExecute());
-		setCompareApplyToSelectedTokens(properties.getCompareApplyToSelectedTokens());
 		setCompareGroup(properties.getCompareGroup());
 		setCompareSortPrefix(properties.getCompareSortPrefix());
 		setCompareCommand(properties.getCompareCommand());
@@ -228,17 +194,11 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		setLabel(properties.getLabel());
 		setGroup(properties.getGroup());
 		setSortby(properties.getSortby());
-		setAutoExecute(properties.getAutoExecute());
-		setIncludeLabel(properties.getIncludeLabel());
-		setApplyToTokens(properties.getApplyToTokens());
 		setFontColorKey(properties.getFontColorKey());
 		setFontSize(properties.getFontSize());
 		setMinWidth(properties.getMinWidth());
 		setMaxWidth(properties.getMaxWidth());
 		setAllowPlayerEdits(properties.getAllowPlayerEdits());
-		setCompareIncludeLabel(properties.getCompareIncludeLabel());
-		setCompareAutoExecute(properties.getCompareAutoExecute());
-		setCompareApplyToSelectedTokens(properties.getCompareApplyToSelectedTokens());
 		setCompareGroup(properties.getCompareGroup());
 		setCompareSortPrefix(properties.getCompareSortPrefix());
 		setCompareCommand(properties.getCompareCommand());
@@ -263,12 +223,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			setGroup(props.get("group"));
 		if (props.containsKey("sortby"))
 			setSortby(props.get("sortby"));
-		if (props.containsKey("autoExecute"))
-			setAutoExecute(Boolean.parseBoolean(props.get("autoExecute")));
-		if (props.containsKey("includeLabel"))
-			setIncludeLabel(Boolean.parseBoolean(props.get("includeLabel")));
-		if (props.containsKey("applyToTokens"))
-			setApplyToTokens(Boolean.parseBoolean(props.get("applyToTokens")));
 		if (props.containsKey("fontColorKey"))
 			setFontColorKey(props.get("fontColorKey"));
 		if (props.containsKey("fontSize"))
@@ -289,12 +243,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			setCompareSortPrefix(Boolean.valueOf(props.get("compareSortPrefix")));
 		if (props.containsKey("compareCommand"))
 			setCompareCommand(Boolean.valueOf(props.get("compareCommand")));
-		if (props.containsKey("compareIncludeLabel"))
-			setCompareIncludeLabel(Boolean.valueOf(props.get("compareIncludeLabel")));
-		if (props.containsKey("compareAutoExecute"))
-			setCompareAutoExecute(Boolean.valueOf(props.get("compareAutoExecute")));
-		if (props.containsKey("compareApplyToSelectedTokens"))
-			setCompareApplyToSelectedTokens(Boolean.valueOf(props.get("compareApplyToSelectedTokens")));
 	}
 
 	public void save() {
@@ -333,18 +281,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	}
 
 	private void executeCommonMacro(Collection<Token> tokenList) {
-		/*
-		 * This is actually one of the "common macro" buttons that are on the selection panel so we need to handle this
-		 * case a little differently. If apply to all tokens is checked by the user then we need to check that the
-		 * command is part of the common values otherwise it would cause unexpected things to occur.
-		 */
-		if (applyToTokens) {
-			if (!compareCommand) {
-				TabletopTool.showError("msg.error.cantApplyMacroToSelected");
-				return;
-			}
-		}
-
 		if (compareCommand) {
 			for (Token token : tokenList) {
 				executeCommand(token, null);
@@ -375,49 +311,38 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	}
 	
 	private Object executeCommand(Token contextToken, Map<String, Object> arguments) {
-		//FIXMESOON print label of macro button when executed and option is selected: 
-		/*if (getIncludeLabel()) {
-			String commandToExecute = getLabel();
-			commandArea.setText(impersonatePrefix + commandToExecute);
-
-			TabletopTool.getFrame().getCommandPanel().commitCommand();
-		}*/
-
-		
 		String loc;
 		Object o = null;
 		
-		// If we aren't auto execute, then append the text instead of replace it
-		if (getAutoExecute()) {
-			boolean trusted = false;
-			if (allowPlayerEdits == null) {
-				allowPlayerEdits = false;
-			}
-			if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
-				trusted = true;
-			}
-			if (saveLocation.equals("GlobalPanel")) {
-				loc = "global";
-				trusted = TabletopTool.getPlayer().isGM();
-			} else if (saveLocation.equals("CampaignPanel")) {
-				loc = "campaign";
-			} else if (contextToken != null) {
-				loc = "Token:" + contextToken.getName();
-			} else {
-				loc = "chat";
-			}
-			
-			T3MacroContext newMacroContext = new T3MacroContext(label, loc, trusted, index);
-			try {
-				if(compiledCommand==null)
-					compileCommand();
-				if(compiledCommand!=null)
-					o=MacroEngine.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
-			} catch (MacroException e) {
-				log.error("Error while trying to execute a macro from button",e);
-				TabletopTool.addMessage(TextMessage.me(e.getHTMLErrorMessage()));
-			}
+		boolean trusted = false;
+		if (allowPlayerEdits == null) {
+			allowPlayerEdits = false;
 		}
+		if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
+			trusted = true;
+		}
+		if (saveLocation.equals("GlobalPanel")) {
+			loc = "global";
+			trusted = TabletopTool.getPlayer().isGM();
+		} else if (saveLocation.equals("CampaignPanel")) {
+			loc = "campaign";
+		} else if (contextToken != null) {
+			loc = "Token:" + contextToken.getName();
+		} else {
+			loc = "chat";
+		}
+		
+		T3MacroContext newMacroContext = new T3MacroContext(label, loc, trusted, index);
+		try {
+			if(compiledCommand==null)
+				compileCommand();
+			if(compiledCommand!=null)
+				o=MacroEngine.getInstance().run(compiledCommand,arguments,contextToken,newMacroContext);
+		} catch (MacroException e) {
+			log.error("Error while trying to execute a macro from button",e);
+			TabletopTool.addMessage(TextMessage.me(e.getHTMLErrorMessage()));
+		}
+		
 		TabletopTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();
 		return o;
 	}
@@ -515,30 +440,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	public void setSortby(String sortby) {
 		this.sortby = sortby;
-	}
-
-	public boolean getAutoExecute() {
-		return autoExecute;
-	}
-
-	public void setAutoExecute(boolean autoExecute) {
-		this.autoExecute = autoExecute;
-	}
-
-	public boolean getIncludeLabel() {
-		return includeLabel;
-	}
-
-	public void setIncludeLabel(boolean includeLabel) {
-		this.includeLabel = includeLabel;
-	}
-
-	public boolean getApplyToTokens() {
-		return applyToTokens;
-	}
-
-	public void setApplyToTokens(boolean applyToTokens) {
-		this.applyToTokens = applyToTokens;
 	}
 
 	public static String[] getFontColors() {
@@ -680,9 +581,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		label = String.valueOf(index);
 		group = "";
 		sortby = "";
-		autoExecute = true;
-		includeLabel = false;
-		applyToTokens = false;
 		fontColorKey = "black";
 		fontSize = "";
 		minWidth = "";
@@ -702,15 +600,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 		MacroButtonProperties that = (MacroButtonProperties) o;
 
-		if (autoExecute != that.autoExecute) {
-			return false;
-		}
-		if (includeLabel != that.includeLabel) {
-			return false;
-		}
-		if (applyToTokens != that.applyToTokens) {
-			return false;
-		}
 		if (index != that.index) {
 			return false;
 		}
@@ -752,9 +641,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	public int hashCode() { // modified so longest strings are at the end
 		int result;
 		result = index;
-		result = 31 * result + (autoExecute ? 1 : 0);
-		result = 31 * result + (includeLabel ? 1 : 0);
-		result = 31 * result + (applyToTokens ? 1 : 0);
 		result = 31 * result + (minWidth != null ? minWidth.hashCode() : 0);
 		result = 31 * result + (maxWidth != null ? maxWidth.hashCode() : 0);
 		result = 31 * result + (fontSize != null ? fontSize.hashCode() : 0);
@@ -773,9 +659,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	public int hashCodeForComparison() {
 		int result;
 		result = 0;
-		result = 31 * result + (getCompareAutoExecute() && autoExecute ? 1 : 0);
-		result = 31 * result + (getCompareIncludeLabel() && includeLabel ? 1 : 0);
-		result = 31 * result + (getCompareApplyToSelectedTokens() && applyToTokens ? 1 : 0);
 		result = 31 * result + (getLabel() != null ? label.hashCode() : 0);
 		result = 31 * result + (getCompareGroup() && group != null ? group.hashCode() : 0);
 		result = 31 * result + (getCompareSortPrefix() && sortby != null ? sortby.hashCode() : 0);
@@ -855,9 +738,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	private Boolean compareGroup = true;
 	private Boolean compareSortPrefix = true;
 	private Boolean compareCommand = true;
-	private Boolean compareIncludeLabel = true;
-	private Boolean compareAutoExecute = true;
-	private Boolean compareApplyToSelectedTokens = true;
 
 	public Boolean getCommonMacro() {
 		return commonMacro;
@@ -891,30 +771,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		compareCommand = value;
 	}
 
-	public Boolean getCompareIncludeLabel() {
-		return compareIncludeLabel;
-	}
-
-	public void setCompareIncludeLabel(Boolean value) {
-		compareIncludeLabel = value;
-	}
-
-	public Boolean getCompareAutoExecute() {
-		return compareAutoExecute;
-	}
-
-	public void setCompareAutoExecute(Boolean value) {
-		compareAutoExecute = value;
-	}
-
-	public Boolean getCompareApplyToSelectedTokens() {
-		return compareApplyToSelectedTokens;
-	}
-
-	public void setCompareApplyToSelectedTokens(Boolean value) {
-		compareApplyToSelectedTokens = value;
-	}
-
 	public static void fixOldMacroCompare(MacroButtonProperties oldMacro) {
 		if (oldMacro.getCommonMacro() == null) {
 			oldMacro.setCommonMacro(new Boolean(true));
@@ -922,20 +778,11 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		if (oldMacro.getAllowPlayerEdits() == null) {
 			oldMacro.setAllowPlayerEdits(new Boolean(true));
 		}
-		if (oldMacro.getCompareApplyToSelectedTokens() == null) {
-			oldMacro.setCompareApplyToSelectedTokens(new Boolean(true));
-		}
-		if (oldMacro.getCompareAutoExecute() == null) {
-			oldMacro.setCompareAutoExecute(new Boolean(true));
-		}
 		if (oldMacro.getCompareCommand() == null) {
 			oldMacro.setCompareCommand(new Boolean(true));
 		}
 		if (oldMacro.getCompareGroup() == null) {
 			oldMacro.setCompareGroup(new Boolean(true));
-		}
-		if (oldMacro.getCompareIncludeLabel() == null) {
-			oldMacro.setCompareIncludeLabel(new Boolean(true));
 		}
 		if (oldMacro.getCompareSortPrefix() == null) {
 			oldMacro.setCompareSortPrefix(new Boolean(true));
@@ -957,12 +804,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			compareSortPrefix = true;
 		if (compareCommand == null)
 			compareCommand = true;
-		if (compareIncludeLabel == null)
-			compareIncludeLabel = true;
-		if (compareAutoExecute == null)
-			compareAutoExecute = true;
-		if (compareApplyToSelectedTokens == null)
-			compareApplyToSelectedTokens = true;
 		if (allowPlayerEdits == null)
 			allowPlayerEdits = true;
 		return this;

@@ -1,4 +1,4 @@
-package com.t3.macro.api.functions.player;
+package com.t3.macro.api.functions;
 
 import java.util.ArrayList;
 import java.util.List;

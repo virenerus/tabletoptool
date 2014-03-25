@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.MessagePanel;
-import com.t3.macro.api.views.ButtonMacroView;
+import com.t3.macro.api.views.MacroButtonView;
 
 @SuppressWarnings("serial")
 public class HTMLPane extends JEditorPane {
@@ -62,7 +62,7 @@ public class HTMLPane extends JEditorPane {
 						Matcher m = MessagePanel.URL_PATTERN.matcher(e.getDescription());
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
-								ButtonMacroView.executeLink(e.getDescription());
+								MacroButtonView.executeLink(e.getDescription());
 							}
 						}
 					}

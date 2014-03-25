@@ -187,7 +187,7 @@ public class MacroButton extends JButton implements MouseListener {
 		if (SwingUtilities.isLeftMouseButton(event)) {
 			// If any of the following 3 conditions are correct we want to run it against all selected tokens,
 			// Shift is held down while clicking the button, the button has apply to selected tokens set, or its a common macro button
-			if (SwingUtil.isShiftDown(event) || properties.getApplyToTokens() || properties.getCommonMacro()) {
+			if (SwingUtil.isShiftDown(event) || properties.getCommonMacro()) {
 				if (TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList().size() > 0) {
 					properties.executeMacro(TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList());
 				}
@@ -221,7 +221,7 @@ public class MacroButton extends JButton implements MouseListener {
 		}
 
 		List<Token> selectedTokens = TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList();
-		if (SwingUtil.isShiftDown(event) || getProperties().getApplyToTokens()) {
+		if (SwingUtil.isShiftDown(event)) {
 			TabletopTool.getFrame().getCurrentZoneRenderer().setHighlightCommonMacros(selectedTokens);
 		} else {
 			if (getPanelClass() == "SelectionPanel") {

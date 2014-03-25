@@ -45,8 +45,8 @@ import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
+import com.t3.macro.api.functions.PlayerFunctions;
 import com.t3.macro.api.functions.input.InputFunctions;
-import com.t3.macro.api.functions.player.PlayerFunctions;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;
@@ -85,8 +85,7 @@ public class MacroButtonDialog extends JDialog {
 
 		initCommandTextArea();
 
-		panel.getCheckBox("applyToTokensCheckBox").setEnabled(!isTokenMacro);
-		panel.getComboBox("hotKey").setEnabled(!isTokenMacro);
+		getHotKeyCombo().setEnabled(!isTokenMacro);
 		
 		panel.getTextField("maxWidth").setEnabled(false); // can't get max-width to work, so temporarily disabling it.
 		panel.getCheckBox("allowPlayerEditsCheckBox").setEnabled(TabletopTool.getPlayer().isGM());
@@ -96,13 +95,13 @@ public class MacroButtonDialog extends JDialog {
 
 	private void installHotKeyCombo() {
 		String[] hotkeys = MacroButtonHotKeyManager.HOTKEYS;
-		JComboBox<String> combo = panel.getComboBox("hotKey");
+		JComboBox<String> combo = getHotKeyCombo();
 		for (int i = 0; i < hotkeys.length; i++)
 			combo.insertItemAt(hotkeys[i], i);
 	}
 
 	private void installColorCombo() {
-		JComboBox<String> combo = panel.getComboBox("colorComboBox");
+		JComboBox<String> combo = getColorComboBox();
 		combo.setModel(new DefaultComboBoxModel<String>(T3Util.getColorNames().toArray(new String[0])));
 		combo.insertItemAt("default", 0);
 		combo.setSelectedItem("default");
@@ -110,8 +109,8 @@ public class MacroButtonDialog extends JDialog {
 	}
 
 	private void installFontColorCombo() {
-		JComboBox combo = panel.getComboBox("fontColorComboBox");
-		combo.setModel(new DefaultComboBoxModel(MacroButtonProperties.getFontColors()));
+		JComboBox<String> combo = getFontColorComboBox();
+		combo.setModel(new DefaultComboBoxModel<String>(MacroButtonProperties.getFontColors()));
 //		combo.insertItemAt("default", 0);
 		combo.setSelectedItem("black");
 		combo.setRenderer(new ColorComboBoxRenderer());
@@ -119,9 +118,8 @@ public class MacroButtonDialog extends JDialog {
 
 	private void installFontSizeCombo() {
 		String[] fontSizes = { "0.75em", "0.80em", "0.85em", "0.90em", "0.95em", "1.00em", "1.05em", "1.10em", "1.15em", "1.20em", "1.25em" };
-//		String[] fontSizes = { "6pt", "7pt", "8pt", "9pt", "10pt", "11pt", "12pt", "13pt", "14pt", "15pt", "16pt" };
-		JComboBox combo = panel.getComboBox("fontSizeComboBox");
-		combo.setModel(new DefaultComboBoxModel(fontSizes));
+		JComboBox<String> combo = getFontSizeComboBox();
+		combo.setModel(new DefaultComboBoxModel<String>(fontSizes));
 	}
 
 	private void installOKButton() {
@@ -166,9 +164,6 @@ public class MacroButtonDialog extends JDialog {
 			commandTextArea.setCaretPosition(0);
 			commandTextArea.discardAllEdits(); //this removes all edits, otherwise adding all the text is an edit itself
 
-			getAutoExecuteCheckBox().setSelected(properties.getAutoExecute());
-			getIncludeLabelCheckBox().setSelected(properties.getIncludeLabel());
-			getApplyToTokensCheckBox().setSelected(properties.getApplyToTokens());
 			getFontColorComboBox().setSelectedItem(properties.getFontColorKey());
 			getFontSizeComboBox().setSelectedItem(properties.getFontSize());
 			getMinWidthTextField().setText(properties.getMinWidth());
@@ -176,9 +171,6 @@ public class MacroButtonDialog extends JDialog {
 			getCompareGroupCheckBox().setSelected(properties.getCompareGroup());
 			getCompareSortPrefixCheckBox().setSelected(properties.getCompareSortPrefix());
 			getCompareCommandCheckBox().setSelected(properties.getCompareCommand());
-			getCompareIncludeLabelCheckBox().setSelected(properties.getCompareIncludeLabel());
-			getCompareAutoExecuteCheckBox().setSelected(properties.getCompareAutoExecute());
-			getCompareApplyToSelectedTokensCheckBox().setSelected(properties.getCompareApplyToSelectedTokens());
 			getAllowPlayerEditsCheckBox().setSelected(properties.getAllowPlayerEdits());
 			getToolTipTextField().setText(properties.getToolTip());
 
@@ -188,9 +180,6 @@ public class MacroButtonDialog extends JDialog {
 				getGroupTextField().setEnabled(properties.getCompareGroup());
 				getSortbyTextField().setEnabled(properties.getCompareSortPrefix());
 				commandTextArea.setEnabled(properties.getCompareCommand());
-				getAutoExecuteCheckBox().setEnabled(properties.getCompareAutoExecute());
-				getIncludeLabelCheckBox().setEnabled(properties.getCompareIncludeLabel());
-				getApplyToTokensCheckBox().setEnabled(properties.getCompareApplyToSelectedTokens());
 				getFontColorComboBox().setEnabled(false);
 				getFontSizeComboBox().setEnabled(false);
 				getMinWidthTextField().setEnabled(false);
@@ -199,9 +188,6 @@ public class MacroButtonDialog extends JDialog {
 			startingCompareGroup = properties.getCompareGroup();
 			startingCompareSortPrefix = properties.getCompareSortPrefix();
 			startingCompareCommand = properties.getCompareCommand();
-			startingCompareAutoExecute = properties.getCompareAutoExecute();
-			startingCompareIncludeLabel = properties.getCompareIncludeLabel();
-			startingCompareApplyToSelectedTokens = properties.getCompareApplyToSelectedTokens();
 			startingAllowPlayerEdits = properties.getAllowPlayerEdits();
 
 			setVisible(true);
@@ -287,9 +273,6 @@ public class MacroButtonDialog extends JDialog {
 		properties.setGroup(getGroupTextField().getText());
 		properties.setSortby(getSortbyTextField().getText());
 		properties.setCommand(commandTextArea.getText());
-		properties.setAutoExecute(getAutoExecuteCheckBox().isSelected());
-		properties.setIncludeLabel(getIncludeLabelCheckBox().isSelected());
-		properties.setApplyToTokens(getApplyToTokensCheckBox().isSelected());
 		properties.setFontColorKey(getFontColorComboBox().getSelectedItem().toString());
 		properties.setFontSize(getFontSizeComboBox().getSelectedItem().toString());
 		properties.setMinWidth(getMinWidthTextField().getText());
@@ -297,9 +280,6 @@ public class MacroButtonDialog extends JDialog {
 		properties.setCompareGroup(getCompareGroupCheckBox().isSelected());
 		properties.setCompareSortPrefix(getCompareSortPrefixCheckBox().isSelected());
 		properties.setCompareCommand(getCompareCommandCheckBox().isSelected());
-		properties.setCompareIncludeLabel(getCompareIncludeLabelCheckBox().isSelected());
-		properties.setCompareAutoExecute(getCompareAutoExecuteCheckBox().isSelected());
-		properties.setCompareApplyToSelectedTokens(getCompareApplyToSelectedTokensCheckBox().isSelected());
 		properties.setAllowPlayerEdits(getAllowPlayerEditsCheckBox().isSelected());
 		properties.setToolTip(getToolTipTextField().getText());
 
@@ -339,7 +319,7 @@ public class MacroButtonDialog extends JDialog {
 					}
 					boolean isGM = TabletopTool.getPlayer().isGM();
 					for (MacroButtonProperties nextMacro : nextToken.getMacroList(trusted)) {
-						if (isGM || (!isGM && nextMacro.getApplyToTokens())) {
+						if (isGM) { //FIXME or should this be if true?
 							if (nextMacro.hashCodeForComparison() == oldHashCode) {
 								nextMacro.setLabel(properties.getLabel());
 								if (properties.getCompareGroup() && startingCompareGroup) {
@@ -351,24 +331,12 @@ public class MacroButtonDialog extends JDialog {
 								if (properties.getCompareCommand() && startingCompareCommand) {
 									nextMacro.setCommand(properties.getCommand());
 								}
-								if (properties.getCompareAutoExecute() && startingCompareAutoExecute) {
-									nextMacro.setAutoExecute(properties.getAutoExecute());
-								}
-								if (properties.getCompareIncludeLabel() && startingCompareIncludeLabel) {
-									nextMacro.setIncludeLabel(properties.getIncludeLabel());
-								}
-								if (properties.getCompareApplyToSelectedTokens() && startingCompareApplyToSelectedTokens) {
-									nextMacro.setApplyToTokens(properties.getApplyToTokens());
-								}
 								if (changeAllowPlayerEdits) {
 									nextMacro.setAllowPlayerEdits(endingAllowPlayerEdits);
 								}
 								nextMacro.setCompareGroup(properties.getCompareGroup());
 								nextMacro.setCompareSortPrefix(properties.getCompareSortPrefix());
 								nextMacro.setCompareCommand(properties.getCompareCommand());
-								nextMacro.setCompareAutoExecute(properties.getCompareAutoExecute());
-								nextMacro.setCompareIncludeLabel(properties.getCompareIncludeLabel());
-								nextMacro.setCompareApplyToSelectedTokens(properties.getCompareApplyToSelectedTokens());
 								nextMacro.save();
 							}
 						}
@@ -390,23 +358,11 @@ public class MacroButtonDialog extends JDialog {
 //		dispose();
 	}
 
-	private JCheckBox getAutoExecuteCheckBox() {
-		return panel.getCheckBox("autoExecuteCheckBox");
-	}
-
-	private JCheckBox getIncludeLabelCheckBox() {
-		return panel.getCheckBox("includeLabelCheckBox");
-	}
-
-	private JCheckBox getApplyToTokensCheckBox() {
-		return panel.getCheckBox("applyToTokensCheckBox");
-	}
-
-	private JComboBox getHotKeyCombo() {
+	private JComboBox<String> getHotKeyCombo() {
 		return panel.getComboBox("hotKey");
 	}
 
-	private JComboBox getColorComboBox() {
+	private JComboBox<String> getColorComboBox() {
 		return panel.getComboBox("colorComboBox");
 	}
 
@@ -426,11 +382,11 @@ public class MacroButtonDialog extends JDialog {
 		return (RSyntaxTextArea) panel.getTextComponent("command");
 	}*/
 
-	private JComboBox getFontColorComboBox() {
+	private JComboBox<String> getFontColorComboBox() {
 		return panel.getComboBox("fontColorComboBox");
 	}
 
-	private JComboBox getFontSizeComboBox() {
+	private JComboBox<String> getFontSizeComboBox() {
 		return panel.getComboBox("fontSizeComboBox");
 	}
 
@@ -451,18 +407,6 @@ public class MacroButtonDialog extends JDialog {
 	}
 
 	// Begin comparison customization
-
-	private JCheckBox getCompareIncludeLabelCheckBox() {
-		return panel.getCheckBox("commonUseIncludeLabel");
-	}
-
-	private JCheckBox getCompareAutoExecuteCheckBox() {
-		return panel.getCheckBox("commonUseAutoExecute");
-	}
-
-	private JCheckBox getCompareApplyToSelectedTokensCheckBox() {
-		return panel.getCheckBox("commonUseApplyToSelectedTokens");
-	}
 
 	private JCheckBox getCompareGroupCheckBox() {
 		return panel.getCheckBox("commonUseGroup");
@@ -502,21 +446,9 @@ public class MacroButtonDialog extends JDialog {
 		getMaxWidthTextField().setToolTipText(I18N.getText("component.tooltip.macro.maxWidth"));
 		panel.getLabel("macroToolTipLabel").setText(I18N.getText("component.label.macro.toolTip") + ":");
 		getToolTipTextField().setToolTipText(I18N.getText("component.tooltip.macro.tooltip"));
-		getIncludeLabelCheckBox().setText(I18N.getText("component.label.macro.includeLabel"));
-		getIncludeLabelCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.includeLabel"));
-		getAutoExecuteCheckBox().setText(I18N.getText("component.label.macro.autoExecute"));
-		getAutoExecuteCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.autoExecute"));
-		getApplyToTokensCheckBox().setText(I18N.getText("component.label.macro.applyToSelected"));
-		getApplyToTokensCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.applyToSelected"));
 		getAllowPlayerEditsCheckBox().setText(I18N.getText("component.label.macro.allowPlayerEdits"));
 		getAllowPlayerEditsCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.allowPlayerEdits"));
 		((TitledBorder) ((GridView) panel.getComponentByName("macroComparisonGridView")).getBorder()).setTitle(I18N.getText("component.label.macro.macroCommonality"));
-		getCompareIncludeLabelCheckBox().setText(I18N.getText("component.label.macro.compareUseIncludeLabel"));
-		getCompareIncludeLabelCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.compareUseIncludeLabel"));
-		getCompareAutoExecuteCheckBox().setText(I18N.getText("component.label.macro.compareUseAutoExecute"));
-		getCompareAutoExecuteCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.compareUseAutoExecute"));
-		getCompareApplyToSelectedTokensCheckBox().setText(I18N.getText("component.label.macro.compareApplyToSelected"));
-		getCompareApplyToSelectedTokensCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.compareUseApplyToSelected"));
 		getCompareGroupCheckBox().setText(I18N.getText("component.label.macro.compareUseGroup"));
 		getCompareGroupCheckBox().setToolTipText(I18N.getText("component.tooltip.macro.compareUseGroup"));
 		getCompareSortPrefixCheckBox().setText(I18N.getText("component.label.macro.compareUseSortPrefix"));

@@ -14,7 +14,7 @@ import com.t3.macro.api.functions.DialogFunctions;
 import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
-import com.t3.macro.api.functions.player.PlayerFunctions;
+import com.t3.macro.api.functions.PlayerFunctions;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.views.InitiativeListView;
 import com.t3.macro.api.views.TokenView;

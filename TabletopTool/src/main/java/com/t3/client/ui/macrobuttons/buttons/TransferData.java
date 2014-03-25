@@ -43,9 +43,6 @@ public class TransferData implements Serializable {
 		this.hotKey = prop.getHotKey();
 		this.group = prop.getGroup();
 		this.sortby = prop.getSortby();
-		this.autoExecute = prop.getAutoExecute();
-		this.includeLabel = prop.getIncludeLabel();
-		this.applyToTokens = prop.getApplyToTokens();
 		this.panelClass = button.getPanelClass();
 		this.fontColorKey = prop.getFontColorKey();
 		this.fontSize = prop.getFontSize();

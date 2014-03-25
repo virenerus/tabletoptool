@@ -16,78 +16,100 @@ import com.t3.model.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 
-public class ButtonMacroView implements MacroView {
+public class MacroButtonView implements MacroView {
 
 	private MacroButtonProperties macro;
 
-	public ButtonMacroView(MacroButtonProperties macro) {
+	public MacroButtonView(MacroButtonProperties macro) {
 		this.macro=macro;
 	}
 	
+	/**
+	 * @return the label of the macro button
+	 */
 	public String getLabel() {
 		return macro.getLabel();
 	}
 	
+	/**
+	 * This method sets the label of this macro button
+	 * @param label the new label of the button
+	 */
 	public void setLabel(String label) {
 		macro.setLabel(label);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return the token this macro button is attached to
+	 */
 	public TokenView getToken() {
 		return new TokenView(macro.getToken());
 	}
 
+	/**
+	 * @return a string representation of the color of this button
+	 */
 	public String getColorKey() {
 		return macro.getColorKey();
 	}
 
+	/**
+	 * This method allows you to set the color of the macro button. You can give the color
+	 * as a name (e.g. "red") or as a hexadecimal number (e.g. #ff0000).
+	 * @param colorKey the color you want to set
+	 */
 	public void setColorKey(String colorKey) {
 		macro.setColorKey(colorKey);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public String getCommand() {
+	/**
+	 * @return the macro stored in the button as text
+	 */
+	public String getMacro() {
 		return macro.getCommand();
 	}
 
-	public void setCommand(String command) {
+	/**
+	 * This method sets the macro of this button.
+	 * @param command the new macro
+	 */
+	public void setMacro(String command) {
 		macro.setCommand(command);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return the group this button belongs to
+	 */
 	public String getGroup() {
 		return macro.getGroup();
 	}
 	
+	/**
+	 * This method sets the group of this button.
+	 * @param group the new group of this button
+	 */
 	public void setGroup(String group) {
 		macro.setGroup(group);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return a key to sort this button by
+	 */
 	public String getSortby() {
 		return macro.getSortby();
 	}
 
+	/**
+	 * This method sets the sort key of this button. This allows you to sort the buttons
+	 * in another order than by the label
+	 * @param sortby the new sort key
+	 */
 	public void setSortby(String sortby) {
 		macro.setSortby(sortby);
-		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
-	}
-
-	public boolean getAutoExecute() {
-		return macro.getAutoExecute();
-	}
-
-	public void setAutoExecute(boolean autoExecute) {
-		macro.setAutoExecute(autoExecute);
-		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
-	}
-
-	public boolean getApplyToTokens() {
-		return macro.getApplyToTokens();
-	}
-
-	public void setApplyToTokens(boolean applyToTokens) {
-		macro.setApplyToTokens(applyToTokens);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
@@ -163,28 +185,6 @@ public class ButtonMacroView implements MacroView {
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public Boolean getCompareIncludeLabel() {
-		return macro.getCompareIncludeLabel();
-	}
-
-	public Boolean getCompareAutoExecute() {
-		return macro.getCompareAutoExecute();
-	}
-
-	public void setCompareAutoExecute(Boolean value) {
-		macro.setCompareAutoExecute(value);
-		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
-	}
-
-	public Boolean getCompareApplyToSelectedTokens() {
-		return macro.getCompareApplyToSelectedTokens();
-	}
-
-	public void setCompareApplyToSelectedTokens(Boolean value) {
-		macro.setCompareApplyToSelectedTokens(value);
-		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
-	}
-	
 	public Object execute() {
 		Map<String,Object> args=Collections.emptyMap();
 		return execute(args);

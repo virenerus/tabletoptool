@@ -1594,13 +1594,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (macroButton.getProperties().getApplyToTokens()) {
-				if (TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList().size() > 0) {
-					macroButton.getProperties().executeMacro(TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList());
-				}
-			} else {
-				macroButton.getProperties().executeMacro();
-			}
+			macroButton.getProperties().executeMacro();
 		}
 	}
 

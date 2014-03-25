@@ -146,20 +146,11 @@ public class SelectionPanel extends AbstractMacroPanel {
 					}
 				}
 			}
-			if (!nextMacro.getCompareApplyToSelectedTokens()) {
-				nextMacro.setCompareApplyToSelectedTokens(false);
-			}
-			if (!nextMacro.getCompareAutoExecute()) {
-				nextMacro.setCompareAutoExecute(false);
-			}
 			if (!nextMacro.getCompareCommand()) {
 				nextMacro.setCommand("");
 			}
 			if (!nextMacro.getCompareGroup()) {
 				nextMacro.setGroup("");
-			}
-			if (!nextMacro.getCompareIncludeLabel()) {
-				nextMacro.setIncludeLabel(false);
 			}
 			if (!nextMacro.getCompareSortPrefix()) {
 				nextMacro.setSortby("");

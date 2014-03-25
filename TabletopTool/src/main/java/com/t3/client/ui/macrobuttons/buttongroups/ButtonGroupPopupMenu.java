@@ -541,18 +541,6 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			failComparison = true;
 			comparisonResults = comparisonResults + "<li>" + I18N.getText("component.label.macro.command") + "</li>";
 		}
-		if(!buttonMacro.getCompareIncludeLabel()) {
-			failComparison = true;
-			comparisonResults = comparisonResults + "<li>" + I18N.getText("component.label.macro.includeLabel") + "</li>";
-		}
-		if(!buttonMacro.getCompareAutoExecute()) {
-			failComparison = true;
-			comparisonResults = comparisonResults + "<li>" + I18N.getText("component.label.macro.autoExecute") + "</li>";
-		}
-		if(!buttonMacro.getApplyToTokens()) {
-			failComparison = true;
-			comparisonResults = comparisonResults + "<li>" + I18N.getText("component.label.macro.applyToSelected") + "</li>";
-		}
 		if(failComparison) {
 		failComparison = TabletopTool.confirm(I18N.getText("confirm.macro.failComparison", buttonMacro.getLabel(), comparisonResults));
 		}

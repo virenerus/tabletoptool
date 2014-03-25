@@ -33,9 +33,6 @@ public class MacroButtonPrefs {
 	private static final String PREF_GROUP_KEY = "group";
 	private static final String PREF_SORTBY_KEY = "sortby";
 	private static final String PREF_COMMAND_KEY = "command";
-	private static final String PREF_AUTO_EXECUTE = "autoExecute";
-	private static final String PREF_INCLUDE_LABEL = "includeLabel";
-	private static final String PREF_APPLYTOTOKENS = "applyToTokens";
 	private static final String PREF_HOTKEY_KEY = "hotKey";
 	private static final String PREF_FONT_COLOR_KEY = "fontColorKey";
 	private static final String PREF_FONT_SIZE = "fontSize";
@@ -77,9 +74,6 @@ public class MacroButtonPrefs {
 			prefs.put(PREF_LABEL_KEY, properties.getLabel());
 			prefs.put(PREF_GROUP_KEY, properties.getGroup());
 			prefs.put(PREF_SORTBY_KEY, properties.getSortby());
-			prefs.putBoolean(PREF_AUTO_EXECUTE, properties.getAutoExecute());
-			prefs.putBoolean(PREF_INCLUDE_LABEL, properties.getIncludeLabel());
-			prefs.putBoolean(PREF_APPLYTOTOKENS, properties.getApplyToTokens());
 			prefs.put(PREF_HOTKEY_KEY, properties.getHotKey());
 			prefs.put(PREF_FONT_COLOR_KEY, properties.getFontColorKey());
 			prefs.put(PREF_FONT_SIZE, properties.getFontSize());
@@ -124,9 +118,6 @@ public class MacroButtonPrefs {
 							newPrefs.put(PREF_GROUP_KEY, buttonPref.get(PREF_GROUP_KEY, ""));
 							newPrefs.put(PREF_SORTBY_KEY, buttonPref.get(PREF_SORTBY_KEY, ""));
 							newPrefs.put(PREF_COMMAND_KEY, buttonPref.get(PREF_COMMAND_KEY, ""));
-							newPrefs.putBoolean(PREF_AUTO_EXECUTE, buttonPref.getBoolean(PREF_AUTO_EXECUTE, true));
-							newPrefs.putBoolean(PREF_INCLUDE_LABEL, buttonPref.getBoolean(PREF_INCLUDE_LABEL, true));
-							newPrefs.putBoolean(PREF_APPLYTOTOKENS, buttonPref.getBoolean(PREF_APPLYTOTOKENS, true));
 							newPrefs.put(PREF_HOTKEY_KEY, buttonPref.get(PREF_HOTKEY_KEY, MacroButtonHotKeyManager.HOTKEYS[0]));
 							newPrefs.put(PREF_FONT_COLOR_KEY, buttonPref.get(PREF_FONT_COLOR_KEY, ""));
 							newPrefs.put(PREF_FONT_SIZE, buttonPref.get(PREF_FONT_SIZE, ""));
@@ -138,9 +129,6 @@ public class MacroButtonPrefs {
 							String group = buttonPref.get(PREF_GROUP_KEY, "");
 							String sortby = buttonPref.get(PREF_SORTBY_KEY, "");
 							String command = buttonPref.get(PREF_COMMAND_KEY, "");
-							boolean autoExecute = buttonPref.getBoolean(PREF_AUTO_EXECUTE, true);
-							boolean includeLabel = buttonPref.getBoolean(PREF_INCLUDE_LABEL, false);
-							boolean applyToTokens = buttonPref.getBoolean(PREF_APPLYTOTOKENS, false);
 							String hotKey = buttonPref.get(PREF_HOTKEY_KEY, MacroButtonHotKeyManager.HOTKEYS[0]);
 							String fontColorKey = buttonPref.get(PREF_FONT_COLOR_KEY, "");
 							String fontSize = buttonPref.get(PREF_FONT_SIZE, "");
@@ -148,7 +136,7 @@ public class MacroButtonPrefs {
 							String maxWidth = buttonPref.get(PREF_MAX_WIDTH, "");
 							String toolTip = buttonPref.get(PREF_TOOLTIP, "");
 
-							buttonProperties.add(new MacroButtonProperties(index, colorKey, hotKey, command, label, group, sortby, autoExecute, includeLabel, applyToTokens, fontColorKey, fontSize,
+							buttonProperties.add(new MacroButtonProperties(index, colorKey, hotKey, command, label, group, sortby, fontColorKey, fontSize,
 									minWidth, maxWidth, toolTip));
 						}
 					}
@@ -161,9 +149,6 @@ public class MacroButtonPrefs {
 				String group = buttonPref.get(PREF_GROUP_KEY, "");
 				String sortby = buttonPref.get(PREF_SORTBY_KEY, "");
 				String command = buttonPref.get(PREF_COMMAND_KEY, "");
-				boolean autoExecute = buttonPref.getBoolean(PREF_AUTO_EXECUTE, true);
-				boolean includeLabel = buttonPref.getBoolean(PREF_INCLUDE_LABEL, false);
-				boolean applyToTokens = buttonPref.getBoolean(PREF_APPLYTOTOKENS, false);
 				String fontColorKey = buttonPref.get(PREF_FONT_COLOR_KEY, "");
 				String fontSize = buttonPref.get(PREF_FONT_SIZE, "");
 				String minWidth = buttonPref.get(PREF_MIN_WIDTH, "");
@@ -171,7 +156,7 @@ public class MacroButtonPrefs {
 				String hotKey = buttonPref.get(PREF_HOTKEY_KEY, MacroButtonHotKeyManager.HOTKEYS[0]);
 				String toolTip = buttonPref.get(PREF_TOOLTIP, "");
 
-				buttonProperties.add(new MacroButtonProperties(index, colorKey, hotKey, command, label, group, sortby, autoExecute, includeLabel, applyToTokens, fontColorKey, fontSize, minWidth,
+				buttonProperties.add(new MacroButtonProperties(index, colorKey, hotKey, command, label, group, sortby, fontColorKey, fontSize, minWidth,
 						maxWidth, toolTip));
 			}
 		} catch (BackingStoreException e) {

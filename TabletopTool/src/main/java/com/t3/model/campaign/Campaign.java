@@ -388,11 +388,8 @@ public class Campaign {
 		for (MacroButtonProperties prop : macroButtonProperties) {
 			if (prop.getIndex() == properties.getIndex()) {
 				prop.setColorKey(properties.getColorKey());
-				prop.setAutoExecute(properties.getAutoExecute());
 				prop.setCommand(properties.getCommand());
 				prop.setHotKey(properties.getHotKey());
-				prop.setIncludeLabel(properties.getIncludeLabel());
-				prop.setApplyToTokens(properties.getApplyToTokens());
 				prop.setLabel(properties.getLabel());
 				prop.setGroup(properties.getGroup());
 				prop.setSortby(properties.getSortby());
