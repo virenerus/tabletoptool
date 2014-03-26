@@ -10,6 +10,7 @@ import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ImageTokenOverlay;
 import com.t3.language.I18N;
 import com.t3.macro.MacroException;
+import com.t3.macro.api.views.MacroButtonView;
 import com.t3.model.campaign.TokenProperty;
 
 public class CampaignFunctions {
@@ -78,5 +79,23 @@ public class CampaignFunctions {
 			namesList.add(tp.getName());
 		}
 		return namesList;
+	}
+	
+	/**
+	 * This method will return a macro button from the global panel.
+	 * @param macroName the name of the macro you want the button for
+	 * @return the macro button
+	 */
+	public MacroButtonView getGlobalMacro(String macroName) {
+		return new MacroButtonView(TabletopTool.getFrame().getGlobalPanel().getToken().getMacro(macroName, false));
+	}
+	
+	/**
+	 * This method will return a macro button from the campaign panel.
+	 * @param macroName the name of the macro you want the button for
+	 * @return the macro button
+	 */
+	public MacroButtonView getCampaignMacro(String macroName) {
+		return new MacroButtonView(TabletopTool.getFrame().getCampaignPanel().getToken().getMacro(macroName, false));
 	}
 }

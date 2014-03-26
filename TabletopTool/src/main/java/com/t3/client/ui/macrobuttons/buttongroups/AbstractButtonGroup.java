@@ -58,7 +58,6 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	private String groupLabel = "";
 	private String groupClass = "";
 	private String macroGroup = "";
-	private int spacerHeight=0;
 	private AreaGroup area;
 	
 	public void dragEnter(DropTargetDragEvent event) {
@@ -150,7 +149,6 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	}
 	
 	public void setPropertiesList(List<MacroButtonProperties> propertiesList){
-		MacroButtonProperties.fixOldMacroSetCompare(propertiesList);
 		this.propertiesList = propertiesList;
 	}
 
@@ -160,10 +158,6 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	
 	public void setMacroGroup(String group){
 		this.macroGroup=group;
-	}
-	
-	public void setSpacerHeight (int height){
-		this.spacerHeight = height;
 	}
 	
 	public AreaGroup getArea() {

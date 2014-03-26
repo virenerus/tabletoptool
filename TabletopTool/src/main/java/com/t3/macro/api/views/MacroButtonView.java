@@ -113,86 +113,165 @@ public class MacroButtonView implements MacroView {
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public String getFontColorKey() {
+	/**
+	 * @return a string representation of the color of this button text
+	 */
+	public String getTextColorKey() {
 		return macro.getFontColorKey();
 	}
 
-	public void setFontColorKey(String fontColorKey) {
+	/**
+	 * This method allows you to set the color of the macro button text. You can give 
+	 * the color as a name (e.g. "red") or as a hexadecimal number (e.g. #ff0000).
+	 * @param colorKey the color you want to set
+	 */
+	public void setTextColorKey(String fontColorKey) {
 		macro.setFontColorKey(fontColorKey);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return the minimum width of this button
+	 */
 	public String getMinWidth() {
 		return macro.getMinWidth();
 	}
-
+	
+	/**
+	 * This method sets the minimum width of this button
+	 * @param minWidth the new minimum width
+	 */
 	public void setMinWidth(String minWidth) {
 		macro.setMinWidth(minWidth);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return the maximum width of this button
+	 */
 	public String getMaxWidth() {
 		return macro.getMaxWidth();
 	}
 
+	/**
+	 * This method sets the maximum width of this button
+	 * @param maxWidth the new maximum width
+	 */
 	public void setMaxWidth(String maxWidth) {
 		macro.setMaxWidth(maxWidth);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public void setToolTip(String tt) {
-		macro.setToolTip(tt);
+	/**
+	 * This method sets the tooltip of this macro.
+	 * @param tooltip the new tooltip
+	 */
+	public void setToolTip(String tooltip) {
+		macro.setToolTip(tooltip);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * @return the tooltip of this token
+	 */
 	public String getToolTip() {
 		return macro.getToolTip();
 	}
 
-	public Boolean getCommonMacro() {
+	/**
+	 * @return if this is a common macro
+	 */
+	public boolean getCommonMacro() {
 		return macro.getCommonMacro();
 	}
 
-	public void setCommonMacro(Boolean value) {
+	/**
+	 * This methods makes this macro button  a common one or not
+	 * @param value if this macro button should be common
+	 */
+	public void setCommonMacro(boolean value) {
 		macro.setCommonMacro(value);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public Boolean getCompareGroup() {
+	/**
+	 * @return if the group of this macro button should be used to decide if they are 
+	 * displayed as common 
+	 */
+	public boolean getCompareGroup() {
 		return macro.getCompareGroup();
 	}
 
-	public void setCompareGroup(Boolean value) {
+	/**
+	 * This method sets if the group of this macro button should be used to decide if 
+	 * they are displayed as common 
+	 * @param value if it is used
+	 */
+	public void setCompareGroup(boolean value) {
 		macro.setCompareGroup(value);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public Boolean getCompareSortPrefix() {
+	/**
+	 * @return if the sort key of this macro button should be used to decide if they are 
+	 * displayed as common 
+	 */
+	public boolean getCompareSortBy() {
 		return macro.getCompareSortPrefix();
 	}
 
-	public void setCompareSortPrefix(Boolean value) {
+	/**
+	 * This method sets if the sort key of this macro button should be used to decide if 
+	 * they are displayed as common 
+	 * @param value if it is used
+	 */
+	public void setCompareSortBy(boolean value) {
 		macro.setCompareSortPrefix(value);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
-	public Boolean getCompareCommand() {
+	/**
+	 * @return if the macro code of this macro button should be used to decide if they are 
+	 * displayed as common 
+	 */
+	public boolean getCompareCommand() {
 		return macro.getCompareCommand();
 	}
 
-	public void setCompareCommand(Boolean value) {
+	/**
+	 * This method sets if the macro code of this macro button should be used to decide if 
+	 * they are displayed as common 
+	 * @param value if it is used
+	 */
+	public void setCompareCommand(boolean value) {
 		macro.setCompareCommand(value);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 
+	/**
+	 * This will execute this macro without any arguments.
+	 * @return the object returned by the macro
+	 */
 	public Object execute() {
 		Map<String,Object> args=Collections.emptyMap();
 		return execute(args);
 	}
+	
+	/**
+	 * This will execute this macro with the given arguments
+	 * @param arguments the arguments given to the called macro
+	 * @return the object returned by the macro
+	 */
 	public Object execute(Map<String,Object> arguments) {
 		return macro.executeMacro(macro.getToken(), arguments);
 	}
 	
+	/**
+	 * This method will create a html link that will call this macro.
+	 * @param text the text that should call this macro
+	 * @param args the 
+	 * @return
+	 */
 	public String createLink(String text, String... args) {
 		try {
 			StringBuilder sb=new StringBuilder("<a href=\"macro://");

@@ -56,7 +56,6 @@ public class AreaGroup extends AbstractButtonGroup {
 
 	// constructor for creating an area spacer, used to take up space where an area label would be
 	public AreaGroup(int height, AbstractMacroPanel panel) {
-		setSpacerHeight(height);
 		setPanel(panel);
 		setPanelClass(panel.getPanelClass());
 		setOpaque(false);

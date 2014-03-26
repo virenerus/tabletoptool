@@ -251,6 +251,11 @@ public class MapView {
 		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(player)));
 	}
 
+	/**
+	 * This method returns a list of all tokens that are visible.
+	 * @param player the given player
+	 * @return a list of the found tokens
+	 */
 	public ArrayList<TokenView> getVisibleTokens() {
 		Zone zone=zr.getZone();
 		Set<GUID> visibleSet=zr.getVisibleTokenSet();
@@ -259,6 +264,7 @@ public class MapView {
 			tokenList.add(new TokenView(zone.getToken(id)));
 		return tokenList;
 	}
+	
 	
 	public void selectTokens(Collection<TokenView> tokens, boolean cumulative) {
 		List<GUID> guids=new ArrayList<GUID>(tokens.size());

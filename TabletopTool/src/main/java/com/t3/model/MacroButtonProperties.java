@@ -59,7 +59,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 	private String fontSize;
 	private String minWidth;
 	private String maxWidth;
-	private Boolean allowPlayerEdits = true;
+	private boolean allowPlayerEdits = true;
 	private String toolTip;
 	/**this will be automatically generated from the command string whenever it is changed */
 	private transient Script compiledCommand;
@@ -272,11 +272,8 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		} else if (commonMacro) {
 			executeCommonMacro(tokenList);
 		} else {
-			if (tokenList.size() > 0) {
-				for (Token token : tokenList) {
-					executeCommand(token);
-				}
-			}
+			for (Token token : tokenList)
+				executeCommand(token);
 		}
 	}
 
@@ -315,9 +312,6 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 		Object o = null;
 		
 		boolean trusted = false;
-		if (allowPlayerEdits == null) {
-			allowPlayerEdits = false;
-		}
 		if (saveLocation.equals("CampaignPanel") || !allowPlayerEdits) {
 			trusted = true;
 		}
@@ -734,79 +728,41 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	// Begin comparison customization
 
-	private Boolean commonMacro = false;
-	private Boolean compareGroup = true;
-	private Boolean compareSortPrefix = true;
-	private Boolean compareCommand = true;
+	private boolean commonMacro = false;
+	private boolean compareGroup = true;
+	private boolean compareSortPrefix = true;
+	private boolean compareCommand = true;
 
-	public Boolean getCommonMacro() {
+	public boolean getCommonMacro() {
 		return commonMacro;
 	}
 
-	public void setCommonMacro(Boolean value) {
+	public void setCommonMacro(boolean value) {
 		commonMacro = value;
 	}
 
-	public Boolean getCompareGroup() {
+	public boolean getCompareGroup() {
 		return compareGroup;
 	}
 
-	public void setCompareGroup(Boolean value) {
+	public void setCompareGroup(boolean value) {
 		compareGroup = value;
 	}
 
-	public Boolean getCompareSortPrefix() {
+	public boolean getCompareSortPrefix() {
 		return compareSortPrefix;
 	}
 
-	public void setCompareSortPrefix(Boolean value) {
+	public void setCompareSortPrefix(boolean value) {
 		compareSortPrefix = value;
 	}
 
-	public Boolean getCompareCommand() {
+	public boolean getCompareCommand() {
 		return compareCommand;
 	}
 
-	public void setCompareCommand(Boolean value) {
+	public void setCompareCommand(boolean value) {
 		compareCommand = value;
-	}
-
-	public static void fixOldMacroCompare(MacroButtonProperties oldMacro) {
-		if (oldMacro.getCommonMacro() == null) {
-			oldMacro.setCommonMacro(new Boolean(true));
-		}
-		if (oldMacro.getAllowPlayerEdits() == null) {
-			oldMacro.setAllowPlayerEdits(new Boolean(true));
-		}
-		if (oldMacro.getCompareCommand() == null) {
-			oldMacro.setCompareCommand(new Boolean(true));
-		}
-		if (oldMacro.getCompareGroup() == null) {
-			oldMacro.setCompareGroup(new Boolean(true));
-		}
-		if (oldMacro.getCompareSortPrefix() == null) {
-			oldMacro.setCompareSortPrefix(new Boolean(true));
-		}
-	}
-
-	public static void fixOldMacroSetCompare(List<MacroButtonProperties> oldMacros) {
-		for (MacroButtonProperties nextMacro : oldMacros) {
-			fixOldMacroCompare(nextMacro);
-		}
-	}
-
-	public Object readResolve() {
-		if (commonMacro == null)
-			commonMacro = false;
-		if (compareGroup == null)
-			compareGroup = true;
-		if (compareSortPrefix == null)
-			compareSortPrefix = true;
-		if (compareCommand == null)
-			compareCommand = true;
-		if (allowPlayerEdits == null)
-			allowPlayerEdits = true;
-		return this;
 	}
 
 	public Object executeMacro(Token token, Map<String, Object> arguments) {
