@@ -1,7 +1,10 @@
 package com.t3.macro.api.views;
 
+import java.util.Map;
+
 import com.t3.macro.MacroException;
 
 public interface MacroView {
 	public Object execute() throws MacroException;
+	public Object execute(Map<String, Object> arguments) throws MacroException;
 }

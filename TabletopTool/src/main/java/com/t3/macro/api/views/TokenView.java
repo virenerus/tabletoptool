@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.syntax.ParserException;
@@ -1269,33 +1268,58 @@ public class TokenView extends TokenPropertyView {
 		}
 	}
 	
+	/**
+	 * This method will send this token back. This means it will be drawn behind all 
+	 * the other tokens.
+	 */
 	public void sendToBack() {
 		Zone zone=token.getZone();
 		TabletopTool.serverCommand().sendTokensToBack(zone.getId(), Collections.singleton(token.getId()));
 		zone.putToken(token);
 	}
 	
+	/**
+	 * This method will send this token to the fron. This means it will be drawn 
+	 * in front of all the other tokens.
+	 */
 	public void bringToFront() {
 		Zone zone=token.getZone();
 		TabletopTool.serverCommand().bringTokensToFront(zone.getId(), Collections.singleton(token.getId()));
 		zone.putToken(token);
 	}
 	
-	public void setPropertyType(String type) {
+	/**
+	 * This method will set the properties type of this token. This allows you to 
+	 * change what properties the token has and which it does not.
+	 * @param type the new properties type
+	 */
+	public void setPropertiesType(String type) {
 		Zone zone=token.getZone();
 		token.setPropertyType(type);
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
 		zone.putToken(token); // FJE Should this be here?  Added because other places have it...?!
 	}
 	
-	public String getPropertyType() {
+	/**
+	 * @return the properties type of the token
+	 */
+	public String getPropertiesType() {
 		 return token.getPropertyType();
 	}
 	
+	/**
+	 * @return an Integer indicating the direction the token is facing or null if
+	 * it is not facing
+	 */
 	public Integer getFacing() {
 		return token.getFacing();
 	}
 	
+	/**
+	 * This method allows you to set the facing of this token or remove it by
+	 * setting it to null
+	 * @param direction the direction you want the token to face or null
+	 */
 	public void setFacing(Integer direction) {
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(token.getZone());
 		Zone zone = renderer.getZone();
@@ -1306,19 +1330,17 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
+	/**
+	 * This method removes the facing from this token.
+	 */
 	public void removeFacing() {
 		this.setFacing(null);
 	}
 	
-	public List<String> getMatchingProperties(String regex) {
-		List<String> matching=new ArrayList<String>(); 
-		Pattern p=Pattern.compile(regex);
-		for(String str:token.getPropertyNames())
-			if(p.matcher(str).matches())
-				matching.add(str);
-		return matching;
-	}
-	
+	/**
+	 * This method adds an owner to this token.
+	 * @param player the player you want to add
+	 */
 	public void addOwner(String player) {
 		Zone zone=token.getZone();
 		token.addOwner(player);
@@ -1326,6 +1348,9 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
+	/**
+	 * This method removes all owners from this token. It might still be owned by all.
+	 */
 	public void clearAllOwners() {
 		token.clearAllOwners();
 		Zone zone=token.getZone();
@@ -1333,6 +1358,10 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
+	/**
+	 * This method allows you to remove one explicit owner of this token
+	 * @param player the player you want to disown
+	 */
 	public void removeOwner(String player) {
 		Zone zone=token.getZone();
 		token.removeOwner(player);
@@ -1340,24 +1369,50 @@ public class TokenView extends TokenPropertyView {
 		zone.putToken(token);
 	}
 	
+	/**
+	 * @return the width of the token
+	 */
 	public int getWidth() {
 		return token.getBounds(token.getZone()).width;
 	}
 	
+	/**
+	 * @return the height of the token
+	 */
 	public int getHeight() {
 		return token.getBounds(token.getZone()).height;
 	}
 	
+	/**
+	 * @return the shape of the token. This is one of:
+	 * <ul>
+	 * <li>Top down</li>
+	 * <li>Circle</li>
+	 * <li>Square</li>
+	 * </ul>
+	 */
 	public String getTokenShape() {
 		return token.getShape().toString();
 	}
 	
+	/**
+	 * This method allows you to set the shape type of this token. It can be set to:
+	 * <ul>
+	 * <li>Top down</li>
+	 * <li>Circle</li>
+	 * <li>Square</li>
+	 * </ul>
+	 * @param shape the new shape 
+	 */
 	public void setTokenShape(String shape) {
 		Token.TokenShape newShape = Token.TokenShape.valueOf(shape);
 		token.setShape(newShape);
 		this.sendUpdateToServer();
 	}
 	
+	/**
+	 * @return a copy of this token
+	 */
 	public TokenView copyToken() {
 		Zone zone = token.getZone();
 		List<Token> allTokens = zone.getTokens();
@@ -1379,6 +1434,11 @@ public class TokenView extends TokenPropertyView {
 		return new TokenView(t);
 	}
 	
+	/**
+	 * This method allows you to copy this token in bulk
+	 * @param numberOfCopies the number of copies you want
+	 * @return a list of the copies created
+	 */
 	public List<TokenView> copyToken(int numberOfCopies) {
 		Zone zone = token.getZone();
 		List<TokenView> newTokens = new ArrayList<TokenView>(numberOfCopies);
@@ -1403,11 +1463,19 @@ public class TokenView extends TokenPropertyView {
 		return newTokens;
 	}
 	
+	/**
+	 * This method will remove this token
+	 */
 	public void removeToken() {
 		Zone zone = token.getZone();
 		TabletopTool.serverCommand().removeToken(zone.getId(), token.getId());
+		TabletopTool.getFrame().getZoneRenderer(token.getZone()).flushLight();
 	}
 	
+	/**
+	 * This method allows you to set the token image of this token
+	 * @param assetId the asset id of the image
+	 */
 	public void setTokenImage(String assetId) {
 		Zone zone = token.getZone();
 		token.setImageAsset(null, new MD5Key(assetId));
@@ -1415,6 +1483,10 @@ public class TokenView extends TokenPropertyView {
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
+	/**
+	 * This method allows you to set the token portrait of this token
+	 * @param assetId the asset id of the image
+	 */
 	public void setTokenPortrait(String assetId) {
 		Zone zone = token.getZone();
 		token.setPortraitImage(new MD5Key(assetId));
@@ -1422,6 +1494,10 @@ public class TokenView extends TokenPropertyView {
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
+	/**
+	 * This method allows you to set the token handout of this token
+	 * @param assetId the asset id of the image
+	 */
 	public void setTokenHandout(String assetId) {
 		Zone zone = token.getZone();
 		token.setCharsheetImage(new MD5Key(assetId));
@@ -1429,26 +1505,49 @@ public class TokenView extends TokenPropertyView {
 		TabletopTool.serverCommand().putToken(zone.getId(), token);
 	}
 	
+	/**
+	 * @return the asset id of this tokens image
+	 */
 	public String getTokenImage() {
 		return token.getImageAssetId().toString();
 	}
 	
+	/**
+	 * @return the asset id of this tokens portrait
+	 */
 	public String getTokenPortrait() {
 		return token.getPortraitImage().toString();
 	}
 	
+	/**
+	 * @return the asset id of this tokens handout
+	 */
 	public String getTokenHandout() {
 		return token.getCharsheetImage().toString();
 	}
 	
+	/**
+	 * @param macroName the macro button name
+	 * @return if this token has a macro button of the given name
+	 */
 	public boolean hasMacro(String macroName) {
 		return token.getMacroNames(false).contains(macroName);
 	}
 	
+	/**
+	 * This method will return a macro button of this token for the given name
+	 * @param macroName the name of the macro button
+	 * @return the macro button
+	 */
 	public MacroButtonView getMacro(String macroName) {
 		return new MacroButtonView(token.getMacro(macroName,false));
 	}
 	
+	/**
+	 * This method will remove a macro button from this token
+	 * @param macroName the name of the macro button
+	 * @return if it could be removed
+	 */
 	public boolean removeMacro(String macroName) {
 		MacroButtonProperties mbp=token.getMacro(macroName, false);
 		if(mbp!=null) {
@@ -1459,21 +1558,18 @@ public class TokenView extends TokenPropertyView {
 		return false;
 	}
 	
-	public MacroButtonView createMacro(String label) {
+	/**
+	 * This method will create a new macro button for this token.
+	 * @param macroName the name of the new macro button
+	 * @return an object representing the button
+	 */
+	public MacroButtonView createMacro(String macroName) {
 		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
 		mbp.setToken(token);
 		TabletopTool.serverCommand().putToken(token.getZone().getId(), token);
 		return new MacroButtonView(mbp);
 	}
 	
-	public void testInt() {
-		token.setProperty("HP", 5);
-	}
-	
-	public Object executeMacro(String name) {
-		MacroButtonProperties mbp=token.getMacro(name, false);
-		return mbp.executeMacro(token);
-	}
 	
 	public static List<TokenView> makeTokenViewList(List<Token> list) {
 		ArrayList<TokenView> l=new ArrayList<TokenView>(list.size());

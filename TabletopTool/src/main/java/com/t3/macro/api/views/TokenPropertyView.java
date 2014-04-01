@@ -13,7 +13,7 @@ import com.t3.util.StringUtil;
 
 /**
  * This class makes the TokenView a bad MapView on the token properties. The 
- * advantage of this that we can now access properties from groovy via beans
+ * advantage of this is that we can now access properties from groovy via beans
  * e.g.: token.HP="test" 
  * @author Virenerus
  *

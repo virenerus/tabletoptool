@@ -265,7 +265,11 @@ public class MapView {
 		return tokenList;
 	}
 	
-	
+	/**
+	 * This method will select the given tokens. 
+	 * @param tokens the tokens that should be selected
+	 * @param cumulative if the given tokens should be added to the already selected ones
+	 */
 	public void selectTokens(Collection<TokenView> tokens, boolean cumulative) {
 		List<GUID> guids=new ArrayList<GUID>(tokens.size());
 		for(TokenView t:tokens)
@@ -275,20 +279,32 @@ public class MapView {
 		zr.selectTokens(guids);
 	}
 	
+	/**
+	 * This method will deselect all tokens on the map.
+	 */
 	public void deselectAllTokens() {
 		zr.clearSelectedTokens();
 	}
 	
+	/**
+	 * This method will deselect the given tokens.
+	 * @param tokens the tokens you want to deselect
+	 */
 	public void deselectTokens(Collection<TokenView> tokens) {
 		for(TokenView t:tokens)
 			zr.deselectToken(t.getId());
 	}
 	
-	public boolean moveTokenToMap(MapView target, TokenView token, int targetX, int targetY) {
-		Zone targetZone=target.zr.getZone();
-		Token t=zr.getZone().getToken(token.getId());
-		if(t==null)
-			return false;
+	/**
+	 * This method will move the given token from this map to the given map
+	 * @param token the token you want to move to another map
+	 * @param targetMap the map you want to move the token to
+	 * @param targetX the target location x coordinate
+	 * @param targetY the target location y coordinate
+	 */
+	public void moveTokenToMap(TokenView token, MapView targetMap, int targetX, int targetY) {
+		Zone targetZone=targetMap.zr.getZone();
+		Token t=token.token;
 
 		Grid grid = targetZone.getGrid();
 
@@ -304,14 +320,20 @@ public class MapView {
 		TabletopTool.serverCommand().removeToken(zr.getZone().getId(), token.getId());
 		TabletopTool.getFrame().getCurrentZoneRenderer().flushLight();
 		TabletopTool.getFrame().refresh();
-		return true;
 	}
 	
-	public int moveTokenToMap(MapView target, List<TokenView> tokens, int targetX, int targetY) {
+	/**
+	 * This method will move the given tokens from this map to the given map
+	 * @param tokens the tokens you want to move to another map
+	 * @param targetMap the map you want to move the token to
+	 * @param targetX the target location x coordinate
+	 * @param targetY the target location y coordinate
+	 */
+	public void moveTokenToMap(List<TokenView> tokens, MapView target, int targetX, int targetY) {
 		Zone targetZone=target.zr.getZone();
 		int count=0;
 		for(TokenView token:tokens) {
-			Token t=zr.getZone().getToken(token.getId());
+			Token t=token.token;
 			if(t!=null) {
 				Grid grid = targetZone.getGrid();
 		
@@ -335,6 +357,5 @@ public class MapView {
 			TabletopTool.getFrame().getCurrentZoneRenderer().flushLight();
 			TabletopTool.getFrame().refresh();
 		}
-		return count;
 	}
 }

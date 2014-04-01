@@ -262,6 +262,7 @@ public class MacroButtonView implements MacroView {
 	 * @param arguments the arguments given to the called macro
 	 * @return the object returned by the macro
 	 */
+	@Override
 	public Object execute(Map<String,Object> arguments) {
 		return macro.executeMacro(macro.getToken(), arguments);
 	}

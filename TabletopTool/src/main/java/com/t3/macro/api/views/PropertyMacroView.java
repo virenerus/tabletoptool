@@ -1,5 +1,7 @@
 package com.t3.macro.api.views;
 
+import java.util.Map;
+
 import groovy.lang.Script;
 
 import com.t3.macro.MacroEngine;
@@ -20,11 +22,6 @@ public class PropertyMacroView implements MacroView {
 			throw new Error(e);
 		}
 	}
-
-	/**
-	 * for hessian serializer
-	 */
-	public PropertyMacroView() {}
 	
 	public PropertyMacroView(String macroText, Token t) throws MacroException {
 		this.token=t;
@@ -45,7 +42,41 @@ public class PropertyMacroView implements MacroView {
 		return MacroEngine.getInstance().run(script, token);
 	}
 	
+	@Override
+	/**
+	 * This will try to execute the macro and return its result if there are any.
+	 * @param arguments the arguments you want to pass to the macro
+	 * @returns the object returned by the called macro
+	 */
+	public Object execute(Map<String, Object> arguments) throws MacroException {
+		return MacroEngine.getInstance().run(script, token);
+	}
+	
 	public String toString() {
 		return macroText;
+	}
+
+	/**
+	 * @return the token this property belongs to
+	 */
+	public Token getToken() {
+		return token;
+	}
+
+	/**
+	 * @return the macro as a string
+	 */
+	public String getMacro() {
+		return macroText;
+	}
+
+	/**
+	 * This method will set the macro
+	 * @param macro the macro as a string
+	 * @throws MacroException if the compilation of the macro fails
+	 */
+	public void setMacro(String macro) throws MacroException {
+		this.macroText = macro;
+		this.script=MacroEngine.getInstance().compile(macroText);
 	}
 }
