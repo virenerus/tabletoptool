@@ -15,13 +15,25 @@
 			<fileset dir="../build-files"/>
 		</copy>
 		<!--minimize everything-->
-		<taskdef resource="proguard/ant/task.properties"
-		         classpath="/usr/local/java/proguard/lib/proguard.jar" />
-		<proguard configuration="myconfigfile.pro"/>
+		<antcall target="proguard"/>
 		<!--zip it-->
 		<zip destfile="${global.target}/t3.zip">
 			<fileset dir="${global.target}"/>
 		</zip>
+	</target>
+	
+	<target name="proguard">
+		<!--This is currently not working because ProGuard is not supporting Java 8 yet-->
+		<!--
+		<taskdef resource="proguard/ant/task.properties" classpath="proguard.jar" />
+		
+		<fileset id="alljars" dir="${global.target}" includes="*.jar"/>
+		<fileset id="javajars" dir="${java.home}/lib/" includes="*.jar"/>
+		
+		<proguard obfuscate="false">
+			<injar refid="alljars"/>
+			<libraryjar refid="javajars"/>
+		</proguard>-->
 	</target>
 	
 	<target name="build.subprojects" depends="mvn.init">
