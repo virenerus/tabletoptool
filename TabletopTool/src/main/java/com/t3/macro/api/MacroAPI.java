@@ -15,12 +15,9 @@ import com.t3.macro.api.functions.InfoFunctions;
 import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.PlayerFunctions;
-import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.views.InitiativeListView;
-import com.t3.macro.api.views.TokenView;
-import com.t3.model.ZonePoint;
 
-//FIXME make PLUG-INs for this package
+//TODO make PLUG-INs for this package
 public abstract class MacroAPI extends Script {
 	
 	public final InfoFunctions info;
@@ -105,15 +102,6 @@ public abstract class MacroAPI extends Script {
 	}
 
 	/**
-	 * This moves your camera to the given token
-	 * @param token the token you want to focus on
-	 */
-	public void goTo(TokenView token) {
-		TokenLocation tl=token.getLocation(false);
-		TabletopTool.getFrame().getCurrentZoneRenderer().centerOn(new ZonePoint(tl.getX(), tl.getY()));
-	}
-	
-	/**
 	 * An convenience method. This will return the initiative list of the current map. 
 	 * @return the initiative list of the current map
 	 */
@@ -133,7 +121,7 @@ public abstract class MacroAPI extends Script {
 	 * The most interesting methods of the returned object are getResult, toString and toEvaluatedString and toCompleteChatString
 	 * @param diceExpression the string that should be parsed
 	 * @return a Expression representing your expression
-	 * @throws MacroException
+	 * @throws MacroException when the expression can not be parsed
 	 */
 	public Expression roll(String diceExpression) throws MacroException {
 		try {
@@ -148,8 +136,8 @@ public abstract class MacroAPI extends Script {
 	 * Example:<br>
 	 * 1d6: roll(1).{@link DiceBuilder#d d}(6).{@link com.t3.dice.Dice#getResult getResult}();<br>
 	 * 3d6e: roll(3).{@link DiceBuilder#d d}(6).{@link com.t3.dice.ExtendableDice#explode explode}().{@link com.t3.dice.Dice#getResult getResult}();
-	 * @param numberOfDices
-	 * @return
+	 * @param numberOfDices the number of dices you want to roll
+	 * @return a DiceBuilder that allows you to build your roll
 	 */
 	public DiceBuilder roll(int numberOfDices) {
 		return DiceBuilder.roll(numberOfDices);

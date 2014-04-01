@@ -14,6 +14,10 @@
 		<copy todir="${global.target}">
 			<fileset dir="../build-files"/>
 		</copy>
+		<!--minimize everything-->
+		<taskdef resource="proguard/ant/task.properties"
+		         classpath="/usr/local/java/proguard/lib/proguard.jar" />
+		<proguard configuration="myconfigfile.pro"/>
 		<!--zip it-->
 		<zip destfile="${global.target}/t3.zip">
 			<fileset dir="${global.target}"/>

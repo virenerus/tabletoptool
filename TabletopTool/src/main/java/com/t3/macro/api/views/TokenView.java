@@ -246,8 +246,8 @@ public class TokenView extends TokenPropertyView {
 	
 	/**
 	 * Calculates if a certain point on the map is visible for this Token.
-	 * @param x
-	 * @param y
+	 * @param x the x coordinate of the point you want to test
+	 * @param y the y coordinate of the point you want to test
 	 * @return if the point is visible
 	 */
 	public boolean isVisible(int x, int y) {
@@ -1200,7 +1200,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	/**
-	 * @param player
+	 * @param player the player you want to test for
 	 * @return if this token is owned by the given player (explicitly or through owned by all)
 	 */
 	public boolean isOwner(String player) {
@@ -1239,7 +1239,7 @@ public class TokenView extends TokenPropertyView {
 	}
 	
 	/**
-	 * @param property 
+	 * @param property the property you want the default value of
 	 * @return the default value of the given property
 	 */
 	public Object getPropertyDefault(String property) {

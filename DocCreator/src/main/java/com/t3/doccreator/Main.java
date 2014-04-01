@@ -33,7 +33,6 @@ public class Main {
 			"MacroButtonView",path("OpenGameTable",MacroButtonView.class),
 			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
 			"ExpressionView",path("OpenGameTable",Expression.class),
-			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
 			};
 		
 		

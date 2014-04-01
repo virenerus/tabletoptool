@@ -12,6 +12,7 @@ import java.util.Set;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.macro.api.tokenfilter.AllFilter;
 import com.t3.macro.api.tokenfilter.ExposedFilter;
 import com.t3.macro.api.tokenfilter.NPCFilter;
@@ -88,6 +89,15 @@ public class MapView {
 			zr.centerOn(new CellPoint(x, y));
 		else
 			zr.centerOn(new ZonePoint(x, y));
+	}
+	
+	/**
+	 * This moves your camera to the given token
+	 * @param token the token you want to focus on
+	 */
+	public void goTo(TokenView token) {
+		TokenLocation tl=token.getLocation(false);
+		zr.centerOn(new ZonePoint(tl.getX(), tl.getY()));
 	}
 	
 	/**
