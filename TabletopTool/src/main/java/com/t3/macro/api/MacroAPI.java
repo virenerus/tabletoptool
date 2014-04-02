@@ -132,9 +132,9 @@ public abstract class MacroAPI extends Script {
 	}
 	
 	/**
-	 * This will allow you to roll dice.<br>
-	 * Example:<br>
-	 * 1d6: roll(1).{@link DiceBuilder#d d}(6).{@link com.t3.dice.Dice#getResult getResult}();<br>
+	 * This will allow you to roll dice.<br/>
+	 * Example:<br/>
+	 * 1d6: roll(1).{@link DiceBuilder#d d}(6).{@link com.t3.dice.Dice#getResult getResult}();<br/>
 	 * 3d6e: roll(3).{@link DiceBuilder#d d}(6).{@link com.t3.dice.ExtendableDice#explode explode}().{@link com.t3.dice.Dice#getResult getResult}();
 	 * @param numberOfDices the number of dices you want to roll
 	 * @return a DiceBuilder that allows you to build your roll

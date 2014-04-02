@@ -197,8 +197,8 @@ public class MapView {
 
 	/**
 	 * This returns a token from this map given its name, gm name or GUID
-	 * @param identifier
-	 * @return
+	 * @param identifier the name, gm name or GUID of the token you want
+	 * @return the token or null if it was not found
 	 */
 	public TokenView findToken(String identifier) {
 		Token t=zr.getZone().resolveToken(identifier);
