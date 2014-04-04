@@ -1,8 +1,8 @@
 package com.t3.macro.api.views;
 
-import java.util.Map;
-
 import groovy.lang.Script;
+
+import java.util.Map;
 
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;

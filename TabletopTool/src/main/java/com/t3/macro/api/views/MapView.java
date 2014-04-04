@@ -13,17 +13,12 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.macro.api.functions.token.TokenLocation;
-import com.t3.macro.api.tokenfilter.AllFilter;
-import com.t3.macro.api.tokenfilter.ExposedFilter;
-import com.t3.macro.api.tokenfilter.NPCFilter;
-import com.t3.macro.api.tokenfilter.OwnedFilter;
-import com.t3.macro.api.tokenfilter.PCFilter;
-import com.t3.macro.api.tokenfilter.StateFilter;
 import com.t3.model.CellPoint;
 import com.t3.model.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.model.Token.Type;
 import com.t3.model.grid.Grid;
 
 //TODO rework the way VBL is manipulated
@@ -212,7 +207,7 @@ public class MapView {
 	 * @return a list of all the tokens on this map
 	 */
 	public List<TokenView> getTokens() {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new AllFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokens());
 	}
 	
 	/**
@@ -227,21 +222,21 @@ public class MapView {
 	 */
 	public List<TokenView> getExposedTokens() {
 		Zone zone = zr.getZone();
-		return TokenView.makeTokenViewList(zone.getTokensFiltered(new ExposedFilter(zone)));
+		return TokenView.makeTokenViewList(zone.getTokensFiltered(t -> zone.isTokenVisible(t)));
 	}
 	
 	/**
 	 * @return a list of all the tokens on this map that are PCs
 	 */
 	public List<TokenView> getPCTokens() {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new PCFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.getType()==Type.PC));
 	}
 	
 	/**
 	 * @return a list of all the tokens on this map that are NPCs
 	 */
 	public List<TokenView> getNPCTokens() {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new NPCFilter()));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t-> t.getType() == Token.Type.NPC));
 	}
 	
 	/**
@@ -249,7 +244,7 @@ public class MapView {
 	 * @return a list of all the tokens on this map that have the gien state
 	 */
 	public List<TokenView> getTokensWithState(String state) {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new StateFilter(state)));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.hasState(state)));
 	}
 	
 	/**
@@ -258,7 +253,7 @@ public class MapView {
 	 * @return a list of the found tokens
 	 */
 	public List<TokenView> getOwnedTokens(String player) {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new OwnedFilter(player)));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.isOwner(player)));
 	}
 
 	/**

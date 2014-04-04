@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -40,7 +42,6 @@ import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneView;
 import com.t3.language.I18N;
-import com.t3.macro.api.tokenfilter.TokenFilter;
 import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawableColorPaint;
@@ -1149,66 +1150,36 @@ public class Zone extends BaseModel {
 		return idSet;
 	}
 
-	public List<Token> getTokensFiltered(TokenFilter filter) {
-		ArrayList<Token> copy = new ArrayList<Token>(getTokenCount());
-
-		for (Token token : tokenOrderedList) {
-			if (filter.matchToken(token)) {
-				copy.add(token);
-			}
-		}
-		return Collections.unmodifiableList(copy);
+	public List<Token> getTokensFiltered(Predicate<Token> filter) {
+		List<Token> l=tokenOrderedList.stream().filter(filter).collect(Collectors.toList());
+		return Collections.unmodifiableList(l);
 	}
 
 	/**
 	 * This is the list of non-stamp tokens, both pc and npc
 	 */
 	public List<Token> getTokens() {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return !t.isStamp();
-			}
-		});
+		return getTokensFiltered(t -> !t.isStamp());
 	}
 
 	public List<Token> getStampTokens() {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return t.isObjectStamp();
-			}
-		});
+		return getTokensFiltered(t -> t.isObjectStamp());
 	}
 
 	public List<Token> getPlayerTokens() {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return t.getType() == Token.Type.PC;
-			}
-		});
+		return getTokensFiltered(t -> t.getType() == Token.Type.PC);
 	}
 
 	public List<Token> getPlayerOwnedTokensWithSight(Player p) {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return t.getType() == Token.Type.PC && t.getHasSight() && AppUtil.playerOwns(t);
-			}
-		});
+		return getTokensFiltered(t -> t.getType() == Token.Type.PC && t.getHasSight() && AppUtil.playerOwns(t));
 	}
 
 	public List<Token> getBackgroundStamps() {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return t.isBackgroundStamp();
-			}
-		});
+		return getTokensFiltered(t -> t.isBackgroundStamp());
 	}
 
 	public List<Token> getGMStamps() {
-		return getTokensFiltered(new TokenFilter() {
-			public boolean matchToken(Token t) {
-				return t.isGMStamp();
-			}
-		});
+		return getTokensFiltered(t -> t.isGMStamp());
 	}
 
 	public int findFreeNumber(String tokenBaseName, boolean checkDm) {
@@ -1362,11 +1333,7 @@ public class Zone extends BaseModel {
 
 		// 1.3b47 -> 1.3b48
 		if (visionType == null) {
-			if (getTokensFiltered(new TokenFilter() {
-				public boolean matchToken(Token token) {
-					return token.hasLightSources();
-				}
-			}).size() > 0) {
+			if (getTokensFiltered(t -> t.hasLightSources()).size() > 0) {
 				visionType = VisionType.NIGHT;
 			} else if (topology != null && !topology.isEmpty()) {
 				visionType = VisionType.DAY;
