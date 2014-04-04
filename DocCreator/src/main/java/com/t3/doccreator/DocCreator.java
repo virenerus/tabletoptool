@@ -36,7 +36,8 @@ public class DocCreator {
 					if(!m.isConstructor() && 
 							!m.getName().getIdentifier().equals("getVariableName") &&
 							!m.toString().startsWith("private")) {
-						methods.put(m.getName().getIdentifier(), new MethodDefinition(m));
+						MethodDefinition md=new MethodDefinition(m);
+						methods.put(md.getName(),md);
 					}
 					return false;
 				}

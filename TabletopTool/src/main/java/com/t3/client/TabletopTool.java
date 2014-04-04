@@ -130,7 +130,7 @@ public class TabletopTool {
 	/**
 	 * The splash image that comes up during application initialization.
 	 */
-	private static final String SPLASH_IMAGE = "com/t3/client/image/tabletoptool_splash.png";
+	private static final String SPLASH_IMAGE = "com/t3/client/image/tabletoptool_splash.jpg";
 
 	/**
 	 * Contains just the version number of TabletopTool, such as <code>1.3.b49</code>

@@ -21,18 +21,18 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String[] files={
 			
-			"global scope",path("OpenGameTable",MacroAPI.class),
-			"info.",path("OpenGameTable",InfoFunctions.class),
-			"player.",path("OpenGameTable",PlayerFunctions.class),
-			"map.",path("OpenGameTable",MapFunctions.class),
-			"dialog.",path("OpenGameTable",DialogFunctions.class),
-			"path.",path("OpenGameTable",PathFunctions.class),
-			"states.",path("OpenGameTable",CampaignFunctions.class),
-			"TokenView",path("OpenGameTable",TokenView.class),
-			"MapView",path("OpenGameTable",MapView.class),
-			"MacroButtonView",path("OpenGameTable",MacroButtonView.class),
-			"InitiativeListView",path("OpenGameTable",InitiativeListView.class),
-			"ExpressionView",path("OpenGameTable",Expression.class),
+			"global scope",path("TabletopTool",MacroAPI.class),
+			"info.",path("TabletopTool",InfoFunctions.class),
+			"player.",path("TabletopTool",PlayerFunctions.class),
+			"map.",path("TabletopTool",MapFunctions.class),
+			"dialog.",path("TabletopTool",DialogFunctions.class),
+			"path.",path("TabletopTool",PathFunctions.class),
+			"states.",path("TabletopTool",CampaignFunctions.class),
+			"TokenView",path("TabletopTool",TokenView.class),
+			"MapView",path("TabletopTool",MapView.class),
+			"MacroButtonView",path("TabletopTool",MacroButtonView.class),
+			"InitiativeListView",path("TabletopTool",InitiativeListView.class),
+			"ExpressionView",path("TabletopTool",Expression.class),
 			};
 		
 		
@@ -44,6 +44,6 @@ public class Main {
 	}
 	
 	private static String path(String project, Class<?> c) {
-		return "../"+project+"/src/"+c.getName().replace('.', '/')+".java";
+		return "../"+project+"/src/main/java/"+c.getName().replace('.', '/')+".java";
 	}
 }

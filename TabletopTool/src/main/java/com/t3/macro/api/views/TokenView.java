@@ -260,9 +260,7 @@ public class TokenView extends TokenPropertyView {
 	
 	/**
      * Get the first token initiative
-     * 
-     * @param token Get it for this token
-     * @return The first token initiative value for the passed token
+     * @return The first token initiative value for this token
      */
     public InitiativeEntry getInitiative() {
         Zone zone = token.getZone();
@@ -272,10 +270,8 @@ public class TokenView extends TokenPropertyView {
     }
     
     /**
-     * Get the first token initiative
-     * 
-     * @param token Get it for this token
-     * @return The first token initiative value for the passed token
+     * Get the all initiatives of this token
+     * @return a list of the initiatives of this token
      */
     public List<InitiativeEntry> getInitiatives() {
         Zone zone = token.getZone();
@@ -454,8 +450,7 @@ public class TokenView extends TokenPropertyView {
 	
 	/**
 	 * Returns a set of the parts of a token that can be seen by this token.
-	 * 
-	 * @param t the token of which we want to check what this token can see
+	 * @param target the token of which we want to check what this token can see
 	 * @return the set of visible token parts
 	 */
 	public EnumSet<TokenPart> getVisibleTokenParts(TokenView target) {
@@ -586,7 +581,7 @@ public class TokenView extends TokenPropertyView {
 
 	/**
 	 * Sets the halo color of the token.
-	 * @param value the color to set in the form #AAAAAA or null to deactivate the halo
+	 * @param hexColor the color to set in the form #AAAAAA or null to deactivate the halo
 	 */
 	public void setHalo(String hexColor) {
 		if (hexColor == null) {
