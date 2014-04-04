@@ -66,10 +66,11 @@ public class MethodDefinition {
 						else
 							throw new Error();
 					}
-				else if(f.size()==2 && node.getTagName().equals("@param")) 
+				else if(f.size()>=2 && node.getTagName().equals("@param")) 
 					try {
+						
 						parameters.get(((SimpleName)f.get(0)).toString()).setComment(
-								((TextElement)f.get(1)).getText());
+								f.subList(1, f.size()).stream().map(Object::toString).collect(Collectors.joining()));
 					} catch(NullPointerException npe) {
 						System.err.println("NPE for "+getName()+" -> "+((SimpleName)f.get(0)).toString());
 					}

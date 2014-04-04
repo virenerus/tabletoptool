@@ -258,7 +258,6 @@ public class MapView {
 
 	/**
 	 * This method returns a list of all tokens that are visible.
-	 * @param player the given player
 	 * @return a list of the found tokens
 	 */
 	public ArrayList<TokenView> getVisibleTokens() {
@@ -334,8 +333,8 @@ public class MapView {
 	 * @param targetX the target location x coordinate
 	 * @param targetY the target location y coordinate
 	 */
-	public void moveTokenToMap(List<TokenView> tokens, MapView target, int targetX, int targetY) {
-		Zone targetZone=target.zr.getZone();
+	public void moveTokensToMap(List<TokenView> tokens, MapView targetMap, int targetX, int targetY) {
+		Zone targetZone=targetMap.zr.getZone();
 		int count=0;
 		for(TokenView token:tokens) {
 			Token t=token.token;

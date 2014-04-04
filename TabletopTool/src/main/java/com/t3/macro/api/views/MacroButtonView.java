@@ -125,8 +125,8 @@ public class MacroButtonView implements MacroView {
 	 * the color as a name (e.g. "red") or as a hexadecimal number (e.g. #ff0000).
 	 * @param colorKey the color you want to set
 	 */
-	public void setTextColorKey(String fontColorKey) {
-		macro.setFontColorKey(fontColorKey);
+	public void setTextColorKey(String colorKey) {
+		macro.setFontColorKey(colorKey);
 		TabletopTool.serverCommand().putToken(macro.getToken().getZone().getId(), macro.getToken());
 	}
 

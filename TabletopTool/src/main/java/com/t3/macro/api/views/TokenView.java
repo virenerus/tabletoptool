@@ -1001,7 +1001,6 @@ public class TokenView extends TokenPropertyView {
 	
 	/**
 	 * Returns the Rectangle the token would fill if it stould at the given coordinates
-	 * @param zone the zone where to calculate where the token stands
 	 * @param x the x coodinate (gridless)
 	 * @param y the y coodinate (gridless)
 	 * @return the bounding rectangle
@@ -1148,12 +1147,8 @@ public class TokenView extends TokenPropertyView {
 	
 	/**
 	 * Sets the size of the token.
-	 * 
-	 * @param token
-	 *            The token to set the size of.
-	 * @param size
-	 *            The size to set the token to.
-	 * @return The new size of the token.
+	 * @param size The size to set the token to.
+	 * @return t  he new size of the token.
 	 * @throws ParserException
 	 *             if the size specified is an invalid size.
 	 */

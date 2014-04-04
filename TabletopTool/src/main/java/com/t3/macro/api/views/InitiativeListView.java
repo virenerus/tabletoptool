@@ -182,8 +182,7 @@ public class InitiativeListView {
 	/**
 	 * Set the initiative round.
 	 * 
-	 * @param value
-	 *            New value for the round.
+	 * @param round new value for the round.
 	 */
 	public void setRound(int round) {
 		list.setRound(round);
