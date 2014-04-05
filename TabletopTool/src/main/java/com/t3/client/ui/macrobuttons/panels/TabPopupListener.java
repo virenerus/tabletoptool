@@ -27,6 +27,7 @@ public class TabPopupListener extends MouseAdapter {
 		this.index = index;
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e) {
 		if (SwingUtilities.isRightMouseButton(e)) {
 			new TabPopupMenu(component, index).show(component, e.getX(), e.getY());

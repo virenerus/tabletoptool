@@ -30,69 +30,85 @@ import com.t3.client.TabletopTool;
 public class T3DockListener implements DockableFrameListener {
 	private static final Logger log = Logger.getLogger(T3DockListener.class);
 
+	@Override
 	public void dockableFrameActivated(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameAdded(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameAutohidden(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 		updatePanels(dfe.getDockableFrame().getName());
 	}
 
+	@Override
 	public void dockableFrameAutohideShowing(DockableFrameEvent dfe) {
 		updatePanels(dfe.getDockableFrame().getName());
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameDeactivated(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameDocked(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 		updatePanels(dfe.getDockableFrame().getName());
 	}
 
+	@Override
 	public void dockableFrameFloating(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameHidden(DockableFrameEvent dfe) {
 	}
 
+	@Override
 	public void dockableFrameMaximized(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameRemoved(DockableFrameEvent dfe) {
 	}
 
+	@Override
 	public void dockableFrameRestored(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameShown(DockableFrameEvent dfe) {
 		updatePanels(dfe.getDockableFrame().getName());
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameTabHidden(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameTabShown(DockableFrameEvent dfe) {
 		updatePanels(dfe.getDockableFrame().getName());
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameMoved(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}
 
+	@Override
 	public void dockableFrameTransferred(DockableFrameEvent dfe) {
 		showEvent(dfe.toString());
 	}

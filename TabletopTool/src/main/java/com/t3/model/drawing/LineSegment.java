@@ -45,6 +45,7 @@ public class LineSegment extends AbstractDrawing {
 		return points;
 	}
 
+	@Override
 	public Area getArea() {
 		if (area == null) {
 			area = createLineArea();
@@ -87,6 +88,7 @@ public class LineSegment extends AbstractDrawing {
 	 * 
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		if (lastPointCount == points.size()) {
 			return cachedBounds;

@@ -182,12 +182,11 @@ public class AssetLoader {
 	 */
 	protected byte[] createIndexFile(String repository) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		PrintWriter pw = new PrintWriter(bout);
 		Map<String, String> assets = repositoryMap.get(repository);
-		for (String asset : assets.keySet()) {
-			pw.println(asset + " " + assets.get(asset));
+		try(PrintWriter pw = new PrintWriter(bout)) {
+			for (String asset : assets.keySet())
+				pw.println(asset + " " + assets.get(asset));
 		}
-		pw.close();
 		return bout.toByteArray();
 	}
 
@@ -235,6 +234,7 @@ public class AssetLoader {
 			this.repositoryQueue = repositoryQueue;
 		}
 
+		@Override
 		public void run() {
 			while (repositoryQueue.size() > 0) {
 

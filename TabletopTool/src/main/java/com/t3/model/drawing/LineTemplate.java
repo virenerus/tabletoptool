@@ -407,6 +407,7 @@ public class LineTemplate extends AbstractTemplate {
 	/**
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		// Get all of the numbers needed for the calculation
 		if (TabletopTool.getCampaign().getZone(getZoneId()) == null) {
@@ -471,6 +472,7 @@ public class LineTemplate extends AbstractTemplate {
 		return new Rectangle(minp.x, minp.y, width, height);
 	}
 
+	@Override
 	public Area getArea() {
 		if (path == null) {
 			calcPath();

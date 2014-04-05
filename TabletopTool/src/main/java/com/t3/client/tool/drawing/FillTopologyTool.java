@@ -75,7 +75,8 @@ public class FillTopologyTool extends DefaultTool implements ZoneOverlay {
         renderer.repaint();
 	}
 	
-    public void paintOverlay(ZoneRenderer renderer, Graphics2D g2) {
+    @Override
+	public void paintOverlay(ZoneRenderer renderer, Graphics2D g2) {
     	Graphics2D g = (Graphics2D)g2.create();
     	
     	Color oldColor = g.getColor();

@@ -60,22 +60,27 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	private String macroGroup = "";
 	private AreaGroup area;
 	
+	@Override
 	public void dragEnter(DropTargetDragEvent event) {
 		//System.out.println("BG: drag enter");
 	}
 
+	@Override
 	public void dragOver(DropTargetDragEvent event) {
 		//System.out.println("BG: drag over");
 	}
 
+	@Override
 	public void dropActionChanged(DropTargetDragEvent event) {
 		//System.out.println("BG: drag action changed");
 	}
 
+	@Override
 	public void dragExit(DropTargetEvent event) {
 		//System.out.println("BG: drag exit");
 	}
 
+	@Override
 	public void drop(DropTargetDropEvent event) {
 		//System.out.println("BG: drop!");
 	}
@@ -178,12 +183,15 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	}
 
 	// Override these mouse events in subclasses to specify component specific behavior.
+	@Override
 	public void mouseClicked(MouseEvent event) {
 	}
 
+	@Override
 	public void mousePressed(MouseEvent event) {
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent event)	{
 		Token token = getToken();
 		if (SwingUtilities.isRightMouseButton(event)) {
@@ -195,9 +203,11 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 		}
 	}
 	
+	@Override
 	public void mouseEntered(MouseEvent event) {
 	}
 
+	@Override
 	public void mouseExited(MouseEvent event) {
 	}
 
@@ -226,6 +236,7 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 			addMouseListener(new MouseHandler());
 		}
 
+		@Override
 		public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 			//((Graphics2D) g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 			
@@ -264,15 +275,18 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 			}
 		}
 
+		@Override
 		public Insets getBorderInsets(Component component) {
 			return new Insets(5, 5, 5, 5);
 		}
 
+		@Override
 		public boolean isBorderOpaque() {
 			return true;
 		}
 		
 		private class MouseHandler extends MouseAdapter {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				Token token = getToken();
 				if (imageBounds != null && imageBounds.contains(event.getPoint())) {

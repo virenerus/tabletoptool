@@ -74,6 +74,7 @@ public class TransferProgressDialog extends AbeillePanel<Token> implements Consu
 
 	public void initCloseButton() {
 		getCloseButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialog.closeDialog();
 			}
@@ -84,6 +85,7 @@ public class TransferProgressDialog extends AbeillePanel<Token> implements Consu
 
 		final TransferTableModel model = new TransferTableModel();
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				getTransferTable().setModel(model);
 
@@ -107,14 +109,17 @@ public class TransferProgressDialog extends AbeillePanel<Token> implements Consu
 			consumerList = TabletopTool.getAssetTransferManager().getAssetConsumers();
 		}
 
+		@Override
 		public int getColumnCount() {
 			return 3;
 		}
 
+		@Override
 		public int getRowCount() {
 			return Math.max(consumerList.size(), 1);
 		}
 
+		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 
 			if (consumerList.size() == 0) {
@@ -156,14 +161,17 @@ public class TransferProgressDialog extends AbeillePanel<Token> implements Consu
 
 	////
 	// CONSUMER LISTENER
+	@Override
 	public void assetComplete(Serializable id, String name, File data) {
 		updateTransferTable();
 	}
 
+	@Override
 	public void assetUpdated(Serializable id) {
 		getTransferTable().repaint();
 	}
 
+	@Override
 	public void assetAdded(Serializable id) {
 		updateTransferTable();
 	}

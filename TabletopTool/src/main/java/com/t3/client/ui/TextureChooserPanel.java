@@ -45,6 +45,7 @@ public class TextureChooserPanel extends AbstractPaintChooserPanel {
 
 		final AssetPanel assetPanel = new AssetPanel(controlName, model, JSplitPane.HORIZONTAL_SPLIT);
 		assetPanel.addImageSelectionListener(new SelectionListener() {
+			@Override
 			public void selectionPerformed(List<Object> selectedList) {
 				// There should be exactly one
 				if (selectedList.size() != 1) {

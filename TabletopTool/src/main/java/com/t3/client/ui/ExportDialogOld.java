@@ -105,6 +105,7 @@ public class ExportDialogOld extends JDialog {
 					}
 					button.addActionListener(
 							new ActionListener() {
+								@Override
 								public void actionPerformed(ActionEvent evt ) {
 									enforceButtonRules();
 								}
@@ -349,6 +350,7 @@ public class ExportDialogOld extends JDialog {
 
 		formPanel.getButton("exportButton").addActionListener(
 				new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						exportButtonAction();
 					}
@@ -357,6 +359,7 @@ public class ExportDialogOld extends JDialog {
 
 		formPanel.getButton("cancelButton").addActionListener(
 				new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						dispose();
 					}
@@ -365,6 +368,7 @@ public class ExportDialogOld extends JDialog {
 
 		formPanel.getButton("browseButton").addActionListener(
 				new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						browseButtonAction();
 					}
@@ -481,18 +485,12 @@ public class ExportDialogOld extends JDialog {
 				throw new Exception(I18N.getString("dialog.screenshot.error.invalidDialogSettings"));
 			}
 			TabletopTool.getFrame().setStatusMessage(I18N.getString("dialog.screenshot.msg.screenshotStreaming"));
-			ByteArrayOutputStream imageOut = new ByteArrayOutputStream();
-			try {
+			try(ByteArrayOutputStream imageOut = new ByteArrayOutputStream()) {
 				ImageIO.write(screenCap, "png", imageOut);
 				screenCap = null;		// Free up the memory as soon as possible
 
 				TabletopTool.getFrame().setStatusMessage(I18N.getString("dialog.screenshot.msg.screenshotSaving"));
 				exportLocation.putContent(new BufferedInputStream(new ByteArrayInputStream(imageOut.toByteArray())));
-			}
-			finally {
-				if (imageOut != null) {
-					imageOut.close();
-				}
 			}
 
 			TabletopTool.getFrame().setStatusMessage(I18N.getString("dialog.screenshot.msg.screenshotSaved"));
@@ -680,6 +678,7 @@ public class ExportDialogOld extends JDialog {
 			renderer.setSize(extents.getSize());
 			if (!EventQueue.isDispatchThread()) {
 				EventQueue.invokeAndWait(new Runnable() {
+					@Override
 					public void run() {
 						renderer.renderZone(g, view);
 					}

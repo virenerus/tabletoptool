@@ -123,6 +123,7 @@ public class FTPClient {
 			postAllChangeEvents(data);
 		else
 			SwingUtilities.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					postAllChangeEvents(data);
 				}
@@ -286,7 +287,7 @@ public class FTPClient {
 				log.error("Attempting to open remote file " + file.getPath(), e);
 			}
 		}
-		return null;
+		return is;
 	}
 
 	protected OutputStream prepareOutputStream(FTPTransferObject data) throws IOException {

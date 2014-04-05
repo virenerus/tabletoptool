@@ -31,6 +31,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 		return zone;
 	}
 
+	@Override
 	public CellPoint getLastPoint() {
 		if (partialPaths.isEmpty()) {
 			return null;
@@ -39,11 +40,13 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 		return lastPath.end;
 	}
 
+	@Override
 	public void setWaypoints(CellPoint... points) {
 		partialPaths.clear();
 		addWaypoints(points);
 	}
 
+	@Override
 	public void addWaypoints(CellPoint... points) {
 		CellPoint previous = partialPaths.size() > 0 ? partialPaths.get(partialPaths.size() - 1).end : null;
 		for (CellPoint current : points) {
@@ -54,6 +57,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 		}
 	}
 
+	@Override
 	public CellPoint replaceLastWaypoint(CellPoint point) {
 		if (partialPaths.isEmpty())
 			return null;
@@ -67,6 +71,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 		return oldPartial.end;
 	}
 
+	@Override
 	public Path<CellPoint> getPath() {
 		Path<CellPoint> path = new Path<CellPoint>();
 
@@ -88,6 +93,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 		return path;
 	}
 
+	@Override
 	public boolean isWaypoint(CellPoint point) {
 		if (point == null)
 			return false;
@@ -108,6 +114,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 	/**
 	 * @see com.t3.client.walker.ZoneWalker#removeWaypoint(com.t3.model.CellPoint)
 	 */
+	@Override
 	public boolean removeWaypoint(CellPoint aPoint) {
 		if (aPoint == null || partialPaths == null || partialPaths.isEmpty())
 			return false;
@@ -133,6 +140,7 @@ public abstract class AbstractZoneWalker implements ZoneWalker {
 	/**
 	 * @see com.t3.client.walker.ZoneWalker#toggleWaypoint(com.t3.model.CellPoint)
 	 */
+	@Override
 	public boolean toggleWaypoint(CellPoint aPoint) {
 		if (removeWaypoint(aPoint))
 			return true;

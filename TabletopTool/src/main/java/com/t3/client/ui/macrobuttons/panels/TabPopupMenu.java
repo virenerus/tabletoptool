@@ -35,6 +35,7 @@ public class TabPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, "New Tab");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 		}
 	}

@@ -123,6 +123,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initCancelButton() {
 		getCancelButton().addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				accepted = false;
 				dialog.closeDialog();
@@ -132,6 +133,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initOKButton() {
 		getOKButton().addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				handleOK();
 			}
@@ -227,6 +229,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initRescanButton() {
 		getRescanButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).clear();
 				finder.find();
@@ -236,6 +239,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initRefreshButton() {
 		getRefreshButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateRemoteServerList();
 			}
@@ -391,14 +395,17 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 			return "";
 		}
 
+		@Override
 		public int getColumnCount() {
 			return 2;
 		}
 
+		@Override
 		public int getRowCount() {
 			return data.size();
 		}
 
+		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			String[] row = data.get(rowIndex);
 			return row[columnIndex];
@@ -406,6 +413,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 	}
 
 	// ANNOUNCEMENT LISTENER
+	@Override
 	public void serviceAnnouncement(String type, InetAddress address, int port, byte[] data) {
 		((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).addElement(new ServerInfo(new String(data), address, port));
 	}

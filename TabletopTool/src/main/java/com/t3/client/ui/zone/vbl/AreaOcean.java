@@ -76,6 +76,7 @@ public class AreaOcean implements AreaContainer {
 	
 	////
 	// AREA CONTAINER
+	@Override
 	public Area getBounds() {
 		return meta != null ? meta.area : null;
 	}

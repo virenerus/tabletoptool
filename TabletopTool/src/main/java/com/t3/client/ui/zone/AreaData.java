@@ -52,6 +52,7 @@ public class AreaData {
 		List<AreaMeta> areaMetaList = new ArrayList<AreaMeta>(metaList);
 
 		Collections.sort(areaMetaList, new Comparator<AreaMeta>() {
+			@Override
 			public int compare(AreaMeta o1, AreaMeta o2) {
 				Double d1 = centerPoint.distance(o1.getCenterPoint());
 				Double d2 = centerPoint.distance(o2.getCenterPoint());

@@ -34,10 +34,15 @@ public class GridlessGrid extends Grid {
 
 	// @formatter:off
 	private static final GridCapabilities GRID_CAPABILITIES= new GridCapabilities() {
+		@Override
 		public boolean isPathingSupported() {return false;}
+		@Override
 		public boolean isSnapToGridSupported() {return false;}
+		@Override
 		public boolean isPathLineSupported() {return false;}
+		@Override
 		public boolean isSecondDimensionAdjustmentSupported() {return false;}
+		@Override
 		public boolean isCoordinatesSupported() {return false;}
 	};
 	// @formatter:on

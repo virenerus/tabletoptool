@@ -128,33 +128,41 @@ public abstract class AbstractMacroPanel extends JPanel implements Scrollable, M
 	public abstract void reset();
 
 	// SCROLLABLE
+	@Override
 	public Dimension getPreferredScrollableViewportSize() {
 		return getPreferredSize();
 	}
 
+	@Override
 	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return 75;
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportHeight() {
 		return getPreferredSize().height < getParent().getSize().height;
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportWidth() {
 		return true;
 	}
 
+	@Override
 	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return 25;
 	}
 
 	// Override these mouse events in subclasses to specify component specific behavior.
+	@Override
 	public void mouseClicked(MouseEvent event) {
 	}
 
+	@Override
 	public void mousePressed(MouseEvent event) {
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent event) {
 		if (SwingUtilities.isRightMouseButton(event)) {
 			if ("CampaignPanel".equals(getPanelClass()) && !TabletopTool.getPlayer().isGM()) {
@@ -165,19 +173,23 @@ public abstract class AbstractMacroPanel extends JPanel implements Scrollable, M
 		}
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent event) {
 	}
 
+	@Override
 	public void mouseExited(MouseEvent event) {
 	}
 
 	// currently only used for Impersonate/Selection panels to refresh when the token is removed or a macro changes
+	@Override
 	public void modelChanged(ModelChangeEvent event) {
 		if (event.eventType == Token.ChangeEvent.MACRO_CHANGED || event.eventType == Event.TOKEN_REMOVED) {
 			reset();
 		}
 	}
 
+	@Override
 	public void handleAppEvent(AppEvent event) {
 		Zone oldZone = (Zone) event.getOldValue();
 		Zone newZone = (Zone) event.getNewValue();

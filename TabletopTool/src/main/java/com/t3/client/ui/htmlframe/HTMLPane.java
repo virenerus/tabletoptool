@@ -51,6 +51,7 @@ public class HTMLPane extends JEditorPane {
 		setEditable(false);
 
 		addHyperlinkListener(new HyperlinkListener() {
+			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (log.isDebugEnabled()) {
 					log.debug("Responding to hyperlink event: " + e.getEventType().toString() + " " + e.toString());

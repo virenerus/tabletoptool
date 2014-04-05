@@ -72,6 +72,7 @@ public class Toolbox {
 	public void setTargetRenderer(final ZoneRenderer renderer) {
 		// Need to be synchronous with the timing of the invokes within this method
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				final Tool oldTool = currentTool;
 
@@ -80,6 +81,7 @@ public class Toolbox {
 
 				// Update the renderer
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						currentRenderer = renderer;
 					}
@@ -100,6 +102,7 @@ public class Toolbox {
 
 	public void setSelectedTool(final Tool tool) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				if (tool == currentTool) {
 					return;

@@ -82,12 +82,14 @@ public class ProgressBarList extends JDialog implements ChangeListener {
 
 		hideButton = new JButton("Hide");
 		hideButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProgressBarList.this.setVisible(false);
 			}
 		});
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancelling = true;
 				JButton btn = (JButton) e.getSource();
@@ -112,6 +114,7 @@ public class ProgressBarList extends JDialog implements ChangeListener {
 	/* (non-Javadoc)
 	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == ftp) {
 			// This event is sent when the FTPClient has no more data in the 'todo' queue

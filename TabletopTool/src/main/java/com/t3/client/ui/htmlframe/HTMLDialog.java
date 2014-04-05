@@ -166,6 +166,7 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 		panel.updateContents(html, closeButton);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e instanceof HTMLPane.FormActionEvent) {
 			if (input) {
@@ -218,6 +219,7 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 		}
 	}
 
+	@Override
 	public void closeRequest() {
 		setVisible(false);
 		panel.flush();

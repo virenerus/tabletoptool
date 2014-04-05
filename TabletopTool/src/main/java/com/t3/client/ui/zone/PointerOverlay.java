@@ -48,6 +48,7 @@ public class PointerOverlay implements ZoneOverlay {
 		}
 	}
 
+	@Override
 	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 		Zone zone = renderer.getZone();
 

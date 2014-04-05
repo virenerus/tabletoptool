@@ -64,6 +64,7 @@ public class HTMLPanel extends JPanel {
 		// ESCAPE closes the window
 		pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cancel");
 		pane.getActionMap().put("cancel", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				container.closeRequest();
 			}
@@ -87,6 +88,7 @@ public class HTMLPanel extends JPanel {
 			remove(closePanel);
 		}
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				((MessagePanelEditorKit) pane.getEditorKit()).flush();
 				pane.setText(html);
@@ -100,6 +102,7 @@ public class HTMLPanel extends JPanel {
 	 */
 	public void flush() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				((MessagePanelEditorKit) pane.getEditorKit()).flush();
 			}

@@ -265,6 +265,7 @@ public class UIBuilder extends JDialog {
 		final JDialog dialog = this;
 		AbstractButton btn = form.getButton("ok");
 		btn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				status = JOptionPane.OK_OPTION;
 				dialog.setVisible(false);
@@ -272,6 +273,7 @@ public class UIBuilder extends JDialog {
 		});
 		btn = form.getButton("cancel");
 		btn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				status = JOptionPane.CANCEL_OPTION;
 				dialog.setVisible(false);

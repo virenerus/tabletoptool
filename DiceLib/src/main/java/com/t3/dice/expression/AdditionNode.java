@@ -16,6 +16,7 @@ public class AdditionNode extends Expression {
 		operations.set(nodes.size()-1, true);
 	}
 
+	@Override
 	public float getResult(Random random) {
 		float sum=0;
 		for(int i=0;i<nodes.size();i++) {
@@ -37,6 +38,7 @@ public class AdditionNode extends Expression {
 		operations.set(nodes.size()-1, false);
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder sb=new StringBuilder();
 		for(int i=0;i<nodes.size();i++) {
@@ -54,6 +56,7 @@ public class AdditionNode extends Expression {
 		return sb.toString();
 	}
 
+	@Override
 	public String toEvaluatedString() {
 		StringBuilder sb=new StringBuilder();
 		for(int i=0;i<nodes.size();i++) {

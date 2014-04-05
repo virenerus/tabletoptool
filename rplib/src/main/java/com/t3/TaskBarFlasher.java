@@ -52,6 +52,7 @@ public class TaskBarFlasher {
 	}
 	
 	private class FlashThread extends Thread {
+		@Override
 		public void run() {
 			while (!frame.isFocused()) {
 				try {

@@ -163,6 +163,7 @@ public class NewTokenDialog extends AbeillePanel<Token> {
 
 	public void initOKButton() {
 		getOKButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				success = true;
 				if (!getShowDialogCheckbox().isSelected()) {
@@ -181,6 +182,7 @@ public class NewTokenDialog extends AbeillePanel<Token> {
 
 	public void initCancelButton() {
 		getCancelButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				success = false;
 				dialog.closeDialog();

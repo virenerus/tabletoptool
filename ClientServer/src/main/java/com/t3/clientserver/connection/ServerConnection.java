@@ -68,7 +68,8 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
     	observerList.remove(observer);
     }
     
-    public void handleMessage(String id, byte[] message) {
+    @Override
+	public void handleMessage(String id, byte[] message) {
         dispatchMessage(id, message);
     }
 
@@ -179,7 +180,8 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
 
     ////
     // DISCONNECT HANDLER
-    public void handleDisconnect(AbstractConnection conn) {
+    @Override
+	public void handleDisconnect(AbstractConnection conn) {
     	if (conn instanceof ClientConnection) {
         	log.debug("HandleDisconnect: " + ((ClientConnection)conn).getId());
     		fireClientDisconnect((ClientConnection) conn);
@@ -215,7 +217,8 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
         	suppressErrors = true;
         }
 
-        public void run() {
+        @Override
+		public void run() {
             while (!stopRequested) {
                 try {
                     Socket s = socket.accept();
@@ -269,14 +272,16 @@ public class ServerConnection extends AbstractConnection implements MessageHandl
             stopRequested = true;
         }
 
-        public void handleMessage(String id, byte[] message) {
+        @Override
+		public void handleMessage(String id, byte[] message) {
             queue.add(new Message(id, message));
             synchronized (this) {
                 this.notify();
             }
         }
 
-        public void run() {
+        @Override
+		public void run() {
             while (!stopRequested) {
                 while (queue.size() > 0) {
                     Message msg = queue.remove(0);

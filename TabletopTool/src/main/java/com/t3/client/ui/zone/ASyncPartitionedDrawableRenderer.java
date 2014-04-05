@@ -56,6 +56,7 @@ public class ASyncPartitionedDrawableRenderer implements DrawableRenderer {
 		new RenderThread().start();
 	}
 	
+	@Override
 	public void flush() {
 //		for (BufferedImage image : chunkMap.values()) {
 //			releaseChunk(image);
@@ -64,6 +65,7 @@ public class ASyncPartitionedDrawableRenderer implements DrawableRenderer {
 		renderQueue.clear();
 	}
 	
+	@Override
 	public void renderDrawables(Graphics g, List<DrawnElement> drawableList, Rectangle viewport, double scale) {
 
 		// NOTHING TO DO

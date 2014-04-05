@@ -41,32 +41,39 @@ public class ScrollableFlowPanel extends JPanel implements Scrollable {
 		setLayout(new FlowLayout(alignment));
 	}
 	
+	@Override
 	public void setBounds( int x, int y, int width, int height ) {
 		super.setBounds( x, y, getParent().getWidth(), height );
 	}
 
+	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension( getWidth(), getPreferredHeight() );
 	}
 	
+	@Override
 	public Dimension getPreferredScrollableViewportSize() {
 		return super.getPreferredSize();
 	}
 
+	@Override
 	public int getScrollableUnitIncrement( Rectangle visibleRect, int orientation, int direction ) {
 		int hundredth = ( orientation ==  SwingConstants.VERTICAL
 				? getParent().getHeight() : getParent().getWidth() ) / 100;
 		return ( hundredth == 0 ? 1 : hundredth ); 
 	}
 
+	@Override
 	public int getScrollableBlockIncrement( Rectangle visibleRect, int orientation, int direction ) {
 		return orientation == SwingConstants.VERTICAL ? getParent().getHeight() : getParent().getWidth();
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportWidth() {
 		return true;
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportHeight() {
 		return false;
 	}

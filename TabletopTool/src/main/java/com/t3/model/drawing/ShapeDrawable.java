@@ -37,10 +37,12 @@ public class ShapeDrawable extends AbstractDrawing {
 	 * 
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public java.awt.Rectangle getBounds() {
 		return shape.getBounds();
 	}
 
+	@Override
 	public Area getArea() {
 		return new Area(shape);
 	}

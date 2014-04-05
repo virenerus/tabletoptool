@@ -42,6 +42,7 @@ public class ZoomStatusBar extends JTextField implements ActionListener {
 		return !AppState.isZoomLocked() && super.isEnabled();
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		JTextField target = (JTextField) e.getSource();
 		if (TabletopTool.getFrame().getCurrentZoneRenderer() != null) {

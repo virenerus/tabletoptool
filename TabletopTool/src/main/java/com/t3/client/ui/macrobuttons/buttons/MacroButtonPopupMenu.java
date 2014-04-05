@@ -120,6 +120,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			// TODO: refactor to put tab index from Tab enum
 			if (panelClass.equals("GlobalPanel")) {
@@ -145,6 +146,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, I18N.getText("action.macro.edit"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			new MacroButtonDialog().show(button);
 		}
@@ -159,6 +161,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if(TabletopTool.confirm(I18N.getText("confirm.macro.delete", button.getProperties().getLabel()))) {
 				// remove the hot key or the hot key will remain and you'll get an exception later
@@ -208,6 +211,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (panelClass.equals("GlobalPanel")) {
 				new MacroButtonProperties(panelClass, MacroButtonPrefs.getNextIndex(), button.getProperties());
@@ -232,6 +236,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, I18N.getText("action.macro.reset"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if(TabletopTool.confirm(I18N.getText("confirm.macro.reset", button.getProperties().getLabel()))) {
 				button.getProperties().reset();
@@ -245,6 +250,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 			putValue(Action.NAME, I18N.getText("action.macro.runForEachSelected"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList().size() > 0) {
 				button.getProperties().executeMacro(TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList());
@@ -261,6 +267,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 				putValue(Action.NAME, name);
 			}
 
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				JFileChooser chooser = TabletopTool.getFrame().getSaveMacroFileChooser();
 
@@ -270,6 +277,7 @@ public class MacroButtonPopupMenu extends JPopupMenu{
 
 				final File selectedFile = chooser.getSelectedFile();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						if (selectedFile.exists()) {
 						    if (selectedFile.getName().endsWith(".mtmacro")) {

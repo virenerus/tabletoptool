@@ -130,7 +130,8 @@ public class WindowPreferences extends WindowAdapter {
     
     ////
     // WINDOW ADAPTER
-    public final void windowClosing(WindowEvent e) {
+    @Override
+	public final void windowClosing(WindowEvent e) {
         
         storePreferences((Window) e.getSource());
     }

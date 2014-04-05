@@ -100,6 +100,7 @@ public class VisionDialog extends JDialog {
 	private void initOKButton(FormPanel panel, final Zone zone, final Token token) {
 		JButton button = (JButton) panel.getButton("okButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (commit(zone, token)) {
 					close();
@@ -112,6 +113,7 @@ public class VisionDialog extends JDialog {
 	private void initDeleteButton(FormPanel panel, final Token token, final Vision vision) {
 		JButton button = (JButton) panel.getButton("deleteButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 //				token.removeVision(vision);
 				close();
@@ -123,6 +125,7 @@ public class VisionDialog extends JDialog {
 	private void initCancelButton(FormPanel panel) {
 		JButton button = (JButton) panel.getButton("cancelButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				close();
 			}

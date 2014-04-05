@@ -12,14 +12,17 @@ public class NumberNode extends Expression {
 		this.number=number;
 	}
 
+	@Override
 	public float getResult(Random random) {
 		return number;
 	}
 	
+	@Override
 	public String toString() {
 		return NumberUtil.formatFloat(number);
 	}
 
+	@Override
 	public String toEvaluatedString() {
 		return NumberUtil.formatFloat(number);
 	}

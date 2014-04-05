@@ -30,6 +30,7 @@ public class WindowLocaleChangeListener implements LocaleChangeListener {
 	
 	////
 	// LOCALE CHANGE LISTENER
+	@Override
 	public void localeChanged(Locale locale) {
 		
 		if (window instanceof Dialog) {

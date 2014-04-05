@@ -319,6 +319,7 @@ public class AppMenuBar extends JMenuBar {
 				putValue(Action.NAME, I18N.getText("msg.info.restoreLayout"));
 			}
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				TabletopTool.getFrame().getDockingManager().resetToDefault();
 			}

@@ -263,9 +263,7 @@ public class AppActions {
 			// Export to temp location
 			File tmpFile = new File(AppUtil.getAppHome("tmp").getAbsolutePath() + "/" + System.currentTimeMillis() + ".export");
 
-			try {
-				ZipOutputStream out = new ZipOutputStream(new FileOutputStream(tmpFile));
-
+			try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(tmpFile))){
 				StringBuilder builder = new StringBuilder();
 				for (Asset asset : assetSet) {
 
@@ -279,9 +277,9 @@ public class AppActions {
 
 				// Handle the index
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
-				GZIPOutputStream gzout = new GZIPOutputStream(bout);
-				gzout.write(builder.toString().getBytes());
-				gzout.close();
+				try (GZIPOutputStream gzout = new GZIPOutputStream(bout)) {
+					gzout.write(builder.toString().getBytes());
+				}
 
 				ZipEntry entry = new ZipEntry("index.gz");
 				out.putNextEntry(entry);
@@ -436,9 +434,9 @@ public class AppActions {
 				// do it manually.
 				byte[] index = AssetManager.updateRepositoryMap(saveTo, repoEntries);
 				repoEntries.clear();
-				GZIPOutputStream gzout = new GZIPOutputStream(bout);
-				gzout.write(index);
-				gzout.close();
+				try(GZIPOutputStream gzout = new GZIPOutputStream(bout)) {
+					gzout.write(index);
+				}
 				ftp.addToQueue(new FTPTransferObject(Direction.FTP_PUT, bout.toByteArray(), topdir, "index.gz"));
 			} catch (IOException ioe) {
 				TabletopTool.showError("msg.error.failedUpdatingCampaignRepo", ioe);
@@ -507,11 +505,9 @@ public class AppActions {
 
 		@Override
 		public void execute(ActionEvent e) {
-			try {
+			try(InputStream in = AppActions.class.getClassLoader().getResourceAsStream("com/t3/client/defaultTables.mtprops")) {
 				// Load the defaults
-				InputStream in = AppActions.class.getClassLoader().getResourceAsStream("com/t3/client/defaultTables.mtprops");
 				CampaignProperties properties = PersistenceUtil.loadCampaignProperties(in);
-				in.close();
 
 				// Make sure the images have been installed
 				// Just pick a table and spot check
@@ -1815,6 +1811,7 @@ public class AppActions {
 		@Override
 		public void execute(ActionEvent e) {
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					if (!TabletopTool.isPersonalServer()) {
 						TabletopTool.showError("msg.error.alreadyRunningServer");
@@ -1955,6 +1952,7 @@ public class AppActions {
 			TabletopTool.getFrame().showFilledGlassPane(progressDialog);
 
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					boolean failed = false;
 					try {
@@ -2580,6 +2578,7 @@ public class AppActions {
 		@Override
 		public void execute(java.awt.event.ActionEvent e) {
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					Asset asset = AssetManager.getAsset(assetId);
 
@@ -2601,6 +2600,7 @@ public class AppActions {
 		@Override
 		public void execute(java.awt.event.ActionEvent e) {
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					Zone zone = ZoneFactory.createZone();
 					MapPropertiesDialog newMapDialog = new MapPropertiesDialog(TabletopTool.getFrame());
@@ -2624,6 +2624,7 @@ public class AppActions {
 		@Override
 		public void execute(java.awt.event.ActionEvent e) {
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					Zone zone = TabletopTool.getFrame().getCurrentZoneRenderer().getZone();
 					MapPropertiesDialog newMapDialog = new MapPropertiesDialog(TabletopTool.getFrame());
@@ -2658,6 +2659,7 @@ public class AppActions {
 		@Override
 		public void execute(ActionEvent e) {
 			runBackground(new Runnable() {
+				@Override
 				public void run() {
 					AddResourceDialog dialog = new AddResourceDialog();
 					dialog.showDialog();
@@ -2795,6 +2797,7 @@ public class AppActions {
 			return false;
 		}
 
+		@Override
 		public final void actionPerformed(ActionEvent e) {
 			execute(e);
 			// System.out.println(getValue(Action.NAME));
@@ -2935,6 +2938,7 @@ public class AppActions {
 			putValue(Action.SHORT_DESCRIPTION, htmlTip);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent ae) {
 			if (TabletopTool.isCampaignDirty() && !TabletopTool.confirm("msg.confirm.loseChanges"))
 				return;

@@ -170,6 +170,7 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 						throw new Exception("Export Dialog has a mis-matched enum: " + button.toString());
 					}
 					button.addActionListener(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent evt) {
 							enforceButtonRules();
 						}
@@ -420,16 +421,19 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 		ExportLayers.setForm(interactPanel);
 
 		interactPanel.getButton("exportButton").addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				exportButtonAction();
 			}
 		});
 		interactPanel.getButton("cancelButton").addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				dispose();
 			}
 		});
 		interactPanel.getButton("browseButton").addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				browseButtonAction();
 			}
@@ -631,6 +635,7 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 						// Swing uses.
 						//
 						class backscreenRender implements Runnable {
+							@Override
 							public void run() {
 								try {
 									PlayerView view = preScreenshot();
@@ -892,6 +897,7 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 	/**
 	 * Setup the progress meter.
 	 */
+	@Override
 	public void imageStarted(ImageWriter source, int imageIndex) {
 		renderPercent = 0;
 		progressLabel.setText(I18N.getText("exportDialog.msg.renderingWait" + renderPercent + "%"));
@@ -901,6 +907,7 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 	/**
 	 * Update the progress meter.
 	 */
+	@Override
 	public void imageProgress(ImageWriter source, float percentageDone) {
 		int oldPercent = renderPercent;
 		renderPercent = (int) (percentageDone * 100);
@@ -913,20 +920,25 @@ public class ExportDialog extends JDialog implements IIOWriteProgressListener {
 	/**
 	 * Close this dialog box upon completion of background thread renderer.
 	 */
+	@Override
 	public void imageComplete(ImageWriter source) {
 		postScreenshot();
 		dispose();
 	}
 
+	@Override
 	public void thumbnailStarted(ImageWriter source, int imageIndex, int thumbnailIndex) {
 	}
 
+	@Override
 	public void thumbnailProgress(ImageWriter source, float percentageDone) {
 	}
 
+	@Override
 	public void thumbnailComplete(ImageWriter source) {
 	}
 
+	@Override
 	public void writeAborted(ImageWriter source) {
 	}
 }

@@ -113,6 +113,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 
 	public StampTool() {
 		layerSelectionDialog = new LayerSelectionDialog(new Zone.Layer[] { Zone.Layer.TOKEN, Zone.Layer.GM, Zone.Layer.OBJECT, Zone.Layer.BACKGROUND }, new LayerSelectionListener() {
+			@Override
 			public void layerSelected(Layer layer) {
 				if (renderer != null) {
 					renderer.setActiveLayer(layer);
@@ -734,6 +735,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(AppActions.COPY_TOKENS.getKeyStroke(), AppActions.COPY_TOKENS);
 		actionMap.put(AppActions.PASTE_TOKENS.getKeyStroke(), AppActions.PASTE_TOKENS);
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, AppActions.menuShortcut), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (renderer.getSelectedTokenSet().isEmpty()) {
 					return;
@@ -746,6 +748,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 		});
 		// TODO: Optimize this by making it non anonymous
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				ZoneRenderer renderer = (ZoneRenderer) e.getSource();
 
@@ -764,6 +767,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 		});
 
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isDraggingToken) {
 					return;
@@ -773,6 +777,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isDraggingToken) {
 					return;
@@ -784,132 +789,158 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 
 		// TODO Should these keystrokes be based on the grid type, like they are in PointerTool?
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 0, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 0, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, -1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, 1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, -1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, -1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 1, false);
 			}
 		});
 
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 0, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 0, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, -1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, 1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, -1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, -1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cycleSelectedToken(1);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cycleSelectedToken(-1);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, 1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 0, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 0, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, -1, false);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, 1, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(1, 0, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(-1, 0, true);
 			}
 		});
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.SHIFT_MASK), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyMove(0, -1, true);
 			}
@@ -1005,6 +1036,7 @@ public class StampTool extends DefaultTool implements ZoneOverlay {
 	 * @see com.t3.client.ZoneOverlay#paintOverlay(com.t3 .client.ZoneRenderer,
 	 * java.awt.Graphics2D)
 	 */
+	@Override
 	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 		if (selectionBoundBox != null) {
 			Stroke stroke = g.getStroke();

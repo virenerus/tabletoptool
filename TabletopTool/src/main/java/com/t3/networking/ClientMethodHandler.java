@@ -99,6 +99,7 @@ public class ClientMethodHandler extends AbstractMethodHandler<NetworkCommand> {
 
 		// Model events need to update on the EDT
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public void run() {
 				GUID zoneGUID;

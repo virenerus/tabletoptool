@@ -78,6 +78,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 
 	////
 	// Mouse
+	@Override
 	public void mousePressed(MouseEvent e) {
 		// Potential map dragging
 		if (SwingUtilities.isRightMouseButton(e)) {
@@ -86,6 +87,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 		}
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (isDraggingMap && SwingUtilities.isRightMouseButton(e)) {
 			renderer.maybeForcePlayersView();
@@ -99,6 +101,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 	 * 
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
 
@@ -107,6 +110,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 	 * 
 	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
@@ -115,6 +119,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 	 * 
 	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseExited(MouseEvent e) {
 	}
 
@@ -125,6 +130,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 	 * 
 	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {
 		if (renderer == null) {
 			return;
@@ -140,6 +146,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 		}
 	}
 
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		int mX = e.getX();
 		int mY = e.getY();
@@ -173,6 +180,7 @@ public abstract class DefaultTool extends Tool implements MouseListener, MouseMo
 	
 	////
 	// Mouse Wheel
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// Fix for High Resolution Mouse Wheels
 		if(e.getWheelRotation() == 0) {

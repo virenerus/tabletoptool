@@ -561,6 +561,7 @@ public class TabletopTool {
 		if (!EventQueue.isDispatchThread()) {
 			try {
 				EventQueue.invokeAndWait(new Runnable() {
+					@Override
 					public void run() {
 						renderer.renderZone(g, view);
 					}
@@ -718,6 +719,7 @@ public class TabletopTool {
 
 			// LATER: Make this non-anonymous
 			playerList.sort(new Comparator<Player>() {
+				@Override
 				public int compare(Player arg0, Player arg1) {
 					return arg0.getName().compareToIgnoreCase(arg1.getName());
 				}
@@ -1136,6 +1138,7 @@ public class TabletopTool {
 		com.jidesoft.utils.Lm.verifyLicense("Trevor Croft", "rptools", "5MfIVe:WXJBDrToeLWPhMv3kI2s3VFo");
 		
 		LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = new LookAndFeelFactory.UIDefaultsCustomizer() {
+			@Override
 			public void customize(UIDefaults defaults) {
 				ThemePainter painter = (ThemePainter) UIDefaultsLookup.get("Theme.painter");
 				defaults.put("OptionPaneUI", "com.jidesoft.plaf.basic.BasicJideOptionPaneUI");
@@ -1279,6 +1282,7 @@ public class TabletopTool {
 			
 			
 			LookAndFeelFactory.addUIDefaultsCustomizer(new LookAndFeelFactory.UIDefaultsCustomizer() {
+				@Override
 				public void customize(UIDefaults defaults) {
 					// Remove red border around menus
 					defaults.put("PopupMenu.foreground", Color.lightGray);
@@ -1331,13 +1335,16 @@ public class TabletopTool {
 		tk.setDynamicLayout(true);
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				initialize();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						clientFrame.setVisible(true);
 						splash.hideSplashScreen();
 						EventQueue.invokeLater(new Runnable() {
+							@Override
 							public void run() {
 								postInitialize();
 							}

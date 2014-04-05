@@ -59,6 +59,7 @@ public class AreaIsland implements AreaContainer {
 	
 	////
 	// AREA CONTAINER
+	@Override
 	public Area getBounds() {
 		return meta.area;
 	}

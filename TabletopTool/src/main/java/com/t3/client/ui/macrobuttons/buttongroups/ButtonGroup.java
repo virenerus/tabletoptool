@@ -80,6 +80,7 @@ public class ButtonGroup extends AbstractButtonGroup {
 		repaint();
 	}
 	
+	@Override
 	public void drop(DropTargetDropEvent event) {
 		//System.out.println("BG: drop!");
 		String panelClass = getPanelClass();
@@ -157,6 +158,7 @@ public class ButtonGroup extends AbstractButtonGroup {
 		}
 	}
 	
+	@Override
 	public Insets getInsets() {
 		if (getGroupLabel().equals("")){
 			return new Insets(3,3,3,0);

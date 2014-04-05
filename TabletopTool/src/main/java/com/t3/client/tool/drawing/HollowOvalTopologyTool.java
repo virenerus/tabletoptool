@@ -70,7 +70,8 @@ public class HollowOvalTopologyTool extends AbstractDrawingTool implements Mouse
         return "tool.ovaltopologyhollow.tooltip";
     }
 
-    public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
+    @Override
+	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
    	
     	//Color oldColor = g.getColor();
 
@@ -111,7 +112,8 @@ public class HollowOvalTopologyTool extends AbstractDrawingTool implements Mouse
         }
     }    
     
-    public void mousePressed(MouseEvent e) {
+    @Override
+	public void mousePressed(MouseEvent e) {
 
     	if (SwingUtilities.isLeftMouseButton(e)) {
 	    	ZonePoint zp = getPoint(e);
@@ -163,7 +165,8 @@ public class HollowOvalTopologyTool extends AbstractDrawingTool implements Mouse
     	}
     }
     
-    public void mouseMoved(MouseEvent e) {
+    @Override
+	public void mouseMoved(MouseEvent e) {
     	
     	setIsEraser(isEraser(e));
     	
@@ -182,7 +185,8 @@ public class HollowOvalTopologyTool extends AbstractDrawingTool implements Mouse
   /**
    * Stop drawing a rectangle and repaint the zone.
    */
-  public void resetTool() {
+  @Override
+public void resetTool() {
 	  if (oval != null) {
 	    oval = null;
 	    renderer.repaint();

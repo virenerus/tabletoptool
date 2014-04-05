@@ -252,6 +252,7 @@ public class MacroButtonView implements MacroView {
 	 * This will execute this macro without any arguments.
 	 * @return the object returned by the macro
 	 */
+	@Override
 	public Object execute() {
 		Map<String,Object> args=Collections.emptyMap();
 		return execute(args);

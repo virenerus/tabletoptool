@@ -41,7 +41,8 @@ public class ObservableList<K> extends Observable implements List<K> {
         this.list = list;
     }
 
-    public List<K> subList(int fromIndex, int toIndex) {
+    @Override
+	public List<K> subList(int fromIndex, int toIndex) {
         return list.subList(fromIndex, toIndex);
     }
     
@@ -50,47 +51,56 @@ public class ObservableList<K> extends Observable implements List<K> {
         Collections.sort(list, comparitor);
     }
     
-    public boolean contains(Object item) {
+    @Override
+	public boolean contains(Object item) {
         return list.contains(item);
     }
 
-    public int indexOf(Object item) {
+    @Override
+	public int indexOf(Object item) {
     	return list.indexOf(item);
     }
 
-    public K get(int i) {
+    @Override
+	public K get(int i) {
         return list.get(i);
     }
     
-    public boolean add(K item) {
+    @Override
+	public boolean add(K item) {
         boolean b=list.add(item);
         fireUpdate(Event.append, item);
         return b;
     }
 
-    public void add(int index, K element) {
+    @Override
+	public void add(int index, K element) {
         list.add(index, element);
         fireUpdate((index == list.size() ? Event.append : Event.add), element);
     }
     
-    public boolean remove(Object item) {
+    @Override
+	public boolean remove(Object item) {
         boolean b=list.remove(item);
         fireUpdate(Event.remove, item);
         return b;
     }
     
-    public K remove(int i) {
+    @Override
+	public K remove(int i) {
         K source = list.remove(i);
         fireUpdate(Event.remove, source);
         return source;
     }
     
-    public void clear() {
+    @Override
+	public void clear() {
         list.clear();
         fireUpdate(Event.clear, null);
     }
     
-    public int size() {
+    @Override
+	public int size() {
         return list.size();
     }
     
@@ -124,7 +134,8 @@ public class ObservableList<K> extends Observable implements List<K> {
      * 
      * @return An iterator over the displayed list.
      */
-    public Iterator<K> iterator() {
+    @Override
+	public Iterator<K> iterator() {
       return list.iterator(); 
     }
 
@@ -164,10 +175,12 @@ public class ObservableList<K> extends Observable implements List<K> {
 		return list.listIterator();
 	}
 
+	@Override
 	public ListIterator<K> listIterator(int index) {
 		return list.listIterator(index);
 	}
 
+	@Override
 	public boolean removeAll(Collection<?> c) {
 		boolean b=list.removeAll(c);
 		for(Object o:c)
@@ -175,10 +188,12 @@ public class ObservableList<K> extends Observable implements List<K> {
 		return b;
 	}
 
+	@Override
 	public boolean retainAll(Collection<?> c) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public K set(int index, K element) {
 		K old=list.set(index, element);
 		if(old!=null)
@@ -187,10 +202,12 @@ public class ObservableList<K> extends Observable implements List<K> {
 		return old;
 	}
 
+	@Override
 	public Object[] toArray() {
 		return list.toArray();
 	}
 
+	@Override
 	public <T> T[] toArray(T[] a) {
 		return list.toArray(a);
 	}

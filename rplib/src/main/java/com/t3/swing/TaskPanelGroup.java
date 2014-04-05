@@ -92,10 +92,12 @@ public class TaskPanelGroup extends JPanel {
     
     private class TaskPanelGroupLayout implements LayoutManager {
         
-        public void addLayoutComponent(String name, Component comp) {
+        @Override
+		public void addLayoutComponent(String name, Component comp) {
         }
         
-        public void layoutContainer(Container parent) {
+        @Override
+		public void layoutContainer(Container parent) {
             
             Dimension size = getSize();
             Insets insets = getInsets();
@@ -146,7 +148,8 @@ public class TaskPanelGroup extends JPanel {
             }            
         }
         
-        public Dimension minimumLayoutSize(Container parent) {
+        @Override
+		public Dimension minimumLayoutSize(Container parent) {
             
             int width = 0;
             int height = 0;
@@ -164,7 +167,8 @@ public class TaskPanelGroup extends JPanel {
             return new Dimension(width, height);
         }
         
-        public Dimension preferredLayoutSize(Container parent) {
+        @Override
+		public Dimension preferredLayoutSize(Container parent) {
             int width = 0;
             int height = 0;
             
@@ -181,7 +185,8 @@ public class TaskPanelGroup extends JPanel {
             return new Dimension(width, height);
         }
 
-        public void removeLayoutComponent(Component comp) {
+        @Override
+		public void removeLayoutComponent(Component comp) {
         }
     }
     

@@ -272,6 +272,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		invalidateCurrentViewCache();
 
 		scale.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (Scale.PROPERTY_SCALE.equals(evt.getPropertyName())) {
 					tokenLocationCache.clear();
@@ -2200,6 +2201,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 
 		// Sort by location on screen, top left to bottom right
 		Collections.sort(list, new Comparator<Token>() {
+			@Override
 			public int compare(Token o1, Token o2) {
 				if (o1.getY() < o2.getY()) {
 					return -1;
@@ -3237,6 +3239,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 			}
 		}
 
+		@Override
 		public void render(Graphics2D g) {
 			if (tokenId != null) { // Use cached image.
 				switch (align) {
@@ -3459,6 +3462,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 	 * java.awt.dnd.DropTargetListener#dragEnter(java.awt.dnd.DropTargetDragEvent
 	 * )
 	 */
+	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
 	}
 
@@ -3468,6 +3472,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 	 * @see
 	 * java.awt.dnd.DropTargetListener#dragExit(java.awt.dnd.DropTargetEvent)
 	 */
+	@Override
 	public void dragExit(DropTargetEvent dte) {
 	}
 
@@ -3477,6 +3482,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 	 * @see java.awt.dnd.DropTargetListener#dragOver
 	 * (java.awt.dnd.DropTargetDragEvent)
 	 */
+	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
 	}
 
@@ -3638,6 +3644,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 	 * @see java.awt.dnd.DropTargetListener#drop
 	 * (java.awt.dnd.DropTargetDropEvent)
 	 */
+	@Override
 	public void drop(DropTargetDropEvent dtde) {
 		ZonePoint zp = new ScreenPoint((int) dtde.getLocation().getX(), (int) dtde.getLocation().getY()).convertToZone(this);
 		TransferableHelper th = (TransferableHelper) getTransferHandler();
@@ -3656,12 +3663,14 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 	 * @see java.awt.dnd.DropTargetListener#dropActionChanged
 	 * (java.awt.dnd.DropTargetDragEvent)
 	 */
+	@Override
 	public void dropActionChanged(DropTargetDragEvent dtde) {
 	}
 
 	//
 	// ZONE MODEL CHANGE LISTENER
 	private class ZoneModelChangeListener implements ModelChangeListener {
+		@Override
 		public void modelChanged(ModelChangeEvent event) {
 			Object evt = event.getEvent();
 
@@ -3691,6 +3700,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 
 	//
 	// COMPARABLE
+	@Override
 	public int compareTo(ZoneRenderer o) {
 		if (o != this) {
 			return (int) (zone.getCreationTime() - o.zone.getCreationTime());

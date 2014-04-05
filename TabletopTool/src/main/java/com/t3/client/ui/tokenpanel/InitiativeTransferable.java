@@ -90,7 +90,8 @@ public class InitiativeTransferable implements Transferable {
     /**
      * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
      */
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+    @Override
+	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
         if (INIT_TOKEN_FLAVOR.equals(flavor)) {
             return this;
         }
@@ -101,14 +102,16 @@ public class InitiativeTransferable implements Transferable {
     /**
      * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
      */
-    public DataFlavor[] getTransferDataFlavors() {
+    @Override
+	public DataFlavor[] getTransferDataFlavors() {
         return new DataFlavor[] {INIT_TOKEN_FLAVOR};
     }
 
     /**
      * @see java.awt.datatransfer.Transferable#isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
      */
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
+    @Override
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
         return INIT_TOKEN_FLAVOR.equals(flavor);
     }
 

@@ -34,6 +34,7 @@ public class TitleMenuItem extends JMenuItem {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
+	@Override
 	protected void paintComponent(Graphics g) {
 
 		g.setColor(Color.darkGray);

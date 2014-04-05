@@ -134,6 +134,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initDuplicateButton() {
 		getDuplicateButton().setMargin(new Insets(0, 0, 0, 0));
 		getDuplicateButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Object> ids = getImagePanel().getSelectedIds();
 				if (ids == null || ids.size() == 0) {
@@ -156,6 +157,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initEditTableButton() {
 		getEditButton().setMargin(new Insets(0, 0, 0, 0));
 		getEditButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Object> ids = getImagePanel().getSelectedIds();
 				if (ids == null || ids.size() == 0) {
@@ -175,6 +177,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initNewTableButton() {
 		getNewButton().setMargin(new Insets(0, 0, 0, 0));
 		getNewButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				editorPanel.attach(null);
 
@@ -190,6 +193,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initDeleteTableButton() {
 		getDeleteButton().setMargin(new Insets(0, 0, 0, 0));
 		getDeleteButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Object> ids = getImagePanel().getSelectedIds();
 				if (ids == null || ids.size() == 0) {
@@ -211,6 +215,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initImportButton() {
 		getImportButton().setMargin(new Insets(0, 0, 0, 0));
 		getImportButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = TabletopTool.getFrame().getLoadTableFileChooser();
 
@@ -219,6 +224,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 				}
 				final File selectedFile = chooser.getSelectedFile();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							Map<String, LookupTable> lookupTables = TabletopTool.getCampaign().getLookupTableMap();
@@ -247,6 +253,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	public void initExportButton() {
 		getExportButton().setMargin(new Insets(0, 0, 0, 0));
 		getExportButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = TabletopTool.getFrame().getSaveTableFileChooser();
 
@@ -255,6 +262,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 				}
 				final File selectedFile = chooser.getSelectedFile();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						if (selectedFile.exists()) {
 							if (selectedFile.getName().endsWith(".mttable")) {

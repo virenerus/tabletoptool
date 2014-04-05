@@ -70,6 +70,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(AppActions.ZOOM_OUT.getKeyStroke(), "zoomOut");
 		getActionMap().put("zoomOut", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				zoomOut();
 			}
@@ -77,6 +78,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(AppActions.ZOOM_IN.getKeyStroke(), "zoomIn");
 		getActionMap().put("zoomIn", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				zoomIn();
 			}
@@ -84,6 +86,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(AppActions.ZOOM_RESET.getKeyStroke(), "zoomReset");
 		getActionMap().put("zoomReset", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				zoomReset();
 			}
@@ -311,15 +314,19 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 	//// 
 	// MOUSE LISTENER
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
+	@Override
 	public void mouseExited(MouseEvent e) {
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e) {
 
 		if (SwingUtilities.isLeftMouseButton(e)) {
@@ -359,6 +366,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 		}
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		draggingHandle = null;
 
@@ -367,6 +375,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 	////
 	// MOUSE MOTION LISTENER
+	@Override
 	public void mouseDragged(MouseEvent e) {
 
 		if (SwingUtilities.isLeftMouseButton(e)) {
@@ -384,6 +393,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 		repaint();
 	}
 
+	@Override
 	public void mouseMoved(MouseEvent e) {
 
 		Dimension imgSize = getScaledImageSize();
@@ -401,6 +411,7 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 
 	////
 	// MOUSE WHEEL LISTENER
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 
 		if (e.getWheelRotation() > 0) {

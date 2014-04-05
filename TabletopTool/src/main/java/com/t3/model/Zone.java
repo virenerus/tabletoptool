@@ -1220,6 +1220,7 @@ public class Zone extends BaseModel {
 	public static final Comparator<Token> TOKEN_Z_ORDER_COMPARATOR = new TokenZOrderComparator();
 
 	public static class TokenZOrderComparator implements Comparator<Token> {
+		@Override
 		public int compare(Token o1, Token o2) {
 			int lval = o1.getZOrder();
 			int rval = o2.getZOrder();

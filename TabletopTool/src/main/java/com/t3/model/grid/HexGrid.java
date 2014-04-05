@@ -56,22 +56,27 @@ public abstract class HexGrid extends Grid {
 	}
 
 	private static final GridCapabilities GRID_CAPABILITIES = new GridCapabilities() {
+		@Override
 		public boolean isPathingSupported() {
 			return true;
 		}
 
+		@Override
 		public boolean isSnapToGridSupported() {
 			return true;
 		}
 
+		@Override
 		public boolean isPathLineSupported() {
 			return false;
 		}
 
+		@Override
 		public boolean isSecondDimensionAdjustmentSupported() {
 			return true;
 		}
 
+		@Override
 		public boolean isCoordinatesSupported() {
 			return false;
 		}

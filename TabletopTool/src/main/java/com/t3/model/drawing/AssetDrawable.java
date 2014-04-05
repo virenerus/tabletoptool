@@ -61,6 +61,7 @@ public class AssetDrawable extends AbstractDrawing {
 	/**
 	 * @see com.t3.model.drawing.Drawable#draw(java.awt.Graphics2D, com.t3.model.drawing.Pen)
 	 */
+	@Override
 	public void draw(Graphics2D g) {
 	}
 
@@ -74,10 +75,12 @@ public class AssetDrawable extends AbstractDrawing {
 	/**
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		return bounds;
 	}
 	
+	@Override
 	public Area getArea() {
 		return null;
 	}

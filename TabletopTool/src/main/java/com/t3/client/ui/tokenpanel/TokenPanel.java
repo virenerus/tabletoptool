@@ -45,7 +45,8 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
         tokenList = new JList<Token>();
         tokenList.setCellRenderer(new TokenListCellRenderer());
         tokenList.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
+            @Override
+			public void mouseClicked(MouseEvent e) {
                 // TODO: make this not an aic
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                     
@@ -68,7 +69,8 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
                 	final int x = e.getX();
                 	final int y = e.getY();
                 	EventQueue.invokeLater(new Runnable() {
-                		public void run() {
+                		@Override
+						public void run() {
                 			
                         	Token firstToken = null;
                         	Set<GUID> selectedTokenSet = new HashSet<GUID>();
@@ -112,7 +114,8 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
         // TODO: make this not a aic
         EventQueue.invokeLater(new Runnable(){
             
-            public void run() {
+            @Override
+			public void run() {
                 Zone zone = currentZoneRenderer != null ? currentZoneRenderer.getZone() : null;
                 tokenList.setModel(new TokenListModel(zone));
             }
@@ -121,7 +124,8 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
     
     ////
     // ModelChangeListener
-    public void modelChanged(ModelChangeEvent event) {
+    @Override
+	public void modelChanged(ModelChangeEvent event) {
 
         // Tokens are added and removed, just repaint ourself
         ((TokenListModel)tokenList.getModel()).update();

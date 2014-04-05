@@ -241,25 +241,30 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 
 	////
 	// SERVER COMMAND
+	@Override
 	public void setVisionType(GUID zoneGUID, VisionType visionType) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setVisionType(visionType);
 		server.getConnection().broadcastCallMethod(NetworkCommand.setUseVision, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void heartbeat(String data) {
 		// Nothing to do yet
 	}
 
+	@Override
 	public void enforceZone(GUID zoneGUID) {
 		forwardToClients();
 	}
 
+	@Override
 	public void updateCampaign(CampaignProperties properties) {
 		server.getCampaign().replaceCampaignProperties(properties);
 		forwardToClients();
 	}
 
+	@Override
 	public void bringTokensToFront(GUID zoneGUID, Set<GUID> tokenSet) {
 		synchronized (MUTEX) {
 			Zone zone = server.getCampaign().getZone(zoneGUID);
@@ -287,6 +292,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		}
 	}
 
+	@Override
 	public void clearAllDrawings(GUID zoneGUID, Zone.Layer layer) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		List<DrawnElement> list = zone.getDrawnElements(layer);
@@ -294,28 +300,33 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		forwardToAllClients();
 	}
 
+	@Override
 	public void draw(GUID zoneGUID, Pen pen, Drawable drawable) {
 		server.getConnection().broadcastCallMethod(NetworkCommand.draw, RPCContext.getCurrent().parameters);
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.addDrawable(new DrawnElement(drawable, pen));
 	}
 
+	@Override
 	public void enforceZoneView(GUID zoneGUID, int x, int y, double scale, int width, int height) {
 		forwardToClients();
 	}
 
+	@Override
 	public void exposeFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID); // this can return a zone that's not in T3Frame.zoneRenderList???
 		zone.exposeArea(area, selectedToks);
 		server.getConnection().broadcastCallMethod(NetworkCommand.exposeFoW, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void exposePCArea(GUID zoneGUID) {
 		ZoneRenderer renderer = TabletopTool.getFrame().getZoneRenderer(zoneGUID);
 		FogUtil.exposePCArea(renderer);
 		server.getConnection().broadcastCallMethod(NetworkCommand.exposePCArea, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void getAsset(MD5Key assetID) {
 		if (assetID == null || assetID.toString().length() == 0) {
 			return;
@@ -339,30 +350,36 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		}
 	}
 
+	@Override
 	public void getZone(GUID zoneGUID) {
 		server.getConnection().callMethod(RPCContext.getCurrent().id, NetworkCommand.putZone, server.getCampaign().getZone(zoneGUID));
 	}
 
+	@Override
 	public void hideFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.hideArea(area, selectedToks);
 		server.getConnection().broadcastCallMethod(NetworkCommand.hideFoW, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void setFoW(GUID zoneGUID, Area area, Set<GUID> selectedToks) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setFogArea(area, selectedToks);
 		server.getConnection().broadcastCallMethod(NetworkCommand.setFoW, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void hidePointer(String player) {
 		forwardToAllClients();
 	}
 
+	@Override
 	public void movePointer(String player, int x, int y) {
 		forwardToAllClients();
 	}
 
+	@Override
 	public void updateInitiative(InitiativeList list, Boolean ownerPermission) {
 		if (list != null) {
 			if (list.getZone() == null)
@@ -375,6 +392,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		forwardToAllClients();
 	}
 
+	@Override
 	public void updateTokenInitiative(GUID zoneId, GUID tokenId, Boolean hold, String state, Integer index) {
 		Zone zone = server.getCampaign().getZone(zoneId);
 		InitiativeList list = zone.getInitiativeList();
@@ -393,6 +411,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		forwardToAllClients();
 	}
 
+	@Override
 	public void renameZone(GUID zoneGUID, String name) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		if (zone != null) {
@@ -401,20 +420,24 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		}
 	}
 
+	@Override
 	public void message(TextMessage message) {
 		forwardToClients();
 	}
 
+	@Override
 	public void putAsset(Asset asset) {
 		AssetManager.putAsset(asset);
 	}
 
+	@Override
 	public void putLabel(GUID zoneGUID, Label label) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.putLabel(label);
 		forwardToClients();
 	}
 
+	@Override
 	public void putToken(GUID zoneGUID, Token token) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 
@@ -433,32 +456,38 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		}
 	}
 
+	@Override
 	public void putZone(Zone zone) {
 		server.getCampaign().putZone(zone);
 		forwardToClients();
 	}
 
+	@Override
 	public void removeAsset(MD5Key assetID) {
 		AssetManager.removeAsset(assetID);
 	}
 
+	@Override
 	public void removeLabel(GUID zoneGUID, GUID labelGUID) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeLabel(labelGUID);
 		server.getConnection().broadcastCallMethod(NetworkCommand.removeLabel, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void removeToken(GUID zoneGUID, GUID tokenGUID) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeToken(tokenGUID);
 		server.getConnection().broadcastCallMethod(NetworkCommand.removeToken, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void removeZone(GUID zoneGUID) {
 		server.getCampaign().removeZone(zoneGUID);
 		forwardToClients();
 	}
 
+	@Override
 	public void sendTokensToBack(GUID zoneGUID, Set<GUID> tokenSet) {
 		synchronized (MUTEX) {
 			Zone zone = server.getCampaign().getZone(zoneGUID);
@@ -486,11 +515,13 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		}
 	}
 
+	@Override
 	public void setCampaign(Campaign campaign) {
 		server.setCampaign(campaign);
 		forwardToClients();
 	}
 
+	@Override
 	public void setZoneGridSize(GUID zoneGUID, int offsetX, int offsetY, int size, int color) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		Grid grid = zone.getGrid();
@@ -500,29 +531,35 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		server.getConnection().broadcastCallMethod(NetworkCommand.setZoneGridSize, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void setZoneHasFoW(GUID zoneGUID, boolean hasFog) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.setHasFog(hasFog);
 		server.getConnection().broadcastCallMethod(NetworkCommand.setZoneHasFoW, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void setZoneVisibility(GUID zoneGUID, boolean visible) {
 		server.getCampaign().getZone(zoneGUID).setVisible(visible);
 		server.getConnection().broadcastCallMethod(NetworkCommand.setZoneVisibility, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void showPointer(String player, Pointer pointer) {
 		server.getConnection().broadcastCallMethod(NetworkCommand.showPointer, RPCContext.getCurrent().parameters);
 	}
 
+	@Override
 	public void setLiveTypingLabel(String label, boolean show) {
 		forwardToClients();
 	}
 
+	@Override
 	public void enforceNotification(Boolean enforce) {
 		forwardToClients();
 	}
 
+	@Override
 	public void bootPlayer(String player) {
 		forwardToClients();
 
@@ -530,18 +567,22 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		server.releaseClientConnection(server.getConnectionId(player));
 	}
 
+	@Override
 	public void startTokenMove(String playerId, GUID zoneGUID, GUID tokenGUID, Set<GUID> tokenList) {
 		forwardToClients();
 	}
 
+	@Override
 	public void stopTokenMove(GUID zoneGUID, GUID tokenGUID) {
 		forwardToClients();
 	}
 
+	@Override
 	public void toggleTokenMoveWaypoint(GUID zoneGUID, GUID tokenGUID, ZonePoint cp) {
 		forwardToClients();
 	}
 
+	@Override
 	public void undoDraw(GUID zoneGUID, GUID drawableGUID) {
 		// This is a problem.  The contents of the UndoManager are not synchronized across machines
 		// so if one machine uses Meta-Z to undo a drawing, that drawable will be removed on all
@@ -560,6 +601,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		zone.removeDrawable(drawableGUID);
 	}
 
+	@Override
 	public void updateTokenMove(GUID zoneGUID, GUID tokenGUID, int x, int y) {
 		forwardToClients();
 	}
@@ -568,27 +610,32 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 		forwardToClients();
 	}
 
+	@Override
 	public void setServerPolicy(ServerPolicy policy) {
 		forwardToClients();
 	}
 
+	@Override
 	public void addTopology(GUID zoneGUID, Area area) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.addTopology(area);
 		forwardToClients();
 	}
 
+	@Override
 	public void removeTopology(GUID zoneGUID, Area area) {
 		Zone zone = server.getCampaign().getZone(zoneGUID);
 		zone.removeTopology(area);
 		forwardToClients();
 	}
 
+	@Override
 	public void updateCampaignMacros(List<MacroButtonProperties> properties) {
 		TabletopTool.getCampaign().setMacroButtonPropertiesArray(new ArrayList<MacroButtonProperties>(properties));
 		forwardToClients();
 	}
 
+	@Override
 	public void setBoard(GUID zoneGUID, MD5Key mapId, int x, int y) {
 		forwardToClients();
 	}
@@ -599,6 +646,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 	 * @see com.t3.networking.ServerCommand#updateExposedAreaMeta(com.t3.model.GUID,
 	 * com.t3.model.GUID, com.t3.model.ExposedAreaMetaData)
 	 */
+	@Override
 	public void updateExposedAreaMeta(GUID zoneGUID, GUID tokenExposedAreaGUID, ExposedAreaMetaData meta) {
 		forwardToClients();
 	}

@@ -662,6 +662,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 
 	// function to enable sorting of buttons; uses the group first, then sortby field
 	// concatenated with the label field.  Case Insensitive
+	@Override
 	public int compareTo(MacroButtonProperties b2) throws ClassCastException {
 		if (b2 != this) {
 			String b1group = getGroup();

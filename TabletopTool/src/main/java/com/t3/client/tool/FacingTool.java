@@ -65,6 +65,7 @@ public class FacingTool extends DefaultTool {
 		super.installKeystrokes(actionMap);
 
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (TabletopTool.confirm(I18N.getText("msg.confirm.removeFacings"))) {
 					for (Token token : renderer.getSelectedTokensList()) {

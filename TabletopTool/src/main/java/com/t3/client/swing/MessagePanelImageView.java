@@ -748,6 +748,7 @@ public class MessagePanelImageView extends View {
 			}
 		} else {
 			SwingUtilities.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					safePreferenceChanged();
 				}
@@ -765,6 +766,7 @@ public class MessagePanelImageView extends View {
 		// preference changed, or repaint, we just reset the fWidth/fHeight as
 		// necessary and return. This is ok as we know when loading finishes
 		// it will pick up the new height/width, if necessary.
+		@Override
 		public boolean imageUpdate(final Image img, final int flags, final int x, final int y, final int newWidth, final int newHeight) {
 			if (SwingUtilities.isEventDispatchThread()) {
 				safePreferenceChanged();
@@ -779,6 +781,7 @@ public class MessagePanelImageView extends View {
 			} else {
 				// Avoids a possible deadlock between us waiting for imageLoaderMutex and it waiting on us...
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						imageUpdate(img, flags, x, y, newWidth, newHeight);
 					}

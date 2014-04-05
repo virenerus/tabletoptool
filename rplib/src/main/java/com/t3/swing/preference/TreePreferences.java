@@ -42,7 +42,8 @@ public class TreePreferences implements TreeSelectionListener {
 
         // Wait until the UI has been built to do this
         EventQueue.invokeLater(new Runnable() {
-        	public void run() {
+        	@Override
+			public void run() {
                 restorePreferences();
         	}
         });
@@ -112,7 +113,8 @@ public class TreePreferences implements TreeSelectionListener {
     
     ////
     // TREE SELECTION LISTENER
-    public void valueChanged(TreeSelectionEvent e) {
+    @Override
+	public void valueChanged(TreeSelectionEvent e) {
         savePreferences();
     }
 }

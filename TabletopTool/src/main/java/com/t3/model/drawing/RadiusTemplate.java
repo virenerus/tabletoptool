@@ -112,6 +112,7 @@ public class RadiusTemplate extends AbstractTemplate {
 	/**
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		if (getZoneId() == null) {
 			// This avoids a NPE when loading up a campaign
@@ -127,6 +128,7 @@ public class RadiusTemplate extends AbstractTemplate {
 		return new Rectangle(vertex.x - quadrantSize, vertex.y - quadrantSize, quadrantSize * 2, quadrantSize * 2);
 	}
 
+	@Override
 	public Area getArea() {
 		// I don't feel like figuring out the exact shape of this right now
 		return null;

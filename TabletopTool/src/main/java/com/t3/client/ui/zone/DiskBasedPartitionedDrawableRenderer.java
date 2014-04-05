@@ -70,6 +70,7 @@ public class DiskBasedPartitionedDrawableRenderer implements DrawableRenderer {
 		flush();
 	}
 
+	@Override
 	public void flush() {
 		File chunkDir = getChunkDir();
 		try {
@@ -83,6 +84,7 @@ public class DiskBasedPartitionedDrawableRenderer implements DrawableRenderer {
 		chunkMap.clear();
 	}
 
+	@Override
 	public void renderDrawables(Graphics g, List<DrawnElement> drawableList, Rectangle viewport, double scale) {
 		// NOTHING TO DO
 		if (drawableList == null || drawableList.size() == 0) {

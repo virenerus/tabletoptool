@@ -25,6 +25,7 @@ public class PositionalPanel extends JPanel {
 		setLayout(new PositionalLayout());
 	}
 	
+	@Override
 	public void addImpl(Component comp, Object constraints, int index) {
 		
 		if (!(constraints instanceof PositionalLayout.Position)) {
@@ -44,6 +45,7 @@ public class PositionalPanel extends JPanel {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#isOptimizedDrawingEnabled()
 	 */
+	@Override
 	public boolean isOptimizedDrawingEnabled() {
 		return false;
 	}

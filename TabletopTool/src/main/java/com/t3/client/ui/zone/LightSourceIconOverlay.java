@@ -22,6 +22,7 @@ import com.t3.model.Token;
 
 public class LightSourceIconOverlay implements ZoneOverlay {
 
+	@Override
 	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 
 		for (Token token : renderer.getZone().getAllTokens()) {

@@ -29,6 +29,7 @@ public class ButtonLocaleChangeListener implements LocaleChangeListener {
 	
 	////
 	// LOCALE CHANGE LISTENER
+	@Override
 	public void localeChanged(Locale locale) {
 		button.setText(I18NManager.getText(key));
 	}

@@ -107,7 +107,8 @@ public class ColorPicker extends JPanel {
         penWidthSpinner = panel.getSpinner("penWidth");
         penWidthSpinner.setModel(new SpinnerNumberModel(3, 1, maxPenWidth, 1));
         penWidthSpinner.addChangeListener(new ChangeListener() {
-        	public void stateChanged(ChangeEvent e) {
+        	@Override
+			public void stateChanged(ChangeEvent e) {
         		try {
         			penWidthSpinner.commitEdit();
         		} catch (ParseException pe) {
@@ -120,7 +121,8 @@ public class ColorPicker extends JPanel {
         transparencySpinner = panel.getSpinner("opacity");
         transparencySpinner.setModel(new SpinnerNumberModel(100, 1, 100, 1));
         transparencySpinner.addChangeListener(new ChangeListener() {
-        	public void stateChanged(ChangeEvent e) {
+        	@Override
+			public void stateChanged(ChangeEvent e) {
         		try {
         			transparencySpinner.commitEdit();
         		} catch (ParseException pe) {
@@ -218,7 +220,8 @@ public class ColorPicker extends JPanel {
     		this.clickCount = clickCount;
     	}
     	
-        public void mouseClicked(MouseEvent evt) {
+        @Override
+		public void mouseClicked(MouseEvent evt) {
 
             PaintedPanel comp = (PaintedPanel) evt.getSource();
 

@@ -51,6 +51,7 @@ public class HexGridHorizontal extends HexGrid {
 	private static List<TokenFootprint> footprintList;
 
 	private static final OffsetTranslator OFFSET_TRANSLATOR = new OffsetTranslator() {
+		@Override
 		public void translate(CellPoint originPoint, CellPoint offsetPoint) {
 			if (Math.abs(originPoint.y) % 2 == 1 && Math.abs(offsetPoint.y) % 2 == 0) {
 				offsetPoint.x++;

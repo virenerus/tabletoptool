@@ -41,6 +41,7 @@ public abstract class AbstractDrawing implements Drawable, ImageObserver {
 	 * 
 	 * @see tabletoptool.model.drawing.Drawable#draw(java.awt.Graphics2D, tabletoptool.model.drawing.Pen)
 	 */
+	@Override
 	public void draw(Graphics2D g, Pen pen) {
 		if (pen == null) {
 			pen = Pen.DEFAULT;
@@ -85,14 +86,17 @@ public abstract class AbstractDrawing implements Drawable, ImageObserver {
 	 * 
 	 * @return Returns the current value of id.
 	 */
+	@Override
 	public GUID getId() {
 		return id;
 	}
 
+	@Override
 	public void setLayer(Zone.Layer layer) {
 		this.layer = layer;
 	}
 
+	@Override
 	public Zone.Layer getLayer() {
 		return layer != null ? layer : Zone.Layer.BACKGROUND;
 	}
@@ -121,6 +125,7 @@ public abstract class AbstractDrawing implements Drawable, ImageObserver {
 
 	////
 	// IMAGE OBSERVER
+	@Override
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		TabletopTool.getFrame().getCurrentZoneRenderer().flushDrawableRenderer();
 		TabletopTool.getFrame().refresh();

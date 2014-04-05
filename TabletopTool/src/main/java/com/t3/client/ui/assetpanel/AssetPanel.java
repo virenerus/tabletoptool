@@ -162,14 +162,17 @@ public class AssetPanel extends JComponent {
 		if (filterTextField == null) {
 			filterTextField = new JTextField();
 			filterTextField.getDocument().addDocumentListener(new DocumentListener() {
+				@Override
 				public void changedUpdate(DocumentEvent e) {
 					// no op
 				}
 
+				@Override
 				public void insertUpdate(DocumentEvent e) {
 					updateFilter();
 				}
 
+				@Override
 				public void removeUpdate(DocumentEvent e) {
 					updateFilter();
 				}
@@ -188,6 +191,7 @@ public class AssetPanel extends JComponent {
 		if (globalSearchField == null) {
 			globalSearchField = new JCheckBox("Search across all directories?", false);
 			globalSearchField.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent ev) {
 					updateFilter();
 				}
@@ -199,6 +203,7 @@ public class AssetPanel extends JComponent {
 	private synchronized void updateFilter() {
 		if (updateFilterTimer == null) {
 			updateFilterTimer = new Timer(500, new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					ImageFileImagePanelModel model = (ImageFileImagePanelModel) imagePanel.getModel();
 					if (model == null) {

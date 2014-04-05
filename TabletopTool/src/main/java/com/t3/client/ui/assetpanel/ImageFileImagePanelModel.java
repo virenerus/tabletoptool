@@ -70,18 +70,22 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 		// followed by setFilter() [above] so that method will call refresh().
 	}
 
+	@Override
 	public int getImageCount() {
 		return fileList.size();
 	}
 
+	@Override
 	public Paint getBackground(int index) {
 		return Token.isTokenFile(fileList.get(index).getName()) ? TOKEN_BG_COLOR : null;
 	}
 
+	@Override
 	public Image[] getDecorations(int index) {
 		return Token.isTokenFile(fileList.get(index).getName()) ? new Image[] { rptokenDecorationImage } : null;
 	}
 
+	@Override
 	public Image getImage(int index) {
 
 		Image image = null;
@@ -93,6 +97,7 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 		return image != null ? image : ImageManager.TRANSFERING_IMAGE;
 	}
 
+	@Override
 	public Transferable getTransferable(int index) {
 		Asset asset = null;
 
@@ -123,6 +128,7 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 		return asset != null ? new TransferableAsset(asset) : null;
 	}
 
+	@Override
 	public String getCaption(int index) {
 		if (index < 0 || index >= fileList.size()) {
 			return null;
@@ -132,10 +138,12 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 		return FileUtil.getNameWithoutExtension(name);
 	}
 
+	@Override
 	public Object getID(int index) {
 		return new Integer(index);
 	}
 
+	@Override
 	public Image getImage(Object ID) {
 		return getImage(((Integer) ID).intValue());
 	}
@@ -190,6 +198,7 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 	}
 
 	private static Comparator<File> filenameComparator = new Comparator<File>() {
+		@Override
 		public int compare(File o1, File o2) {
 			return o1.getName().compareToIgnoreCase(o2.getName());
 		}

@@ -38,6 +38,7 @@ public class Pointer {
 		this.type = type;
 	}
 	
+	@Override
 	public String toString() {
 		return x + "." + y + "-" + direction;
 	}

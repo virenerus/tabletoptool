@@ -205,6 +205,7 @@ public class AssetViewerDialog extends JDialog {
 
 			if (infoflags == ALLBITS) {
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						updateSize(img);
 					}

@@ -100,6 +100,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			setEnabled(getTokenUnderMouse().getCharsheetImage() != null);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			AssetViewerDialog dialog = new AssetViewerDialog(getTokenUnderMouse().getName() + "'s Character Sheet", getTokenUnderMouse().getCharsheetImage());
 			dialog.pack();
@@ -167,6 +168,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 				putValue(NAME, "Horizontal");
 			}
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (GUID tokenGUID : selectedTokenSet) {
 					Token token = renderer.getZone().getToken(tokenGUID);
@@ -185,6 +187,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 				putValue(NAME, "Vertical");
 			}
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (GUID tokenGUID : selectedTokenSet) {
 					Token token = renderer.getZone().getToken(tokenGUID);
@@ -324,6 +327,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			this.layer = layer;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID tokenGUID : selectedTokenSet) {
 				Token token = renderer.getZone().getToken(tokenGUID);
@@ -358,6 +362,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, tokenUnderMouse.isStamp() ? "Free Size" : "Native Size");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID tokenGUID : selectedTokenSet) {
 				Token token = renderer.getZone().getToken(tokenGUID);
@@ -376,6 +381,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, I18N.getText("action.copyTokens"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			AppActions.copyTokens(selectedTokenSet);
 		}
@@ -386,6 +392,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, I18N.getText("action.cutTokens"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			AppActions.cutTokens(renderer.getZone(), selectedTokenSet);
 		}
@@ -399,6 +406,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			this.lightSource = lightSource;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -431,6 +439,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			}
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			File defaultFile = new File(tokenUnderMouse.getName());
 			JFileChooser chooser = TabletopTool.getFrame().getSaveFileChooser();
@@ -469,6 +478,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Set Facing");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Toolbox toolbox = TabletopTool.getFrame().getToolbox();
 
@@ -484,6 +494,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear Facing");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -501,6 +512,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear Lights Only");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -521,6 +533,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear Auras Only");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -541,6 +554,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear GM Auras Only");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -561,6 +575,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear Owner Auras Only");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -581,6 +596,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			super("Clear All");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -604,6 +620,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			this.renderer = renderer;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID guid : selectedTokenSet) {
 				Zone zone = renderer.getZone();
@@ -672,6 +689,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 		 * 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
+		@Override
 		public void actionPerformed(ActionEvent aE) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -702,6 +720,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 		 * 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -721,6 +740,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, "Visible to players");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID guid : selectedTokenSet) {
 				Token token = renderer.getZone().getToken(guid);
@@ -739,6 +759,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 	}
 
 	public class BringToFrontAction extends AbstractAction {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			TabletopTool.serverCommand().bringTokensToFront(renderer.getZone().getId(), selectedTokenSet);
 			TabletopTool.getFrame().refresh();
@@ -746,6 +767,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 	}
 
 	public class SendToBackAction extends AbstractAction {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			TabletopTool.serverCommand().sendTokensToBack(renderer.getZone().getId(), selectedTokenSet);
 			TabletopTool.getFrame().refresh();
@@ -757,6 +779,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, "Impersonate");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			JTextComponent commandArea = TabletopTool.getFrame().getCommandPanel().getCommandTextArea();
 
@@ -774,6 +797,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, "Move");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Tool tool = TabletopTool.getFrame().getToolbox().getSelectedTool();
 			if (tool instanceof PointerTool) {
@@ -789,6 +813,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, "Edit ...");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			EditTokenDialog dialog = TabletopTool.getFrame().getTokenPropertiesDialog();
 			dialog.showDialog(tokenUnderMouse);
@@ -806,6 +831,7 @@ public abstract class AbstractTokenPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, "Delete");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			// check to see if this is the required action
 			if (!TabletopTool.confirmTokenDelete()) {

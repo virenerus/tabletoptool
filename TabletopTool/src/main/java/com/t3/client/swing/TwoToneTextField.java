@@ -133,7 +133,8 @@ public class TwoToneTextField extends JTextField {
    * @see JComponent#getUIClassID
    * @see UIDefaults#getUI
    */
-  public String getUIClassID() {
+  @Override
+public String getUIClassID() {
       return UI_CLASS_ID;
   }
 }

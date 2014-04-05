@@ -31,6 +31,7 @@ public class GlobalPanel extends AbstractMacroPanel {
 		addArea(properties, "");
 	}
 
+	@Override
 	public void reset() {
 		clear();
 		init();

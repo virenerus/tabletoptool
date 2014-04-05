@@ -138,6 +138,7 @@ public class ImageManager {
 		BufferedImage image = null;
 		final CountDownLatch loadLatch = new CountDownLatch(1);
 		image = getImage(assetId, new ImageObserver() {
+			@Override
 			public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 				// If we're here then the image has just finished loading
 				// release the blocked thread
@@ -260,6 +261,7 @@ public class ImageManager {
 		/**
 		 * Load the asset raw image data and notify observers that the image is loaded.
 		 */
+		@Override
 		public void run() {
 			log.debug("Loading asset: " + asset.getId());
 			BufferedImage image = imageMap.get(asset.getId());
@@ -328,6 +330,7 @@ public class ImageManager {
 			this.hints = hints;
 		}
 
+		@Override
 		public void assetAvailable(MD5Key key) {
 			if (!key.equals(id)) {
 				return;

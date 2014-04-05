@@ -97,6 +97,7 @@ public abstract class MacroAPI extends Script {
 	 * This writes a message to the chat so that only you can see it
 	 * @param o a string or some other kind of objects that is written to the chat
 	 */
+	@Override
 	public void print(Object o) {
 		TabletopTool.addLocalMessage(o==null?"null":o.toString());
 	}

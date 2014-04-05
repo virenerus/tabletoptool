@@ -30,6 +30,7 @@ public class RPCheckBoxMenuItem extends JCheckBoxMenuItem implements MenuListene
 		parentMenu.addMenuListener(this);
 	}
 	
+	@Override
 	public void menuSelected(MenuEvent e) {
 		Action action = getAction();
 		if (action instanceof ClientAction) {
@@ -37,9 +38,11 @@ public class RPCheckBoxMenuItem extends JCheckBoxMenuItem implements MenuListene
 		}		
 	}
 
+	@Override
 	public void menuCanceled(MenuEvent e) {
 	}
 
+	@Override
 	public void menuDeselected(MenuEvent e) {
 	}
 	

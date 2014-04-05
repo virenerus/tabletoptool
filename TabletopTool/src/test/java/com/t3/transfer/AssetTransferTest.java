@@ -58,12 +58,12 @@ public class AssetTransferTest extends TestCase {
 
 		int count = 0;
 		int val;
-		FileInputStream in = new FileInputStream(consumer.getFilename());
-		while ((val = in.read()) != -1) {
-			assertEquals(data[count], (byte)val);
-			count ++;
+		try(FileInputStream in = new FileInputStream(consumer.getFilename())) {
+			while ((val = in.read()) != -1) {
+				assertEquals(data[count], (byte)val);
+				count ++;
+			}
 		}
-		in.close();
 		assertEquals(data.length, count);
 		
 		// CLEANUP
@@ -75,11 +75,9 @@ public class AssetTransferTest extends TestCase {
 	private File createTempFile(byte[] data) throws IOException {
 		
 		File file = new File("tmp.dat");
-		FileOutputStream out = new FileOutputStream(file);
-		
-		out.write(data);
-		
-		out.close();
+		try(FileOutputStream out = new FileOutputStream(file)) {
+			out.write(data);
+		}
 		
 		return file;
 	}

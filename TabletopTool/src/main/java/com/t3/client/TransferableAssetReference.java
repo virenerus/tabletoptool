@@ -34,15 +34,18 @@ public class TransferableAssetReference implements Transferable {
         this.assetID = asset.getId();
     }
     
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+    @Override
+	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
         return assetID;
     }
 
-    public DataFlavor[] getTransferDataFlavors() {
+    @Override
+	public DataFlavor[] getTransferDataFlavors() {
         return new DataFlavor[] { dataFlavor};
     }
 
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
+    @Override
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
         return flavor.equals(dataFlavor);
     }
 }

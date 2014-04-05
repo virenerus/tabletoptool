@@ -49,6 +49,7 @@ public class AssetGroup {
 		private Pattern extensionPattern = null;
 		private String[] extensions = new String[] { "bmp", "gif", "png", "jpg", "jpeg" };
 
+		@Override
 		public boolean accept(File dir, String name) {
 			if (extensionPattern == null) {
 				// Setup defaults, then override if we have Java 1.6+
@@ -76,6 +77,7 @@ public class AssetGroup {
 	};
 
 	private static final FilenameFilter DIRECTORY_FILE_FILTER = new FilenameFilter() {
+		@Override
 		public boolean accept(File dir, String name) {
 			return new File(dir.getPath() + File.separator + name).isDirectory();
 		}
@@ -270,6 +272,7 @@ public class AssetGroup {
 	}
 
 	public static final Comparator<AssetGroup> GROUP_COMPARATOR = new Comparator<AssetGroup>() {
+		@Override
 		public int compare(AssetGroup o1, AssetGroup o2) {
 			return o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
 		}

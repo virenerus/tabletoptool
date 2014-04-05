@@ -25,11 +25,13 @@ public class SpacerStatusBar extends JLabel {
     	minSize = new Dimension(size, 10);
     }
     
-    public Dimension getMinimumSize() {
+    @Override
+	public Dimension getMinimumSize() {
         return minSize;
     }
     
-    public Dimension getPreferredSize() {
+    @Override
+	public Dimension getPreferredSize() {
         return getMinimumSize();
     }
 }

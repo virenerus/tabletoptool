@@ -54,6 +54,7 @@ public class ImageUtil {
 
 	public static final FilenameFilter SUPPORTED_IMAGE_FILE_FILTER = new FilenameFilter () {
 		
+		@Override
 		public boolean accept(File dir, String name) {
 
 			name = name.toLowerCase();

@@ -116,7 +116,8 @@ public class ClientConnection extends AbstractConnection {
             }
         }
 
-        public void run() {
+        @Override
+		public void run() {
             try {
                 while (!stopRequested && conn.isAlive()) {
 
@@ -168,7 +169,8 @@ public class ClientConnection extends AbstractConnection {
             stopRequested = true;
         }
 
-        public void run() {
+        @Override
+		public void run() {
             while (!stopRequested && conn.isAlive()) {
 
                 try {

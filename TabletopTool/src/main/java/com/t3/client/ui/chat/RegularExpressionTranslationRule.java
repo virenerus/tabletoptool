@@ -29,6 +29,7 @@ public class RegularExpressionTranslationRule extends AbstractChatTranslationRul
 		this.replaceWith = replaceWith;
 	}
 
+	@Override
 	public String translate(String incoming) {
 		if (pattern == null) {
 			return incoming;

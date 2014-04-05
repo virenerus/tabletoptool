@@ -26,6 +26,7 @@ public class GroovyMacroEngine extends MacroEngine<Script> {
 		compilerConfiguration.setScriptBaseClass(MacroAPI.class.getName());
 	}
 	
+	@Override
 	public Script compile(String script) throws MacroException {
 		try {
 			return new GroovyShell(compilerConfiguration).parse(script);

@@ -35,6 +35,7 @@ public class AssetNameTransform implements ModelVersionTransformation {
 		regexOld = from;
 		regexNew = to;
 	}
+	@Override
 	public String transform(String name) {
 		return name.replace(regexOld, regexNew);
 	}

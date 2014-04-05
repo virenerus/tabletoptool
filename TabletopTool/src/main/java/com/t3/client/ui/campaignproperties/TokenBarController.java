@@ -240,6 +240,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	 * 
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String name = ((JComponent) e.getSource()).getName();
 		JList list = formPanel.getList(BARS);
@@ -400,6 +401,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	 * 
 	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
 	 */
+	@Override
 	public void changedUpdate(DocumentEvent e) {
 		int type = formPanel.getComboBox(TYPE).getSelectedIndex();
 		int size = NEEDED_IMAGES[type] == null ? -1 : NEEDED_IMAGES[type].length;
@@ -423,6 +425,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	/**
 	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
 	 */
+	@Override
 	public void insertUpdate(DocumentEvent e) {
 		changedUpdate(e);
 	}
@@ -430,6 +433,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	/**
 	 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
 	 */
+	@Override
 	public void removeUpdate(DocumentEvent e) {
 		changedUpdate(e);
 	}
@@ -439,6 +443,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	 * 
 	 * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
 	 */
+	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting())
 			return;
@@ -525,14 +530,17 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 
 		/** Create an icon from the token bar. */
 		Icon icon = new Icon() {
+			@Override
 			public int getIconHeight() {
 				return ICON_SIZE;
 			}
 
+			@Override
 			public int getIconWidth() {
 				return ICON_SIZE;
 			}
 
+			@Override
 			public void paintIcon(Component c, java.awt.Graphics g, int x, int y) {
 				Shape old = g.getClip();
 				g.setClip(bounds.intersection(old.getBounds()));
@@ -674,6 +682,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	/**
 	 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
 	 */
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 		changedUpdate(null);
 	}
@@ -681,6 +690,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	/**
 	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == formPanel.getComponentByName(TESTER)) {
 			renderer.value = (float)((JSlider) formPanel.getComponentByName(TESTER)).getValue() / 100f;

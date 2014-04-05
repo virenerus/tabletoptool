@@ -104,6 +104,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 	
 	public void initUpdateButton() {
 		getUpdateButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				update();
 			}
@@ -112,9 +113,11 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 
 	public void initNewButton() {
 		getNewButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						// This will force a reset
 						getTokenTypeList().getSelectionModel().clearSelection();
@@ -137,6 +140,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 	
 	public void initRevertButton() {
 		getRevertButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				bind(editingType);
 			}
@@ -146,6 +150,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 	public void initTypeList() {
 
 		getTokenTypeList().addListSelectionListener(new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
 					return;
@@ -208,10 +213,12 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 			Collections.sort(names);
 		}
 		
+		@Override
 		public String getElementAt(int index) {
 			return names.get(index);
 		}
 
+		@Override
 		public int getSize() {
 			return tokenTypeMap.size();
 		}

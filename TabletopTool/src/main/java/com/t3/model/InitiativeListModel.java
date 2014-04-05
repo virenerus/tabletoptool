@@ -143,7 +143,8 @@ public class InitiativeListModel extends AbstractListModel<TokenInitiative> impl
     /**
      * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
      */
-    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+	public void propertyChange(PropertyChangeEvent evt) {
         
         // Handle by property name
         if (evt.getPropertyName().equals(InitiativeList.CURRENT_PROP)) {
@@ -239,7 +240,8 @@ public class InitiativeListModel extends AbstractListModel<TokenInitiative> impl
      * 
      * @see javax.swing.ListModel#getElementAt(int)
      */
-    public TokenInitiative getElementAt(int index) {
+    @Override
+	public TokenInitiative getElementAt(int index) {
         if (TabletopTool.getFrame().getInitiativePanel().hasGMPermission())
             return list.getTokenInitiative(index);
         int found = index;
@@ -258,7 +260,8 @@ public class InitiativeListModel extends AbstractListModel<TokenInitiative> impl
      * 
      * @see javax.swing.ListModel#getSize()
      */
-    public int getSize() {
+    @Override
+	public int getSize() {
     	if (list == null) {
     		return 0;
     	}

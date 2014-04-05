@@ -32,13 +32,15 @@ public class Cross extends AbstractDrawing {
         endPoint = new Point(endX, endY);
     }
     
-    public Area getArea() {
+    @Override
+	public Area getArea() {
     	return new Area(getBounds());
     }
 
     /* (non-Javadoc)
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public java.awt.Rectangle getBounds() {
 
 		if (bounds == null) {
@@ -61,7 +63,8 @@ public class Cross extends AbstractDrawing {
         return endPoint;
     }
 
-    protected void draw(Graphics2D g) {
+    @Override
+	protected void draw(Graphics2D g) {
     	
         int minX = Math.min(startPoint.x, endPoint.x);
         int minY = Math.min(startPoint.y, endPoint.y);
@@ -79,7 +82,8 @@ public class Cross extends AbstractDrawing {
     	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, oldAA);
     }
 
-    protected void drawBackground(Graphics2D g) {
+    @Override
+	protected void drawBackground(Graphics2D g) {
         int minX = Math.min(startPoint.x, endPoint.x);
         int minY = Math.min(startPoint.y, endPoint.y);
         

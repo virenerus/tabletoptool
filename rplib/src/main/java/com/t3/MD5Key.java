@@ -13,6 +13,10 @@
  */
 package com.t3;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -48,16 +52,19 @@ public class MD5Key implements Serializable {
         id = encodeToHex(digestData(data));
     }
     
-    public MD5Key (InputStream data) {
-    	
-    	id = encodeToHex(digestData(data));
+    public MD5Key(File file) throws FileNotFoundException, IOException {
+    	try(BufferedInputStream data=new BufferedInputStream(new FileInputStream(file))) {
+    		id = encodeToHex(digestData(data));
+    	}
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return id;
     }
     
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (!(obj instanceof MD5Key)) {
             return false;
         }
@@ -65,7 +72,8 @@ public class MD5Key implements Serializable {
         return id.equals(((MD5Key) obj).id);
     }
     
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return id.hashCode();
     }
     

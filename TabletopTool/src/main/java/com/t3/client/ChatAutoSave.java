@@ -63,12 +63,11 @@ public class ChatAutoSave {
 				if (log.isInfoEnabled())
 					log.info("Saving log to '" + chatFile + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 
-				FileWriter writer = null;
 				CommandPanel chat = TabletopTool.getFrame().getCommandPanel();
 				String old = TabletopTool.getFrame().getStatusMessage();
-				try {
+				try (FileWriter writer = new FileWriter(chatFile)){
 					TabletopTool.getFrame().setStatusMessage(I18N.getString("ChatAutoSave.status.chatAutosave")); //$NON-NLS-1$
-					writer = new FileWriter(chatFile);
+					
 					writer.write(chat.getMessageHistory());
 					if (log.isInfoEnabled())
 						log.info("Log saved"); //$NON-NLS-1$
@@ -80,7 +79,6 @@ public class ChatAutoSave {
 					// message box that pops up...
 					TabletopTool.showWarning("msg.warn.failedAutoSavingMessageHistory", e); //$NON-NLS-1$
 				} finally {
-					IOUtils.closeQuietly(writer);
 					TabletopTool.getFrame().setStatusMessage(old);
 				}
 			}

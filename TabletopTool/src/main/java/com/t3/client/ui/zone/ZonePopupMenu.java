@@ -36,6 +36,7 @@ public class ZonePopupMenu extends JPopupMenu {
 				{
 					putValue(NAME, "Hide from players");
 				}
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					ZonePopupMenu.this.zone.setVisible(false);
 					TabletopTool.serverCommand().setZoneVisibility(ZonePopupMenu.this.zone.getId(), false);
@@ -48,6 +49,7 @@ public class ZonePopupMenu extends JPopupMenu {
 				{
 					putValue(NAME, "Show to players");
 				}
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					
 					ZonePopupMenu.this.zone.setVisible(true);

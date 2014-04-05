@@ -115,6 +115,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 	private final Map<View, List<Token>> viewMap = new HashMap<View, List<Token>>();
 	private final List<View> currentViewList = new ArrayList<View>();
 
+	@Override
 	public Object getRoot() {
 		return root;
 	}
@@ -131,6 +132,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 		}
 	}
 
+	@Override
 	public Object getChild(Object parent, int index) {
 		if (parent == root) {
 			return currentViewList.get(index);
@@ -141,6 +143,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 		return null;
 	}
 
+	@Override
 	public int getChildCount(Object parent) {
 		if (parent == root) {
 			return currentViewList.size();
@@ -159,14 +162,17 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 		return list;
 	}
 
+	@Override
 	public boolean isLeaf(Object node) {
 		return node instanceof Token;
 	}
 
+	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
 		// Nothing to do
 	}
 
+	@Override
 	public int getIndexOfChild(Object parent, Object child) {
 		if (parent == root) {
 			return currentViewList.indexOf(child);
@@ -177,10 +183,12 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 		return -1;
 	}
 
+	@Override
 	public void addTreeModelListener(TreeModelListener l) {
 		listenerList.add(l);
 	}
 
+	@Override
 	public void removeTreeModelListener(TreeModelListener l) {
 		listenerList.remove(l);
 	}
@@ -192,6 +200,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 		if (!updatePending) {
 			updatePending = true;
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					updatePending = false;
 					updateInternal();
@@ -417,6 +426,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 
 	////
 	// MODEL CHANGE LISTENER
+	@Override
 	public void modelChanged(ModelChangeEvent event) {
 		update();
 	}
@@ -424,6 +434,7 @@ public class TokenPanelTreeModel implements TreeModel, ModelChangeListener {
 	////
 	// SORTING
 	private static final Comparator<Token> NAME_AND_STATE_COMPARATOR = new Comparator<Token>() {
+		@Override
 		public int compare(Token o1, Token o2) {
 			if (o1.isVisible() != o2.isVisible()) {
 				return o1.isVisible() ? -1 : 1;

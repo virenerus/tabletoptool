@@ -112,7 +112,8 @@ class TokenPanelTransferable implements Transferable {
   /**
    * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
    */
-  public T3TokenTransferData getTransferData(DataFlavor aFlavor) throws UnsupportedFlavorException, IOException {
+  @Override
+public T3TokenTransferData getTransferData(DataFlavor aFlavor) throws UnsupportedFlavorException, IOException {
     if (!isDataFlavorSupported(aFlavor)) 
       throw new UnsupportedFlavorException(aFlavor);
     T3TokenTransferData tokenList = new T3TokenTransferData();
@@ -124,14 +125,16 @@ class TokenPanelTransferable implements Transferable {
   /**
    * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
    */
-  public DataFlavor[] getTransferDataFlavors() {
+  @Override
+public DataFlavor[] getTransferDataFlavors() {
     return new DataFlavor[] { T3TokenTransferData.MAP_TOOL_TOKEN_LIST_FLAVOR };
   }
 
   /**
    * @see java.awt.datatransfer.Transferable#isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
    */
-  public boolean isDataFlavorSupported(DataFlavor aFlavor) {
+  @Override
+public boolean isDataFlavorSupported(DataFlavor aFlavor) {
     return T3TokenTransferData.MAP_TOOL_TOKEN_LIST_FLAVOR.equals(aFlavor);
   }
   

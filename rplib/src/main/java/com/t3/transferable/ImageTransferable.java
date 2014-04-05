@@ -29,15 +29,18 @@ public class ImageTransferable implements Transferable {
         this.image = image;
     }
     
-    public DataFlavor[] getTransferDataFlavors() {
+    @Override
+	public DataFlavor[] getTransferDataFlavors() {
         return new DataFlavor[]{FLAVOR};
     }
 
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
+    @Override
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
         return flavor.equals(FLAVOR);
     }
 
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+    @Override
+	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
         
         if (!flavor.equals(FLAVOR)) {
             throw new UnsupportedFlavorException(flavor);

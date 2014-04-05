@@ -27,6 +27,7 @@ public class TokenPropertyMapTransform implements ModelVersionTransformation {
 	 * Delete the block containing the now-obsolete exportInfo class data, since there is no place to put it (and
 	 * therefore generates an XStream error)
 	 */
+	@Override
 	public String transform(String xml) {
 		// Same as: return xml.replaceAll(regex, replacement);
 		// except that we can specify the flag DOTALL

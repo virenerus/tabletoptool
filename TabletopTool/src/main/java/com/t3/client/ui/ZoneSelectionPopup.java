@@ -56,6 +56,7 @@ public class ZoneSelectionPopup extends JPopupMenu {
 		}
 
 		Collections.sort(rendererList, new Comparator<ZoneRenderer>() {
+			@Override
 			public int compare(ZoneRenderer o1, ZoneRenderer o2) {
 				
 				String name1 = o1.getZone().getName();
@@ -103,6 +104,7 @@ public class ZoneSelectionPopup extends JPopupMenu {
 			return new Dimension(width, height);
 		}
 		
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			
     		if (TabletopTool.getFrame().getCurrentZoneRenderer() != renderer) {

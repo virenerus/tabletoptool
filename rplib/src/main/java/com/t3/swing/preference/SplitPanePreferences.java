@@ -54,7 +54,8 @@ public class SplitPanePreferences implements PropertyChangeListener {
     
     ////
     // PROPERTY CHANGE LISTENER
-    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+	public void propertyChange(PropertyChangeEvent evt) {
         savePreferences();
     }
 }

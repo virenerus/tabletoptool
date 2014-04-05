@@ -40,19 +40,23 @@ public class TokenListModel implements ListModel<Token> {
         this.zone = zone;
     }
     
-    public int getSize() {
+    @Override
+	public int getSize() {
         return getTokenList().size();
     }
 
-    public Token getElementAt(int index) {
+    @Override
+	public Token getElementAt(int index) {
         return getTokenList().get(index);
     }
 
-    public void addListDataListener(ListDataListener l) {
+    @Override
+	public void addListDataListener(ListDataListener l) {
         listenerList.add(l);
     }
 
-    public void removeListDataListener(ListDataListener l) {
+    @Override
+	public void removeListDataListener(ListDataListener l) {
         listenerList.remove(l);
     }
 
@@ -81,7 +85,8 @@ public class TokenListModel implements ListModel<Token> {
         }
         
         Collections.sort(tokenList, new Comparator<Token>(){
-           public int compare(Token o1, Token o2) {
+           @Override
+		public int compare(Token o1, Token o2) {
                String lName = o1.getName();
                String rName = o2.getName();
 

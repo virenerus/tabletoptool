@@ -94,6 +94,7 @@ public class Token extends BaseModel {
 	}
 
 	public static final Comparator<Token> NAME_COMPARATOR = new Comparator<Token>() {
+		@Override
 		public int compare(Token o1, Token o2) {
 			return o1.getName().compareToIgnoreCase(o2.getName());
 		}
@@ -1381,6 +1382,7 @@ public class Token extends BaseModel {
 	}
 
 	public static final Comparator<Token> COMPARE_BY_NAME = new Comparator<Token>() {
+		@Override
 		public int compare(Token o1, Token o2) {
 			if (o1 == null || o2 == null) {
 				return 0;
@@ -1389,6 +1391,7 @@ public class Token extends BaseModel {
 		}
 	};
 	public static final Comparator<Token> COMPARE_BY_ZORDER = new Comparator<Token>() {
+		@Override
 		public int compare(Token o1, Token o2) {
 			if (o1 == null || o2 == null) {
 				return 0;

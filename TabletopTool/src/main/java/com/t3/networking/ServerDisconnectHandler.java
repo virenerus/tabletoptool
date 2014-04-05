@@ -25,6 +25,7 @@ public class ServerDisconnectHandler implements DisconnectHandler {
 	// TODO: This is a temporary hack until I can come up with a cleaner mechanism
 	public static boolean disconnectExpected;
 
+	@Override
 	public void handleDisconnect(AbstractConnection arg0) {
 		// Update internal state
 		TabletopTool.disconnect();

@@ -46,7 +46,8 @@ public class PositionalLayout implements LayoutManager2 {
         padding = edgePadding;
     }
     
-    public void addLayoutComponent(Component comp,Object constraints){
+    @Override
+	public void addLayoutComponent(Component comp,Object constraints){
         if (! (constraints instanceof Position)) {
             return;
         }
@@ -54,23 +55,28 @@ public class PositionalLayout implements LayoutManager2 {
         compPositionMap.put(comp, (Position) constraints);
     }
     
-    public void addLayoutComponent(String name, Component comp) {
+    @Override
+	public void addLayoutComponent(String name, Component comp) {
         throw new IllegalArgumentException("Use add(comp, Position)");
     }
     
-    public float getLayoutAlignmentX(Container target){
+    @Override
+	public float getLayoutAlignmentX(Container target){
         return 0;
     }
     
-    public float getLayoutAlignmentY(Container target){
+    @Override
+	public float getLayoutAlignmentY(Container target){
         return 0;
     }
     
-    public void invalidateLayout(Container target) {
+    @Override
+	public void invalidateLayout(Container target) {
         // Nothing to do right now
     }
     
-    public void layoutContainer(Container parent) {
+    @Override
+	public void layoutContainer(Container parent) {
         
         Dimension size = parent.getSize();
         
@@ -109,19 +115,23 @@ public class PositionalLayout implements LayoutManager2 {
         return (outsideWidth - insideWidth) / 2;
     }
     
-    public Dimension maximumLayoutSize(Container target){
+    @Override
+	public Dimension maximumLayoutSize(Container target){
         return preferredLayoutSize(target);
     }
     
-    public Dimension minimumLayoutSize(Container parent) {
+    @Override
+	public Dimension minimumLayoutSize(Container parent) {
         return preferredLayoutSize(parent);
     }
     
-    public Dimension preferredLayoutSize(Container parent) {
+    @Override
+	public Dimension preferredLayoutSize(Container parent) {
         return new Dimension(0,0);
     }
     
-    public void removeLayoutComponent(Component comp) {
+    @Override
+	public void removeLayoutComponent(Component comp) {
 
         compPositionMap.remove(comp);
     }

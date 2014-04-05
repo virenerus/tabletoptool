@@ -81,6 +81,7 @@ public class ShadowrunDice extends Dice {
 		return this;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder sb=new StringBuilder();
 		sb.append(numberOfDices).append("sr4");

@@ -79,7 +79,8 @@ public class AssetTree extends JTree implements TreeSelectionListener {
     /* (non-Javadoc)
      * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
      */
-    public void valueChanged(TreeSelectionEvent e) {
+    @Override
+	public void valueChanged(TreeSelectionEvent e) {
 
         // Keep memory tight
         // TODO: make this an option

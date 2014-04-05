@@ -215,6 +215,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction(tokensView, this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 			Token sourceToken = zone.getToken(tokID);
@@ -243,6 +244,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction("token.popup.menu.fow.party", this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			ZoneRenderer renderer = getRenderer();
 			Zone zone = renderer.getZone();
@@ -279,6 +281,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction("token.popup.menu.fow.global", this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 			Area area = zone.getExposedArea();
@@ -301,6 +304,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction("token.popup.menu.fow.clearselected", this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (TabletopTool.getServerPolicy().isUseIndividualFOW()) {
 				Zone zone = getRenderer().getZone();
@@ -324,6 +328,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction("token.popup.menu.expose.visible", this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			FogUtil.exposeVisibleArea(getRenderer(), selectedTokenSet);
 			getRenderer().repaint();
@@ -337,6 +342,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction("token.popup.menu.expose.currentonly", this, true);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			FogUtil.exposePCArea(getRenderer());
 			TabletopTool.serverCommand().exposePCArea(getRenderer().getZone().getId());
@@ -352,6 +358,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			setEnabled(getTokenUnderMouse().getLastPath() != null);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			FogUtil.exposeLastPath(getRenderer(), selectedTokenSet);
 			getRenderer().repaint();
@@ -525,6 +532,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			addActionListener(this);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID guid : tokenSet) {
 				Token token = zone.getToken(guid);
@@ -586,6 +594,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = renderer.getZone();
 			for (GUID guid : tokenSet) {
@@ -622,6 +631,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Color color = showColorChooserDialog();
 			if (color != null) {
@@ -691,6 +701,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			putValue(NAME, bar);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			String name = (String) getValue(NAME);
 			JSlider slider = new JSlider(0, 100);
@@ -699,6 +710,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			JCheckBox hide = new JCheckBox("Hide");
 			hide.putClientProperty("JSlider", slider);
 			hide.addChangeListener(new ChangeListener() {
+				@Override
 				public void stateChanged(ChangeEvent e) {
 					JSlider js = (JSlider) ((JCheckBox) e.getSource()).getClientProperty("JSlider");
 					js.setEnabled(!((JCheckBox) e.getSource()).isSelected());
@@ -775,6 +787,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 		 * 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
+		@Override
 		public void actionPerformed(ActionEvent aE) {
 			ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -802,6 +815,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			I18N.setAction(aName, this);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 			InitiativeList init = TabletopTool.getFrame().getInitiativePanel().getList();
@@ -846,6 +860,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private class AllOwnershipAction extends AbstractAction {
 		private static final long serialVersionUID = -2995489619896660807L;
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 
@@ -863,6 +878,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private class RemoveAllOwnershipAction extends AbstractAction {
 		private static final long serialVersionUID = -6767778461889310579L;
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 
@@ -883,6 +899,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			putValue(Action.NAME, "Show Path");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			for (GUID tokenGUID : selectedTokenSet) {
 				Token token = getRenderer().getZone().getToken(tokenGUID);
@@ -914,6 +931,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			}
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
 			for (GUID tokenGUID : selectedTokenSet) {
@@ -963,6 +981,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			this.macro = macro;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Set<Token> guidSet = new HashSet<Token>();
 			for (GUID tokenID : selectedTokenSet) {
@@ -981,6 +1000,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 			this.speech = speech;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			String identity = getTokenUnderMouse().getName();
 			String command = "/im " + identity + ":" + speech;

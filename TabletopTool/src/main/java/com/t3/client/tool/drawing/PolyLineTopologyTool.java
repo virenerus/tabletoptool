@@ -51,11 +51,13 @@ public class PolyLineTopologyTool extends PolygonTopologyTool implements MouseMo
     	return "tool.poly.instructions";
     }
 
-    protected boolean isBackgroundFill(MouseEvent e) {
+    @Override
+	protected boolean isBackgroundFill(MouseEvent e) {
     	return false;
     }
     
-    protected Pen getPen() {
+    @Override
+	protected Pen getPen() {
     	
     	Pen pen = new Pen(TabletopTool.getFrame().getPen());
 		pen.setEraser(isEraser());
@@ -68,7 +70,8 @@ public class PolyLineTopologyTool extends PolygonTopologyTool implements MouseMo
     }
 
 
-    protected Polygon getPolygon(LineSegment line) {
+    @Override
+	protected Polygon getPolygon(LineSegment line) {
         Polygon polygon = new Polygon();
         for (Point point : line.getPoints()) {
             polygon.addPoint(point.x, point.y);

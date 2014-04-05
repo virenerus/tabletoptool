@@ -45,7 +45,8 @@ public class JSplitPaneEx extends JSplitPane {
         setDividerLocation(position);
     }
 
-    public int getDividerLocation() {
+    @Override
+	public int getDividerLocation() {
         return getDividerSize() > 0 ? super.getDividerLocation() : lastVisibleSize;
     }
     

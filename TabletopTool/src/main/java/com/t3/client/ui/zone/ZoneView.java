@@ -436,6 +436,7 @@ public class ZoneView implements ModelChangeListener {
 
 	////
 	// MODEL CHANGE LISTENER
+	@Override
 	public void modelChanged(ModelChangeEvent event) {
 		Object evt = event.getEvent();
 		if (event.getModel() instanceof Zone) {

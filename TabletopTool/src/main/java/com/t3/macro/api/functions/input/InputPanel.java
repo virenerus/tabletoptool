@@ -98,6 +98,7 @@ final class InputPanel extends JPanel {
 		//  so we have to save cp.lastFocus before it's overwritten.)
 		if (tabPane != null) {
 			tabPane.addChangeListener(new ChangeListener() {
+				@Override
 				public void stateChanged(ChangeEvent e) {
 					int newTabIndex = tabPane.getSelectedIndex();
 					ColumnPanel cp = columnPanels.get(newTabIndex);

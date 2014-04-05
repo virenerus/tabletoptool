@@ -58,6 +58,7 @@ public class PartitionedDrawableRenderer implements DrawableRenderer {
 
 	private CodeTimer timer;
 
+	@Override
 	public void flush() {
 		int unusedSize = unusedChunkList.size();
 		for (Tuple tuple : chunkList) {
@@ -71,6 +72,7 @@ public class PartitionedDrawableRenderer implements DrawableRenderer {
 		noImageSet.clear();
 	}
 
+	@Override
 	public void renderDrawables(Graphics g, List<DrawnElement> drawableList, Rectangle viewport, double scale) {
 		timer = new CodeTimer("Renderer");
 		timer.setThreshold(10);

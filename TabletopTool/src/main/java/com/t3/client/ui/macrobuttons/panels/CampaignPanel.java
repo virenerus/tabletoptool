@@ -32,6 +32,7 @@ public class CampaignPanel extends AbstractMacroPanel {
 		}
 	}
 	
+	@Override
 	public void reset() {
 		clear();
 		init();

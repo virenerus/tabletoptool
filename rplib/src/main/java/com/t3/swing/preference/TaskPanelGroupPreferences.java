@@ -164,6 +164,7 @@ public class TaskPanelGroupPreferences implements PropertyChangeListener {
 	
 	////
 	// PROPERTY CHANGE LISTENER
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 
 		if (restoringState) {

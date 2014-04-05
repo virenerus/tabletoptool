@@ -48,6 +48,7 @@ public class AnimationManager {
 
 	private static class AnimThread extends Thread {
 
+		@Override
 		public void run() {
 
 			while (true) {

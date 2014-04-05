@@ -184,6 +184,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 		// OWNER LIST
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				getOwnerList().setModel(new OwnerListModel());
 			}
@@ -191,6 +192,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 		// SPEECH TABLE
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				getSpeechTable().setModel(new SpeechTableModel(token));
 			}
@@ -213,6 +215,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		// we will disable the Owner only visible check box if the token is not
 		// visible to players to signify the relationship
 		ActionListener tokenVisibleActionListener = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
 				boolean selected = abstractButton.getModel().isSelected();
@@ -321,6 +324,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(typeList.toArray(new String[typeList.size()]));
 		getPropertyTypeCombo().setModel(model);
 		getPropertyTypeCombo().addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				updatePropertiesTable((String) getPropertyTypeCombo().getSelectedItem());
 			}
@@ -337,6 +341,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 	private void updatePropertiesTable(final String propertyType) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				PropertyTable pp = getPropertyTable();
 				pp.setModel(new TokenPropertyTableModel());
@@ -359,6 +364,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 	public void initOKButton() {
 		getOKButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (commit()) {
 					unbind();
@@ -510,6 +516,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 	public void initCancelButton() {
 		getCancelButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				unbind();
 				dialog.closeDialog();
@@ -594,6 +601,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				JCheckBox hide = new JCheckBox("Hide");
 				hide.putClientProperty("JSlider", slider);
 				hide.addChangeListener(new ChangeListener() {
+					@Override
 					public void stateChanged(ChangeEvent e) {
 						JSlider js = (JSlider) ((JCheckBox) e.getSource()).getClientProperty("JSlider");
 						js.setEnabled(!((JCheckBox) e.getSource()).isSelected());
@@ -658,11 +666,13 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 	public void initSpeechPanel() {
 		getSpeechClearAllButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!TabletopTool.confirm("EditTokenDialog.confirm.clearSpeech")) {
 					return;
 				}
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						getSpeechTable().setModel(new SpeechTableModel());
 					}
@@ -778,6 +788,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				JPopupMenu menu = new JPopupMenu();
 				JMenuItem sendToChatItem = new JMenuItem("Send to Chat");
 				sendToChatItem.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						String selectedText = source.getSelectedText();
 						if (selectedText == null) {
@@ -794,6 +805,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 				JMenuItem sendAsEmoteItem = new JMenuItem("Send as Emit");
 				sendAsEmoteItem.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						String selectedText = source.getSelectedText();
 						if (selectedText == null) {
@@ -937,10 +949,12 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			}
 		}
 
+		@Override
 		public Selectable getElementAt(int index) {
 			return ownerList.get(index);
 		}
 
+		@Override
 		public int getSize() {
 			return ownerList.size();
 		}
@@ -955,6 +969,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				rowList.add(new Association<String, String>(speechName, token.getSpeech(speechName)));
 			}
 			Collections.sort(rowList, new Comparator<Association<String, String>>() {
+				@Override
 				public int compare(Association<String, String> o1, Association<String, String> o2) {
 					return o1.getLeft().compareToIgnoreCase(o2.getLeft());
 				}
@@ -988,14 +1003,17 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			this.rowList = rowList;
 		}
 
+		@Override
 		public int getColumnCount() {
 			return 2;
 		}
 
+		@Override
 		public int getRowCount() {
 			return rowList.size() + 1;
 		}
 
+		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (rowIndex == getRowCount() - 1) {
 				switch (columnIndex) {

@@ -115,6 +115,7 @@ public class AssetDirectory extends Directory {
 			this.imageFile = imageFile;
 		}
 
+		@Override
 		public Image call() throws Exception {
 			// Have we been orphaned ?
 			if (!continueProcessing.get()) {

@@ -52,6 +52,7 @@ public class PropertyMacroView implements MacroView {
 		return MacroEngine.getInstance().run(script, token);
 	}
 	
+	@Override
 	public String toString() {
 		return macroText;
 	}

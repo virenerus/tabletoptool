@@ -37,6 +37,7 @@ public class AppConstants {
 	public static final int NOTE_PORTRAIT_SIZE = 200;
 
 	public static final FilenameFilter IMAGE_FILE_FILTER = new FilenameFilter() {
+		@Override
 		public boolean accept(File dir, String name) {
 			name = name.toLowerCase();
 			// I can drop TIFF files into TokenTool and it works. Should that extension be

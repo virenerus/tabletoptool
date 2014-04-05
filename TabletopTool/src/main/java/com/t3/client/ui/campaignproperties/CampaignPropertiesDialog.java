@@ -123,6 +123,7 @@ public class CampaignPropertiesDialog extends JDialog {
 		// Escape key
 		formPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cancel");
 		formPanel.getActionMap().put("cancel", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancel();
 			}
@@ -144,6 +145,7 @@ public class CampaignPropertiesDialog extends JDialog {
 	private void initAddRepoButton() {
 		JButton button = (JButton) formPanel.getButton("addRepoButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String newRepo = getNewServerTextField().getText();
 				if (newRepo == null || newRepo.length() == 0) {
@@ -158,6 +160,7 @@ public class CampaignPropertiesDialog extends JDialog {
 	private void initAddGalleryIndexButton() {
 		JButton button = (JButton) formPanel.getButton("addGalleryIndexButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Check for uniqueness
 				((DefaultListModel<String>) getRepositoryList().getModel()).addElement("http://www.rptools.net/image-indexes/gallery.rpax.gz");
@@ -168,6 +171,7 @@ public class CampaignPropertiesDialog extends JDialog {
 	public void initDeleteRepoButton() {
 		JButton button = (JButton) formPanel.getButton("deleteRepoButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				int[] selectedRows = getRepositoryList().getSelectedIndices();
 				Arrays.sort(selectedRows);
@@ -665,6 +669,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 	private void initOKButton() {
 		getOKButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				accept();
 			}
@@ -685,6 +690,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 	private void initCancelButton() {
 		getCancelButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				status = Status.CANCEL;
 				setVisible(false);
@@ -694,6 +700,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 	private void initImportButton() {
 		getImportButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = TabletopTool.getFrame().getLoadPropsFileChooser();
 
@@ -702,6 +709,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 				final File selectedFile = chooser.getSelectedFile();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						CampaignProperties properties = PersistenceUtil.loadCampaignProperties(selectedFile);
 						// TODO: Allow specifying whether it is a replace or merge
@@ -717,6 +725,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 	private void initExportButton() {
 		getExportButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Remove this hack.  Specifically, make the export use a properties object
 				// composed of the current dialog entries instead of directly from the campaign

@@ -71,6 +71,7 @@ public class AppSetup {
 			if (licenseFile.exists()) {
 				final File licenseFileFinal = licenseFile;
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							JTextPane pane = new JTextPane();

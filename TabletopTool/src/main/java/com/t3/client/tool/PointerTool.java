@@ -150,6 +150,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		htmlRenderer.addStyleSheetRule(".title{font-size: 14pt}");
 
 		layerSelectionDialog = new LayerSelectionDialog(new Zone.Layer[] { Zone.Layer.TOKEN, Zone.Layer.GM, Zone.Layer.OBJECT, Zone.Layer.BACKGROUND }, new LayerSelectionListener() {
+			@Override
 			public void layerSelected(Layer layer) {
 				if (renderer != null) {
 					renderer.setActiveLayer(layer);
@@ -995,6 +996,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, AppActions.menuShortcut), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Combine all this crap with the Stamp tool
 				if (renderer.getSelectedTokenSet().isEmpty()) {
@@ -1013,6 +1015,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				ZoneRenderer renderer = (ZoneRenderer) e.getSource();
 
@@ -1044,6 +1047,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isDraggingToken) {
 					return;
@@ -1056,6 +1060,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isDraggingToken) {
 					return;
@@ -1082,6 +1087,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.SHIFT_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyRotate(-1, false); // clockwise
 			}
@@ -1089,6 +1095,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyRotate(-1, true); // clockwise
 			}
@@ -1096,6 +1103,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.SHIFT_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyRotate(1, false); // counter-clockwise
 			}
@@ -1103,6 +1111,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				handleKeyRotate(1, true); // counter-clockwise
 			}
@@ -1110,6 +1119,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				renderer.cycleSelectedToken(1);
 			}
@@ -1117,6 +1127,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				renderer.cycleSelectedToken(-1);
 			}
@@ -1125,6 +1136,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, AppActions.menuShortcut), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (TabletopTool.getPlayer().isGM() || TabletopTool.getServerPolicy().getPlayersCanRevealVision()) {
 					FogUtil.exposeVisibleArea(renderer, renderer.getOwnedTokens(renderer.getSelectedTokenSet()));
@@ -1134,6 +1146,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_O, AppActions.menuShortcut | InputEvent.SHIFT_DOWN_MASK), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				//  Only let the GM's do this
 				if (TabletopTool.getPlayer().isGM()) {
@@ -1145,6 +1158,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, AppActions.menuShortcut), new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (TabletopTool.getPlayer().isGM() || TabletopTool.getServerPolicy().getPlayersCanRevealVision()) {
 					FogUtil.exposeLastPath(renderer, renderer.getOwnedTokens(renderer.getSelectedTokenSet()));
@@ -1286,6 +1300,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 			this.type = type;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (isSpaceDown) {
 				return;
@@ -1309,6 +1324,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 	private class StopPointerActionListener extends AbstractAction {
 		private static final long serialVersionUID = -8508019800264211345L;
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (isShowingPointer) {
 				isShowingPointer = false;
@@ -1326,6 +1342,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 	 * @see com.t3.client.ZoneOverlay#paintOverlay(com.t3 .client.ZoneRenderer,
 	 * java.awt.Graphics2D)
 	 */
+	@Override
 	public void paintOverlay(final ZoneRenderer renderer, Graphics2D g) {
 		Dimension viewSize = renderer.getSize();
 
@@ -1358,6 +1375,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 				// Portrait
 				MD5Key portraitId = tokenUnderMouse.getPortraitImage() != null ? tokenUnderMouse.getPortraitImage() : tokenUnderMouse.getImageAssetId();
 				BufferedImage image = ImageManager.getImage(portraitId, new ImageObserver() {
+					@Override
 					public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 						// The image was loading, so now rebuild the portrait panel with the real image
 						statSheet = null;

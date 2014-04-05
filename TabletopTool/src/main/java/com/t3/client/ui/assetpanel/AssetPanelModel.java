@@ -55,6 +55,7 @@ public class AssetPanelModel implements PropertyChangeListener {
 	}
 
 	// PROPERTY CHANGE LISTENER
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		for (ImageObserver observer : observerList) {
 			observer.imageUpdate(null, ImageObserver.ALLBITS, 0, 0, 0, 0);

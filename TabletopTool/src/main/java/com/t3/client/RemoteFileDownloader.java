@@ -66,14 +66,10 @@ public class RemoteFileDownloader {
 		File tempFile = new File(tempDir + "/" + new GUID() + ".dat");
 		tempFile.deleteOnExit();
 
-		InputStream in = null;
-		OutputStream out = null;
-
 		ProgressMonitor monitor = new ProgressMonitor(parentComponent, "Downloading " + url, null, 0, length);
-		try {
-			in = conn.getInputStream();
-			out = new BufferedOutputStream(new FileOutputStream(tempFile));
-
+		try(InputStream in = conn.getInputStream();
+				OutputStream out = new BufferedOutputStream(new FileOutputStream(tempFile))) {
+			
 			int buflen = 1024 * 30;
 			int bytesRead = 0;
 			byte[] buf = new byte[buflen];
@@ -89,12 +85,6 @@ public class RemoteFileDownloader {
 //                monitor.setNote("Elapsed: " + ((System.currentTimeMillis() - start) / 1000) + " seconds");
 			}
 		} finally {
-			if (in != null) {
-				in.close();
-			}
-			if (out != null) {
-				out.close();
-			}
 			monitor.close();
 		}
 		return tempFile;

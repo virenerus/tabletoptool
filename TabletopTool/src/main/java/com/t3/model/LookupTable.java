@@ -147,6 +147,7 @@ public class LookupTable {
 		this.tableImage = tableImage;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		

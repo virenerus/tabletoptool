@@ -129,6 +129,7 @@ public abstract class AbstractAStarWalker extends AbstractZoneWalker {
 
 	protected abstract double hScore(CellPoint p1, CellPoint p2);
 
+	@Override
 	public int getDistance() {
 		if (distance == -1) {
 			distance = calculateDistance(getPath().getCellPath(), getZone().getUnitsPerCell());

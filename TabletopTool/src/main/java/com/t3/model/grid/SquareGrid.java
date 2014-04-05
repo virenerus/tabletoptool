@@ -62,10 +62,15 @@ public class SquareGrid extends Grid {
 
 	// @formatter:off
 	private static final GridCapabilities CAPABILITIES = new GridCapabilities() {
+		@Override
 		public boolean isPathingSupported() {									return true; }
+		@Override
 		public boolean isSnapToGridSupported() {							return true; }
+		@Override
 		public boolean isPathLineSupported() {									return true; }
+		@Override
 		public boolean isSecondDimensionAdjustmentSupported() {	return false; }
+		@Override
 		public boolean isCoordinatesSupported() {							return true; }
 	};
 	// @formatter:on

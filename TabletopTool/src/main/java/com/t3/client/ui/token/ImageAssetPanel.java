@@ -89,6 +89,7 @@ public class ImageAssetPanel extends JPanel implements DropTargetListener {
 			cancelButton.setMargin(new Insets(0, 0, 0, 0));
 
 			cancelButton.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					setImageId(null);
 				}
@@ -106,6 +107,7 @@ public class ImageAssetPanel extends JPanel implements DropTargetListener {
 			addButton.setMargin(new Insets(0, 0, 0, 0));
 
 			addButton.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					ImageChooserDialog chooserDialog = TabletopTool.getFrame().getImageChooserDialog();
 					chooserDialog.setVisible(true);
@@ -158,15 +160,19 @@ public class ImageAssetPanel extends JPanel implements DropTargetListener {
 
 	////
 	// DROP TARGET LISTENER
+	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
 	}
 
+	@Override
 	public void dragExit(DropTargetEvent dte) {
 	}
 
+	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
 	}
 
+	@Override
 	public void drop(DropTargetDropEvent dtde) {
 		Transferable t = dtde.getTransferable();
 		if (!(TransferableHelper.isSupportedAssetFlavor(t) || TransferableHelper.isSupportedTokenFlavor(t)) || (dtde.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
@@ -183,6 +189,7 @@ public class ImageAssetPanel extends JPanel implements DropTargetListener {
 		setImageId(((Asset) assets.get(0)).getId());
 	}
 
+	@Override
 	public void dropActionChanged(DropTargetDragEvent dtde) {
 	}
 }

@@ -9,6 +9,7 @@ import javax.swing.ListCellRenderer;
 /** Custom renderer to display icons and text inside a combo box */
 public  class ComboBoxRenderer implements ListCellRenderer<JLabel> {
 	
+	@Override
 	public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel label, int index, boolean isSelected, boolean cellHasFocus) {
 		if (isSelected) {
 			label.setBackground(list.getSelectionBackground());

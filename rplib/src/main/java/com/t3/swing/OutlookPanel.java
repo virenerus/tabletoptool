@@ -49,7 +49,8 @@ public class OutlookPanel extends JPanel {
         JButtonEx button = new JButtonEx(label, m_compList.size(), component);
         button.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent ae) {
+            @Override
+			public void actionPerformed(ActionEvent ae) {
                 int index = ((JButtonEx) ae.getSource()).getIndex();
                 if (m_active.getIndex() == index && index > 0) {
                     index --;
@@ -109,7 +110,8 @@ public class OutlookPanel extends JPanel {
 		return -1;
 	}
 	
-    public void paint(Graphics g) {
+    @Override
+	public void paint(Graphics g) {
         int y = 0;
 
         Dimension size = getSize();
@@ -162,7 +164,8 @@ public class OutlookPanel extends JPanel {
         /**
          * We don't ever want the focus 
          */
-        public boolean isRequestFocusEnabled() {
+        @Override
+		public boolean isRequestFocusEnabled() {
             return false;
         }
 

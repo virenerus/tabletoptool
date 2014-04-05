@@ -115,6 +115,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (panelClass.equals("GlobalPanel")) {
 				new MacroButtonProperties(panelClass, MacroButtonPrefs.getNextIndex(), macroGroup);
@@ -147,6 +148,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 				putValue(Action.NAME, name);
 			}
 
+			@Override
 			public void actionPerformed(ActionEvent event) {
 
 				JFileChooser chooser = TabletopTool.getFrame().getLoadMacroFileChooser();
@@ -157,6 +159,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 
 				final File selectedFile = chooser.getSelectedFile();
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							MacroButtonProperties newButtonProps = PersistenceUtil.loadMacro(selectedFile);
@@ -265,6 +268,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 
 			JFileChooser chooser = TabletopTool.getFrame().getLoadMacroSetFileChooser();
@@ -275,6 +279,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 
 			final File selectedFile = chooser.getSelectedFile();
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					try {
 						List<MacroButtonProperties> newButtonProps = PersistenceUtil.loadMacroSet(selectedFile);
@@ -385,6 +390,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, name);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 
 			JFileChooser chooser = TabletopTool.getFrame().getSaveMacroSetFileChooser();
@@ -406,6 +412,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			}
 
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					try {
 						if (panelClass.equals("GlobalPanel")) {
@@ -489,6 +496,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, I18N.getText("action.macro.clearGroup"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if(TabletopTool.confirm(I18N.getText("confirm.macro.clearGroup", macroGroup))) {
 				if (panelClass.equals("GlobalPanel")) {
@@ -507,6 +515,7 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 			putValue(Action.NAME, I18N.getText("action.macro.clearPanel"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (panelClass.equals("GlobalPanel")) {
 				if(TabletopTool.confirm(I18N.getText("confirm.macro.clearPanel", I18N.getText("panel.Global")))) {

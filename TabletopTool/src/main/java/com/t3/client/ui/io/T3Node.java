@@ -138,6 +138,7 @@ public class T3Node {
 	 * into this class and I don't like that idea.  I think it should be kept separately.
 	 * </p>
 	 */
+	@Override
 	public String toString() {
 		return name.toString();
 	}

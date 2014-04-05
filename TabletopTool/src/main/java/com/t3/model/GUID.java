@@ -189,6 +189,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 		}
 	}
 
+	@Override
 	public int compareTo(GUID o) {
 		if (o != this) {
 			for (int i = 0; i < GUID_LENGTH; i++) {

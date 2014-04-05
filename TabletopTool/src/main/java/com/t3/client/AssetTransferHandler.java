@@ -27,6 +27,7 @@ import com.t3.transfer.ConsumerListener;
  * @author trevor
  */
 public class AssetTransferHandler implements ConsumerListener {
+	@Override
 	public void assetComplete(Serializable id, String name, File data) {
 		byte[] assetData = null;
 		try {
@@ -48,10 +49,12 @@ public class AssetTransferHandler implements ConsumerListener {
 		TabletopTool.getFrame().refresh();
 	}
 
+	@Override
 	public void assetUpdated(Serializable id) {
 		// Nothing to do
 	}
 
+	@Override
 	public void assetAdded(Serializable id) {
 		// Nothing to do
 	}

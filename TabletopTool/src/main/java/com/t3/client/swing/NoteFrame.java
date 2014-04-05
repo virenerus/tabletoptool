@@ -63,6 +63,7 @@ public class NoteFrame extends JFrame {
 		if (clearButton == null) {
 			clearButton = new JButton("Clear");
 			clearButton.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					getNoteArea().setText("");
 				}
@@ -75,6 +76,7 @@ public class NoteFrame extends JFrame {
 		if (closeButton == null) {
 			closeButton = new JButton("Close");
 			closeButton.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					processWindowEvent(new WindowEvent(NoteFrame.this, WindowEvent.WINDOW_CLOSING));
 				}

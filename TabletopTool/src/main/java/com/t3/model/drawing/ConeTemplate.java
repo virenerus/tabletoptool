@@ -65,6 +65,7 @@ public class ConeTemplate extends RadiusTemplate {
 	 * @param radius The radius where the border is painted.
 	 * @see com.t3.model.drawing.AbstractTemplate#paintBorder(java.awt.Graphics2D,
 	 *      int, int, int, int, int, int) */
+	@Override
 	protected void paintBorderAtRadius(Graphics2D g, int x, int y, int xOff, int yOff, int gridSize, int distance, int radius) {
 		// At the border?
 		if (distance == radius) {
@@ -195,6 +196,7 @@ public class ConeTemplate extends RadiusTemplate {
 	 *-------------------------------------------------------------------------------------------*/
 
 	/** @see com.t3.model.drawing.Drawable#getBounds() */
+	@Override
 	public Rectangle getBounds() {
 
 		if (TabletopTool.getCampaign().getZone(getZoneId()) == null) {

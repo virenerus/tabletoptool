@@ -64,9 +64,9 @@ public class T3EventQueue extends EventQueue {
 
 	private static String toString(Throwable t) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(out);
-		t.printStackTrace(ps);
-		ps.close();
+		try(PrintStream ps = new PrintStream(out)) {
+			t.printStackTrace(ps);
+		}
 		return out.toString();
 	}
 }

@@ -28,22 +28,26 @@ public class ModelVersionManagerTest extends TestCase {
 		
 		ModelVersionManager mgr = new ModelVersionManager();
 		mgr.registerTransformation("1", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("two", "2");
 			}
 		});
 	
 		mgr.registerTransformation("2", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("one", "1");
 			}
 		}, new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("three", "3");
 			}
 		});
 
 		mgr.registerTransformation("4", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("2", "HW");
 			}
@@ -58,12 +62,14 @@ public class ModelVersionManagerTest extends TestCase {
 		
 		ModelVersionManager mgr = new ModelVersionManager();
 		mgr.registerTransformation("1", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("two", "2");
 			}
 		});
 
 		mgr.registerTransformation("4", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("2", "HW");
 			}
@@ -78,12 +84,14 @@ public class ModelVersionManagerTest extends TestCase {
 		
 		ModelVersionManager mgr = new ModelVersionManager();
 		mgr.registerTransformation("1", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("two", "2");
 			}
 		});
 
 		mgr.registerTransformation("4", new ModelVersionTransformation() {
+			@Override
 			public String transform(String xml) {
 				return xml.replace("3", "HW");
 			}

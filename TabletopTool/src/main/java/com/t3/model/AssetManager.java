@@ -217,6 +217,7 @@ public class AssetManager {
 	public static void getAssetAsynchronously(final MD5Key id, final AssetAvailableListener... listeners) {
 
 		assetLoaderThreadPool.submit(new Runnable() {
+			@Override
 			public void run() {
 
 				Asset asset = getAsset(id);
@@ -414,9 +415,9 @@ public class AssetManager {
 		try {
 
 			Properties props = new Properties();
-			InputStream is = new FileInputStream(infoFile);
-			props.load(is);
-			is.close();
+			try(InputStream is = new FileInputStream(infoFile)) {
+				props.load(is);
+			}
 			return props;
 
 		} catch (Exception e) {
@@ -444,13 +445,9 @@ public class AssetManager {
 				@Override
 				public void run() {
 
-					try {
-						assetFile.getParentFile().mkdirs();
-						// Image
-						OutputStream out = new FileOutputStream(assetFile);
+					assetFile.getParentFile().mkdirs();
+					try(OutputStream out = new FileOutputStream(assetFile)){
 						out.write(asset.getImage());
-						out.close();
-
 					} catch (IOException ioe) {
 						log.error("Could not persist asset while writing image data", ioe);
 						return;
@@ -465,11 +462,11 @@ public class AssetManager {
 
 			try {
 				// Info
-				OutputStream out = new FileOutputStream(infoFile);
 				Properties props = new Properties();
 				props.put(NAME, asset.getName() != null ? asset.getName() : "");
-				props.store(out, "Asset Info");
-				out.close();
+				try(OutputStream out = new FileOutputStream(infoFile)) {
+					props.store(out, "Asset Info");
+				}
 
 			} catch (IOException ioe) {
 				log.error("Could not persist asset while writing image properties", ioe);
@@ -520,7 +517,7 @@ public class AssetManager {
 	 */
 	public static void rememberLocalImageReference(File image) throws IOException {
 
-		MD5Key id = new MD5Key(new BufferedInputStream(new FileInputStream(image)));
+		MD5Key id = new MD5Key(image);
 		File lnkFile = getAssetLinkFile(id);
 
 		// See if we know about this one already
@@ -537,11 +534,9 @@ public class AssetManager {
 		}
 
 		// Keep track of this reference
-		FileOutputStream out = new FileOutputStream(lnkFile, true); // For appending
-
-		out.write((image.getAbsolutePath() + "\n").getBytes());
-
-		out.close();
+		try(FileOutputStream out = new FileOutputStream(lnkFile, true)) {
+			out.write((image.getAbsolutePath() + "\n").getBytes());
+		}
 	}
 
 	/**

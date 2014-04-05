@@ -167,6 +167,7 @@ public class ZoneMiniMapPanel extends JPanel implements ModelChangeListener  {
 
 	////
 	// ModelChangeListener
+	@Override
 	public void modelChanged(ModelChangeEvent event) {
 		if (event.getEvent() == Zone.Event.FOG_CHANGED) {
 			flush();

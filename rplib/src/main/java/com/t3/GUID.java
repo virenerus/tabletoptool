@@ -76,7 +76,8 @@ public class GUID extends Object implements Serializable {
     }
 
     /** Determines whether two GUIDs are equal. */
-    public boolean equals(Object object) {
+    @Override
+	public boolean equals(Object object) {
         if (object == null) {
             return this == null;
         }
@@ -107,7 +108,8 @@ public class GUID extends Object implements Serializable {
     public byte[] getBytes() { return baGUID; }
 
     /** Returns a string for the GUID. */
-    public String toString() {
+    @Override
+	public String toString() {
         return Base64.getUrlEncoder().encodeToString(baGUID);
     }
 
@@ -115,7 +117,8 @@ public class GUID extends Object implements Serializable {
     * Returns a hashcode for this GUID. This function is based on the algorithm that JDK 1.3 uses for a String.
     * @return  a hash code value for this object.
     */
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         int h = hash;
         if (h == 0) {
             byte val[] = baGUID;

@@ -81,6 +81,7 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 	/**
 	 * Handle late connections
 	 */
+	@Override
 	public void connectionAdded(ClientConnection conn) {
 		server.configureClientConnection(conn);
 
@@ -95,6 +96,7 @@ public class T3ServerConnection extends ServerConnection implements ServerObserv
 //     }
 	}
 
+	@Override
 	public void connectionRemoved(ClientConnection conn) {
 		server.releaseClientConnection(conn.getId());
 		server.getConnection().broadcastCallMethod(new String[] { conn.getId() }, NetworkCommand.playerDisconnected, playerMap.get(conn.getId().toUpperCase()));

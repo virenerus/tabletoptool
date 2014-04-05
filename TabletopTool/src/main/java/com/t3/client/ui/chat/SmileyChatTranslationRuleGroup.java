@@ -106,6 +106,7 @@ public class SmileyChatTranslationRuleGroup extends ChatTranslationRuleGroup {
 			this.insert = insert;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			TabletopTool.getFrame().getCommandPanel().getCommandTextArea().setText(TabletopTool.getFrame().getCommandPanel().getCommandTextArea().getText() + insert);
 			TabletopTool.getFrame().getCommandPanel().getCommandTextArea().requestFocusInWindow();

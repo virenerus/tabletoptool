@@ -49,19 +49,24 @@ public class ScrollablePanel extends JPanel implements Scrollable {
 	
 	////
 	// SCROLLABLE
+	@Override
 	public Dimension getPreferredScrollableViewportSize() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return blockIncrement;
 	}
+	@Override
 	public boolean getScrollableTracksViewportHeight() {
 		return false;
 	}
+	@Override
 	public boolean getScrollableTracksViewportWidth() {
 		return true;
 	}
+	@Override
 	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return unitIncrement;
 	}

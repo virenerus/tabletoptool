@@ -54,6 +54,7 @@ public class ImageAssetSelectorPanel extends JPanel {
 		
 		final AssetPanel assetPanel = new AssetPanel("imageAssetSelectorImageExplorer", TabletopTool.getFrame().getAssetPanel().getModel(), JSplitPane.HORIZONTAL_SPLIT);
 		assetPanel.addImageSelectionListener(new SelectionListener() {
+			@Override
 			public void selectionPerformed(List<Object> selectedList) {
 				// There should be exactly one
 				if (selectedList.size() != 1) {

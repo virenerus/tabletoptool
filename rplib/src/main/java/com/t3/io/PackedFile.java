@@ -272,9 +272,9 @@ public class PackedFile {
 
 		// Create the new file
 		File newFile = new File(tmpDir.getAbsolutePath() + "/" + new GUID() + ".pak");
-		ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(newFile)));
-		zout.setLevel(1); // fast compression
-		try {
+		
+		try(ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(newFile)))){
+			zout.setLevel(1); // fast compression
 			saveTimer.start("contentFile");
 			if (hasFile(CONTENT_FILE)) {
 				zout.putNextEntry(new ZipEntry(CONTENT_FILE));
@@ -334,7 +334,6 @@ public class PackedFile {
 
 			saveTimer.start("close");
 			zout.close();
-			zout = null;
 			saveTimer.stop("close");
 
 			// Backup the original
@@ -369,13 +368,6 @@ public class PackedFile {
 			}
 			if (newFile.exists())
 				newFile.delete();
-			try {
-				// Close here in case of exception
-				if (zout != null)
-					zout.close();
-			} catch (IOException e) {
-				// ignore close exception
-			}
 			saveTimer.stop("cleanup");
 
 			if (log.isDebugEnabled())
@@ -444,9 +436,9 @@ public class PackedFile {
 	 */
 	public void putFile(String path, InputStream is) throws IOException {
 		File explodedFile = putFileImpl(path);
-		FileOutputStream fos = new FileOutputStream(explodedFile);
-		IOUtils.copy(is, fos);
-		fos.close();
+		try(FileOutputStream fos = new FileOutputStream(explodedFile)) {
+			IOUtils.copy(is, fos);
+		}
 	}
 
 	/**
@@ -460,12 +452,10 @@ public class PackedFile {
 	 */
 	public void putFile(String path, Object obj) throws IOException {
 		File explodedFile = putFileImpl(path);
-		FileOutputStream fos = new FileOutputStream(explodedFile);
-		OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
-		BufferedWriter bw = new BufferedWriter(osw);
-		xstream.toXML(obj, bw);
-		bw.newLine();		// Not necessary but editing the file looks nicer. ;-)
-		bw.close();
+		try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(explodedFile), "UTF-8"))) {
+			xstream.toXML(obj, bw);
+			bw.newLine();		// Not necessary but editing the file looks nicer. ;-)
+		}
 	}
 
 	/**

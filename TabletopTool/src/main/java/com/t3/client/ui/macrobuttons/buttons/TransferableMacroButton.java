@@ -28,14 +28,17 @@ public class TransferableMacroButton implements Transferable {
 		transferData = new TransferData(button);
 	}
 
+	@Override
 	public DataFlavor[] getTransferDataFlavors() {
 		return new DataFlavor[] {macroButtonFlavor};
 	}
 
+	@Override
 	public boolean isDataFlavorSupported(DataFlavor dataFlavor) {
 		return dataFlavor.equals(macroButtonFlavor);
 	}
 
+	@Override
 	public Object getTransferData(DataFlavor dataFlavor) throws UnsupportedFlavorException, IOException {
 		if (dataFlavor.equals(macroButtonFlavor)) {
 			return transferData;

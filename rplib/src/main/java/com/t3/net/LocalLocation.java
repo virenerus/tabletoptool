@@ -42,16 +42,19 @@ public class LocalLocation implements Location {
 		return new File(localFile);
 	}
 	
+	@Override
 	public InputStream getContent() throws IOException {
 		return new BufferedInputStream(new FileInputStream(getFile()));
 	}
 	
+	@Override
 	public void putContent(InputStream content) throws IOException {
 		try(BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(getFile()))) {
 			FileUtil.copyWithClose(content, out);
 		}
 	}
 
+	@Override
 	public void putContent(ImageWriter writer, BufferedImage image) {
 		try(BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(getFile()))) {
 			writer.setOutput(out);

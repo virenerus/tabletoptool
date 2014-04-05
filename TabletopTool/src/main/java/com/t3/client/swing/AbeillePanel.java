@@ -72,6 +72,7 @@ public class AbeillePanel<T> extends JPanel {
 	static {
 		Binder.setDefaultAdapter(JRadioButton.class, RadioButtonAdapter.class);
 		Binder.setBindingResolver(new BindingResolver() {
+			@Override
 			public BindingInfo getBindingInfo(Component view) {
 				String name = view.getName();
 				if (name == null || !name.startsWith("@")) {
@@ -86,6 +87,7 @@ public class AbeillePanel<T> extends JPanel {
 				return new BindingInfo(name);
 			}
 
+			@Override
 			public void storeBindingInfo(Component view, BindingInfo info) {
 			}
 		});
@@ -239,6 +241,7 @@ public class AbeillePanel<T> extends JPanel {
 		}
 
 		// ITEM LISTENER
+		@Override
 		public void itemStateChanged(ItemEvent e) {
 			fireViewChanged();
 			fireViewEditValidated();

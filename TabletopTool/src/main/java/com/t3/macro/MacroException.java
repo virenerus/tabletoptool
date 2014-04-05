@@ -32,10 +32,10 @@ public class MacroException extends Exception {
 		StringBuilder sb=new StringBuilder();
 		sb.append("<span color=\"red\" title=\"");
 		StringWriter sw=new StringWriter();
-		PrintWriter pw=new PrintWriter(sw);
-		this.printStackTrace(pw);
-		sb.append(sw.getBuffer().toString().replace("\"", "\\\"").replace("\n", "&#13;"));
-		pw.close();
+		try(PrintWriter pw=new PrintWriter(sw)) {
+			this.printStackTrace(pw);
+			sb.append(sw.getBuffer().toString().replace("\"", "\\\"").replace("\n", "&#13;"));
+		}
 		sb.append("\">");
 		
 		if(this.getCause()!=null)

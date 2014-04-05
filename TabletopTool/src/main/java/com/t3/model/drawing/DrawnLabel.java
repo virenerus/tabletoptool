@@ -69,6 +69,7 @@ public class DrawnLabel extends AbstractDrawing {
 	/**
 	 * @see com.t3.model.drawing.Drawable#draw(java.awt.Graphics2D, com.t3.model.drawing.Pen)
 	 */
+	@Override
 	public void draw(Graphics2D aG) {
 		if (renderer == null) {
 			renderer = new CellRendererPane();
@@ -85,10 +86,12 @@ public class DrawnLabel extends AbstractDrawing {
 	/**
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		return bounds;
 	}
 	
+	@Override
 	public Area getArea() {
 		// TODO Auto-generated method stub
 		return null;

@@ -66,7 +66,8 @@ public class VerticalLabel extends JLabel {
         return rotation != DONT_ROTATE;
     }
 
-    protected void paintComponent(Graphics g) {
+    @Override
+	protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
         if (isRotated())
@@ -88,7 +89,8 @@ public class VerticalLabel extends JLabel {
             g2d.translate(0, -this.getHeight());
     }
 
-    public Insets getInsets(Insets insets) {
+    @Override
+	public Insets getInsets(Insets insets) {
         insets = super.getInsets(insets);
         if (painting) {
             if (rotation == ROTATE_LEFT) {
@@ -109,7 +111,8 @@ public class VerticalLabel extends JLabel {
         return insets;
     }
 
-    public Insets getInsets() {
+    @Override
+	public Insets getInsets() {
         Insets insets = super.getInsets();
         if (painting) {
             if (rotation == ROTATE_LEFT) {
@@ -130,19 +133,22 @@ public class VerticalLabel extends JLabel {
         return insets;
     }
 
-    public int getWidth() {
+    @Override
+	public int getWidth() {
         if ((painting) && (isRotated()))
             return super.getHeight();
         return super.getWidth();
     }
 
-    public int getHeight() {
+    @Override
+	public int getHeight() {
         if ((painting) && (isRotated()))
             return super.getWidth();
         return super.getHeight();
     }
 
-    public Dimension getPreferredSize() {
+    @Override
+	public Dimension getPreferredSize() {
         Dimension d = super.getPreferredSize();
         if (isRotated()) {
             int width = d.width;
@@ -152,7 +158,8 @@ public class VerticalLabel extends JLabel {
         return d;
     }
 
-    public Dimension getMinimumSize() {
+    @Override
+	public Dimension getMinimumSize() {
         Dimension d = super.getMinimumSize();
         if (isRotated()) {
             int width = d.width;
@@ -162,7 +169,8 @@ public class VerticalLabel extends JLabel {
         return d;
     }
 
-    public Dimension getMaximumSize() {
+    @Override
+	public Dimension getMaximumSize() {
         Dimension d = super.getMaximumSize();
         if (isRotated()) {
             int width = d.width;

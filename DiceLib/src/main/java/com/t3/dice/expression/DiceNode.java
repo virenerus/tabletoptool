@@ -13,6 +13,7 @@ public class DiceNode extends Expression {
 		this.dice=dice;
 	}
 
+	@Override
 	public float getResult(Random random) {
 		if(!dice.isRolled())
 			dice.roll(random);
@@ -20,10 +21,12 @@ public class DiceNode extends Expression {
 	}
 
 
+	@Override
 	public String toString() {
 		return dice.toString();
 	}
 
+	@Override
 	public String toEvaluatedString() {
 		return Arrays.toString(dice.getResults());
 	}

@@ -31,17 +31,20 @@ public class ObserverListModel<T> extends AbstractListModel<T> implements Observ
         list.addObserver(this);
     }
     
-    public T getElementAt(int index) {
+    @Override
+	public T getElementAt(int index) {
         return list.get(index);
     }
 
-    public int getSize() {
+    @Override
+	public int getSize() {
         return list.size();
     }
 
     ////
     // OBSERVER
-    public void update(Observable o, Object arg) {
+    @Override
+	public void update(Observable o, Object arg) {
         fireContentsChanged(this, 0, list.size());
     }
 }

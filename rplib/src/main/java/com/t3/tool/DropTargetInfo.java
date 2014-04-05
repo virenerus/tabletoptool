@@ -57,16 +57,20 @@ public class DropTargetInfo extends JFrame implements DropTargetListener{
     
     ////
     // DROP TARGET LISTENER
-    public void dragEnter(DropTargetDragEvent dtde) {
+    @Override
+	public void dragEnter(DropTargetDragEvent dtde) {
     }
     
-    public void dragExit(DropTargetEvent dte) {
+    @Override
+	public void dragExit(DropTargetEvent dte) {
     }
 
-    public void dragOver(DropTargetDragEvent dtde) {
+    @Override
+	public void dragOver(DropTargetDragEvent dtde) {
     }
     
-    public void drop(DropTargetDropEvent dtde) {
+    @Override
+	public void drop(DropTargetDropEvent dtde) {
     	
     	dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
     	
@@ -94,6 +98,7 @@ public class DropTargetInfo extends JFrame implements DropTargetListener{
     	
     }
     
-    public void dropActionChanged(DropTargetDragEvent dtde) {
+    @Override
+	public void dropActionChanged(DropTargetDragEvent dtde) {
     }
 }

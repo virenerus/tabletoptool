@@ -176,6 +176,7 @@ public final class ColumnPanel extends JPanel {
 
 		// When a field gains the focus, save it in lastFocus.
 		FocusListener listener = new FocusListener() {
+			@Override
 			public void focusGained(FocusEvent fe) {
 				JComponent src = (JComponent) fe.getSource();
 				lastFocus = src;
@@ -187,6 +188,7 @@ public final class ColumnPanel extends JPanel {
 //					System.out.println("  Got focus " + src.getClass().getName() + s);
 			}
 
+			@Override
 			public void focusLost(FocusEvent arg0) {
 			}
 		};

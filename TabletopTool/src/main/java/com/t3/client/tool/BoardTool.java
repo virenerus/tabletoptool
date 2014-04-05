@@ -98,6 +98,7 @@ public class BoardTool extends DefaultTool {
 		boardPositionYTextField.addKeyListener(new UpdateBoardListener());
 
 		ActionListener enforceRules = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				enforceButtonRules();
 			}
@@ -113,6 +114,7 @@ public class BoardTool extends DefaultTool {
 
 		JButton closeButton = (JButton) controlPanel.getComponentByName("closeButton");
 		closeButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				resetTool();
 			}
@@ -326,6 +328,7 @@ public class BoardTool extends DefaultTool {
 			this.direction = direction;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			switch (direction) {
 			case Left:
@@ -349,24 +352,30 @@ public class BoardTool extends DefaultTool {
 	////
 	// ACTIONS
 	private class UpdateBoardListener implements KeyListener, ChangeListener, FocusListener {
+		@Override
 		public void keyPressed(KeyEvent e) {
 		}
 
+		@Override
 		public void keyReleased(KeyEvent e) {
 			copyControlPanelToBoard();
 		}
 
+		@Override
 		public void keyTyped(KeyEvent e) {
 		}
 
+		@Override
 		public void stateChanged(ChangeEvent e) {
 			copyControlPanelToBoard();
 		}
 
+		@Override
 		public void focusLost(FocusEvent e) {
 			copyControlPanelToBoard();
 		}
 
+		@Override
 		public void focusGained(FocusEvent e) {
 		}
 	}

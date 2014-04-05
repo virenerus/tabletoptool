@@ -85,6 +85,7 @@ public class TextTool extends DefaultTool implements ZoneOverlay {
 		return "tool.label.instructions";
 	}
 
+	@Override
 	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 		if (selectedLabel != null && renderer.getLabelBounds(selectedLabel) != null) {
 			AppStyle.selectedBorder.paintWithin(g, renderer.getLabelBounds(selectedLabel));
@@ -96,6 +97,7 @@ public class TextTool extends DefaultTool implements ZoneOverlay {
 		super.installKeystrokes(actionMap);
 
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (selectedLabel != null) {
 					renderer.getZone().removeLabel(selectedLabel.getId());
@@ -259,6 +261,7 @@ public class TextTool extends DefaultTool implements ZoneOverlay {
 
 		public void initOKButton() {
 			getOKButton().addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					dialog.accepted = true;
 					commit();
@@ -269,6 +272,7 @@ public class TextTool extends DefaultTool implements ZoneOverlay {
 
 		public void initCancelButton() {
 			((JButton) getComponent("cancelButton")).addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					close();
 				}

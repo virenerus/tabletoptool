@@ -177,12 +177,15 @@ public class MacroButton extends JButton implements MouseListener {
 	}
 
 	// Override these mouse events in subclasses to specify component specific behavior.
+	@Override
 	public void mouseClicked(MouseEvent event) {
 	}
 
+	@Override
 	public void mousePressed(MouseEvent event) {
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent event) {
 		if (SwingUtilities.isLeftMouseButton(event)) {
 			// If any of the following 3 conditions are correct we want to run it against all selected tokens,
@@ -215,6 +218,7 @@ public class MacroButton extends JButton implements MouseListener {
 		}
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent event) {
 		if (TabletopTool.getFrame().getCurrentZoneRenderer() == null) {
 			return;
@@ -246,6 +250,7 @@ public class MacroButton extends JButton implements MouseListener {
 		}
 	}
 
+	@Override
 	public void mouseExited(MouseEvent event) {
 		List<Token> affectedTokens = new ArrayList<Token>();
 		if (TabletopTool.getFrame().getCurrentZoneRenderer() != null) {
@@ -268,6 +273,7 @@ public class MacroButton extends JButton implements MouseListener {
 			this.cursor = cursor;
 		}
 
+		@Override
 		public void dragGestureRecognized(DragGestureEvent dge) {
 			Transferable t = new TransferableMacroButton(MacroButton.this);
 			dge.startDrag(cursor, t, dsListener);
@@ -276,24 +282,29 @@ public class MacroButton extends JButton implements MouseListener {
 
 	private class DSListener implements DragSourceListener {
 
+		@Override
 		public void dragEnter(DragSourceDragEvent event) {
 			//System.out.println("TMB: drag enter");
 			//DragSourceContext context = event.getDragSourceContext();
 			//context.getComponent()
 		}
 
+		@Override
 		public void dragOver(DragSourceDragEvent event) {
 			//System.out.println("TMB: drag over");
 		}
 
+		@Override
 		public void dropActionChanged(DragSourceDragEvent event) {
 			//System.out.println("TMB: drop action changed");
 		}
 
+		@Override
 		public void dragExit(DragSourceEvent event) {
 			//System.out.println("TMB: drag exit");
 		}
 
+		@Override
 		public void dragDropEnd(DragSourceDropEvent event) {
 			//System.out.println("TMB: drag drop end");
 			// js commented out for testing - TabletopTool.getFrame().updateSelectionPanel();

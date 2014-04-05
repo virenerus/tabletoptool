@@ -113,6 +113,7 @@ public class VisibleAreaSegment implements Comparable<VisibleAreaSegment> {
 
 	////
 	// COMPARABLE
+	@Override
 	public int compareTo(VisibleAreaSegment o) {
 		if (o != this) {
 			double odist = o.getDistanceFromOrigin();

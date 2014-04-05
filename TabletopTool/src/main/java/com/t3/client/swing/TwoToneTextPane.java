@@ -205,7 +205,8 @@ public class TwoToneTextPane extends JTextPane {
     /**
      * @see javax.swing.text.StyledEditorKit#getViewFactory()
      */
-    public ViewFactory getViewFactory() {
+    @Override
+	public ViewFactory getViewFactory() {
       return defaultViewFactory;
     }
   }
@@ -226,7 +227,8 @@ public class TwoToneTextPane extends JTextPane {
     /**
      * @see javax.swing.text.ViewFactory#create(javax.swing.text.Element)
      */
-    public View create(Element elem) {
+    @Override
+	public View create(Element elem) {
       String kind = elem.getName();
       if (kind != null) {
         if (kind.equals(AbstractDocument.ContentElementName)) {
@@ -348,7 +350,8 @@ public class TwoToneTextPane extends JTextPane {
      * 
      * @see javax.swing.text.GlyphView.GlyphPainter#getSpan(javax.swing.text.GlyphView, int, int, javax.swing.text.TabExpander, float)
      */
-    public float getSpan(GlyphView v, int p0, int p1, TabExpander e, float x) {
+    @Override
+	public float getSpan(GlyphView v, int p0, int p1, TabExpander e, float x) {
       sync(v);
       Segment text = getText(v, p0, p1);
       int width = Utilities.getTabbedTextWidth(text, metrics, (int) x, e, p0);
@@ -359,7 +362,8 @@ public class TwoToneTextPane extends JTextPane {
     /**
      * @see javax.swing.text.GlyphView.GlyphPainter#getHeight(javax.swing.text.GlyphView)
      */
-    public float getHeight(GlyphView v) {
+    @Override
+	public float getHeight(GlyphView v) {
       sync(v);
       return metrics.getHeight() + VERTICAL_OFFSET;
     }
@@ -370,7 +374,8 @@ public class TwoToneTextPane extends JTextPane {
      * 
      * @see javax.swing.text.GlyphView.GlyphPainter#getAscent(javax.swing.text.GlyphView)
      */
-    public float getAscent(GlyphView v) {
+    @Override
+	public float getAscent(GlyphView v) {
       sync(v);
       return metrics.getAscent();
     }
@@ -381,7 +386,8 @@ public class TwoToneTextPane extends JTextPane {
      * 
      * @see javax.swing.text.GlyphView.GlyphPainter#getDescent(javax.swing.text.GlyphView)
      */
-    public float getDescent(GlyphView v) {
+    @Override
+	public float getDescent(GlyphView v) {
       sync(v);
       return metrics.getDescent() + VERTICAL_OFFSET;
     }
@@ -389,7 +395,8 @@ public class TwoToneTextPane extends JTextPane {
     /**
      * @see javax.swing.text.GlyphView.GlyphPainter#modelToView(javax.swing.text.GlyphView, int, javax.swing.text.Position.Bias, java.awt.Shape)
      */
-    public Shape modelToView(GlyphView v, int pos, Position.Bias bias,
+    @Override
+	public Shape modelToView(GlyphView v, int pos, Position.Bias bias,
         Shape a) throws BadLocationException {
       
       sync(v);
@@ -422,7 +429,8 @@ public class TwoToneTextPane extends JTextPane {
      * @see View#viewToModel(float, float, java.awt.Shape, javax.swing.text.Position.Bias[])
      * @see javax.swing.text.GlyphView.GlyphPainter#viewToModel(javax.swing.text.GlyphView, float, float, java.awt.Shape, javax.swing.text.Position.Bias[])
      */
-    public int viewToModel(GlyphView v, float x, float y, Shape a, 
+    @Override
+	public int viewToModel(GlyphView v, float x, float y, Shape a, 
         Position.Bias[] biasReturn) {
       
       sync(v);
@@ -454,7 +462,8 @@ public class TwoToneTextPane extends JTextPane {
      * @see View#breakView
      * @see javax.swing.text.GlyphView.GlyphPainter#getBoundedPosition(javax.swing.text.GlyphView, int, float, float)
      */
-    public int getBoundedPosition(GlyphView v, int p0, float x, float len) {
+    @Override
+	public int getBoundedPosition(GlyphView v, int p0, float x, float len) {
       sync(v);
       TabExpander expander = v.getTabExpander();
       Segment s = v.getText(p0, v.getEndOffset());
@@ -490,7 +499,8 @@ public class TwoToneTextPane extends JTextPane {
      *  
      * @see javax.swing.text.GlyphView.GlyphPainter#paint(javax.swing.text.GlyphView, java.awt.Graphics, java.awt.Shape, int, int)
      */
-    public void paint(GlyphView v, Graphics g, Shape a, int p0, int p1) {
+    @Override
+	public void paint(GlyphView v, Graphics g, Shape a, int p0, int p1) {
       sync(v);
       Segment text;
       TabExpander expander = v.getTabExpander();

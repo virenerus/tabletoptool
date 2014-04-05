@@ -26,22 +26,26 @@ public abstract class AbstractPoint implements Cloneable {
         y += dy;
     }
     
-    public boolean equals(Object o) {
+    @Override
+	public boolean equals(Object o) {
         if (!(o instanceof AbstractPoint)) return false;
     	AbstractPoint p = (AbstractPoint) o;
     	
     	return p.x == x && p.y == y;
     }
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
     	return new String(x+"-"+y).hashCode();
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return "[" + x + "," + y + "]";
     }
     
-    public AbstractPoint clone() {
+    @Override
+	public AbstractPoint clone() {
     	try {
     	    return (AbstractPoint) super.clone();
     	} catch (CloneNotSupportedException e) {

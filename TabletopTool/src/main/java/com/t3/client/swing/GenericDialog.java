@@ -52,6 +52,7 @@ public class GenericDialog extends JDialog {
 		// ESCAPE cancels the window without committing
 		this.panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cancel");
 		this.panel.getActionMap().put("cancel", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeDialog();
 			}

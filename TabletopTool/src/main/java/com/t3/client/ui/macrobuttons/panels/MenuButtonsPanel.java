@@ -46,11 +46,13 @@ public class MenuButtonsPanel extends JPanel {
 	private void addSelectAllButton() {
 		ImageIcon i = new ImageIcon(AppStyle.arrowOut);
 		JButton label = new JButton(i) {
+			@Override
 			public Insets getInsets() {
 				return new Insets(2, 2, 2, 2);
 			}
 		};
 		label.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 				renderer.selectTokens(new Rectangle(renderer.getX(), renderer.getY(), renderer.getWidth(), renderer.getHeight()));
@@ -64,11 +66,13 @@ public class MenuButtonsPanel extends JPanel {
 	private void addDeselectAllButton() {
 		ImageIcon i3 = new ImageIcon(AppStyle.arrowIn);
 		JButton label3 = new JButton(i3) {
+			@Override
 			public Insets getInsets() {
 				return new Insets(2, 2, 2, 2);
 			}
 		};
 		label3.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 				renderer.clearSelectedTokens();
@@ -82,11 +86,13 @@ public class MenuButtonsPanel extends JPanel {
 	private void addRevertToPreviousButton() {
 		ImageIcon i1 = new ImageIcon(AppStyle.arrowRotateClockwise);
 		JButton label1 = new JButton(i1) {
+			@Override
 			public Insets getInsets() {
 				return new Insets(2, 2, 2, 2);
 			}
 		};
 		label1.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				TabletopTool.getFrame().getCurrentZoneRenderer().undoSelectToken();
 			}
@@ -98,10 +104,12 @@ public class MenuButtonsPanel extends JPanel {
 	
 	private void addSpacer() {
 		JPanel panel = new JPanel() {
+			@Override
 			public Dimension getPreferredSize() {
 				return new Dimension(10, 10);
 			}
 			
+			@Override
 			public Insets getInsets() {
 				return new Insets(0, 0, 0, 0);
 			}
@@ -112,11 +120,13 @@ public class MenuButtonsPanel extends JPanel {
 	private void addSelectNextButton() {
 		ImageIcon i1 = new ImageIcon(AppStyle.arrowRight);
 		JButton label1 = new JButton(i1) {
+			@Override
 			public Insets getInsets() {
 				return new Insets(2, 2, 2, 2);
 			}
 		};
 		label1.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				TabletopTool.getFrame().getCurrentZoneRenderer().cycleSelectedToken(1);
 			}
@@ -129,11 +139,13 @@ public class MenuButtonsPanel extends JPanel {
 	private void addSelectPreviousButton() {
 		ImageIcon i1 = new ImageIcon(AppStyle.arrowLeft);
 		JButton label1 = new JButton(i1) {
+			@Override
 			public Insets getInsets() {
 				return new Insets(2, 2, 2, 2);
 			}
 		};
 		label1.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseReleased(MouseEvent event) {
 				TabletopTool.getFrame().getCurrentZoneRenderer().cycleSelectedToken(-1);
 			}

@@ -33,16 +33,16 @@ public class NetworkSerializer {
 		 try {
 			Kryo kryo = kryoPool.borrowObject();
 	    	ByteArrayOutputStream bout = new ByteArrayOutputStream();
-	    	Output kryoOut=new Output(new DeflaterOutputStream(bout));
-	    	//write Message
-	    	kryo.writeClassAndObject(kryoOut, method);
-	    	//write Parameters
-	    	for(Object p:parameters) {
-	    		kryo.writeClassAndObject(kryoOut, p);
-	    		//System.out.println(p.getClass().getName());
-	    		//System.out.println(p.toString());
+	    	try(Output kryoOut=new Output(new DeflaterOutputStream(bout))) {
+		    	//write Message
+		    	kryo.writeClassAndObject(kryoOut, method);
+		    	//write Parameters
+		    	for(Object p:parameters) {
+		    		kryo.writeClassAndObject(kryoOut, p);
+		    		//System.out.println(p.getClass().getName());
+		    		//System.out.println(p.toString());
+		    	}
 	    	}
-	    	kryoOut.close();
 	    	kryoPool.returnObject(kryo);
 	    	return bout.toByteArray();
 	 	} catch (Exception e) {

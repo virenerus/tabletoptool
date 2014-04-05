@@ -32,6 +32,7 @@ public class DocCreator {
 			final CompilationUnit cu = (CompilationUnit) parser.createAST(new NullProgressMonitor());
 			
 			cu.accept(new ASTVisitor() {
+				@Override
 				public boolean visit(MethodDeclaration m) {
 					if(!m.isConstructor() && 
 							!m.getName().getIdentifier().equals("getVariableName") &&

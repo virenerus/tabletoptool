@@ -113,6 +113,7 @@ public class AboutDialog extends JDialog {
 			okButton = new JButton();
 			okButton.setText("OK");
 			okButton.addActionListener(new java.awt.event.ActionListener() {
+				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					setVisible(false);
 				}

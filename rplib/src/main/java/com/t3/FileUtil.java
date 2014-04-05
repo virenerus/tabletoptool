@@ -131,14 +131,8 @@ public class FileUtil {
 	}
 
 	public static byte[] getBytes(URL url) throws IOException {
-		InputStream is = null;
-		try {
-			is = url.openStream();
+		try(InputStream is = url.openStream()){
 			return getBytes(is);
-		} finally {
-			if (is != null) {
-				is.close();
-			}
 		}
 	}
 
@@ -301,19 +295,18 @@ public class FileUtil {
 		if (r == null) {
 			throw new IllegalArgumentException("Reader cannot be null");
 		}
-		StringWriter sw = new StringWriter(10 * 1024);
-
-		char[] c = new char[4096];
-		while (true) {
-			int read = r.read(c);
-
-			if (read == -1) {
-				break;
+		try(StringWriter sw = new StringWriter(10 * 1024)) {
+			char[] c = new char[4096];
+			while (true) {
+				int read = r.read(c);
+	
+				if (read == -1) {
+					break;
+				}
+				sw.write(c, 0, read);
 			}
-			sw.write(c, 0, read);
+			return sw.toString();
 		}
-		sw.close();
-		return sw.toString();
 	}
 
 	public static void writeBytes(File file, byte[] data) throws IOException {
@@ -395,9 +388,9 @@ public class FileUtil {
 				File file = new File(path);
 				file.getParentFile().mkdirs();
 
-				OutputStream out = new FileOutputStream(file);
+				try(OutputStream out = new FileOutputStream(file)) {
 				copyWithoutClose(in, out);
-				out.close();
+				}
 				in.closeEntry();
 			}
 		} finally {

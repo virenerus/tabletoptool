@@ -43,12 +43,11 @@ public class WebDownloader {
 		// Send the request.
 		conn.connect();
 
-		InputStream in = null;
-		ByteArrayOutputStream out = null;
-		try {
-			in = conn.getInputStream();
-			out = new ByteArrayOutputStream();
-
+		
+		try (
+			InputStream in = conn.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+		) {
 			int buflen = 1024 * 30;
 			int bytesRead = 0;
 			byte[] buf = new byte[buflen];
@@ -57,11 +56,9 @@ public class WebDownloader {
 				bytesRead += nRead;
 				out.write(buf, 0, nRead);
 			}
-		} finally {
-			IOUtils.closeQuietly(in);
-			IOUtils.closeQuietly(out);
+			return out != null ? new String(out.toByteArray()) : null;
 		}
-		return out != null ? new String(out.toByteArray()) : null;
+		
 	}
 
 	public static void main(String[] args) throws Exception {

@@ -148,12 +148,14 @@ public class HTMLFrame extends DockableFrame implements HTMLPanelContainer {
 		panel.updateContents(html, false);
 	}
 
+	@Override
 	public void closeRequest() {
 		TabletopTool.getFrame().getDockingManager().hideFrame(getKey());
 		setVisible(false);
 		panel.flush();
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e instanceof HTMLPane.FormActionEvent) {
 			HTMLPane.FormActionEvent fae = (HTMLPane.FormActionEvent) e;

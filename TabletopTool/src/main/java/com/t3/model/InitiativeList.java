@@ -467,7 +467,8 @@ public class InitiativeList implements Serializable {
         startUnitOfWork();
         TokenInitiative currentInitiative = getTokenInitiative(getCurrent()); // Save the currently selected initiative
         Collections.sort(tokens, new Comparator<TokenInitiative>() {
-            public int compare(TokenInitiative o1, TokenInitiative o2) {
+            @Override
+			public int compare(TokenInitiative o1, TokenInitiative o2) {
                 
                 // Get a number, string, or null for first parameter
                 Object one = null;

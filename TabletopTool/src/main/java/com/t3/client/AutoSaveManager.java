@@ -76,6 +76,7 @@ public class AutoSaveManager implements ActionListener {
 			autoSaveTimer.stop();
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Don't autosave if we don't "own" the campaign
 		if (!TabletopTool.isHostingServer() && !TabletopTool.isPersonalServer()) {
@@ -103,6 +104,7 @@ public class AutoSaveManager implements ActionListener {
 			// Now that we have a copy of the model, save that one
 			// TODO: Replace this with a swing worker
 			new Thread(null, new Runnable() {
+				@Override
 				public void run() {
 					AppState.setIsSaving(true);
 					pause();

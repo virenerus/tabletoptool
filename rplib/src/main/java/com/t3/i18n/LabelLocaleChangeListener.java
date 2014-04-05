@@ -28,6 +28,7 @@ public class LabelLocaleChangeListener implements LocaleChangeListener {
 	
 	////
 	// LOCALE CHANGE LISTENER
+	@Override
 	public void localeChanged(Locale locale) {
 		label.setText(I18NManager.getText(key));
 	}

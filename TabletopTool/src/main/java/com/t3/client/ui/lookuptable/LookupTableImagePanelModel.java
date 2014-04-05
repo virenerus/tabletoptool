@@ -39,14 +39,17 @@ public class LookupTableImagePanelModel implements ImagePanelModel {
 		imageObservers = observers;
 	}
 
+	@Override
 	public int getImageCount() {
 		return getFilteredLookupTable().size();
 	}
 
+	@Override
 	public Transferable getTransferable(int arg0) {
 		return null;
 	}
 
+	@Override
 	public Object getID(int index) {
 		if (index < 0) {
 			return null;
@@ -55,6 +58,7 @@ public class LookupTableImagePanelModel implements ImagePanelModel {
 		return getLookupTableIDList().get(index);
 	}
 
+	@Override
 	public Image getImage(Object id) {
 
 		LookupTable table = getFilteredLookupTable().get(id);
@@ -71,10 +75,12 @@ public class LookupTableImagePanelModel implements ImagePanelModel {
 		return image;
 	}
 
+	@Override
 	public Image getImage(int index) {
 		return getImage(getID(index));
 	}
 
+	@Override
 	public String getCaption(int index) {
 		if (index < 0) {
 			return "";
@@ -85,10 +91,12 @@ public class LookupTableImagePanelModel implements ImagePanelModel {
 		return table.getName();
 	}
 
+	@Override
 	public Paint getBackground(int arg0) {
 		return null;
 	}
 
+	@Override
 	public Image[] getDecorations(int arg0) {
 		return null;
 	}

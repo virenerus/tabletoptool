@@ -100,6 +100,7 @@ public class ConnectionInfoDialog extends JDialog {
 	 */
 	private void bindOKButtonActions(JButton okButton) {
 		okButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				setVisible(false);
 			}
@@ -107,6 +108,7 @@ public class ConnectionInfoDialog extends JDialog {
 	}
 
 	private class ExternalAddressFinder implements Runnable {
+		@Override
 		public void run() {
 			String address = "Unknown";
 			try {
@@ -116,6 +118,7 @@ public class ConnectionInfoDialog extends JDialog {
 			}
 			final String addy = address;
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					externalAddressLabel.setText(addy);
 				}

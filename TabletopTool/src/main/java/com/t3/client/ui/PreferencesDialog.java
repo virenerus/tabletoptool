@@ -61,14 +61,17 @@ public class PreferencesDialog extends JDialog {
 			comp = tf;
 		}
 
+		@Override
 		public void changedUpdate(DocumentEvent e) {
 			updateValue();
 		}
 
+		@Override
 		public void insertUpdate(DocumentEvent e) {
 			updateValue();
 		}
 
+		@Override
 		public void removeUpdate(DocumentEvent e) {
 			updateValue();
 		}
@@ -89,6 +92,7 @@ public class PreferencesDialog extends JDialog {
 	 * @author frank
 	 */
 	private abstract class ChangeListenerProxy implements ChangeListener {
+		@Override
 		public void stateChanged(ChangeEvent ce) {
 			JSpinner sp = (JSpinner) ce.getSource();
 			int value = (Integer) sp.getValue();
@@ -180,6 +184,7 @@ public class PreferencesDialog extends JDialog {
 		JButton okButton = (JButton) panel.getButton("okButton");
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				setVisible(false);
 				dispose();
@@ -251,12 +256,14 @@ public class PreferencesDialog extends JDialog {
 
 		// And keep it updated
 		facingFaceEdges.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setFaceEdge(facingFaceEdges.isSelected());
 				updateFacings();
 			}
 		});
 		facingFaceVertices.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setFaceVertex(facingFaceVertices.isSelected());
 				updateFacings();
@@ -264,12 +271,14 @@ public class PreferencesDialog extends JDialog {
 		});
 
 		toolTipInlineRolls.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setUseToolTipForInlineRoll(toolTipInlineRolls.isSelected());
 			}
 		});
 
 		suppressToolTipsMacroLinks.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setSuppressToolTipsForMacroLinks(suppressToolTipsMacroLinks.isSelected());
 			}
@@ -291,6 +300,7 @@ public class PreferencesDialog extends JDialog {
 		});
 
 		chatNotificationColor.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setChatNotificationColor(chatNotificationColor.getColor());
 				TabletopTool.getFrame().setChatTypingLabelColor(AppPreferences.getChatNotificationColor());
@@ -298,12 +308,14 @@ public class PreferencesDialog extends JDialog {
 		});
 
 		trustedOuputForeground.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setTrustedPrefixFG(trustedOuputForeground.getColor());
 				TabletopTool.getFrame().getCommandPanel().setTrustedMacroPrefixColors(AppPreferences.getTrustedPrefixFG(), AppPreferences.getTrustedPrefixBG());
 			}
 		});
 		trustedOuputBackground.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setTrustedPrefixBG(trustedOuputBackground.getColor());
 				TabletopTool.getFrame().getCommandPanel().setTrustedMacroPrefixColors(AppPreferences.getTrustedPrefixFG(), AppPreferences.getTrustedPrefixBG());
@@ -337,32 +349,38 @@ public class PreferencesDialog extends JDialog {
 		});
 
 		allowPlayerMacroEditsDefault.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setAllowPlayerMacroEditsDefault(allowPlayerMacroEditsDefault.isSelected());
 			}
 		});
 
 		showAvatarInChat.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setShowAvatarInChat(showAvatarInChat.isSelected());
 			}
 		});
 		saveReminderCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setSaveReminder(saveReminderCheckBox.isSelected());
 			}
 		});
 		fillSelectionCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setFillSelectionBox(fillSelectionCheckBox.isSelected());
 			}
 		});
 		showDialogOnNewToken.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setShowDialogOnNewToken(showDialogOnNewToken.isSelected());
 			}
 		});
 		autoSaveSpinner.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent ce) {
 				int newInterval = (Integer) autoSaveSpinner.getValue();
 				AppPreferences.setAutoSaveIncrement(newInterval);
@@ -370,56 +388,67 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 		newMapsHaveFOWCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setNewMapsHaveFOW(newMapsHaveFOWCheckBox.isSelected());
 			}
 		});
 		tokensPopupWarningWhenDeletedCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setTokensWarnWhenDeleted(tokensPopupWarningWhenDeletedCheckBox.isSelected());
 			}
 		});
 		tokensStartSnapToGridCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setTokensStartSnapToGrid(tokensStartSnapToGridCheckBox.isSelected());
 			}
 		});
 		newMapsVisibleCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setNewMapsVisible(newMapsVisibleCheckBox.isSelected());
 			}
 		});
 		newTokensVisibleCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setNewTokensVisible(newTokensVisibleCheckBox.isSelected());
 			}
 		});
 		stampsStartFreeSizeCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setObjectsStartFreesize(stampsStartFreeSizeCheckBox.isSelected());
 			}
 		});
 		tokensStartFreeSizeCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setTokensStartFreesize(tokensStartFreeSizeCheckBox.isSelected());
 			}
 		});
 		stampsStartSnapToGridCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setObjectsStartSnapToGrid(stampsStartSnapToGridCheckBox.isSelected());
 			}
 		});
 		showStatSheetCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setShowStatSheet(showStatSheetCheckBox.isSelected());
 			}
 		});
 		backgroundsStartFreeSizeCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setBackgroundsStartFreesize(backgroundsStartFreeSizeCheckBox.isSelected());
 			}
 		});
 		backgroundsStartSnapToGridCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setBackgroundsStartSnapToGrid(backgroundsStartSnapToGridCheckBox.isSelected());
 			}
@@ -450,6 +479,7 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 		haloLineWidthSpinner.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent ce) {
 				AppPreferences.setHaloLineWidth((Integer) haloLineWidthSpinner.getValue());
 			}
@@ -487,27 +517,32 @@ public class PreferencesDialog extends JDialog {
 			}
 		});
 		useHaloColorAsVisionOverlayCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setUseHaloColorOnVisionOverlay(useHaloColorAsVisionOverlayCheckBox.isSelected());
 			}
 		});
 		autoRevealVisionOnGMMoveCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setAutoRevealVisionOnGMMovement(autoRevealVisionOnGMMoveCheckBox.isSelected());
 			}
 		});
 		showSmiliesCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setShowSmilies(showSmiliesCheckBox.isSelected());
 			}
 		});
 		playSystemSoundCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setPlaySystemSounds(playSystemSoundCheckBox.isSelected());
 			}
 		});
 
 		playSystemSoundOnlyWhenNotFocusedCheckBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setPlaySystemSoundsOnlyWhenNotFocused(playSystemSoundOnlyWhenNotFocusedCheckBox.isSelected());
 			}
@@ -521,31 +556,37 @@ public class PreferencesDialog extends JDialog {
 		});
 
 		fitGMView.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setFitGMView(fitGMView.isSelected());
 			}
 		});
 		hideNPCs.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setInitHideNpcs(hideNPCs.isSelected());
 			}
 		});
 		ownerPermissions.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setInitOwnerPermissions(ownerPermissions.isSelected());
 			}
 		});
 		lockMovement.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setInitLockMovement(lockMovement.isSelected());
 			}
 		});
 		showInitGainMessage.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setShowInitGainMessage(showInitGainMessage.isSelected());
 			}
 		});
 		chatNotificationShowBackground.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppPreferences.setChatNotificationShowBackground(chatNotificationShowBackground.isSelected());
 			}
@@ -558,6 +599,7 @@ public class PreferencesDialog extends JDialog {
 		gridTypeModel.setSelectedItem(AppPreferences.getDefaultGridType());
 		defaultGridTypeCombo.setModel(gridTypeModel);
 		defaultGridTypeCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AppPreferences.setDefaultGridType((String) defaultGridTypeCombo.getSelectedItem());
 			}
@@ -569,6 +611,7 @@ public class PreferencesDialog extends JDialog {
 		tokenNumModel.setSelectedItem(AppPreferences.getDuplicateTokenNumber());
 		duplicateTokenCombo.setModel(tokenNumModel);
 		duplicateTokenCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AppPreferences.setDuplicateTokenNumber((String) duplicateTokenCombo.getSelectedItem());
 			}
@@ -580,6 +623,7 @@ public class PreferencesDialog extends JDialog {
 		tokenNameModel.setSelectedItem(AppPreferences.getNewTokenNaming());
 		tokenNamingCombo.setModel(tokenNameModel);
 		tokenNamingCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AppPreferences.setNewTokenNaming((String) tokenNamingCombo.getSelectedItem());
 			}
@@ -592,6 +636,7 @@ public class PreferencesDialog extends JDialog {
 		showNumModel.setSelectedItem(AppPreferences.getTokenNumberDisplay());
 		showNumberingCombo.setModel(showNumModel);
 		showNumberingCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AppPreferences.setTokenNumberDisplay((String) showNumberingCombo.getSelectedItem());
 			}
@@ -606,6 +651,7 @@ public class PreferencesDialog extends JDialog {
 
 		movementMetricCombo.setModel(movementMetricModel);
 		movementMetricCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AppPreferences.setMovementMetric((WalkerMetric) movementMetricCombo.getSelectedItem());
 			}

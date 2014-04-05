@@ -130,6 +130,7 @@ public class AdjustGridDialog extends JDialog {
 
 	public void initialize(final int gridSize, final int gridOffsetX, final int gridOffsetY, final Color gridColor) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				gridSizeTextField.setText(Integer.toString(gridSize));
 				offsetXTextField.setText(Integer.toString(gridOffsetX));
@@ -183,6 +184,7 @@ public class AdjustGridDialog extends JDialog {
 	}
 
 	private class AdjustGridPanelChangeListener implements PropertyChangeListener {
+		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			String name = evt.getPropertyName();
 			Object value = evt.getNewValue();
@@ -228,6 +230,7 @@ public class AdjustGridDialog extends JDialog {
 	}
 
 	private class UpdateAdjustGridPanelHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			updateAdjustGridPanel();
 		}
@@ -240,9 +243,11 @@ public class AdjustGridDialog extends JDialog {
 			textComponent = component;
 		}
 
+		@Override
 		public void focusGained(FocusEvent e) {
 		}
 
+		@Override
 		public void focusLost(FocusEvent e) {
 			updateAdjustGridPanel();
 		}
@@ -255,6 +260,7 @@ public class AdjustGridDialog extends JDialog {
 			putValue(Action.NAME, "OK");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			isOK = true;
 			setVisible(false);
@@ -267,6 +273,7 @@ public class AdjustGridDialog extends JDialog {
 			putValue(Action.NAME, "Cancel");
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			isOK = false;
 			setVisible(false);
@@ -275,6 +282,7 @@ public class AdjustGridDialog extends JDialog {
 	}
 
 	private class ColorChangeAction extends AbstractAction {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Color color = colorWell.getColor();
 			setGridColor(color);
@@ -282,6 +290,7 @@ public class AdjustGridDialog extends JDialog {
 	}
 
 	private class ZoomChangeListener implements ChangeListener {
+		@Override
 		public void stateChanged(ChangeEvent e) {
 			adjustGridPanel.setZoomIndex(zoomSlider.getValue());
 		}

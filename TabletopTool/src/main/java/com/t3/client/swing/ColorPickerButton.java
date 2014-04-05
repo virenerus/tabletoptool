@@ -38,6 +38,7 @@ public class ColorPickerButton extends JComponent {
 		
 		addMouseListener(new MouseAdapter(){
 			
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 	            Color oldColor = color;
@@ -57,6 +58,7 @@ public class ColorPickerButton extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
+	@Override
 	protected void paintComponent(Graphics g) {
 
 		Dimension mySize = getSize();
@@ -72,6 +74,7 @@ public class ColorPickerButton extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#getMinimumSize()
 	 */
+	@Override
 	public Dimension getMinimumSize() {
 		return new Dimension(16, 16);
 	}
@@ -79,6 +82,7 @@ public class ColorPickerButton extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#getPreferredSize()
 	 */
+	@Override
 	public Dimension getPreferredSize() {
 		return getMinimumSize();
 	}
@@ -86,6 +90,7 @@ public class ColorPickerButton extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#getMaximumSize()
 	 */
+	@Override
 	public Dimension getMaximumSize() {
 		return getMinimumSize();
 	}

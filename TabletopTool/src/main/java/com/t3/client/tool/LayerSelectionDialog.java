@@ -68,6 +68,7 @@ public class LayerSelectionDialog extends JPanel {
 			list.setModel(model);
 			list.addListSelectionListener(new ListSelectionListener() {
 
+				@Override
 				public void valueChanged(ListSelectionEvent e) {
 					if (e.getValueIsAdjusting()) {
 						return;

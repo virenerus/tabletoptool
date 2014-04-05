@@ -180,7 +180,8 @@ public class TaskPanel extends JPanel {
         if (toggleButton == null) {
             toggleButton = new JLabel(closeIcon);
             toggleButton.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
+                @Override
+				public void mouseClicked(MouseEvent e) {
                     toggleState();
                 }
             });

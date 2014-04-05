@@ -68,6 +68,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 		useIndividualFOW.setEnabled(prefs.getUseIndividualViews());
 		useIndividualViews.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (!useIndividualViews.isSelected()) {
 					useIndividualFOW.setSelected(false);
@@ -80,6 +81,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 		autoRevealOnMovement.setEnabled(prefs.getPlayersCanRevealVision());
 		playersCanRevealVision.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (!playersCanRevealVision.isSelected()) {
 					autoRevealOnMovement.setSelected(false);
@@ -100,6 +102,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 		movementMetricCombo.setModel(movementMetricModel);
 		movementMetricCombo.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				prefs.setMovementMetric((WalkerMetric) movementMetricCombo.getSelectedItem());
 			}
@@ -151,6 +154,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 	public void initOKButton() {
 		getOKButton().addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if (getPortTextField().getText().length() == 0) {
 					TabletopTool.showError("ServerDialog.error.port");
@@ -178,6 +182,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 	public void initCancelButton() {
 		getCancelButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				accepted = false;
 				dialog.closeDialog();
@@ -187,6 +192,7 @@ public class StartServerDialog extends AbeillePanel<StartServerDialogPreferences
 
 	public void initTestConnectionButton() {
 		getNetworkingHelpButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// We don't have a good, server-side way of testing any more.
 				boolean ok;

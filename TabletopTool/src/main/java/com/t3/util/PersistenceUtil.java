@@ -450,12 +450,8 @@ public class PersistenceUtil {
 		try {
 			thumb = null;
 			if (pakFile.hasFile(Token.FILE_THUMBNAIL)) {
-				InputStream is = null;
-				try {
-					is = pakFile.getFileAsInputStream(Token.FILE_THUMBNAIL);
+				try(InputStream is = pakFile.getFileAsInputStream(Token.FILE_THUMBNAIL)){
 					thumb = ImageIO.read(is);
-				} finally {
-					IOUtils.closeQuietly(is);
 				}
 			}
 		} finally {
@@ -572,9 +568,7 @@ public class PersistenceUtil {
 					String ext = asset.getImageExtension();
 					pathname = pathname + "." + (StringUtil.isEmpty(ext) ? "dat" : ext);
 					pathname = assetnameVersionManager.transform(pathname, campaignVersion);
-					InputStream is = null;
-					try {
-						is = pakFile.getFileAsInputStream(pathname);
+					try(InputStream is = pakFile.getFileAsInputStream(pathname)){
 						asset.setImage(IOUtils.toByteArray(is));
 					} catch (FileNotFoundException fnf) {
 						log.error("Image data for '" + pathname + "' not found?!", fnf);
@@ -582,8 +576,6 @@ public class PersistenceUtil {
 					} catch (Exception e) {
 						log.error("While reading image data for '" + pathname + "'", e);
 						continue;
-					} finally {
-						IOUtils.closeQuietly(is);
 					}
 				}
 				AssetManager.putAsset(asset);
@@ -640,11 +632,8 @@ public class PersistenceUtil {
 		if (!file.exists())
 			throw new FileNotFoundException();
 
-		FileInputStream in = new FileInputStream(file);
-		try {
+		try(FileInputStream in = new FileInputStream(file)) {
 			return loadCampaignProperties(in);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -734,11 +723,8 @@ public class PersistenceUtil {
 		if (!file.exists())
 			throw new FileNotFoundException();
 
-		FileInputStream in = new FileInputStream(file);
-		try {
+		try(FileInputStream in = new FileInputStream(file)) {
 			return loadMacro(in);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -798,11 +784,8 @@ public class PersistenceUtil {
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
-		FileInputStream in = new FileInputStream(file);
-		try {
+		try(FileInputStream in = new FileInputStream(file)) {
 			return loadMacroSet(in);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -865,11 +848,8 @@ public class PersistenceUtil {
 		if (!file.exists())
 			throw new FileNotFoundException();
 
-		FileInputStream in = new FileInputStream(file);
-		try {
+		try(FileInputStream in = new FileInputStream(file)) {
 			return loadTable(in);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 

@@ -91,6 +91,7 @@ public class UpdateRepoDialog extends JDialog {
 
 		AbstractButton btn = form.getButton("@okButton");
 		btn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				setStatus(JOptionPane.OK_OPTION);
 				UpdateRepoDialog.this.setVisible(false);
@@ -98,6 +99,7 @@ public class UpdateRepoDialog extends JDialog {
 		});
 		btn = form.getButton("@cancelButton");
 		btn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				setStatus(JOptionPane.CANCEL_OPTION);
 				UpdateRepoDialog.this.setVisible(false);

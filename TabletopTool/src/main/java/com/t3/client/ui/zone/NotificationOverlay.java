@@ -33,7 +33,8 @@ public class NotificationOverlay implements ZoneOverlay, Animatable {
         AnimationManager.addAnimatable(this);
     }
     
-    public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
+    @Override
+	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 
         int y = 15;
         for (EventDetail detail : eventList) {
@@ -65,7 +66,8 @@ public class NotificationOverlay implements ZoneOverlay, Animatable {
     
     ////
     // ANIMATABLE
-    public void animate() {
+    @Override
+	public void animate() {
 
         boolean requiresRepaint = false;
         while (eventList.size() > 0) {

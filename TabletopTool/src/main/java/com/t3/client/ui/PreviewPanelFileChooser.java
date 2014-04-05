@@ -46,6 +46,7 @@ public class PreviewPanelFileChooser extends JFileChooser {
 	
 	private class FileSystemSelectionHandler implements PropertyChangeListener {
 
+		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			File previewFile = getImageFileOfSelectedFile();
 			

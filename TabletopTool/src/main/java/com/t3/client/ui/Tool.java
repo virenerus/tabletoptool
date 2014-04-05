@@ -159,6 +159,7 @@ public abstract class Tool extends JToggleButton implements ActionListener, KeyL
 		/**
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			// This should probably go somewhere else like T3Frame...
 			// but it was just too easy to plop down here to resist =)
@@ -173,6 +174,7 @@ public abstract class Tool extends JToggleButton implements ActionListener, KeyL
 
 	////
 	// ACTION LISTENER
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (isSelected()) {
 			toolbox.setSelectedTool(Tool.this);
@@ -181,14 +183,17 @@ public abstract class Tool extends JToggleButton implements ActionListener, KeyL
 
 	////
 	// KEY LISTENER
+	@Override
 	public void keyPressed(KeyEvent e) {
 		keyDownSet.add(e.getKeyChar());
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 		keyDownSet.remove(e.getKeyChar());
 	}
 
+	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 }

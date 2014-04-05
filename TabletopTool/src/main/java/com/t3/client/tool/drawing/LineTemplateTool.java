@@ -261,6 +261,7 @@ public class LineTemplateTool extends RadiusTemplateTool implements PropertyChan
 	/**
 	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent aEvt) {
 		((LineTemplate) template).setDoubleWide(((Boolean) aEvt.getNewValue()).booleanValue());
 	}

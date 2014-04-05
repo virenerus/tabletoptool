@@ -69,12 +69,15 @@ public class MessagePanel extends JPanel {
 		textPane.setEditable(false);
 		textPane.setEditorKit(new MessagePanelEditorKit());
 		textPane.addComponentListener(new ComponentListener() {
+			@Override
 			public void componentHidden(ComponentEvent e) {
 			}
 
+			@Override
 			public void componentMoved(ComponentEvent e) {
 			}
 
+			@Override
 			public void componentResized(ComponentEvent e) {
 				// Jump to the bottom on new text
 				if (!TabletopTool.getFrame().getCommandPanel().getScrollLockButton().isSelected()) {
@@ -83,10 +86,12 @@ public class MessagePanel extends JPanel {
 				}
 			}
 
+			@Override
 			public void componentShown(ComponentEvent e) {
 			}
 		});
 		textPane.addHyperlinkListener(new HyperlinkListener() {
+			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 					if (e.getURL() != null) {
@@ -162,6 +167,7 @@ public class MessagePanel extends JPanel {
 
 	public void clearMessages() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				textPane.setText("<html><body id=\"body\"></body></html>");
 				((MessagePanelEditorKit) textPane.getEditorKit()).flush();
@@ -178,6 +184,7 @@ public class MessagePanel extends JPanel {
 
 	public void addMessage(final TextMessage message) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				String output = message.getMessage();
 				// Auto inline expansion for {HTTP|HTTPS} URLs

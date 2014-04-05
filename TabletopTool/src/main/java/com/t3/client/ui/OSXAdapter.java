@@ -190,6 +190,7 @@ public class OSXAdapter implements InvocationHandler {
 
 	// InvocationHandler implementation
 	// This is the entry point for our proxy object; it is called every time an ApplicationListener method is invoked
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (isCorrectMethod(method, args)) {
 			boolean handled = callTarget(args[0]);

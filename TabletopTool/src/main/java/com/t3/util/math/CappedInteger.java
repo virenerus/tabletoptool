@@ -41,6 +41,7 @@ public class CappedInteger {
 		this.min = Math.min(max,min);
 	}
 	
+	@Override
 	public String toString() {
 		return value+" in range ["+min+';'+max+']';
 	}

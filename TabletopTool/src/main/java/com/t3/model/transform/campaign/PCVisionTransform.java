@@ -17,6 +17,7 @@ public class PCVisionTransform implements ModelVersionTransformation {
 	private static final String searchFor = "<tokenType>PC";
 	private static final String subField = "<hasSight>";
 
+	@Override
 	public String transform(String xml) {
 		int index = 0;
 		int start = 0;

@@ -49,6 +49,7 @@ public abstract class AbstractDrawingTool extends DefaultTool implements ZoneOve
 
 	static {
 		layerSelectionDialog = new LayerSelectionDialog(new Zone.Layer[] { Zone.Layer.TOKEN, Zone.Layer.GM, Zone.Layer.OBJECT, Zone.Layer.BACKGROUND }, new LayerSelectionListener() {
+			@Override
 			public void layerSelected(Layer layer) {
 				selectedLayer = layer;
 			}
@@ -164,6 +165,7 @@ public abstract class AbstractDrawingTool extends DefaultTool implements ZoneOve
 		return zp;
 	}
 
+	@Override
 	public abstract void paintOverlay(ZoneRenderer renderer, Graphics2D g);
 
 	/**

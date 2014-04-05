@@ -61,6 +61,7 @@ public class MeasureTool extends DefaultTool implements ZoneOverlay {
 		return "tool.measure.instructions";
 	}
 
+	@Override
 	public void paintOverlay(ZoneRenderer renderer, Graphics2D g) {
 		if (walker == null && gridlessPath == null) {
 			return;
@@ -121,6 +122,7 @@ public class MeasureTool extends DefaultTool implements ZoneOverlay {
 		super.installKeystrokes(actionMap);
 
 		actionMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (walker == null && gridlessPath == null) {
 					return;

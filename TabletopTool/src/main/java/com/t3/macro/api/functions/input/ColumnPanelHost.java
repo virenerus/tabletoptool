@@ -68,6 +68,7 @@ public final class ColumnPanelHost extends JScrollPane {
 		}
 
 		// The Scrollable interface methods
+		@Override
 		public Dimension getPreferredScrollableViewportSize() {
 			Dimension d = cp.getPreferredSize();
 			if (d.height > maxHeight || (d.height > cp.getParent().getHeight() && cp.getParent().getHeight() > 0)) {
@@ -77,6 +78,7 @@ public final class ColumnPanelHost extends JScrollPane {
 			return d;
 		}
 
+		@Override
 		public int getScrollableBlockIncrement(Rectangle visRect, int orientation, int direction) {
 			int retval = visRect.height - 10;
 			if (retval < 0)
@@ -84,14 +86,17 @@ public final class ColumnPanelHost extends JScrollPane {
 			return retval;
 		}
 
+		@Override
 		public int getScrollableUnitIncrement(Rectangle visRect, int orientation, int direction) {
 			return scrollBarWidth;
 		}
 
+		@Override
 		public boolean getScrollableTracksViewportHeight() {
 			return false;
 		}
 
+		@Override
 		public boolean getScrollableTracksViewportWidth() {
 			return false;
 		}

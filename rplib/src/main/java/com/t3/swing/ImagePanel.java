@@ -361,28 +361,34 @@ public class ImagePanel extends JComponent implements Scrollable, DragGestureLis
 	}
 
 	// SCROLLABLE
+	@Override
 	public Dimension getPreferredScrollableViewportSize() {
 		return getPreferredSize();
 	}
 
+	@Override
 	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return (gridSize + gridPadding) * 2;
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportHeight() {
         Dimension parentSize = SwingUtilities.getAncestorOfClass(JScrollPane.class, this).getSize();
 		return getPreferredSize().height < parentSize.height;
 	}
 
+	@Override
 	public boolean getScrollableTracksViewportWidth() {
 		return true;
 	}
 
+	@Override
 	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
 		return gridSize / 4;
 	}
 
 	// DRAG GESTURE LISTENER
+	@Override
 	public void dragGestureRecognized(DragGestureEvent dge) {
 
 		if (model == null || !isDraggingEnabled) {
@@ -408,29 +414,39 @@ public class ImagePanel extends JComponent implements Scrollable, DragGestureLis
 	}
 
 	// DRAG SOURCE LISTENER
+	@Override
 	public void dragDropEnd(DragSourceDropEvent dsde) {
         DragSource.getDefaultDragSource().removeDragSourceMotionListener(this);
 	}
 
+	@Override
 	public void dragEnter(DragSourceDragEvent dsde) {}
 
+	@Override
 	public void dragExit(DragSourceEvent dse) {}
 
+	@Override
 	public void dragOver(DragSourceDragEvent dsde) {}
 
+	@Override
 	public void dropActionChanged(DragSourceDragEvent dsde) {}
 
 	// DRAG SOURCE MOTION LISTENER
+	@Override
 	public void dragMouseMoved(DragSourceDragEvent dsde) {}
 
     // MOUSE LISTENER
-    public void mouseClicked(MouseEvent e) {}
+    @Override
+	public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {}
+    @Override
+	public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {}
+    @Override
+	public void mouseExited(MouseEvent e) {}
 
-    public void mousePressed(MouseEvent e) {
+    @Override
+	public void mousePressed(MouseEvent e) {
 
         if (selectionMode == SelectionMode.NONE) {
             return;
@@ -452,5 +468,6 @@ public class ImagePanel extends JComponent implements Scrollable, DragGestureLis
 		fireSelectionEvent();
     }
 
-    public void mouseReleased(MouseEvent e) {}
+    @Override
+	public void mouseReleased(MouseEvent e) {}
 }

@@ -121,6 +121,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 		final JTabbedPane tabPane = (JTabbedPane) getComponent("tabPane");
 
 		tabPane.getModel().addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Hmmm, this is fragile (breaks if the order changes) rethink this later
 				switch (tabPane.getSelectedIndex()) {
@@ -142,6 +143,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 	public void initLocalDirectoryButton() {
 		final JButton button = (JButton) getComponent("localDirectoryButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				FolderChooser folderChooser = new FolderChooser();
@@ -162,6 +164,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 	public void initInstallButton() {
 		JButton button = (JButton) getComponent("installButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				install = true;
 				if (commit()) {
@@ -174,6 +177,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 	public void initCancelButton() {
 		JButton button = (JButton) getComponent("cancelButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				close();
 			}
@@ -419,10 +423,12 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 			this.message = message;
 		}
 
+		@Override
 		public String getElementAt(int index) {
 			return message;
 		}
 
+		@Override
 		public int getSize() {
 			return 1;
 		}

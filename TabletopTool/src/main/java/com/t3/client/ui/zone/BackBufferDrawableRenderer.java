@@ -36,11 +36,13 @@ public class BackBufferDrawableRenderer implements DrawableRenderer {
 	private double lastScale;
 	private int lastDrawableListSize;
 	
+	@Override
 	public void flush() {
 		backBuffer = null;
 		lastViewport = null;
 	}
 	
+	@Override
 	public void renderDrawables(Graphics g, List<DrawnElement> drawableList, Rectangle viewport, double scale) {
 
 		// NOTHING TO DO

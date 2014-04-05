@@ -132,6 +132,7 @@ public class EditLookupTablePanel extends AbeillePanel<LookupTableTableModel> {
 		getTableNameTextField().requestFocusInWindow();
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				getTableDefinitionTable().setModel(createLookupTableModel(EditLookupTablePanel.this.lookupTable));
 				updateDefinitionTableRowHeights();
@@ -170,6 +171,7 @@ public class EditLookupTablePanel extends AbeillePanel<LookupTableTableModel> {
 	public void initCancelButton() {
 		JButton button = (JButton) getComponent("cancelButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				accepted = false;
 				close();
@@ -180,6 +182,7 @@ public class EditLookupTablePanel extends AbeillePanel<LookupTableTableModel> {
 	public void initAcceptButton() {
 		JButton button = (JButton) getComponent("acceptButton");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Commit any in-process edits
 				if (getTableDefinitionTable().isEditing()) {
@@ -281,6 +284,7 @@ public class EditLookupTablePanel extends AbeillePanel<LookupTableTableModel> {
 	private class ImageCellRenderer extends ImageAssetPanel implements TableCellRenderer {
 		private static final long serialVersionUID = 183503471819640825L;
 
+		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 			setImageId(value != null && ((String) value).length() > 0 ? new MD5Key((String) value) : null, EditLookupTablePanel.this);
 			return this;
@@ -299,14 +303,17 @@ public class EditLookupTablePanel extends AbeillePanel<LookupTableTableModel> {
 			this.cols = cols;
 		}
 
+		@Override
 		public int getColumnCount() {
 			return cols.length;
 		}
 
+		@Override
 		public int getRowCount() {
 			return rowList.size() + 1;
 		}
 
+		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			List<String> row = null;
 

@@ -31,6 +31,7 @@ public class MovementKey extends AbstractAction {
 		return "[" + dx + "," + dy + "]";
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		tool.handleKeyMove(dx, dy);
 	}

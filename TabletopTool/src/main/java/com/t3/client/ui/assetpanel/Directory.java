@@ -125,6 +125,7 @@ public class Directory {
 	}
 
 	public static final Comparator<Directory> COMPARATOR = new Comparator<Directory>() {
+		@Override
 		public int compare(Directory o1, Directory o2) {
 			String filename1 = o1.getPath().getName();
 			String filename2 = o2.getPath().getName();

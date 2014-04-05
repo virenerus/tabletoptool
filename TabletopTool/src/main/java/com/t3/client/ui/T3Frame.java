@@ -218,8 +218,10 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	private final DragImageGlassPane dragImageGlassPane = new DragImageGlassPane();
 
 	private class ChatTyperObserver implements Observer {
+		@Override
 		public void update(Observable o, Object arg) {
 			SwingUtilities.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					chatTypingPanel.invalidate();
 					chatTypingPanel.repaint();
@@ -866,6 +868,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 					final int x = e.getX();
 					final int y = e.getY();
 					EventQueue.invokeLater(new Runnable() {
+						@Override
 						public void run() {
 							Token firstToken = null;
 							Set<GUID> selectedTokenSet = new HashSet<GUID>();
@@ -897,6 +900,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 			}
 		});
 		TabletopTool.getEventDispatcher().addListener(new AppEventListener() {
+			@Override
 			public void handleAppEvent(AppEvent event) {
 				tokenPanelTreeModel.setZone((Zone) event.getNewValue());
 			}
@@ -938,6 +942,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 
 	private InitiativePanel createInitiativePanel() {
 		TabletopTool.getEventDispatcher().addListener(new AppEventListener() {
+			@Override
 			public void handleAppEvent(AppEvent event) {
 				initiativePanel.setZone((Zone) event.getNewValue());
 			}
@@ -976,6 +981,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 							putValue(NAME, I18N.getText("action.newMap"));
 						}
 
+						@Override
 						public void actionPerformed(ActionEvent e) {
 							createZone(panel.getAsset(index));
 						}
@@ -1013,6 +1019,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	public void setStatusMessage(final String message) {
 		statusMessage = message;
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				statusPanel.setStatus("  " + message);
 			}
@@ -1264,6 +1271,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	}
 
 	// APP EVENT LISTENER
+	@Override
 	public void handleAppEvent(AppEvent evt) {
 		if (evt.getId() != TabletopTool.ZoneEvent.Activated) {
 			return;
@@ -1295,9 +1303,11 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	}
 
 	// WINDOW LISTENER
+	@Override
 	public void windowOpened(WindowEvent e) {
 	}
 
+	@Override
 	public void windowClosing(WindowEvent e) {
 		if (!confirmClose()) {
 			return;
@@ -1325,6 +1335,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 				}
 				if (result == JOptionPane.YES_OPTION) {
 					final Observer callback = new Observer() {
+						@Override
 						public void update(java.util.Observable o, Object arg) {
 							if (arg instanceof String) {
 								// There was an error during the save -- don't terminate TabletopTool!
@@ -1357,25 +1368,31 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		setVisible(false);
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				dispose();
 			}
 		});
 	}
 
+	@Override
 	public void windowClosed(WindowEvent e) {
 		System.exit(0);
 	}
 
+	@Override
 	public void windowIconified(WindowEvent e) {
 	}
 
+	@Override
 	public void windowDeiconified(WindowEvent e) {
 	}
 
+	@Override
 	public void windowActivated(WindowEvent e) {
 	}
 
+	@Override
 	public void windowDeactivated(WindowEvent e) {
 	}
 
@@ -1419,6 +1436,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	private Timer newChatTimer() {
 		// Set up the Chat timer to listen for changes
 		Timer tm = new Timer(500, new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				long currentTime = System.currentTimeMillis();
 				LinkedMap<String,Long> chatTimers = chatTyperTimers.getChatTypers();
@@ -1593,6 +1611,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 			macroButton = button;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			macroButton.getProperties().executeMacro();
 		}

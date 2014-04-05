@@ -431,6 +431,7 @@ public class TransferableHelper extends TransferHandler {
 //				if (EventQueue.isDispatchThread())
 //					System.out.println("Yes, we are on the EDT already.");
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						TabletopTool.showWarning(message);
 					}

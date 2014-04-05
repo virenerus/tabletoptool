@@ -56,6 +56,7 @@ public class ImageChooserDialog extends JDialog {
 		SwingUtil.centerOver(this, getOwner());
 		
 		imageChooser.addImageSelectionListener(new SelectionListener() {
+			@Override
 			public void selectionPerformed(List<Object> selected) {
 				if (selected.size() < 0 || (Integer)selected.get(0) < 0) {
 					return;
@@ -86,6 +87,7 @@ public class ImageChooserDialog extends JDialog {
 	private JButton createOKButton() {
 		JButton button = new JButton("OK");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				setVisible(false);
 			}
@@ -97,6 +99,7 @@ public class ImageChooserDialog extends JDialog {
 	private JButton createCancelButton() {
 		JButton button = new JButton("Cancel");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				imageId = null;
 				setVisible(false);

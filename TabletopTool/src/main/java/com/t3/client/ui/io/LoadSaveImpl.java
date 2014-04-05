@@ -63,7 +63,9 @@ public class LoadSaveImpl {
 		UIBuilder form = new UIBuilder(TabletopTool.getFrame());
 		model = form.getTreeModel();
 		addToRegistry(new DataTemplate() {
+			@Override
 			public String getSubsystemName() { return "built-in"; }
+			@Override
 			public void prepareForDisplay() {
 				addDataObjects("Campaign/Properties/Token Properties",	 cmpgn.getTokenTypeMap());
 				addDataObjects("Campaign/Properties/Repositories", cmpgn.getRemoteRepositoryList());

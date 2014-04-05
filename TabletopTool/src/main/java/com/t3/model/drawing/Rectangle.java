@@ -29,6 +29,7 @@ public class Rectangle extends AbstractDrawing {
 		endPoint = new Point(endX, endY);
 	}
 
+	@Override
 	public Area getArea() {
 		return new Area(getBounds());
 	}
@@ -38,6 +39,7 @@ public class Rectangle extends AbstractDrawing {
 	 * 
 	 * @see com.t3.model.drawing.Drawable#getBounds()
 	 */
+	@Override
 	public java.awt.Rectangle getBounds() {
 		if (bounds == null) {
 			int x = Math.min(startPoint.x, endPoint.x);

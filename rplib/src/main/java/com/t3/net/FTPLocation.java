@@ -67,12 +67,14 @@ public class FTPLocation implements Location {
 		return username;
 	}
 
+	@Override
 	public void putContent(InputStream content) throws IOException {
         try (OutputStream os = new URL(composeFileLocation()).openConnection().getOutputStream()){
             FileUtil.copyWithClose(content, os);
         }
 	}
 
+	@Override
 	public InputStream getContent() throws IOException {
 
 		return new URL(composeFileLocation()).openConnection().getInputStream();

@@ -147,6 +147,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseClicked(MouseEvent event) {
 		// Do nothing
 	}
@@ -154,6 +155,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mousePressed(MouseEvent event) {
 		if (!anchorSet) {
 			anchor.x = event.getX();
@@ -171,6 +173,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 			KeyStroke k = KeyStroke.getKeyStroke("ENTER");
 			textPane.getKeymap().removeKeyStrokeBinding(k);
 			textPane.getKeymap().addActionForKeyStroke(k, new AbstractAction() {
+				@Override
 				public void actionPerformed(ActionEvent aE) {
 					completeDrawable();
 				}
@@ -181,6 +184,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseReleased(MouseEvent aE) {
 		// TODO Auto-generated method stub
 
@@ -189,6 +193,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseEntered(MouseEvent aE) {
 		// TODO Auto-generated method stub
 
@@ -197,6 +202,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseExited(MouseEvent aE) {
 		// TODO Auto-generated method stub
 
@@ -209,6 +215,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseMoved(MouseEvent event) {
 		if (!anchorSet)
 			return;
@@ -221,6 +228,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 	/**
 	 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
 	 */
+	@Override
 	public void mouseDragged(MouseEvent aE) {
 		// TODO Auto-generated method stub
 

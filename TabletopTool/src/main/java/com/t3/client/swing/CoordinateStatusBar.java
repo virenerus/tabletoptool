@@ -30,14 +30,16 @@ public class CoordinateStatusBar extends JLabel {
     /* (non-Javadoc)
      * @see javax.swing.JComponent#getMinimumSize()
      */
-    public Dimension getMinimumSize() {
+    @Override
+	public Dimension getMinimumSize() {
         return minSize;
     }
     
     /* (non-Javadoc)
      * @see javax.swing.JComponent#getPreferredSize()
      */
-    public Dimension getPreferredSize() {
+    @Override
+	public Dimension getPreferredSize() {
         return getMinimumSize();
     }
     

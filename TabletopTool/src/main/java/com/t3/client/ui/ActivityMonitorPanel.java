@@ -107,6 +107,7 @@ public class ActivityMonitorPanel extends JComponent implements ActivityListener
 	////
 	// ANIMATABLE
 
+	@Override
 	public void animate() {
 		long now = System.currentTimeMillis();
 		boolean turnOff = false;
@@ -134,6 +135,7 @@ public class ActivityMonitorPanel extends JComponent implements ActivityListener
 	 * @see com.t3.clientserver.ActivityListener#notify(com.t3.clientserver.ActivityListener.Direction,
 	 * com.t3.clientserver.ActivityListener.State, int, int)
 	 */
+	@Override
 	public void notify(Direction direction, State state, int total, int current) {
 		switch (direction) {
 		case Inbound:

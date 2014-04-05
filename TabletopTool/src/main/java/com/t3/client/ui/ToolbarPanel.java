@@ -108,6 +108,7 @@ public class ToolbarPanel extends JToolBar {
 		tbox.createTool(StampTool.class);
 
 		addPropertyChangeListener("orientation", new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				int orientation = (Integer) evt.getNewValue();
 
@@ -125,6 +126,7 @@ public class ToolbarPanel extends JToolBar {
 		final JButton button = new JButton(title, new ImageIcon(getClass().getClassLoader().getResource("com/t3/client/image/tool/btn-world.png")));
 		button.setToolTipText(title);
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ZoneSelectionPopup popup = new ZoneSelectionPopup();
 				popup.show(button, button.getSize().width - popup.getPreferredSize().width, 0);
@@ -200,6 +202,7 @@ public class ToolbarPanel extends JToolBar {
 		final JToggleButton button = new JToggleButton();
 		button.setToolTipText(tooltip);
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (button.isSelected()) {
 					panel.activate();
@@ -229,6 +232,7 @@ public class ToolbarPanel extends JToolBar {
 			setBorderPainted(false);
 
 			ToolbarPanel.this.addPropertyChangeListener("orientation", new PropertyChangeListener() {
+				@Override
 				public void propertyChange(PropertyChangeEvent evt) {
 					setOrientation((Integer) evt.getNewValue());
 				}
@@ -241,6 +245,7 @@ public class ToolbarPanel extends JToolBar {
 			}
 			final Tool tool = toolbox.createTool(toolClass);
 			tool.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (tool.isSelected()) {
 						currentTool = tool.getClass();

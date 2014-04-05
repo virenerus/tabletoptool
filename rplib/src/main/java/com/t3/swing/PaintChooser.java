@@ -107,6 +107,7 @@ public class PaintChooser extends JPanel {
 	private JButton createOKButton(final JDialog dialog) {
 		JButton button = new JButton("OK");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				dialog.setVisible(false);
 			}
@@ -118,6 +119,7 @@ public class PaintChooser extends JPanel {
 	private JButton createCancelButton(final JDialog dialog) {
 		JButton button = new JButton("Cancel");
 		button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				paint = null;
 				dialog.setVisible(false);
@@ -138,6 +140,7 @@ public class PaintChooser extends JPanel {
 
 		chooser.setPreviewPanel(new JLabel());
 		chooser.getSelectionModel().addChangeListener(new ChangeListener(){
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				setPaint(chooser.getColor());
 				
@@ -159,6 +162,7 @@ public class PaintChooser extends JPanel {
 
 		chooser.setPreviewPanel(new JLabel());
 		chooser.getSelectionModel().addChangeListener(new ChangeListener(){
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				setPaint(chooser.getColor());
 				
@@ -180,6 +184,7 @@ public class PaintChooser extends JPanel {
 
 		chooser.setPreviewPanel(new JLabel());
 		chooser.getSelectionModel().addChangeListener(new ChangeListener(){
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				setPaint(chooser.getColor());
 				

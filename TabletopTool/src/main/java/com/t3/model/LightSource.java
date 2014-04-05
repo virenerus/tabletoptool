@@ -207,6 +207,7 @@ public class LightSource implements Comparable<LightSource> {
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
+	@Override
 	public int compareTo(LightSource o) {
 		if (o != this) {
 			Integer nameLong = NumberUtils.toInt(name, Integer.MIN_VALUE);

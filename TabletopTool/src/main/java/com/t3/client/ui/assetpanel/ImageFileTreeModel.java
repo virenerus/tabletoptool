@@ -42,6 +42,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#getRoot()
 	 */
+	@Override
 	public Object getRoot() {
 		return root;
 	}
@@ -71,6 +72,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#getChild(java.lang.Object, int)
 	 */
+	@Override
 	public Object getChild(Object parent, int index) {
 		if (parent == root) {
 			return rootDirectories.get(index);
@@ -90,6 +92,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#getChildCount(java.lang.Object)
 	 */
+	@Override
 	public int getChildCount(Object parent) {
 		if (parent == root) {
 			return rootDirectories.size();
@@ -108,6 +111,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#isLeaf(java.lang.Object)
 	 */
+	@Override
 	public boolean isLeaf(Object node) {
 		// No leaves here
 		return getChildCount(node)==0;
@@ -118,6 +122,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#valueForPathChanged(javax.swing.tree.TreePath, java.lang.Object)
 	 */
+	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
 		// Nothing to do right now
 	}
@@ -127,6 +132,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#getIndexOfChild(java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public int getIndexOfChild(Object parent, Object child) {
 		if (parent == root) {
 			return rootDirectories.indexOf(child);
@@ -146,6 +152,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#addTreeModelListener(javax.swing.event.TreeModelListener)
 	 */
+	@Override
 	public void addTreeModelListener(TreeModelListener l) {
 		listenerList.add(l);
 	}
@@ -155,6 +162,7 @@ public class ImageFileTreeModel implements TreeModel {
 	 * 
 	 * @see javax.swing.tree.TreeModel#removeTreeModelListener(javax.swing.event.TreeModelListener)
 	 */
+	@Override
 	public void removeTreeModelListener(TreeModelListener l) {
 		listenerList.remove(l);
 	}

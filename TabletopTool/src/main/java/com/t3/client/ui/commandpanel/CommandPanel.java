@@ -217,6 +217,7 @@ public class CommandPanel extends JPanel implements Observer {
 				emotePopupButton.setFocusPainted(false);
 				emotePopupButton.setOpaque(false);
 				emotePopupButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						emotePopup.show(emotePopupButton, 0, 0);
 					}
@@ -261,6 +262,7 @@ public class CommandPanel extends JPanel implements Observer {
 			chatNotifyButton.addItemListener(new ItemListener() {
 				private ChatTypingListener ours = null;
 
+				@Override
 				public void itemStateChanged(ItemEvent e) {
 					if (e.getStateChange() == ItemEvent.SELECTED) {
 						if (ours != null)
@@ -393,6 +395,7 @@ public class CommandPanel extends JPanel implements Observer {
 
 			// Resize on demand
 			TabletopTool.getEventDispatcher().addListener(TabletopTool.PreferencesEvent.Changed, new AppEventListener() {
+				@Override
 				public void handleAppEvent(AppEvent event) {
 					commandTextArea.setFont(commandTextArea.getFont().deriveFont((float) AppPreferences.getFontSize()));
 					doLayout();
@@ -519,6 +522,7 @@ public class CommandPanel extends JPanel implements Observer {
 	}
 
 	private class CommandHistoryUpAction extends AbstractAction {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (commandHistory.size() == 0) {
 				return;
@@ -537,6 +541,7 @@ public class CommandPanel extends JPanel implements Observer {
 	private class CommandHistoryDownAction extends AbstractAction {
 		private static final long serialVersionUID = 7070274680351186504L;
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (commandHistory.size() == 0) {
 				return;
@@ -563,6 +568,7 @@ public class CommandPanel extends JPanel implements Observer {
 			messagePanel = new MessagePanel();
 			// Update whenever the preferences change
 			TabletopTool.getEventDispatcher().addListener(TabletopTool.PreferencesEvent.Changed, new AppEventListener() {
+				@Override
 				public void handleAppEvent(AppEvent event) {
 					messagePanel.refreshRenderer();
 				}
@@ -677,6 +683,7 @@ public class CommandPanel extends JPanel implements Observer {
 
 	////
 	// OBSERVER
+	@Override
 	public void update(Observable o, Object arg) {
 		ObservableList<TextMessage> textList = TabletopTool.getMessageList();
 		ObservableList.Event event = (ObservableList.Event) arg;
@@ -701,6 +708,7 @@ public class CommandPanel extends JPanel implements Observer {
 		Object actionObject = new Object();
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ks, actionObject);
 		getActionMap().put(actionObject, new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				requestFocus();
 			}

@@ -135,6 +135,7 @@ public class ExtendableDice extends Dice {
 		return modified;
 	}
 	
+	@Override
 	public String toString() {
 		String type;
 		if(minimumValue==-1)

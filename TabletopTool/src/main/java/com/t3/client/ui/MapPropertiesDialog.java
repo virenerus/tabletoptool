@@ -135,6 +135,7 @@ public class MapPropertiesDialog extends JDialog {
 		// Escape key
 		formPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cancel");
 		formPanel.getActionMap().put("cancel", new AbstractAction() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancel();
 			}
@@ -263,6 +264,7 @@ public class MapPropertiesDialog extends JDialog {
 
 	private void initOKButton() {
 		getOKButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				accept();
 			}
@@ -283,6 +285,7 @@ public class MapPropertiesDialog extends JDialog {
 
 	private void initBackgroundButton() {
 		getBackgroundButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Paint paint = paintChooser.choosePaint(TabletopTool.getFrame(), backgroundPaint != null ? backgroundPaint.getPaint() : null, "Choose Background");
 				if (paint != null) {
@@ -295,6 +298,7 @@ public class MapPropertiesDialog extends JDialog {
 
 	private void initMapButton() {
 		getMapButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Asset asset = mapSelectorDialog.chooseAsset();
 				if (asset == null) {
@@ -309,6 +313,7 @@ public class MapPropertiesDialog extends JDialog {
 
 	private void initFogButton() {
 		getFogButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Paint paint = paintChooser.choosePaint(TabletopTool.getFrame(), fogPaint != null ? fogPaint.getPaint() : null, "Choose Fog");
 				if (paint != null) {
@@ -329,6 +334,7 @@ public class MapPropertiesDialog extends JDialog {
 
 	private void initCancelButton() {
 		getCancelButton().addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				status = Status.CANCEL;
 				setVisible(false);
@@ -456,6 +462,7 @@ public class MapPropertiesDialog extends JDialog {
 		private JButton createFilesystemButton() {
 			JButton button = new JButton("Filesystem ...");
 			button.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
 					if (getImageFileChooser().showOpenDialog(MapPropertiesDialog.this) == JFileChooser.APPROVE_OPTION) {
@@ -490,6 +497,7 @@ public class MapPropertiesDialog extends JDialog {
 		private JButton createOKButton() {
 			JButton button = new JButton("OK");
 			button.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
 				}
@@ -500,6 +508,7 @@ public class MapPropertiesDialog extends JDialog {
 		private JButton createCancelButton() {
 			JButton button = new JButton("Cancel");
 			button.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					selectedAsset = null;
 					setVisible(false);
@@ -516,6 +525,7 @@ public class MapPropertiesDialog extends JDialog {
 		private JComponent createImageExplorerPanel() {
 			final AssetPanel assetPanel = new AssetPanel("mapPropertiesImageExplorer", TabletopTool.getFrame().getAssetPanel().getModel(), JSplitPane.HORIZONTAL_SPLIT);
 			assetPanel.addImageSelectionListener(new SelectionListener() {
+				@Override
 				public void selectionPerformed(List<Object> selectedList) {
 					// There should be exactly one
 					if (selectedList.size() != 1) {
@@ -578,6 +588,7 @@ public class MapPropertiesDialog extends JDialog {
 	}
 
 	private final ImageObserver drawableObserver = new ImageObserver() {
+		@Override
 		public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 			MapPropertiesDialog.this.imagePreviewPanel.repaint();
 			return true;
