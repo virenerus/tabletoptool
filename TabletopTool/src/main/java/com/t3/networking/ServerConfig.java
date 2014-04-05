@@ -80,11 +80,8 @@ public class ServerConfig {
 	private static int findOpenPort(int rangeLow, int rangeHigh) {
 		// Presumably there will always be at least one open port between low and high
 		while (true) {
-			ServerSocket ss = null;
-			try {
-				int port = rangeLow + (int) ((rangeHigh - rangeLow) * r.nextFloat());
-				ss = new ServerSocket(port);
-
+			int port = rangeLow + (int) ((rangeHigh - rangeLow) * r.nextFloat());
+			try (ServerSocket ss = new ServerSocket(port)){
 				// This port was open before we took it, so we'll just close it and use this one
 				// LATER: This isn't super exact, it's conceivable that another process will take 
 				// the port between our closing it and the server opening it.  But that's the best
@@ -92,15 +89,6 @@ public class ServerConfig {
 				return port;
 			} catch (Exception e) {
 				// Just keep trying
-			} finally {
-				if (ss != null) {
-					try {
-						ss.close();
-					} catch (IOException ioe) {
-						// No big deal
-						ioe.printStackTrace();
-					}
-				}
 			}
 		}
 	}

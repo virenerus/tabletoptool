@@ -84,20 +84,25 @@ public class ImageUtil {
 	 */
 	public static Image getImage(String image) throws IOException {
 		
-		ByteArrayOutputStream dataStream = new ByteArrayOutputStream(8192);
+		try (
+				ByteArrayOutputStream dataStream = new ByteArrayOutputStream(8192);
+				InputStream in1Stream = ImageUtil.class.getClassLoader().getResourceAsStream(image);
+		) {
 		
-		int bite;
-		InputStream inStream = ImageUtil.class.getClassLoader().getResourceAsStream(image);
-        if (inStream == null) {
-            throw new IOException("Image not found: " + image);
-        }
-
-        inStream = new BufferedInputStream(inStream);
-		while ((bite = inStream.read()) >= 0) {
-			dataStream.write(bite);
+			int bite;
+			
+	        if (in1Stream == null) {
+	            throw new IOException("Image not found: " + image);
+	        }
+	
+	        try(BufferedInputStream inStream = new BufferedInputStream(in1Stream)) {
+				while ((bite = inStream.read()) >= 0) {
+					dataStream.write(bite);
+				}
+				
+				return bytesToImage(dataStream.toByteArray());
+	        }
 		}
-		
-		return bytesToImage(dataStream.toByteArray());
 	}
 
 	public static BufferedImage getCompatibleImage(String image) throws IOException {

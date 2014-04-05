@@ -73,19 +73,18 @@ public class Asset {
 	public String getImageExtension() {
 		if (extension == null) {
 			extension = "";
-			try {
-				if (image != null && image.length >= 4) {
-					InputStream is = new ByteArrayInputStream(image);
-					ImageInputStream iis = ImageIO.createImageInputStream(is);
+			
+			if (image != null && image.length >= 4) {
+				try(ImageInputStream iis = ImageIO.createImageInputStream(new ByteArrayInputStream(image))){
 					Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
 					if (readers.hasNext()) {
 						ImageReader reader = readers.next();
 						reader.setInput(iis);
 						extension = reader.getFormatName().toLowerCase();
 					}
+				} catch (IOException e) {
+					TabletopTool.showError("IOException?!", e); // Can this happen??
 				}
-			} catch (IOException e) {
-				TabletopTool.showError("IOException?!", e); // Can this happen??
 			}
 		}
 		return extension;

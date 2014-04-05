@@ -89,6 +89,7 @@ import com.thoughtworks.xstream.XStream;
  * the automatic character set encoding.  (Otherwise, strings can be converted to
  * UTF-8 using the {@link String#getBytes(String)} method.
  */
+//TODO refactor this piece of shit
 public class PackedFile {
 
 	private static final String PROPERTY_FILE = "properties.xml";
@@ -226,10 +227,11 @@ public class PackedFile {
 	public Object getContent(ModelVersionManager versionManager, String fileVersion) throws IOException {
 		try {
 			if (versionManager != null) {
-				Reader r = getFileAsReader(CONTENT_FILE);
-				String xml = IOUtils.toString(r);
-				xml = versionManager.transform(xml, fileVersion);
-				return xstream.fromXML(xml);
+				try(Reader r = getFileAsReader(CONTENT_FILE)) {
+					String xml = IOUtils.toString(r);
+					xml = versionManager.transform(xml, fileVersion);
+					return xstream.fromXML(xml);
+				}
 			} else {
 				return getFileObject(CONTENT_FILE);
 			}
@@ -278,8 +280,9 @@ public class PackedFile {
 			saveTimer.start("contentFile");
 			if (hasFile(CONTENT_FILE)) {
 				zout.putNextEntry(new ZipEntry(CONTENT_FILE));
-				InputStream is = getFileAsInputStream(CONTENT_FILE);	// When copying, always use an InputStream
-				IOUtils.copy(is, zout);
+				try(InputStream is = getFileAsInputStream(CONTENT_FILE)) {	// When copying, always use an InputStream
+					IOUtils.copy(is, zout);
+				}
 				zout.closeEntry();
 			}
 			saveTimer.stop("contentFile");
@@ -299,8 +302,9 @@ public class PackedFile {
 			addedFileSet.remove(CONTENT_FILE);
 			for (String path : addedFileSet) {
 				zout.putNextEntry(new ZipEntry(path));
-				InputStream is = getFileAsInputStream(path);	// When copying, always use an InputStream
-				IOUtils.copy(is, zout);
+				try(InputStream is = getFileAsInputStream(path)) {	// When copying, always use an InputStream
+					IOUtils.copy(is, zout);
+				}
 				zout.closeEntry();
 			}
 			saveTimer.stop("addFiles");
@@ -314,8 +318,9 @@ public class PackedFile {
 					if (!entry.isDirectory() && !addedFileSet.contains(entry.getName()) && !removedFileSet.contains(entry.getName())
 							&& !CONTENT_FILE.equals(entry.getName()) && !PROPERTY_FILE.equals(entry.getName())) {
 						zout.putNextEntry(entry);
-						InputStream is = getFileAsInputStream(entry.getName());	// When copying, always use an InputStream
-						IOUtils.copy(is, zout);
+						try(InputStream is = getFileAsInputStream(entry.getName())) {	// When copying, always use an InputStream
+							IOUtils.copy(is, zout);
+						}
 						zout.closeEntry();
 					} else if (entry.isDirectory()) {
 						zout.putNextEntry(entry);
@@ -469,8 +474,9 @@ public class PackedFile {
 	 * @throws IOException
 	 */
 	public void putFile(String path, URL url) throws IOException {
-		InputStream is = url.openStream();
-		putFile(path, is);
+		try (InputStream is = url.openStream()) {
+			putFile(path, is);
+		}
 	}
 
 	public boolean hasFile(String path) throws IOException {
@@ -516,8 +522,9 @@ public class PackedFile {
 		// never marshalls the image data, but *does* unmarshall it.  This allows
 		// older pre-1.3.b64 campaigns to be loaded but only the newer format
 		// (with a separate image file) works on output.
-		Reader r = getFileAsReader(path);
-		return xstream.fromXML(r);
+		try(Reader r = getFileAsReader(path)) {
+			return xstream.fromXML(r);
+		}
 	}
 
 	/**

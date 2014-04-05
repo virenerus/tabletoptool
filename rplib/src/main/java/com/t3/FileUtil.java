@@ -48,32 +48,22 @@ public class FileUtil {
 	private static final Logger log = Logger.getLogger(FileUtil.class);
 
 	public static byte[] loadFile(File file) throws IOException {
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
+		try(InputStream is=new FileInputStream(file);){
 			return IOUtils.toByteArray(is);
-		} finally {
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
 		}
 	}
 
 	public static byte[] loadResource(String resource) throws IOException {
-		InputStream is = null;
-		try {
-			is = FileUtil.class.getClassLoader().getResourceAsStream(resource);
+		try (InputStream is = FileUtil.class.getClassLoader().getResourceAsStream(resource)){
 			return getBytes(is);
-		} finally {
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
 		}
 	}
 
 	public static List<String> getLines(File file) throws IOException {
 		List<String> list;
-		list = IOUtils.readLines(new FileReader(file));
+		try (FileReader reader=new FileReader(file)) {
+			list = IOUtils.readLines(reader);
+		}
 		return list;
 	}
 
@@ -85,19 +75,11 @@ public class FileUtil {
 
 	public static void saveResource(String resource, File destDir, String filename) throws IOException {
 		File outFilename = new File(destDir + File.separator + filename);
-		InputStream inStream = null;
-		OutputStream outStream = null;
-		try {
-			inStream = FileUtil.class.getClassLoader()	.getResourceAsStream(resource);
-			outStream = new BufferedOutputStream(new FileOutputStream(outFilename));
+		try (
+			InputStream inStream = FileUtil.class.getClassLoader().getResourceAsStream(resource);
+			BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(outFilename));
+		){
 			copyWithoutClose(inStream, outStream);
-		} finally {
-			try {
-				if (outStream != null) outStream.close();
-			} catch (Exception e) { }
-			try {
-				if (inStream != null) inStream.close();
-			} catch (Exception e) { }
 		}
 	}
 
@@ -162,14 +144,8 @@ public class FileUtil {
 	 * @throws IOException
 	 */
 	public static String getString(File file) throws IOException {
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
+		try (InputStream is = new FileInputStream(file)){
 			return getString(is);
-		} finally {
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
 		}
 	}
 
@@ -316,30 +292,17 @@ public class FileUtil {
 		else
 			file.getParentFile().mkdirs();
 
-		OutputStream os = new FileOutputStream(file);
-		try {
+		try (OutputStream os = new FileOutputStream(file)){
 			IOUtils.write(data, os);
-		} finally {
-			try {
-				if (os != null) os.close();
-			} catch (Exception e) { }
 		}
 	}
 
 	public static void copyFile(File sourceFile, File destFile) throws IOException {
-		InputStream is = null;
-		OutputStream os = null;
-		try {
-			is = new FileInputStream(sourceFile);
-			os = new FileOutputStream(destFile);
+		try (
+			InputStream is = new FileInputStream(sourceFile);
+			OutputStream os = new FileOutputStream(destFile);
+		){
 			IOUtils.copy(is, os);
-		} finally {
-			try {
-				if (os != null) os.close();
-			} catch (Exception e) { }
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
 		}
 	}
 
@@ -404,11 +367,7 @@ public class FileUtil {
 		if (!sourceFile.exists())
 			throw new IOException("source file does not exist: " + sourceFile);
 
-		ZipFile zipFile = null;
-		InputStream is = null;
-		OutputStream os = null;
-		try {
-			zipFile = new ZipFile(sourceFile);
+		try (ZipFile zipFile = new ZipFile(sourceFile)){
 			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
 			while (entries.hasMoreElements()) {
@@ -421,20 +380,13 @@ public class FileUtil {
 				file.getParentFile().mkdirs();
 
 				//System.out.println("Writing file: " + path);
-				is = zipFile.getInputStream(entry);
-				os = new BufferedOutputStream(new FileOutputStream(path));
-				copyWithClose(is, os);
+				try(
+					InputStream is = zipFile.getInputStream(entry);
+					BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(path));
+				) {
+					copyWithClose(is, os);
+				}
 			}
-		} finally {
-			try {
-				if (os != null) os.close();
-			} catch (Exception e) { }
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
-			try {
-				if (zipFile != null) zipFile.close();
-			} catch (Exception e) { }
 		}
 	}
 

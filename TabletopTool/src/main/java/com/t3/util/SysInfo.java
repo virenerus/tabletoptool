@@ -262,18 +262,19 @@ public class SysInfo {
 			InputStream inputstream = proc.getInputStream();
 			InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
 
-			BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-			String line;
-			while ((line = bufferedreader.readLine()) != null) {
-				Matcher m = pat.matcher(line);
-
-				if (m.matches()) {
-					return m.group(1);
-				}
-				if (line.startsWith("default")) {
-					StringTokenizer st = new StringTokenizer(line);
-					st.nextToken();
-					return st.nextToken();
+			try (BufferedReader bufferedreader = new BufferedReader(inputstreamreader)) {
+				String line;
+				while ((line = bufferedreader.readLine()) != null) {
+					Matcher m = pat.matcher(line);
+	
+					if (m.matches()) {
+						return m.group(1);
+					}
+					if (line.startsWith("default")) {
+						StringTokenizer st = new StringTokenizer(line);
+						st.nextToken();
+						return st.nextToken();
+					}
 				}
 			}
 		} catch (IOException ex) {

@@ -23,8 +23,9 @@ public class DocCreator {
 	
 	public DocCreator(String name, File file) {
 		this.name=name;
-		try {
-			String content=IOUtils.toString(new FileReader(file));
+		try(FileReader r=new FileReader(file)) {
+			String content=IOUtils.toString(r);
+			
 			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource(content.toCharArray());
 	 
