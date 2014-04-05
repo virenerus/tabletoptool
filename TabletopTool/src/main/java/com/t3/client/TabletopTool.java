@@ -11,6 +11,8 @@
 
 package com.t3.client;
 
+import groovy.lang.Script;
+
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -34,6 +36,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -41,6 +44,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -55,6 +59,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+import javax.xml.transform.stream.StreamSource;
 
 import net.sf.tinylaf.Theme;
 import net.sf.tinylaf.util.SBReference;
@@ -263,23 +268,23 @@ public class TabletopTool {
 	 *            optional parameters to use when formatting the title text from
 	 *            the properties file
 	 */
-	public static void showMessage(Object[] messages, String titleKey, int messageType, Object... params) {
+	public static void showMessage(List<String> messages, String titleKey, int messageType, Object... params) {
 		String title = I18N.getText(titleKey, params);
-		JList list = new JList(messages);
+		JList<String> list = new JList<String>(new Vector<String>(messages));
 		JOptionPane.showMessageDialog(clientFrame, list, title, messageType);
 	}
 
 	/**
 	 * Displays the messages provided as <code>messages</code> by calling
-	 * {@link #showMessage(Object[], String, int, Object...)} and passing
+	 * {@link #showMessage(List<Object>, String, int, Object...)} and passing
 	 * <code>"msg.title.messageDialogFeedback"</code> and
 	 * <code>JOptionPane.ERROR_MESSAGE</code> as parameters.
 	 * 
 	 * @param messages
-	 *            the Objects (normally strings) to put in the body of the
+	 *            the strings to put in the body of the
 	 *            dialog; no properties file lookup is performed!
 	 */
-	public static void showFeedback(Object[] messages) {
+	public static void showFeedback(List<String> messages) {
 		showMessage(messages, "msg.title.messageDialogFeedback", JOptionPane.ERROR_MESSAGE);
 	}
 
@@ -1517,7 +1522,7 @@ public class TabletopTool {
 		}
 	}
 
-	public static MacroEngine getParser() {
+	public static MacroEngine<Script> getParser() {
 		return MacroEngine.getInstance();
 	}
 }

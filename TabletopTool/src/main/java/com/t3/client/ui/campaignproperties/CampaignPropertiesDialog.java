@@ -472,7 +472,7 @@ public class CampaignPropertiesDialog extends JDialog {
 		}
 		if (!errlog.isEmpty()) {
 			// Show the user a list of errors so they can (attempt to) correct all of them at once
-			TabletopTool.showFeedback(errlog.toArray());
+			TabletopTool.showFeedback(errlog);
 			errlog.clear();
 			throw new IllegalArgumentException(); // Don't save sights...
 		}
@@ -644,7 +644,7 @@ public class CampaignPropertiesDialog extends JDialog {
 			TabletopTool.showError("msg.error.mtprops.light.ioexception", ioe);
 		}
 		if (!errlog.isEmpty()) {
-			TabletopTool.showFeedback(errlog.toArray());
+			TabletopTool.showFeedback(errlog);
 			errlog.clear();
 			throw new IllegalArgumentException(); // Don't save lights...
 		}

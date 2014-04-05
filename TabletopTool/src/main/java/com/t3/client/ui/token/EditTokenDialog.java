@@ -335,7 +335,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		List<String> typeList = new ArrayList<String>(TabletopTool.getCampaign().getSightTypes());
 		Collections.sort(typeList);
 
-		DefaultComboBoxModel model = new DefaultComboBoxModel(typeList.toArray());
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(typeList.toArray(new String[typeList.size()]));
 		getSightTypeCombo().setModel(model);
 	}
 
@@ -358,8 +358,8 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		return (JComboBox<String>) getComponent("propertyTypeCombo");
 	}
 
-	public JComboBox getSightTypeCombo() {
-		return (JComboBox) getComponent("sightTypeCombo");
+	public JComboBox<String> getSightTypeCombo() {
+		return (JComboBox<String>) getComponent("sightTypeCombo");
 	}
 
 	public void initOKButton() {
