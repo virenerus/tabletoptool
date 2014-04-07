@@ -2,12 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tabletoptool</groupId>
   <artifactId>ChatParser</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <dependencies>
   	<dependency>
   		<groupId>tabletoptool</groupId>
   		<artifactId>DiceLib</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.3</version>
   	</dependency>
   	<dependency>
   		<groupId>org.apache.commons</groupId>
@@ -21,4 +20,5 @@
 	  <scope>test</scope>
 	</dependency>
   </dependencies>
+  <version>0.3</version>
 </project>

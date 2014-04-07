@@ -131,6 +131,10 @@ public class MethodDefinition {
 	public HashMap<String, ParameterDefinition> getParameters() {
 		return parameters;
 	}
+	
+	public List<ParameterDefinition> getParameterList() {
+		return new ArrayList<>(parameters.values());
+	}
 
 
 	public boolean isThrowingException() {

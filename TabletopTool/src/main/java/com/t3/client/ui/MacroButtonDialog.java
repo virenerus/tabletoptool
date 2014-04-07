@@ -152,12 +152,13 @@ public class MacroButtonDialog extends MacroButtonBaseDialog {
 	}
 
 	private void initCommandTextArea() {
-		CompletionProvider provider = createCompletionProvider();
+		//TODO create a real code completion -> the one below is crap
+		/*CompletionProvider provider = createCompletionProvider();
 		AutoCompletion ac = new AutoCompletion(provider);
 		ac.setAutoActivationEnabled(true);
 		ac.setParameterAssistanceEnabled(true);
 		ac.setShowDescWindow(true);
-		ac.install(commandTextArea);
+		ac.install(commandTextArea);*/
 	}
 	
 	private CompletionProvider createCompletionProvider() {
