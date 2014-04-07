@@ -478,7 +478,7 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		initializeFrames();
 
 		getDockingManager().setProfileKey(DOCKING_PROFILE_NAME);
-		getDockingManager().setOutlineMode(com.jidesoft.docking.DockingManager.PARTIAL_OUTLINE_MODE);
+		
 		getDockingManager().setUsePref(false);
 
 		getDockingManager().getWorkspace().setAcceptDockableFrame(false);
@@ -508,6 +508,9 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 			TabletopTool.showError("msg.error.layoutParse", e);
 		}
 		getDockingManager().loadLayoutDataFromFile(AppUtil.getAppHome("config").getAbsolutePath() + "/layout.dat");
+		
+		getDockingManager().setOutlineMode(com.jidesoft.docking.DockingManager.FULL_OUTLINE_MODE);
+		getDockingManager().setContinuousLayout(true);
 	}
 
 	public DockableFrame getFrame(MTFrame frame) {

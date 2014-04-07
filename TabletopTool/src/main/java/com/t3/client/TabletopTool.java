@@ -13,7 +13,6 @@ package com.t3.client;
 
 import groovy.lang.Script;
 
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -36,7 +35,6 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -59,10 +57,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
-import javax.xml.transform.stream.StreamSource;
 
-import net.sf.tinylaf.Theme;
-import net.sf.tinylaf.util.SBReference;
 import net.tsc.servicediscovery.ServiceAnnouncer;
 
 import org.apache.commons.io.FileUtils;
@@ -141,7 +136,7 @@ public class TabletopTool {
 	 * Contains just the version number of TabletopTool, such as <code>1.3.b49</code>
 	 * .
 	 */
-	private static final String VERSION_TXT = "com/t3/client/version.txt";
+	private static final String VERSION_TXT = "com/t3/version.txt";
 
 	/**
 	 * Specifies the properties file that holds sound information. Only two
@@ -1235,80 +1230,22 @@ public class TabletopTool {
 		factory.registerProtocol("asset", new AssetURLStreamHandler());
 		URL.setURLStreamHandlerFactory(factory);
 
-		configureJide();
+		//configureJide();
 		
 		final Toolkit tk = Toolkit.getDefaultToolkit();
 		tk.getSystemEventQueue().push(new T3EventQueue());
 
 		// LAF
 		try {
-			// If we are running under Mac OS X then save native menu bar look & feel components
-			// Note the order of creation for the AppMenuBar, this specific chronology
-			// allows the system to set up system defaults before we go and modify things.
-			// That is, please don't move these lines around unless you test the result on windows and mac
-			String lafname;
+			
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
 			if (MAC_OS_X) {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				menuBar = new AppMenuBar();
-				lafname = "com.t3.client.TinyLookAndFeelMac";
-				UIManager.setLookAndFeel(lafname);
 				macOSXicon();
 			}
-			// If running on Windows based OS, CJK font is broken when using TinyLAF.
-//			else if (WINDOWS) {
-//				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//				menuBar = new AppMenuBar();
-//			}
-			else {
-				lafname = "net.sf.tinylaf.TinyLookAndFeel";
-				UIManager.setLookAndFeel(lafname);
-				menuBar = new AppMenuBar();
-			}
-			// After the TinyLAF library is initialized, look to see if there is a Default.theme
-			// in our AppHome directory and load it if there is.  Unfortunately, changing the
-			// search path for the default theme requires subclassing TinyLAF and because
-			// we have both the original and a Mac version that gets cumbersome.  (Really
-			// the Mac version should use the default and then install the keystroke differences
-			// but what we have works and I'm loathe to go playing with it at 1.3b87 -- yes, 87!)
-			File f = AppUtil.getAppHome("config");
-			if (f.exists()) {
-				File f2 = new File(f, "Default.theme");
-				if (f2.exists()) {
-					if (Theme.loadTheme(f2)) {
-						// re-install the Tiny Look and Feel
-						UIManager.setLookAndFeel(lafname);
-
-						// Update the ComponentUIs for all Components. This
-						// needs to be invoked for all windows.
-						//SwingUtilities.updateComponentTreeUI(rootComponent);
-					}
-				}
-			}
-			
-			
-			LookAndFeelFactory.addUIDefaultsCustomizer(new LookAndFeelFactory.UIDefaultsCustomizer() {
-				@Override
-				public void customize(UIDefaults defaults) {
-					// Remove red border around menus
-					defaults.put("PopupMenu.foreground", Color.lightGray);
-				}
-			});
-			LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
-
-			/****************************************************************************
-			 * For TinyLAF 1.3.04 this is how the color was changed for a
-			 * button.
-			 */
-			// Theme.buttonPressedColor[Theme.style] = new ColorReference(Color.gray);
-
-			/****************************************************************************
-			 * And this is how it's done in TinyLAF 1.4.0 (no idea about the
-			 * intervening versions).
-			 */
-			Theme.buttonPressedColor = new SBReference(Color.GRAY, 0, -6, SBReference.SUB3_COLOR);
-			
 			//yes, this needs to be called again because we change the look and feel
 			configureJide();
+			menuBar=new AppMenuBar();
 		} catch (Exception e) {
 			TabletopTool.showError("msg.error.lafSetup", e);
 			System.exit(1);
@@ -1383,7 +1320,7 @@ public class TabletopTool {
 			JAVA_VERSION = 1.5;
 		} else {
 			JAVA_VERSION = Double.valueOf(version);
-			if (JAVA_VERSION < 1.6) {
+			if (JAVA_VERSION < 1.8) {
 				keepgoing = confirm("msg.error.wrongJavaVersion", version);
 			}
 		}

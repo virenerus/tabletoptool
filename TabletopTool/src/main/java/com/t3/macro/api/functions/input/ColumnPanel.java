@@ -27,8 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import net.sf.tinylaf.TinyComboBoxButton;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.t3.client.ui.htmlframe.HTMLPane;
@@ -198,38 +196,7 @@ public final class ColumnPanel extends JPanel {
 			c.addFocusListener(listener);
 
 			// Implement control-specific adjustments
-			if (c instanceof JComboBox) {
-				// HACK: to fix a Swing issue.
-				// The stupid JComboBox has two subcomponents, BOTH of which accept the focus.
-				// Thus it takes two Tab presses to move to the next control, and if you
-				// tab once and then hit the down arrow, you can then tab away while the dropdown
-				// list remains displayed.  (Other comboboxes in TabletopTool have similar problems.)
-				// Since the user is likely to tab between values when inputting, this is a
-				// confusing nuisance.
-				//
-				// The hack used here is to make one of the two components (TinyComboBoxButton)
-				// not focusable.  We have to do it in a callback like this because the subcomponents
-				// don't exist until the dialog is created (I think?).  The code has a hardcoded index of 0,
-				// which is where the TinyComboBoxButton lives on my Windows box (discovered using the debugger).
-				// The code may fail on other OSs, or if a future version of Swing is used.
-				// You're not supposed to mess with the internals like this.
-				// But the resulting behavior is so much nicer with this fix in place, that I'm keeping it in.
-				Component list[] = c.getComponents();
-				for (int i = 0; i < list.length; i++)
-					if (list[i] instanceof TinyComboBoxButton)
-						list[i].setFocusable(false); // HACK!
-//			} else if (c instanceof JTextField) {
-//				// Select all text when the text field gains focus
-//				final JTextField textFieldFinal = (JTextField) c;
-//				textFieldFinal.addFocusListener(new FocusListener() {
-//					public void focusGained(FocusEvent fe) {
-//						textFieldFinal.selectAll();
-//					}
-//
-//					public void focusLost(FocusEvent fe) {
-//					}
-//				});
-			} else if (c instanceof ColumnPanel) {
+			if (c instanceof ColumnPanel) {
 				ColumnPanel cp = (ColumnPanel) c;
 				cp.runtimeFixup();
 			}
