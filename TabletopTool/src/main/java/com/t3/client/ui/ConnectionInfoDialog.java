@@ -57,13 +57,9 @@ public class ConnectionInfoDialog extends JDialog {
 		}
 		String localAddress = "Unknown";
 		try {
-			try {
-				InetAddress localAddy = InetAddress.getLocalHost();
-				localAddress = localAddy.getHostAddress();
-			} catch (IOException e) { // Socket|UnknownHost
-				log.warn("Can't resolve 'www.rptools.net' or our own IP address!?", e);
-			}
-		} catch (UnknownHostException e) {
+			InetAddress localAddy = InetAddress.getLocalHost();
+			localAddress = localAddy.getHostAddress();
+		} catch (IOException e) { // Socket|UnknownHost
 			log.warn("Can't resolve 'www.rptools.net' or our own IP address!?", e);
 		}
 		String externalAddress = "Discovering ...";

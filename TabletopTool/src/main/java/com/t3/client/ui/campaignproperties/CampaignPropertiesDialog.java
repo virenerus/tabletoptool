@@ -162,8 +162,8 @@ public class CampaignPropertiesDialog extends JDialog {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Check for uniqueness
-				((DefaultListModel<String>) getRepositoryList().getModel()).addElement("http://www.rptools.net/image-indexes/gallery.rpax.gz");
+				// TODO: remove the button
+				
 			}
 		});
 	}

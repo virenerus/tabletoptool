@@ -272,8 +272,8 @@ public class AppMenuBar extends JMenuBar {
 		// @formatter:off
 		/* 
 		 * This next line will retrieve all properties that match the regex, such as:
-		 *		action.helpurl.01=http://rptools.net/?page=tabletoptool
-		 *		action.helpurl.02=http://forums.rptools.net/
+		 *		action.helpurl.01=http://tabletoptool.com
+		 *		action.helpurl.02=http://something.other
 		 * The items are not returned from the method in any kind of order so they are alphabetized here so that their
 		 * display in the menu is predictable.
 		 */

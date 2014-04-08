@@ -56,7 +56,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 
 	private static final Logger log = Logger.getLogger(AddResourceDialog.class);
 
-	private static final String LIBRARY_URL = "http://library.rptools.net/1.3";
+	private static final String LIBRARY_URL = "http://library.tabletoptool.com/legacy";
 	private static final String LIBRARY_LIST_URL = LIBRARY_URL + "/listArtPacks";
 
 	public enum Tab {
@@ -105,8 +105,8 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 		return (JTextField) getComponent("@localDirectory");
 	}
 
-	public JList getLibraryList() {
-		return (JList) getComponent("@tabletoptoolList");
+	public JList<LibraryRow> getLibraryList() {
+		return (JList<LibraryRow>) getComponent("@tabletoptoolList");
 	}
 
 	public void initLibraryList() {
@@ -295,13 +295,12 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 			break;
 
 		case TABLETOPTOOL_SITE:
-			List<?> selectedRows = getLibraryList().getSelectedValuesList();
+			List<LibraryRow> selectedRows = getLibraryList().getSelectedValuesList();
 			if (selectedRows == null || selectedRows.isEmpty()) {
 				TabletopTool.showMessage("dialog.addresource.warn.mustselectone", "Error", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-			for (Object obj : selectedRows) {
-				LibraryRow row = (LibraryRow) obj;
+			for (LibraryRow row : selectedRows) {
 
 				//validate the url format
 				row.path = LIBRARY_URL + "/" + row.path;
