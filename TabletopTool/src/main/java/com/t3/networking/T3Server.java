@@ -20,11 +20,11 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import com.t3.client.T3Registry;
 import com.t3.clientserver.connection.ClientConnection;
 import com.t3.clientserver.connection.ServerObserver;
 import com.t3.common.T3Constants;
 import com.t3.model.campaign.Campaign;
+import com.t3.networking.registry.T3Registry;
 import com.t3.transfer.AssetChunk;
 import com.t3.transfer.AssetProducer;
 import com.t3.transfer.AssetTransferManager;

@@ -117,7 +117,7 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 		cancelButton = new JButton();
 
 		//======== this ========
-		setMinimumSize(new Dimension(700, 415));
+		setMinimumSize(new Dimension(790, 415));
 		Container contentPane = getContentPane();
 
 		//======== macroTabs ========

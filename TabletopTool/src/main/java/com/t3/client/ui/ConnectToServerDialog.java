@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -44,11 +45,12 @@ import net.tsc.servicediscovery.ServiceFinder;
 import yasb.Binder;
 
 import com.t3.client.AppConstants;
-import com.t3.client.T3Registry;
 import com.t3.client.TabletopTool;
 import com.t3.client.swing.AbeillePanel;
 import com.t3.client.swing.GenericDialog;
 import com.t3.language.I18N;
+import com.t3.networking.registry.RegisteredServer;
+import com.t3.networking.registry.T3Registry;
 import com.t3.swing.SwingUtil;
 
 /**
@@ -164,8 +166,8 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 		});
 	}
 
-	public JList<ServerInfo> getLocalServerList() {
-		return (JList<ServerInfo>) getComponent("localServerList");
+	public JList<RegisteredServer> getLocalServerList() {
+		return (JList<RegisteredServer>) getComponent("localServerList");
 	}
 
 	private void updateLocalServerList() {
@@ -201,7 +203,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initRemoteServerTable() {
 		getRemoteServerTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		getRemoteServerTable().setModel(new RemoteServerTableModel(new ArrayList<String>()));
+		getRemoteServerTable().setModel(new RemoteServerTableModel(Collections.emptyList()));
 		getRemoteServerTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -231,7 +233,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 		getRescanButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).clear();
+				((DefaultListModel<RegisteredServer>) getLocalServerList().getModel()).clear();
 				finder.find();
 			}
 		});
@@ -289,9 +291,9 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 				return;
 			}
 			// OK
-			ServerInfo info = getLocalServerList().getSelectedValue();
-			port = info.port;
-			hostname = info.address.getHostAddress();
+			RegisteredServer info = getLocalServerList().getSelectedValue();
+			port = info.getPort();
+			hostname = info.getAddress();
 		}
 		if (SwingUtil.hasComponent(selectedPanel, "directPanel")) {
 			// TODO: put these into a validation method
@@ -319,23 +321,12 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 			hostname = host;
 		}
 		if (SwingUtil.hasComponent(selectedPanel, "rptoolsPanel")) {
-			String serverName = getServerNameTextField().getText().trim();
-			if (serverName.length() == 0) {
-				TabletopTool.showError("ServerDialog.error.server");
-				return;
-			}
-			getServerNameTextField().setText(serverName);
-
-			// Do the lookup
-			String serverInfo = T3Registry.findInstance(serverName);
-			if (serverInfo == null || serverInfo.length() == 0) {
-				TabletopTool.showError(I18N.getText("ServerDialog.error.serverNotFound", serverName));
-				return;
-			}
-			String[] data = serverInfo.split(":");
-			hostname = data[0];
+			int row=getRemoteServerTable().getSelectedRow();
+			RegisteredServer rs=((RemoteServerTableModel)getRemoteServerTable().getModel()).servers.get(row);
+			
+			hostname = rs.getAddress();
 			try {
-				port = Integer.parseInt(data[1]);
+				port = rs.getPort();
 			} catch (NumberFormatException nfe) {
 				TabletopTool.showError("ServerDialog.error.portNumberException");
 				return;
@@ -368,20 +359,14 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 	}
 
 	private static class RemoteServerTableModel extends AbstractTableModel {
-		private final List<String[]> data;
+		private final List<RegisteredServer> servers;
 
-		public RemoteServerTableModel(List<String> encodedData) {
+		public RemoteServerTableModel(List<RegisteredServer> servers) {
 			// Simple but sufficient
-			Collections.sort(encodedData, String.CASE_INSENSITIVE_ORDER);
+			Collections.sort(servers, (s1, s2) -> String.CASE_INSENSITIVE_ORDER.compare(s1.getName(), s2.getName()));
 
-			data = new ArrayList<String[]>(encodedData.size());
-			for (String line : encodedData) {
-				String[] row = line.split(":");
-				if (row.length == 1) {
-					row = new String[] { row[0], "Pre 1.3" };
-				}
-				data.add(row);
-			}
+			this.servers = servers;
+			
 		}
 
 		@Override
@@ -391,47 +376,39 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 				return I18N.getText("ConnectToServerDialog.msg.headingServer");
 			case 1:
 				return I18N.getText("ConnectToServerDialog.msg.headingVersion");
+			case 2:
+				return I18N.getText("ConnectToServerDialog.msg.numberOfPlayers");
 			}
 			return "";
 		}
 
 		@Override
 		public int getColumnCount() {
-			return 2;
+			return 3;
 		}
 
 		@Override
 		public int getRowCount() {
-			return data.size();
+			return servers.size();
 		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			String[] row = data.get(rowIndex);
-			return row[columnIndex];
+			switch(columnIndex) {
+				case 0:
+					return servers.get(rowIndex).getName();
+				case 1:
+					return servers.get(rowIndex).getT3Version();
+				case 2:
+					return servers.get(rowIndex).getNumberOfPlayers();
+			}
+			return "";
 		}
 	}
 
 	// ANNOUNCEMENT LISTENER
 	@Override
 	public void serviceAnnouncement(String type, InetAddress address, int port, byte[] data) {
-		((DefaultListModel<ServerInfo>) getLocalServerList().getModel()).addElement(new ServerInfo(new String(data), address, port));
-	}
-
-	private class ServerInfo {
-		String id;
-		InetAddress address;
-		int port;
-
-		public ServerInfo(String id, InetAddress address, int port) {
-			this.id = id.trim();
-			this.address = address;
-			this.port = port;
-		}
-
-		@Override
-		public String toString() {
-			return id;
-		}
+		((DefaultListModel<RegisteredServer>) getLocalServerList().getModel()).addElement(new RegisteredServer(new String(data), address.getHostAddress(), port,"unknown",0));
 	}
 }

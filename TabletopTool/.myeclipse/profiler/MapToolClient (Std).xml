@@ -3,7 +3,7 @@
 <properties>
 <entry key="ProfilerMemorySettings_track_every">10</entry>
 <entry key="profiler.settings.sampling.interval">10</entry>
-<entry key="ProfilerCPUSettings_root_classes">net.rptools.**
+<entry key="ProfilerCPUSettings_root_classes">com.t3.**
 </entry>
 <entry key="profiler.settings.n.profiled.threads.limit">32</entry>
 <entry key="profiler.settings.cpu.exclude.wait.time">true</entry>
@@ -17,7 +17,7 @@
 <entry key="ProfilerMemorySettings_stacktraces">-1</entry>
 <entry key="profiler.settings.instr.scheme">2</entry>
 <entry key="ProfilerCPUSettings_filter_type">2</entry>
-<entry key="ProfilerCPUSettings_filter_value">net.rptools.*,
+<entry key="ProfilerCPUSettings_filter_value">com.t3.*,
 java.awt.geom.Area,
 java.awt.geom.AffineTransform</entry>
 <entry key="ProfilerMemorySettings_version">1.0</entry>

@@ -1,4 +1,4 @@
-package net.rptools.lib;
+package com.t3.lib;
 
 import junit.framework.TestCase;
 

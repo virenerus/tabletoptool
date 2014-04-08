@@ -116,6 +116,7 @@ import com.t3.networking.ServerDisconnectHandler;
 import com.t3.networking.ServerPolicy;
 import com.t3.networking.T3Connection;
 import com.t3.networking.T3Server;
+import com.t3.networking.registry.T3Registry;
 import com.t3.sound.SoundManager;
 import com.t3.swing.SwingUtil;
 import com.t3.transfer.AssetTransferManager;
@@ -931,8 +932,8 @@ public class TabletopTool {
 		// Registered ?
 		if (config.isServerRegistered() && !config.isPersonalServer()) {
 			try {
-				int result = T3Registry.registerInstance(config.getServerName(), config.getPort());
-				if (result == 3) {
+				boolean worked = T3Registry.registerInstance(config.getServerName(), config.getPort());
+				if (!worked) {
 					TabletopTool.showError("msg.error.alreadyRegistered");
 				}
 				// TODO: I don't like this

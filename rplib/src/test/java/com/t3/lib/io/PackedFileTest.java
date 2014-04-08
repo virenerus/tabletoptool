@@ -9,22 +9,30 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
-package net.rptools.lib.sound;
+package com.t3.lib.io;
+
+import java.io.File;
+import java.io.IOException;
 
 import junit.framework.TestCase;
 
-import com.t3.sound.SoundPlayer;
+import com.t3.io.PackedFile;
 
-public class SoundPlayerTest extends TestCase {
+public class PackedFileTest extends TestCase {
 
-	public void testPlay() throws Exception {
+	public void testNewFile() throws IOException {
 
-		System.out.println("1");
-		SoundPlayer.play("com/t3/sound/door.mp3");
-		System.out.println("2");
-		
-		SoundPlayer.waitFor();
+		PackedFile pfile = new PackedFile(new File("/tmp/pakfile/testing.zip"));
+
+		pfile.setProperty("foo", "bar");
+		pfile.setProperty("Hello", 1);
+
+		pfile.setContent("Hello world");
+
+		pfile.putFile("test.txt", "I am the master of your universe".getBytes("UTF-8"));
+
+		pfile.save();
 	}
 }
