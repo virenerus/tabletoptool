@@ -60,7 +60,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 	private static final String LIBRARY_LIST_URL = LIBRARY_URL + "/listArtPacks";
 
 	public enum Tab {
-		LOCAL, WEB, RPTOOLS
+		LOCAL, WEB, TABLETOPTOOL_SITE
 	}
 
 	private GenericDialog dialog;
@@ -106,7 +106,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 	}
 
 	public JList getLibraryList() {
-		return (JList) getComponent("@rptoolsList");
+		return (JList) getComponent("@tabletoptoolList");
 	}
 
 	public void initLibraryList() {
@@ -132,7 +132,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 					model.tab = Tab.WEB;
 					break;
 				case 2:
-					model.tab = Tab.RPTOOLS;
+					model.tab = Tab.TABLETOPTOOL_SITE;
 					downloadLibraryList();
 					break;
 				}
@@ -294,7 +294,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 			rowList.add(new LibraryRow(model.getUrlName(), model.getUrl(), -1));
 			break;
 
-		case RPTOOLS:
+		case TABLETOPTOOL_SITE:
 			List<?> selectedRows = getLibraryList().getSelectedValuesList();
 			if (selectedRows == null || selectedRows.isEmpty()) {
 				TabletopTool.showMessage("dialog.addresource.warn.mustselectone", "Error", JOptionPane.ERROR_MESSAGE);

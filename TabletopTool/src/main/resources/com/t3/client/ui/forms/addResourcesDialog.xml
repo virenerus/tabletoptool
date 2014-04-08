@@ -1437,7 +1437,7 @@
                             <at name="classname">com.jeta.forms.components.label.JETALabel</at>
                             <at name="properties">
                              <object classname="com.jeta.forms.store.support.PropertyMap">
-                              <at name="text">RPTools Library</at>
+                              <at name="text">Tabletoptool Library</at>
                               <at name="height">17</at>
                               <at name="font">
                                <object classname="com.jeta.forms.store.properties.FontProperty">
@@ -1512,7 +1512,7 @@
                                </object>
                               </at>
                               <at name="width">955</at>
-                              <at name="name">@rptoolsList</at>
+                              <at name="name">@tabletoptoolList</at>
                               <at name="scollBars">
                                <object classname="com.jeta.forms.store.properties.ScrollBarsProperty">
                                 <at name="name">scollBars</at>

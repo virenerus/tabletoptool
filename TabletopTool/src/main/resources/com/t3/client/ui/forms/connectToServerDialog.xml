@@ -722,7 +722,7 @@
                        <at name="classname">com.jeta.forms.gui.form.GridView</at>
                        <at name="properties">
                         <object classname="com.jeta.forms.store.support.PropertyMap">
-                         <at name="name">rptoolsPanel</at>
+                         <at name="name">tabletoptoolPanel</at>
                          <at name="fill">
                           <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
                            <at name="name">fill</at>

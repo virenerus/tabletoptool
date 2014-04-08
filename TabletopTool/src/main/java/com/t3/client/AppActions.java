@@ -1842,7 +1842,7 @@ public class AppActions {
 					boolean useIF = serverProps.getUseIndividualViews() && serverProps.getUseIndividualFOW();
 					policy.setUseIndividualFOW(useIF);
 
-					ServerConfig config = new ServerConfig(serverProps.getUsername(), serverProps.getGMPassword(), serverProps.getPlayerPassword(), serverProps.getPort(), serverProps.getRPToolsName());
+					ServerConfig config = new ServerConfig(serverProps.getUsername(), serverProps.getGMPassword(), serverProps.getPlayerPassword(), serverProps.getPort(), serverProps.getT3Name());
 
 					// Use the existing campaign
 					Campaign campaign = TabletopTool.getCampaign();

@@ -320,7 +320,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 			port = portTemp;
 			hostname = host;
 		}
-		if (SwingUtil.hasComponent(selectedPanel, "rptoolsPanel")) {
+		if (SwingUtil.hasComponent(selectedPanel, "tabletoptoolPanel")) {
 			int row=getRemoteServerTable().getSelectedRow();
 			RegisteredServer rs=((RemoteServerTableModel)getRemoteServerTable().getModel()).servers.get(row);
 			

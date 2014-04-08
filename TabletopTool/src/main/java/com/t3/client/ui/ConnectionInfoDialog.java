@@ -57,7 +57,6 @@ public class ConnectionInfoDialog extends JDialog {
 		}
 		String localAddress = "Unknown";
 		try {
-			InetAddress rptools = InetAddress.getByName("www.rptools.net");
 			try {
 				InetAddress localAddy = InetAddress.getLocalHost();
 				localAddress = localAddy.getHostAddress();

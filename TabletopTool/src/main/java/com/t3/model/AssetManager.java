@@ -42,8 +42,6 @@ import com.t3.client.TabletopTool;
 /**
  * This class handles the caching, loading, and downloading of assets. All assets are loaded through this class.
  * 
- * @author RPTools Team
- * 
  */
 public class AssetManager {
 	private static final Logger log = Logger.getLogger(AssetManager.class);

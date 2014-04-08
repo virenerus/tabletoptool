@@ -40,8 +40,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 
 	static {
 		try {
-			InetAddress rptools = null; // InetAddress.getByName("www.rptools.net");
-			InetAddress localAddy = ResolveLocalHostname.getLocalHost(rptools);
+			InetAddress localAddy = ResolveLocalHostname.getLocalHost(null);
 			ip = localAddy.getAddress();
 		} catch (IOException e) { // Could be UnknownHostException or SocketException
 			ip = new byte[4];

@@ -38,8 +38,6 @@ import com.t3.model.AssetManager;
  * ImageManager will return a "?" (UNKNOWN_IMAGE) if the asset is still downloading or the asset image is still being
  * loaded, and a "X" (BROKEN_IMAGE) if the asset or image is invalid. Small images are loaded using a different thread
  * pool from large images, and allows small images to load quicker.
- * 
- * @author RPTools Team.
  */
 public class ImageManager {
 	private static final Logger log = Logger.getLogger(ImageManager.class);
@@ -238,8 +236,6 @@ public class ImageManager {
 
 	/**
 	 * Load the asset's raw image data into a BufferedImage.
-	 * 
-	 * @author RPTools Team.
 	 */
 	private static class BackgroundImageLoader implements Runnable {
 		private final Asset asset;

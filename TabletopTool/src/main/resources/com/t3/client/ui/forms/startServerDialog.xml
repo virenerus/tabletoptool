@@ -700,7 +700,7 @@
            <object classname="com.jeta.forms.store.support.PropertyMap">
             <at name="height">20</at>
             <at name="width">167</at>
-            <at name="name">@RPToolsName</at>
+            <at name="name">@TabletoptoolName</at>
             <at name="columns">20</at>
             <at name="border">
              <object classname="com.jeta.forms.store.properties.CompoundBorderProperty">

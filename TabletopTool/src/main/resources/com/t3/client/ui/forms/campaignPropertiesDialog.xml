@@ -702,11 +702,11 @@
                                  <at name="classname">javax.swing.JButton</at>
                                  <at name="properties">
                                   <object classname="com.jeta.forms.store.support.PropertyMap">
-                                   <at name="text">Add RPTools Gallery Index</at>
+                                   <at name="text">Add Tabletoptool Gallery Index</at>
                                    <at name="height">25</at>
                                    <at name="width">198</at>
                                    <at name="name">addGalleryIndexButton</at>
-                                   <at name="actionCommand">Add RPTools Gallery Index</at>
+                                   <at name="actionCommand">Add Tabletoptool Gallery Index</at>
                                    <at name="border">
                                     <object classname="com.jeta.forms.store.properties.CompoundBorderProperty">
                                      <super classname="com.jeta.forms.store.properties.BorderProperty">

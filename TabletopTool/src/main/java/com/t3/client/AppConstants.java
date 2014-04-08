@@ -46,7 +46,7 @@ public class AppConstants {
 			return name.endsWith(".bmp") ||
 			name.endsWith(".png") || name.endsWith(".gif") ||
 			name.endsWith(".jpg") || name.endsWith(".jpeg") ||
-			name.endsWith(Token.FILE_EXTENSION);			// RPTools Token format
+			name.endsWith(Token.FILE_EXTENSION);			// T3 Token format
 		}
 	};
 

@@ -1240,12 +1240,13 @@ public class TabletopTool {
 		try {
 			
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			configureJide();
 			LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
 			if (MAC_OS_X) {
 				macOSXicon();
 			}
 			//yes, this needs to be called again because we change the look and feel
-			configureJide();
+			
 			menuBar=new AppMenuBar();
 		} catch (Exception e) {
 			TabletopTool.showError("msg.error.lafSetup", e);
@@ -1344,7 +1345,7 @@ public class TabletopTool {
 		File logoFile = new File(AppUtil.getAppHome("config"), "tabletoptool-dock-icon.png");
 		URL logoURL = null;
 		try {
-			logoURL = new URL("http://www.rptools.net/images/logo/RPTools_Map_Logo.png");
+			logoURL = new URL("http://services.tabletoptool.com/logo_large.png");
 		} catch (MalformedURLException e) {
 			showError("Attemping to form URL -- shouldn't happen as URL is hard-coded", e);
 		}
