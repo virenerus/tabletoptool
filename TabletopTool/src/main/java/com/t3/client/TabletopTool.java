@@ -1,14 +1,14 @@
 /*
- * This software copyright by various authors including the RPTools.net
- * development team, and licensed under the LGPL Version 3 or, at your option,
- * any later version.
+ * Copyright (c) 2014 tabletoptool.com team.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
  * 
- * Portions of this software were originally covered under the Apache Software
- * License, Version 1.1 or Version 2.0.
- * 
- * See the file LICENSE elsewhere in this distribution for license details.
+ * Contributors:
+ *     rptools.com team - initial implementation
+ *     tabletoptool.com team - further development
  */
-
 package com.t3.client;
 
 import groovy.lang.Script;

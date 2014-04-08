@@ -6,45 +6,52 @@ options {
 	//DEBUG_TOKEN_MANAGER = true;
 }
 PARSER_BEGIN(ChatParser)
-	package com.t3.chatparser.generated;
+/*
+ * Copyright (c) 2014 tabletoptool.com team.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     rptools.com team - initial implementation
+ *     tabletoptool.com team - further development
+ */
+package com.t3.chatparser.generated;
+
+import com.t3.chatparser.ExpressionPart;
+import com.t3.chatparser.TextPart;
+import com.t3.chatparser.ChatCommand;
+import com.t3.chatparser.UnknownCommandException;
+import com.t3.chatparser.ParsedChat;
+import com.t3.dice.*;
+import com.t3.dice.expression.*;
+import java.io.BufferedReader;
+import java.io.StringReader;
+
+public class ChatParser {
+
+	private String inputString;
+
+	public ChatParser(String str) {
+		this(new BufferedReader(new StringReader(str)));
+		this.inputString=str;
+	}
 	
-	import java.util.List;
-	import java.util.LinkedList;
-	import com.t3.chatparser.ChatPart;
-	import com.t3.chatparser.ExpressionPart;
-	import com.t3.chatparser.TextPart;
-	import com.t3.chatparser.ChatCommand;
-	import com.t3.chatparser.UnknownCommandException;
-	import com.t3.chatparser.ParsedChat;
-	import com.t3.dice.*;
-	import com.t3.dice.expression.*;
-	import java.io.BufferedReader;
-	import java.io.StringReader;
-	import java.util.Collections;
-	
-	public class ChatParser {
-	
-		private String inputString;
-	
-		public ChatParser(String str) {
-			this(new BufferedReader(new StringReader(str)));
-			this.inputString=str;
-		}
-		
-		public ParsedChat parse() throws UnknownCommandException {
-			try {
-				return START();
-			} catch(ParseException e) {
-				e.printStackTrace();
-				return new ParsedChat(new TextPart(inputString));
-			}
-		}
-		
-		public Expression parseExpression() throws ParseException {
-			this.token_source.SwitchTo(DICE_EXPR);
-			return DICE_EXPRESSION();
+	public ParsedChat parse() throws UnknownCommandException {
+		try {
+			return START();
+		} catch(ParseException e) {
+			e.printStackTrace();
+			return new ParsedChat(new TextPart(inputString));
 		}
 	}
+	
+	public Expression parseExpression() throws ParseException {
+		this.token_source.SwitchTo(DICE_EXPR);
+		return DICE_EXPRESSION();
+	}
+}
 PARSER_END(ChatParser)
 
 <CHATCOMMAND>  TOKEN : { < MACRO_EXEC : "macro" | "m">:REST}
