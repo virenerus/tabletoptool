@@ -60,10 +60,4 @@ public class WebDownloader {
 		}
 		
 	}
-
-	public static void main(String[] args) throws Exception {
-		WebDownloader downloader = new WebDownloader(new URL("http://library.rptools.net/1.3/listArtPacks")); //$NON-NLS-1$
-		String result = downloader.read();
-		System.out.println(result);
-	}
 }
