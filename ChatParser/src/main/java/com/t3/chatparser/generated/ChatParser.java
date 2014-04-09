@@ -12,22 +12,15 @@
  */
 package com.t3.chatparser.generated;
 
+import com.t3.chatparser.ExpressionPart;
+import com.t3.chatparser.TextPart;
+import com.t3.chatparser.ChatCommand;
+import com.t3.chatparser.UnknownCommandException;
+import com.t3.chatparser.ParsedChat;
+import com.t3.dice.*;
+import com.t3.dice.expression.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
-
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.ExpressionPart;
-import com.t3.chatparser.ParsedChat;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.UnknownCommandException;
-import com.t3.dice.Dice;
-import com.t3.dice.DiceBuilder;
-import com.t3.dice.expression.AdditionNode;
-import com.t3.dice.expression.DiceNode;
-import com.t3.dice.expression.Expression;
-import com.t3.dice.expression.MultiplicationNode;
-import com.t3.dice.expression.NegationNode;
-import com.t3.dice.expression.NumberNode;
 
 public class ChatParser implements ChatParserConstants {
 
@@ -81,6 +74,7 @@ public class ChatParser implements ChatParserConstants {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DOLLAR_SIGN:
       case CODE_START:
       case TEXT:
         ;
@@ -94,6 +88,13 @@ public class ChatParser implements ChatParserConstants {
         jj_consume_token(CODE_START);
                                  list.add(new ExpressionPart(DICE_EXPRESSION()));
         jj_consume_token(CODE_END);
+        break;
+      case DOLLAR_SIGN:
+        jj_consume_token(DOLLAR_SIGN);
+                                if(list.getLast() instanceof TextPart)
+                                        ((TextPart)list.getLast()).append("$");
+                                else
+                                        list.add(new TextPart("$"));
         break;
       case TEXT:
                          Token t;
@@ -541,10 +542,10 @@ public class ChatParser implements ChatParserConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x4000001,0x1000000,0x6000000,0x6000000,0x800000,0x400,0x80,0x800000,0x400000,0x7ff87e,0x30000000,0x30000000,0x30000000,0xc0000000,0xc0000000,0xc0000000,0x0,0x20000000,0x0,0x0,0x0,0x0,};
+      jj_la1_0 = new int[] {0x8000001,0x1000000,0xe000000,0xe000000,0x800000,0x400,0x80,0x800000,0x400000,0x7ff87e,0x60000000,0x60000000,0x60000000,0x80000000,0x80000000,0x80000000,0x0,0x40000000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f810,0xd,0x1f800,0x7f0,0x7f0,0x1f810,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x3f020,0x1a,0x3f000,0xfe0,0xfe0,0x3f020,};
    }
 
   /** Constructor with InputStream. */
@@ -661,7 +662,7 @@ public class ChatParser implements ChatParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[49];
+    boolean[] la1tokens = new boolean[50];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -678,7 +679,7 @@ public class ChatParser implements ChatParserConstants {
         }
       }
     }
-    for (int i = 0; i < 49; i++) {
+    for (int i = 0; i < 50; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

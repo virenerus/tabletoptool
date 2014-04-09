@@ -81,9 +81,10 @@ PARSER_END(ChatParser)
 
 
 <DEFAULT>  TOKEN : { < CHAT_COMMAND_SLASH : "/">:CHATCOMMAND }
-<DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "§">:DICE_EXPR }
+<DEFAULT,AFTER_CC>  TOKEN : { < DOLLAR_SIGN :  "$$"> }
+<DEFAULT,AFTER_CC>  TOKEN : { < CODE_START :  "$">:DICE_EXPR }
 <DEFAULT,AFTER_CC>  TOKEN : { < TEXT : ~[]> :AFTER_CC}
-<DICE_EXPR> TOKEN : { < CODE_END :  "§">:AFTER_CC }
+<DICE_EXPR> TOKEN : { < CODE_END :  "$">:AFTER_CC }
 <DICE_EXPR> TOKEN : { < PLUS :  "+"> }
 <DICE_EXPR> TOKEN : { < MINUS :  "-"> }
 <DICE_EXPR> TOKEN : { < MULTIPLICATION :  "*"> }
@@ -136,6 +137,14 @@ private ParsedChat START() throws UnknownCommandException:
 				{list.add(new ExpressionPart(DICE_EXPRESSION()));}
 				<CODE_END>
 			)
+			|
+			<DOLLAR_SIGN>
+			{
+				if(list.getLast() instanceof TextPart)
+					((TextPart)list.getLast()).append("$");
+				else
+					list.add(new TextPart("$"));
+			}
 			|
 			{Token t;}		  
 			t=<TEXT>
