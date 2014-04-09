@@ -112,6 +112,6 @@ public abstract class Vision {
 	}
 	
 	protected int getZonePointsPerCell(Zone zone) {
-		return (int)(zone.getGrid().getSize() / zone.getUnitsPerCell());
+		return zone.getGrid().getSize() / zone.getUnitsPerCell();
 	}
 }

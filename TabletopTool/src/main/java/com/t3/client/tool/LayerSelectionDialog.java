@@ -47,7 +47,7 @@ public class LayerSelectionDialog extends JPanel {
 
 		int index = list.getSelectedIndex();
 		if (index >= 0 && listener != null) {
-			listener.layerSelected((Zone.Layer) list.getModel().getElementAt(index));
+			listener.layerSelected(list.getModel().getElementAt(index));
 		}
 	}
 

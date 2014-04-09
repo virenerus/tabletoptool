@@ -207,7 +207,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 						return null;
 					}
 				}
-				DefaultListModel listModel = new DefaultListModel();
+				DefaultListModel<LibraryRow> listModel = new DefaultListModel<LibraryRow>();
 
 				// Create a list to compare against for dups
 				List<String> libraryNameList = new ArrayList<String>();

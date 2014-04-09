@@ -80,7 +80,7 @@ public class GUID extends Object implements Serializable {
             return this == null;
         }
 
-        Class objClass = object.getClass();
+        Class<?> objClass = object.getClass();
 
         GUID guid;
         try {

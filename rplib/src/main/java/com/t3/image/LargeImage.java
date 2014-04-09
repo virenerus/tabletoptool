@@ -207,11 +207,11 @@ public class LargeImage {
 	}
 	
 	private int getChunkCountX(int scaleIndex) {
-		return (int)Math.ceil((info.width * getScaleArray()[scaleIndex]) / (double)CHUNK_SIZE);		
+		return (int)Math.ceil((info.width * getScaleArray()[scaleIndex]) / CHUNK_SIZE);		
 	}
 
 	private int getChunkCountY(int scaleIndex) {
-		return (int)Math.ceil((info.width * getScaleArray()[scaleIndex]) / (double)CHUNK_SIZE);		
+		return (int)Math.ceil((info.width * getScaleArray()[scaleIndex]) / CHUNK_SIZE);		
 	}
 	
 	private int getScaleCount() {

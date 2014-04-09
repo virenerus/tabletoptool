@@ -46,7 +46,7 @@ public class CappedIntegerCellEditor extends AbstractCellEditor implements Table
     
 	private void setForeground(JSpinner spinner, Color c) {
 		JSpinner.DefaultEditor editor =(JSpinner.DefaultEditor)spinner.getEditor();
-		JFormattedTextField textField=(JFormattedTextField)editor.getTextField();
+		JFormattedTextField textField=editor.getTextField();
 		textField.setForeground(c);
 		textField.setCaretColor(c);
 	}

@@ -50,7 +50,7 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
                 // TODO: make this not an aic
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                     
-                    Token token = (Token) tokenList.getSelectedValue();
+                    Token token = tokenList.getSelectedValue();
                     currentZoneRenderer.centerOn(new ZonePoint(token.getX(), token.getY()));
                     currentZoneRenderer.clearSelectedTokens();
                     currentZoneRenderer.selectToken(token.getId());
@@ -76,7 +76,7 @@ public class TokenPanel extends JPanel implements ModelChangeListener {
                         	Set<GUID> selectedTokenSet = new HashSet<GUID>();
                         	for (int index : tokenList.getSelectedIndices()) {
 
-                        		Token token = (Token) tokenList.getModel().getElementAt(index);
+                        		Token token = tokenList.getModel().getElementAt(index);
                         		if (firstToken == null) {
                         			firstToken = token;
                         		}

@@ -424,7 +424,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 			for (int i = 0; i < bars.length; i += 2) {
 				JCheckBox cb = (JCheckBox) ((Container) bars[i]).getComponent(1);
 				JSlider bar = (JSlider) bars[i + 1];
-				Float value = cb.isSelected() ? null : new Float((float)bar.getValue()/100f);
+				Float value = cb.isSelected() ? null : new Float(bar.getValue()/100f);
 				token.setBar(bar.getName(), value);
 				bar.setValue((int) (token.getBar(bar.getName()) * 100));
 			}

@@ -693,7 +693,7 @@ public class TokenBarController implements ActionListener, DocumentListener, Lis
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == formPanel.getComponentByName(TESTER)) {
-			renderer.value = (float)((JSlider) formPanel.getComponentByName(TESTER)).getValue() / 100f;
+			renderer.value = ((JSlider) formPanel.getComponentByName(TESTER)).getValue() / 100f;
 			formPanel.getList(BARS).repaint();
 		} else {
 			changedUpdate(null);

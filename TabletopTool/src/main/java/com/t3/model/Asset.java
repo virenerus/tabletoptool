@@ -13,7 +13,6 @@ package com.t3.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;

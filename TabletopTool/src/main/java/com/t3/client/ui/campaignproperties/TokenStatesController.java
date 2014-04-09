@@ -536,7 +536,7 @@ public class TokenStatesController implements ActionListener, DocumentListener, 
 	 */
 	public void copyCampaignToUI(CampaignProperties campaign) {
 		names.clear();
-		DefaultListModel model = new DefaultListModel();
+		DefaultListModel<BooleanTokenOverlay> model = new DefaultListModel<BooleanTokenOverlay>();
 		List<BooleanTokenOverlay> overlays = new ArrayList<BooleanTokenOverlay>(campaign.getTokenStatesMap().values());
 		Collections.sort(overlays, BooleanTokenOverlay.COMPARATOR);
 		for (BooleanTokenOverlay overlay : overlays) {
@@ -553,10 +553,10 @@ public class TokenStatesController implements ActionListener, DocumentListener, 
 	 *            Campaign containing the properties being updated
 	 */
 	public void copyUIToCampaign(Campaign campaign) {
-		ListModel model = formPanel.getList(STATES).getModel();
+		ListModel<BooleanTokenOverlay> model = formPanel.getList(STATES).getModel();
 		Map<String, BooleanTokenOverlay> states = new LinkedHashMap<String, BooleanTokenOverlay>();
 		for (int i = 0; i < model.getSize(); i++) {
-			BooleanTokenOverlay overlay = (BooleanTokenOverlay) model.getElementAt(i);
+			BooleanTokenOverlay overlay = model.getElementAt(i);
 			overlay.setOrder(i);
 			states.put(overlay.getName(), overlay);
 		}

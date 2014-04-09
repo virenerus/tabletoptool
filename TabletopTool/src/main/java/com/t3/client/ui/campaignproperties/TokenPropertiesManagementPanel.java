@@ -159,7 +159,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 				if (getTokenTypeList().getSelectedValue() == null) {
 					reset();
 				} else {
-					bind((String)getTokenTypeList().getSelectedValue());
+					bind(getTokenTypeList().getSelectedValue());
 				}
 			}
 		});

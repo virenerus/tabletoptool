@@ -13,19 +13,19 @@ package com.t3;
 
 public class AppEvent {
 
-	private Enum id;
+	private Enum<?> id;
 	private Object source;
 	private Object oldValue;
 	private Object newValue;
 
-	public AppEvent(Enum id, Object source, Object oldValue, Object newValue) {
+	public AppEvent(Enum<?> id, Object source, Object oldValue, Object newValue) {
 		this.id = id;
 		this.source = source;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
 	}
 	
-	public Enum getId() {
+	public Enum<?> getId() {
 		return id;
 	}
 	public Object getSource() {

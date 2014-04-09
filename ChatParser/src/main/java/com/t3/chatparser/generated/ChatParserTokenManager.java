@@ -11,15 +11,6 @@
  *     tabletoptool.com team - further development
  */
 package com.t3.chatparser.generated;
-import com.t3.chatparser.ExpressionPart;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.UnknownCommandException;
-import com.t3.chatparser.ParsedChat;
-import com.t3.dice.*;
-import com.t3.dice.expression.*;
-import java.io.BufferedReader;
-import java.io.StringReader;
 
 /** Token Manager. */
 public class ChatParserTokenManager implements ChatParserConstants
@@ -589,7 +580,7 @@ private int jjMoveNfa_0(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -850,7 +841,7 @@ private int jjMoveNfa_2(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -1182,7 +1173,7 @@ private int jjMoveNfa_1(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -1273,7 +1264,7 @@ private int jjMoveNfa_3(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;

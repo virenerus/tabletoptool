@@ -538,7 +538,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 				Token token = zone.getToken(guid);
 
 				if (selected) {
-					for (Player player : (Iterable<Player>) TabletopTool.getPlayerList()) {
+					for (Player player : TabletopTool.getPlayerList()) {
 						token.addOwner(player.getName());
 					}
 					token.removeOwner(name);
@@ -738,7 +738,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 				Zone zone = TabletopTool.getFrame().getCurrentZoneRenderer().getZone();
 				for (GUID tokenGUID : selectedTokenSet) {
 					Token token = zone.getToken(tokenGUID);
-					Float val = hide.isSelected() ? null : new Float((float)slider.getValue() / 100.0);
+					Float val = hide.isSelected() ? null : new Float(slider.getValue() / 100.0);
 					token.setBar(name, val);
 					TabletopTool.serverCommand().putToken(zone.getId(), token);
 				}

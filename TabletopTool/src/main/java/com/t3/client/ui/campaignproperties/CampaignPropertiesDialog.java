@@ -363,7 +363,7 @@ public class CampaignPropertiesDialog extends JDialog {
 
 		campaign.getRemoteRepositoryList().clear();
 		for (int i = 0; i < getRepositoryList().getModel().getSize(); i++) {
-			String repo = (String) getRepositoryList().getModel().getElementAt(i);
+			String repo = getRepositoryList().getModel().getElementAt(i);
 			campaign.getRemoteRepositoryList().add(repo);
 		}
 		Map<String, Map<GUID, LightSource>> lightMap;

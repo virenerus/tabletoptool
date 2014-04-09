@@ -17,8 +17,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.apache.commons.io.IOUtils;
-
 public class WebDownloader {
 	private final URL url;
 

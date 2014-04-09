@@ -1117,7 +1117,7 @@ public class AppActions {
 		@Override
 		public void execute(ActionEvent e) {
 			ClientConnectionPanel panel = TabletopTool.getFrame().getConnectionPanel();
-			Player selectedPlayer = (Player) panel.getSelectedValue();
+			Player selectedPlayer = panel.getSelectedValue();
 
 			if (selectedPlayer == null) {
 				TabletopTool.showError("msg.error.mustSelectPlayerFirst");

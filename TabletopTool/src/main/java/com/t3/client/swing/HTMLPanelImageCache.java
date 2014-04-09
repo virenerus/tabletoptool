@@ -40,8 +40,7 @@ public class HTMLPanelImageCache extends Dictionary<URL, Image> {
 
 	@Override
 	public Enumeration elements() {
-		// Not used
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -96,31 +95,26 @@ public class HTMLPanelImageCache extends Dictionary<URL, Image> {
 
 	@Override
 	public boolean isEmpty() {
-		// Not used
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Enumeration keys() {
-		// Not used
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Image put(URL key, Image value) {
-		// Not used
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Image remove(Object key) {
-		// Not used
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int size() {
-		// Not used
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 }

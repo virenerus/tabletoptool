@@ -54,17 +54,17 @@ public class EventDispatcher {
 		}
 	}
 	
-	public synchronized void fireEvent(Enum id) {
+	public synchronized void fireEvent(Enum<?> id) {
 		fireEvent(id, null, null, null);
 	}
-	public synchronized void fireEvent(Enum id, Object source) {
+	public synchronized void fireEvent(Enum<?> id, Object source) {
 		fireEvent(id, source, null, null);
 	}
-	public synchronized void fireEvent(Enum id, Object source, Object newValue) {
+	public synchronized void fireEvent(Enum<?> id, Object source, Object newValue) {
 		fireEvent(id, source, null, newValue);
 	}
 	
-	public synchronized void fireEvent(Enum id, Object source, Object oldValue, Object newValue) {
+	public synchronized void fireEvent(Enum<?> id, Object source, Object oldValue, Object newValue) {
 		if (!listenerMap.containsKey(id)) {
 			throw new IllegalArgumentException("Event '" + id + "' is not registered.");
 		}

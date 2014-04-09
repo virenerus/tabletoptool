@@ -11,7 +11,6 @@
  */
 package com.t3.networking;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Random;
 

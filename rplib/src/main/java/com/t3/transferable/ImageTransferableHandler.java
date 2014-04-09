@@ -57,7 +57,7 @@ public class ImageTransferableHandler extends TransferableHandler {
 				image = ImageUtil.createCompatibleImage(image);
 			}
 			
-			return (BufferedImage) image;
+			return image;
 		}
 
 		if (transferable.isDataFlavorSupported(Flavor.url.getFlavor())) {
@@ -84,7 +84,7 @@ public class ImageTransferableHandler extends TransferableHandler {
 					image = ImageUtil.createCompatibleImage(image);
 				}
 				
-				return (BufferedImage) image;
+				return image;
 			} catch (MalformedURLException mue) {
 				// TODO: this can probably be ignored
 				mue.printStackTrace();

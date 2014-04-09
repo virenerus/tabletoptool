@@ -1013,14 +1013,14 @@ public class Token extends BaseModel {
 	}
 
 	public MacroButtonProperties getMacro(int index, boolean secure) {
-		return (MacroButtonProperties) getMacroPropertiesMap(secure).get(index);
+		return getMacroPropertiesMap(secure).get(index);
 	}
 
 	// avoid this; it loads the first macro with this label, but there could be more than one macro with that label
 	public MacroButtonProperties getMacro(String label, boolean secure) {
 		Set<Integer> keys = getMacroPropertiesMap(secure).keySet();
 		for (int key : keys) {
-			MacroButtonProperties prop = (MacroButtonProperties) macroPropertiesMap.get(key);
+			MacroButtonProperties prop = macroPropertiesMap.get(key);
 			if (prop.getLabel().equals(label)) {
 				return prop;
 			}
@@ -1032,7 +1032,7 @@ public class Token extends BaseModel {
 		Set<Integer> keys = getMacroPropertiesMap(secure).keySet();
 		List<MacroButtonProperties> list = new ArrayList<MacroButtonProperties>();
 		for (int key : keys) {
-			list.add((MacroButtonProperties) macroPropertiesMap.get(key));
+			list.add(macroPropertiesMap.get(key));
 		}
 		return list;
 	}

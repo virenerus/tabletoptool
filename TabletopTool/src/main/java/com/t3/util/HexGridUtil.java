@@ -53,7 +53,7 @@ public class HexGridUtil {
 	public static CellPoint getWaypoint(HexGrid grid, CellPoint cp, int width, int height) {
 		if( width == height ) {
 			int[] cpUV = toUVCoords(cp, grid); 
-			return fromUVCoords(cpUV[0], cpUV[1] + (int)((width-1)/2), grid);
+			return fromUVCoords(cpUV[0], cpUV[1] + (width-1)/2, grid);
 		}
 		return cp;
 	}

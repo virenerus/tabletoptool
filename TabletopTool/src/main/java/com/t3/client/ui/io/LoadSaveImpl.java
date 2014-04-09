@@ -79,8 +79,8 @@ public class LoadSaveImpl {
 			}
 		});
 		for (Iterator<String> iter = registry.keySet().iterator(); iter.hasNext();) {
-			String name = (String) iter.next();
-			DataTemplate dt = (DataTemplate) registry.get(name);
+			String name = iter.next();
+			DataTemplate dt = registry.get(name);
 			dt.populateModel(model);
 		}
 		form.expandAndSelectAll(true);

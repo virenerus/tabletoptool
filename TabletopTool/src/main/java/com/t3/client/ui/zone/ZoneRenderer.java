@@ -429,7 +429,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 			// run tokenMoved() for each token in the filtered selection list, canceling if it returns 1.0
 			for (GUID tokenGUID : filteredTokens) {
 				Token token = zone.getToken(tokenGUID);
-				//FIXMESOON
+				//FIXMESOON this was an event call that is outdated
 				/*tmc = TokenMoveFunctions.tokenMoved(token, path, filteredTokens);
 
 				if (tmc != null && tmc == BigDecimal.ONE) {

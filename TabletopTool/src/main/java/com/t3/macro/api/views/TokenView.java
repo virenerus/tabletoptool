@@ -991,7 +991,7 @@ public class TokenView extends TokenPropertyView {
 					else
 						zp = zone.getGrid().convert((CellPoint) pathCells);
 				} else {
-					zp = (ZonePoint) pathCells;
+					zp = pathCells;
 					if(gridUnits)
 						zp=zone.getGrid().convert((ZonePoint)zp);
 				}

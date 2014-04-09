@@ -177,9 +177,6 @@ public class GeometryUtil {
 	
 	public static Area createLine(List<Point2D> points, int width) {
 		
-		List<Point2D> leadList = new LinkedList<Point2D>();
-		List<Point2D> tailList = new LinkedList<Point2D>();
-		
 		Point2D lastPoint = null;
 		Line2D lastLine = null;
 		for (Point2D point : points) {
