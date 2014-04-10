@@ -32,7 +32,7 @@ import com.t3.client.ui.macrobuttons.buttons.TransferData;
 import com.t3.client.ui.macrobuttons.buttons.TransferableMacroButton;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.language.I18N;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 

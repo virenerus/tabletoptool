@@ -11,6 +11,8 @@
  */
 package com.t3.model;
 
+import com.t3.GUID;
+
 public class AttachedLightSource {
 
 	private GUID lightSourceId;

@@ -14,7 +14,7 @@ package com.t3.model.drawing;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Zone;
 
 /**

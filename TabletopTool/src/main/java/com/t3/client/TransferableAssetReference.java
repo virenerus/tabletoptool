@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import com.t3.MD5Key;
 import com.t3.model.Asset;
-import com.t3.model.GUID;
+import com.t3.GUID;
 
 
 

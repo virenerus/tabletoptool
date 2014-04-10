@@ -19,7 +19,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.LineSegment;
 import com.t3.model.drawing.Pen;

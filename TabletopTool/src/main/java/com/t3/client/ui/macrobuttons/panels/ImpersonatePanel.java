@@ -26,7 +26,7 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.T3Frame.MTFrame;
 import com.t3.language.I18N;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Token;
 
 public class ImpersonatePanel extends AbstractMacroPanel {

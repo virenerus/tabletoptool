@@ -98,7 +98,7 @@ import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.Player;
 import com.t3.model.TextMessage;

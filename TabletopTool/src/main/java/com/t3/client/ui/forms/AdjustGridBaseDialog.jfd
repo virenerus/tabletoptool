@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq {space :10:10:p, par l:::p {comp adjustGridPanel:::p:490:p, seq l {comp label1:::p::p, space s:::p, par t {seq {comp gridSize:::p::p, space s:::p, comp label4:::p::p, space s:::p, comp yOffset:::p::p, space :::x, comp label2:::p::p}, seq {comp label5:::p::p, space s:::p, comp xOffset:::p::p, space :p:32:p, comp label3:::p:30:p}}, space s:::p, par l {comp zoom::t:p:111:p, comp color::t:p:111:p}, space :::p}}}, seq t {space :::p, comp okButton:::p::p, space s:::p, comp cancelButton:::p::p, space :::p}}"
-			"$verticalGroup": "par l {seq {space :10:10:p, comp adjustGridPanel:::p::p, space :p:13:p, par l {par b {comp yOffset::b:p::p, comp label4::b:p::p, comp gridSize::b:p::p, comp label1::b:p::p, comp label2::b:p::p}, comp zoom:::p::p}, space :::p, par b {comp xOffset::b:p::p, comp label5::b:p::p, comp color::b:p::p, comp label3::b:p::p}, space ::11:x, par b {comp cancelButton::b:p::p, comp okButton::b:p::p}, space :::p}}"
+			"$verticalGroup": "par l {seq {space :10:10:p, comp adjustGridPanel:::p::p, space :p:13:p, par l {par b {comp yOffset::b:p::p, comp label4::b:p::p, comp gridSize::b:p::p, comp label1::b:p::p, comp label2::b:p::p}, comp zoom:::p::p}, space :::p, par b {comp xOffset::b:p::p, comp label5::b:p::p, comp color::b:p::p, comp label3::b:p::p}, space ::181:x, par b {comp cancelButton::b:p::p, comp okButton::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"$sizePolicy": 0
@@ -69,7 +69,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 516, 175 )
+			"size": new java.awt.Dimension( 516, 330 )
 		} )
 	}
 }

@@ -42,7 +42,7 @@ import com.t3.client.ui.macrobuttons.buttons.MacroButton;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.client.ui.token.EditTokenDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;

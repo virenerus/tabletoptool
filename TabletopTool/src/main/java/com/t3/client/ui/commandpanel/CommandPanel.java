@@ -69,7 +69,7 @@ import com.t3.client.ui.chat.ChatProcessor;
 import com.t3.client.ui.chat.SmileyChatTranslationRuleGroup;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.TextMessage;
 import com.t3.model.Token;

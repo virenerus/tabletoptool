@@ -25,6 +25,7 @@ import javax.swing.Icon;
 
 import org.apache.log4j.Logger;
 
+import com.t3.GUID;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 

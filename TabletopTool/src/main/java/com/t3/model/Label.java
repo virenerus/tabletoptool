@@ -13,6 +13,8 @@ package com.t3.model;
 
 import java.awt.Color;
 
+import com.t3.GUID;
+
 public class Label {
 	private final GUID id;
 	private String label;

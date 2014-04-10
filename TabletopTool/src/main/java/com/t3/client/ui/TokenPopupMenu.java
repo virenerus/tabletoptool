@@ -54,7 +54,7 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.language.I18N;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;

@@ -31,7 +31,7 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.vbl.AreaTree;
 import com.t3.model.AttachedLightSource;
 import com.t3.model.Direction;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Light;
 import com.t3.model.LightSource;
 import com.t3.model.ModelChangeEvent;

@@ -21,7 +21,7 @@ import java.awt.Stroke;
 import java.awt.image.ImageObserver;
 
 import com.t3.client.TabletopTool;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Zone;
 
 /**

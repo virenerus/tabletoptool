@@ -46,7 +46,7 @@ import com.t3.macro.api.views.InitiativeListView.InitiativeEntry;
 import com.t3.model.AbstractPoint;
 import com.t3.model.CellPoint;
 import com.t3.model.Direction;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.LightSource;

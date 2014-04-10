@@ -44,7 +44,7 @@ import com.t3.client.ui.token.EditTokenDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.language.I18N;
 import com.t3.model.Direction;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Light;
 import com.t3.model.LightSource;
 import com.t3.model.Token;

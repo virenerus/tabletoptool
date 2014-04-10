@@ -19,7 +19,7 @@ import java.awt.geom.Area;
 import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.util.ImageManager;
 
 /**

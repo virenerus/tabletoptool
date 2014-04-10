@@ -33,7 +33,7 @@ import com.t3.client.ui.token.MultipleImageBarTokenOverlay;
 import com.t3.client.ui.token.SingleImageBarTokenOverlay;
 import com.t3.client.ui.token.TwoImageBarTokenOverlay;
 import com.t3.model.Asset;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.MacroButtonProperties;

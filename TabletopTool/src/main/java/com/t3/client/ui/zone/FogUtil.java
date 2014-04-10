@@ -48,7 +48,7 @@ import com.t3.client.ui.zone.vbl.AreaTree;
 import com.t3.client.ui.zone.vbl.VisibleAreaSegment;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Path;
 import com.t3.model.Player.Role;
 import com.t3.model.Token;

@@ -25,7 +25,7 @@ import com.t3.client.tool.LayerSelectionDialog;
 import com.t3.client.tool.LayerSelectionDialog.LayerSelectionListener;
 import com.t3.client.ui.zone.ZoneOverlay;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Layer;
 import com.t3.model.ZonePoint;

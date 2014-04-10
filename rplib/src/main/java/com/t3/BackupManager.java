@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,8 +76,12 @@ public class BackupManager {
 	private List<File> getFiles() {
 		
 		List<File> fileList = new LinkedList<File>(Arrays.asList(backupDir.listFiles()));
-		Collections.sort(fileList,  (o1, o2) -> o1.lastModified() < o2.lastModified() ? -1 : 1);
-		
+		Collections.sort(fileList,  new Comparator<File>() {
+			@Override
+			public int compare(File o1, File o2) {
+				return Long.compare(o1.lastModified(),o2.lastModified());
+			}
+		});		
 		return fileList;
 	}
 	

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Token;
 
 /**

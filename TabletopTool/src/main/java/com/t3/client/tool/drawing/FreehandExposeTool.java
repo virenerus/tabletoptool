@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Zone;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.LineSegment;

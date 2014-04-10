@@ -18,7 +18,7 @@ import java.util.Set;
 import com.t3.MD5Key;
 import com.t3.model.Asset;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;

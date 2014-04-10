@@ -32,7 +32,7 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.walker.ZoneWalker;
 import com.t3.model.Asset;
 import com.t3.model.CellPoint;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.Token;
 import com.t3.model.TokenFootprint;

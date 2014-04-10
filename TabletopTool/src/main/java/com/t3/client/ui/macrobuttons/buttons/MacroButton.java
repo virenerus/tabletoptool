@@ -40,7 +40,7 @@ import com.t3.client.ui.macrobuttons.buttongroups.AbstractButtonGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroup;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.model.Zone;

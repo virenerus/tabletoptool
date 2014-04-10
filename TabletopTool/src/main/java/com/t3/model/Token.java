@@ -37,6 +37,7 @@ import javax.swing.ImageIcon;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Logger;
 
+import com.t3.GUID;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;

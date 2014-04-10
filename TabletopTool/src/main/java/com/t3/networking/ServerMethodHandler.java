@@ -27,7 +27,7 @@ import com.t3.common.T3Constants;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Label;
@@ -643,8 +643,8 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.t3.networking.ServerCommand#updateExposedAreaMeta(com.t3.model.GUID,
-	 * com.t3.model.GUID, com.t3.model.ExposedAreaMetaData)
+	 * @see com.t3.networking.ServerCommand#updateExposedAreaMeta(com.t3.GUID,
+	 * com.t3.GUID, com.t3.model.ExposedAreaMetaData)
 	 */
 	@Override
 	public void updateExposedAreaMeta(GUID zoneGUID, GUID tokenExposedAreaGUID, ExposedAreaMetaData meta) {

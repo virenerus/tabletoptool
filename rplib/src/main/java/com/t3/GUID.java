@@ -14,12 +14,13 @@ package com.t3;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Base64;
+
+import com.t3.util.URLSafeBase64;
 
 /**
  * Global unique identificator object.
  */
-public class GUID extends Object implements Serializable {
+public class GUID extends Object implements Serializable, Comparable<GUID> {
 
     /** Serial version unique identifier. */
     private static final long serialVersionUID = 6361057925697403643L;
@@ -32,6 +33,17 @@ public class GUID extends Object implements Serializable {
     // NOTE: THIS CAN NEVER BE CHANGED, OR IT WILL AFFECT ALL THINGS THAT PREVIOUSLY USED IT
 
     private byte[] baGUID;
+    static byte[] ip;
+    
+    static {
+	    try {
+	        InetAddress id = InetAddress.getLocalHost();
+	        ip = id.getAddress(); // 192.168.0.14
+	    } catch (UnknownHostException e) {
+	    	// Default to something known
+	    	ip = new byte[]{127, 0, 0, 1};
+	    }
+    }
     
     // Cache of the hashCode for a GUID
     private transient int hash;
@@ -51,7 +63,7 @@ public class GUID extends Object implements Serializable {
     public GUID(String strGUID) {
         if (strGUID == null) throw new InvalidGUIDException("GUID is null");
 
-        this.baGUID = Base64.getUrlDecoder().decode(strGUID);
+        this.baGUID = URLSafeBase64.decode(strGUID);
         validateGUID();
     }
 
@@ -108,7 +120,7 @@ public class GUID extends Object implements Serializable {
     /** Returns a string for the GUID. */
     @Override
 	public String toString() {
-        return Base64.getUrlEncoder().encodeToString(baGUID);
+        return URLSafeBase64.encodeLines(baGUID);
     }
 
     /**
@@ -133,15 +145,7 @@ public class GUID extends Object implements Serializable {
     
     public static byte[] generateGUID() throws InvalidGUIDException{
         byte[] guid = new byte[16];
-        byte[] ip;
         
-        try {
-            InetAddress id = InetAddress.getLocalHost();
-            ip = id.getAddress(); // 192.168.0.14
-        } catch (UnknownHostException e) {
-        	// Default to something known
-        	ip = new byte[]{127, 0, 0, 1};
-        }
         
         System.currentTimeMillis();
         
@@ -177,4 +181,15 @@ public class GUID extends Object implements Serializable {
             System.out.println(guid.toString());
         }
     }
+
+    @Override
+	public int compareTo(GUID o) {
+		if (o != this) {
+			for (int i = 0; i < GUID_LENGTH; i++) {
+				if (this.baGUID[i] != o.baGUID[i])
+					return this.baGUID[i] - o.baGUID[i];
+			}
+		}
+		return 0;
+	}
 }

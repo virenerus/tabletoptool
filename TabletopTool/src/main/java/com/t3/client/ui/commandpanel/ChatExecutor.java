@@ -24,7 +24,7 @@ import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.CellPoint;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.LookupTable.LookupEntry;
 import com.t3.model.Player;

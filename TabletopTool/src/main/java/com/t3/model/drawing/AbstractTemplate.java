@@ -18,7 +18,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
 import com.t3.client.TabletopTool;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 

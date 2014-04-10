@@ -75,7 +75,7 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.MovementKey;
 import com.t3.model.Player;
 import com.t3.model.Pointer;

@@ -100,7 +100,7 @@ import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Label;
 import com.t3.model.LightSource;
 import com.t3.model.ModelChangeEvent;

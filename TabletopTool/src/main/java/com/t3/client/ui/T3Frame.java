@@ -116,7 +116,7 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Asset;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZoneFactory;

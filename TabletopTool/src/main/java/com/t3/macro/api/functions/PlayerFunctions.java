@@ -16,7 +16,7 @@ import java.util.List;
 
 import com.t3.client.TabletopTool;
 import com.t3.macro.api.views.TokenView;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Player;
 import com.t3.model.Token;
 

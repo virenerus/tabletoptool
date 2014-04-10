@@ -18,7 +18,7 @@ import javax.swing.JSeparator;
 
 import com.t3.client.AppUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 

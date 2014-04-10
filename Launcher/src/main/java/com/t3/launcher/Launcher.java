@@ -69,13 +69,13 @@ public class Launcher {
 		String[] versionParts=System.getProperty("java.version").split("\\.");
 		if(Integer.parseInt(versionParts[0])<1 ||
 				(Integer.parseInt(versionParts[0])==1 && 
-				 Integer.parseInt(versionParts[1])<8)) {
+				 Integer.parseInt(versionParts[1])<7)) {
 			JOptionPane.showMessageDialog(null,generateErrorPanel(
-							"T³ will need at least Java 1.8.<br>"
-							+"You can download the JRE 8 here: <a href=\"https://jdk8.java.net/download.html\">https://jdk8.java.net/download.html</a>.<br>"
+							"T³ will need at least Java 1.7.<br>"
+							+"You can download the JRE 7 here: <a href=\"http://java.com\">http://java.com</a>.<br>"
 							+"Your version is "+System.getProperty("java.version")		
 							),
-					"Java 1.8 required", JOptionPane.ERROR_MESSAGE);
+					"Java 1.7 required", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			File javaExecutable=new File(System.getProperty("java.home"),"/bin/java");

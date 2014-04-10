@@ -30,7 +30,7 @@ import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import com.t3.client.ui.macrobuttons.panels.CampaignPanel;
 import com.t3.client.ui.macrobuttons.panels.GlobalPanel;
 import com.t3.language.I18N;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.util.PersistenceUtil;

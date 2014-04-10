@@ -21,7 +21,7 @@ import com.t3.client.TabletopTool;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
@@ -309,8 +309,8 @@ public class ServerCommandClientImpl implements ServerCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.t3.networking.ServerNetworkCommand#updateExposedAreaMeta(com.t3.model.GUID,
-	 * com.t3.model.GUID, com.t3.model.ExposedAreaMetaData)
+	 * @see com.t3.networking.ServerNetworkCommand#updateExposedAreaMeta(com.t3.GUID,
+	 * com.t3.GUID, com.t3.model.ExposedAreaMetaData)
 	 */
 	@Override
 	public void updateExposedAreaMeta(GUID zoneGUID, GUID tokenExposedAreaGUID, ExposedAreaMetaData meta) {

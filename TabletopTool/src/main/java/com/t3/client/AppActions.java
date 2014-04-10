@@ -93,7 +93,7 @@ import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.GUID;
+import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.Player;
 import com.t3.model.TextMessage;
