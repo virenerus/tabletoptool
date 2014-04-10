@@ -14,9 +14,9 @@ package com.t3.model;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.util.Base64;
 
 import com.t3.client.ui.io.ResolveLocalHostname;
+import com.t3.util.URLSafeBase64;
 
 /**
  * Global unique identificator object.
@@ -63,7 +63,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 		if (strGUID == null)
 			throw new InvalidGUIDException("GUID is null");
 
-		this.baGUID = Base64.getUrlDecoder().decode(strGUID);
+		this.baGUID = URLSafeBase64.decode(strGUID);
 		validateGUID();
 	}
 
@@ -125,7 +125,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
 	/** Returns a string for the GUID. */
 	@Override
 	public String toString() {
-		return Base64.getUrlEncoder().encodeToString(baGUID);
+		return URLSafeBase64.encodeLines(baGUID);
 	}
 
 	/**

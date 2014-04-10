@@ -11,15 +11,6 @@
  *     tabletoptool.com team - further development
  */
 package com.t3.chatparser.generated;
-import com.t3.chatparser.ExpressionPart;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.UnknownCommandException;
-import com.t3.chatparser.ParsedChat;
-import com.t3.dice.*;
-import com.t3.dice.expression.*;
-import java.io.BufferedReader;
-import java.io.StringReader;
 
 /** Token Manager. */
 public class ChatParserTokenManager implements ChatParserConstants

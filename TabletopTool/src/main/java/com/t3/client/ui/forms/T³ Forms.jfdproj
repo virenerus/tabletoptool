@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <entry key="classpath1" value="../../../../../../../../lib/jide-common-3.5.3.jar" />
+  <entry key="classpath2" value="../../../../../../../../lib/jide-grids-3.5.3.jar" />
+  <entry key="classpath3" value="../../../../../../../../target/classes" />
+  <entry key="classpath4" value="../../../../../../../../../rplib/target/classes" />
+  <entry key="classpath5" value="../../../../../../../../lib/jide-dock-3.5.3.jar" />
+  <entry key="classpath6" value="../../../../../../../../lib/jide-dialogs-3.5.3.jar" />
+  <entry key="classpath7" value="../../../../../../../../lib/jide-components-3.5.3.jar" />
+  <entry key="classpath8" value="../../../../../../../../../../../.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar" />
+  <entry key="classpath9" value="../../../../../../../../../ClientServer/target/classes" />
+  <entry key="sourcefolders1" value="../../../../.." />
+  <node name="designer">
+    <entry key="_i18nSettingsEnabled" value="true" />
+    <entry key="i18n.propertiestemplate" value="# Created by JFormDesigner on ${date}\n" />
+  </node>
+  <node name="javacodegenerator">
+    <entry key="_generalSettingsEnabled" value="true" />
+    <entry key="classmodifiers" value="1025" />
+    <entry key="explicitimports" value="true" />
+    <entry key="handlermodifiers" value="1028" />
+    <entry key="nonnlstags" value="true" />
+    <entry key="sourcecompatibility" value="7" />
+    <entry key="variablemodifiers" value="4" />
+  </node>
+</project>
+

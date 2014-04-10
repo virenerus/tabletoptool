@@ -29,6 +29,7 @@ import com.t3.model.GUID;
 import com.t3.model.Token;
 import com.t3.model.Token.Type;
 import com.t3.model.Zone;
+import com.t3.model.Zone.TokenFilter;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
 
@@ -232,30 +233,51 @@ public class MapView {
 	 * @return a list of all the tokens on this map currently visible
 	 */
 	public List<TokenView> getExposedTokens() {
-		Zone zone = zr.getZone();
-		return TokenView.makeTokenViewList(zone.getTokensFiltered(t -> zone.isTokenVisible(t)));
+		final Zone zone = zr.getZone();
+		return TokenView.makeTokenViewList(zone.getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return zone.isTokenVisible(t);
+			}
+		}));
 	}
 	
 	/**
 	 * @return a list of all the tokens on this map that are PCs
 	 */
 	public List<TokenView> getPCTokens() {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.getType()==Type.PC));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return t.getType()==Type.PC;
+			}
+		}));
 	}
 	
 	/**
 	 * @return a list of all the tokens on this map that are NPCs
 	 */
 	public List<TokenView> getNPCTokens() {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t-> t.getType() == Token.Type.NPC));
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return t.getType() == Token.Type.NPC;
+			}
+		}));
+		
 	}
 	
 	/**
 	 * @param state the state you want to filter for
 	 * @return a list of all the tokens on this map that have the gien state
 	 */
-	public List<TokenView> getTokensWithState(String state) {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.hasState(state)));
+	public List<TokenView> getTokensWithState(final String state) {
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return t.hasState(state);
+			}
+		}));
 	}
 	
 	/**
@@ -263,8 +285,13 @@ public class MapView {
 	 * @param player the given player
 	 * @return a list of the found tokens
 	 */
-	public List<TokenView> getOwnedTokens(String player) {
-		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(t -> t.isOwner(player)));
+	public List<TokenView> getOwnedTokens(final String player) {
+		return TokenView.makeTokenViewList(zr.getZone().getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return t.isOwner(player);
+			}
+		}));
 	}
 
 	/**

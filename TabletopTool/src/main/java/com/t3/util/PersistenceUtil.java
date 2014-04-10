@@ -118,7 +118,7 @@ public class PersistenceUtil {
 
 		// For a short time, assets were stored separately in files ending with ".dat".  As of 1.3.64, they are
 		// stored in separate files using the correct filename extension for the image type.  This transform
-		// is used to convert asset filenames and not XML.  Old assets with the image embedded as Base64
+		// is used to convert asset filenames and not XML.  Old assets with the image embedded as URLSafeBase64
 		// text are still supported for reading by using an XStream custom Converter.  See the Asset
 		// class for the annotation used to reference the converter.
 		assetnameVersionManager.registerTransformation("1.3.51", new AssetNameTransform("^(.*)\\.(dat)?$", "$1"));

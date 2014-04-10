@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -201,7 +202,7 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 	public void initRemoteServerTable() {
 		getRemoteServerTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		getRemoteServerTable().setModel(new RemoteServerTableModel(Collections.emptyList()));
+		getRemoteServerTable().setModel(new RemoteServerTableModel(Collections.EMPTY_LIST));
 		getRemoteServerTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -361,7 +362,12 @@ public class ConnectToServerDialog extends AbeillePanel<ConnectToServerDialogPre
 
 		public RemoteServerTableModel(List<RegisteredServer> servers) {
 			// Simple but sufficient
-			Collections.sort(servers, (s1, s2) -> String.CASE_INSENSITIVE_ORDER.compare(s1.getName(), s2.getName()));
+			Collections.sort(servers, new Comparator<RegisteredServer>() {
+				@Override
+				public int compare(RegisteredServer s1, RegisteredServer s2) {
+					return String.CASE_INSENSITIVE_ORDER.compare(s1.getName(), s2.getName());
+				}
+			});
 
 			this.servers = servers;
 			

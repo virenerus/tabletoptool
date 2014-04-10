@@ -39,6 +39,7 @@ import com.t3.model.ModelChangeListener;
 import com.t3.model.SightType;
 import com.t3.model.Token;
 import com.t3.model.Zone;
+import com.t3.model.Zone.TokenFilter;
 import com.t3.model.campaign.Campaign;
 
 public class ZoneView implements ModelChangeListener {
@@ -406,8 +407,13 @@ public class ZoneView implements ModelChangeListener {
 		// Calculate it
 		final boolean isGMview = view.isGMView();
 		final boolean checkOwnership = TabletopTool.getServerPolicy().isUseIndividualViews() || TabletopTool.isPersonalServer();
-		List<Token> tokenList = view.isUsingTokenView() ? view.getTokens() : zone.getTokensFiltered(t ->
-			t.isToken() && t.getHasSight() && (isGMview || t.isVisible()));
+		List<Token> tokenList = view.isUsingTokenView() ? view.getTokens() : zone.getTokensFiltered(new TokenFilter() {
+			@Override
+			public boolean filter(Token t) {
+				return t.isToken() && t.getHasSight() && (isGMview || t.isVisible());
+			}
+		});
+			
 		for (Token token : tokenList) {
 			boolean weOwnIt = AppUtil.playerOwns(token);
 			// Permission
