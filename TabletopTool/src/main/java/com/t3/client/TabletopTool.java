@@ -1322,7 +1322,7 @@ public class TabletopTool {
 			JAVA_VERSION = 1.5;
 		} else {
 			JAVA_VERSION = Double.valueOf(version);
-			if (JAVA_VERSION < 1.8) {
+			if (JAVA_VERSION < 1.7) {
 				keepgoing = confirm("msg.error.wrongJavaVersion", version);
 			}
 		}
