@@ -12,22 +12,15 @@
  */
 package com.t3.chatparser.generated;
 
+import com.t3.chatparser.ExpressionPart;
+import com.t3.chatparser.TextPart;
+import com.t3.chatparser.ChatCommand;
+import com.t3.chatparser.UnknownCommandException;
+import com.t3.chatparser.ParsedChat;
+import com.t3.dice.*;
+import com.t3.dice.expression.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
-
-import com.t3.chatparser.ChatCommand;
-import com.t3.chatparser.ExpressionPart;
-import com.t3.chatparser.ParsedChat;
-import com.t3.chatparser.TextPart;
-import com.t3.chatparser.UnknownCommandException;
-import com.t3.dice.Dice;
-import com.t3.dice.DiceBuilder;
-import com.t3.dice.expression.AdditionNode;
-import com.t3.dice.expression.DiceNode;
-import com.t3.dice.expression.Expression;
-import com.t3.dice.expression.MultiplicationNode;
-import com.t3.dice.expression.NegationNode;
-import com.t3.dice.expression.NumberNode;
 
 public class ChatParser implements ChatParserConstants {
 

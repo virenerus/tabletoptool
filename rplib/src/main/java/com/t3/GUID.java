@@ -15,7 +15,10 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.t3.util.URLSafeBase64;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+
+import sun.util.logging.resources.logging;
 
 /**
  * Global unique identificator object.
@@ -63,7 +66,11 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
     public GUID(String strGUID) {
         if (strGUID == null) throw new InvalidGUIDException("GUID is null");
 
-        this.baGUID = URLSafeBase64.decode(strGUID);
+        try {
+			this.baGUID = Hex.decodeHex(strGUID.toCharArray());
+		} catch (DecoderException e) {
+			throw new Error(e);
+		}
         validateGUID();
     }
 
@@ -120,7 +127,7 @@ public class GUID extends Object implements Serializable, Comparable<GUID> {
     /** Returns a string for the GUID. */
     @Override
 	public String toString() {
-        return URLSafeBase64.encodeLines(baGUID);
+        return Hex.encodeHexString(baGUID);
     }
 
     /**
