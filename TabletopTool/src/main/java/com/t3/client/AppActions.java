@@ -82,7 +82,6 @@ import com.t3.client.ui.campaignproperties.CampaignPropertiesDialog;
 import com.t3.client.ui.io.FTPClient;
 import com.t3.client.ui.io.FTPTransferObject;
 import com.t3.client.ui.io.FTPTransferObject.Direction;
-import com.t3.client.ui.io.LoadSaveImpl;
 import com.t3.client.ui.io.ProgressBarList;
 import com.t3.client.ui.io.UpdateRepoDialog;
 import com.t3.client.ui.token.TransferProgressDialog;
@@ -2133,25 +2132,6 @@ public class AppActions {
 		}.start();
 	}
 
-	/**
-	 * This is the integrated load/save interface that allows individual
-	 * components of the application's dataet to be saved to an external file.
-	 * The goal is to allow specific maps and tokens, campaign properties
-	 * (sight, light, token props), and layers + their contents to be saved
-	 * through a single unified interface.
-	 */
-	public static final Action LOAD_SAVE = new DeveloperClientAction() {
-		{
-			init("action.loadSaveDialog");
-		}
-
-		@Override
-		public void execute(ActionEvent ae) {
-			LoadSaveImpl impl = new LoadSaveImpl();
-			impl.saveApplication(); // All the work is done here
-		}
-	};
-
 	public static final Action SAVE_CAMPAIGN = new DefaultClientAction() {
 		{
 			init("action.saveCampaign");
@@ -2659,8 +2639,8 @@ public class AppActions {
 			runBackground(new Runnable() {
 				@Override
 				public void run() {
-					AddResourceDialog dialog = new AddResourceDialog();
-					dialog.showDialog();
+					AddResourceDialog dialog = new AddResourceDialog(TabletopTool.getFrame());
+					dialog.setVisible(true);
 				}
 			});
 		}

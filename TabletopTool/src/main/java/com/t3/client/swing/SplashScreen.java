@@ -29,6 +29,7 @@ public class SplashScreen extends JFrame {
 	private int imgWidth, imgHeight;
 
 	public SplashScreen(String imgName, final String text) {
+		super("T³");
 		setUndecorated(true);
 		loadSplashImage(imgName);
 
