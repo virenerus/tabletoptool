@@ -16,7 +16,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -30,9 +32,9 @@ import javax.swing.event.HyperlinkListener;
 
 public class Launcher {
 
-	public static void main(String[] args) {
-		File mainFolder=new File(Launcher.class.getProtectionDomain()
-									.getCodeSource().getLocation().getPath()
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		File mainFolder=new File(URLDecoder.decode(Launcher.class.getProtectionDomain()
+									.getCodeSource().getLocation().getPath(),"utf8")
 								).getParentFile();
 		System.out.println("Main Folder: "+mainFolder.getAbsolutePath());
 		File propertiesFile=new File(
@@ -47,23 +49,24 @@ public class Launcher {
 		
 		Properties properties=new Properties();
 		//load properties
-		try {
-			properties.loadFromXML(new FileInputStream(propertiesFile));
+		try (FileInputStream in=new FileInputStream(propertiesFile)){
+			properties.loadFromXML(in);
 		} catch(Exception e) {
 			//if file not found should not be a problem
 			warn("Could not find config.xml. Trying to create new one.",e);
+			
+			try(FileOutputStream out=new FileOutputStream(propertiesFile)){
+				for(String[] def:defaults) {
+					if(!properties.contains(def[0]))
+						properties.put(def[0], def[1]);
+				}
+				
+				properties.storeToXML(out, "T³ Properties");
+			} catch (IOException e2) {
+				error("Could not store config.xml.",e2);
+			}
 		}
 		
-		//set and store defaults
-		for(String[] def:defaults) {
-			if(!properties.contains(def[0]))
-				properties.put(def[0], def[1]);
-		}
-		try {
-			properties.storeToXML(new FileOutputStream(propertiesFile), "T³ Properties");
-		} catch (IOException e) {
-			error("Could not store config.xml.",e);
-		}
 		
 		//check jre version
 		String[] versionParts=System.getProperty("java.version").split("\\.");
