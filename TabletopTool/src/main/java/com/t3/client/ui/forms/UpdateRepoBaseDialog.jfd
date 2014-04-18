@@ -1,0 +1,173 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "unrelgap, default, 4dlu, default:grow, 4dlu, default, 4dlu, default, 4dlu, default, unrelgap"
+			"$rowSpecs": "relgap, relgap, default, narrowlinegap, default, relgap, default:grow, max(default;10px), default, narrowlinegap, default, max(default;10px), default, max(default;10px), default, narrowlinegap, default, narrowlinegap, default, narrowlinegap, default, max(default;10px), relgap"
+			"$rowGroupIds": "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Save To:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 13
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Repositories are listed in the same order as they appear in the Campaign Properties."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 3
+				"gridWidth": 9
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "FTP Server:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 15
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Username:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 19
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "Password:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 21
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "_okButton"
+				"text": "OK"
+				"actionCommand": "OK"
+				"toolTipText": "Begin the update process."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 8
+				"gridY": 21
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "_cancelButton"
+				"text": "Cancel"
+				"actionCommand": "Cancel"
+				"toolTipText": "Cancel the update."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 10
+				"gridY": 21
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_hostname"
+				"toolTipText": "The FTP server name may be a hostname or an IP address.  When using an IPv6 address surround it with \"[\" and \"]\"."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 15
+				"gridWidth": 7
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_username"
+				"toolTipText": "The username to login as on the FTP server."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 19
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "_password"
+				"toolTipText": "The password associated with the above username.  It will not display here nor will it be saved for future use."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 21
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_saveTo"
+				"toolTipText": "Set this to one of the repositories in the list above.  You may double-click an entry from the list, use keyboard cut/paste, or type in the text."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 13
+				"gridWidth": 7
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "<html>Double-click a repository to copy the repository location into the <b>Save To:</b> field."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 9
+				"gridWidth": 9
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "com.jidesoft.swing.CheckBoxListWithSelectable" ) {
+					name: "checkBoxList"
+					"model": new javax.swing.DefaultListModel {
+						addElement( "http://rptools.net/images-indexes/gallery.rpax.gz" )
+					}
+					"toolTipText": "<html>These repositories are from the <b>Campaign Properties</b> on the <b>Edit</b> menu."
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 7
+				"gridWidth": 9
+				"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": "Directory on Server:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 17
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_directory"
+				"selectionEnd": 1
+				"text": "/"
+				"selectionStart": 1
+				"toolTipText": "<html>If your FTP login requires that you change directory to navigate to the location of the repository's <b>index.gz</b> directory, enter the directory name here."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 17
+				"gridWidth": 4
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label8"
+				"text": "Place a checkmark in each repository that you want to search for existing assets."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 5
+				"gridWidth": 9
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label9"
+				"text": "<html>This is the <b>index.gz</b> that will be updated with the new image information."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 11
+				"gridWidth": 9
+			} )
+			add( new FormComponent( "javax.swing.JCheckBox" ) {
+				name: "_subdir"
+				"text": "Create subdir on server?"
+				"selected": true
+				"actionCommand": "Create subdir on server?"
+				"toolTipText": "Some FTP servers may not allow TabletopTool to create a directory.  If this is the case for your server yet you want new assets in their own directory, uncheck this field and create the directory yourself, then specify that directory as the location on the server."
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 6
+				"gridY": 19
+				"gridWidth": 5
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints LEFT
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

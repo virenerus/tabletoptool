@@ -340,9 +340,6 @@ public class AppPreferences {
 	private static final String KEY_TOOLTIP_DISMISS_DELAY = "toolTipDismissDelay";
 	private static final int DEFAULT_TOOLTIP_DISMISS_DELAY = 30000;
 
-	private static final String KEY_TOOLTIP_FOR_INLINE_ROLLS = "toolTipInlineRolls";
-	private static final boolean DEFAULT_TOOLTIP_FOR_INLINE_ROLLS = false;
-
 	private static final String KEY_SUPPRESS_TOOLTIPS_FOR_MACROLINKS = "suppressToolTipsMacroLinks";
 	private static final boolean DEFAULT_SUPPRESS_TOOLTIPS_FOR_MACROLINKS = false;
 
@@ -393,14 +390,6 @@ public class AppPreferences {
 	public static Integer getTypingNotificationDuration() {
 		Integer value = Integer.valueOf(prefs.getInt(KEY_TYPING_NOTIFICATION_DURATION, DEFAULT_TYPING_NOTIFICATION_DURATION));
 		return value;
-	}
-
-	public static final void setUseToolTipForInlineRoll(boolean tooltip) {
-		prefs.putBoolean(KEY_TOOLTIP_FOR_INLINE_ROLLS, tooltip);
-	}
-
-	public static final boolean getUseToolTipForInlineRoll() {
-		return prefs.getBoolean(KEY_TOOLTIP_FOR_INLINE_ROLLS, DEFAULT_TOOLTIP_FOR_INLINE_ROLLS);
 	}
 
 	public static final void setSuppressToolTipsForMacroLinks(boolean tooltip) {

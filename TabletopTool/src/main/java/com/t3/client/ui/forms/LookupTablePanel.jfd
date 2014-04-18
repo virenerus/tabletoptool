@@ -1,0 +1,85 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+			"$rowSpecs": "max(default;10px), default, max(default;10px), default:grow, max(default;10px)"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+				"$rowSpecs": "default"
+			} ) {
+				name: "buttonPanel"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "newButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "com/t3/client/image/add.png" )
+					"actionCommand": "New"
+					"toolTipText": "Create a new lookup table"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "editButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "com/t3/client/image/pencil.png" )
+					"actionCommand": "Edit"
+					"toolTipText": "Edit selected table"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "deleteButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "com/t3/client/image/delete.png" )
+					"actionCommand": "Delete"
+					"toolTipText": "Delete table"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "duplicateButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "com/t3/client/image/page_copy.png" )
+					"actionCommand": "Duplicate"
+					"toolTipText": "Duplicate selected table"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 7
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "importButton"
+					"text": "Import"
+					"actionCommand": "Import"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "exportButton"
+					"text": "Export"
+					"actionCommand": "Export"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 11
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 2
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imagePanel"
+				"text": "imagePanel"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 4
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+				"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

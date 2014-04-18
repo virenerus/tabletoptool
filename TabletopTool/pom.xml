@@ -104,5 +104,10 @@
 		<artifactId>jsoup</artifactId>
 		<version>1.7.3</version>
 	</dependency>
+	<dependency>
+		<groupId>com.jgoodies</groupId>
+		<artifactId>jgoodies-forms</artifactId>
+		<version>1.7.2</version>
+	</dependency>
   </dependencies>
 </project>

@@ -1,0 +1,267 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "max(default;10px), default, default, left:min(default;125dlu), default, default, max(default;10px)"
+			"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_username"
+				"columns": 20
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 2
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_GMPassword"
+				"columns": 20
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 8
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_playerPassword"
+				"columns": 20
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 10
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "username"
+				"text": "Username:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 2
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Port:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 4
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "GM Password:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 8
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Player Password:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 10
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "_role"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 6
+				"gridY": 2
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "<html><body><i>Optional</i></body></html>"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 6
+				"gridY": 8
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "<html><body><i>Optional</i></body></html>"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 6
+				"gridY": 10
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "RPTools.net Alias:"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 6
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "_TabletoptoolName"
+				"columns": 20
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 6
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": "<html><body><i>Optional</i></body></html>"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 6
+				"gridY": 6
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "max(default;10px), 33px, 154px, default:grow, 102px, max(default;10px)"
+				"$rowSpecs": "max(default;10px), default, max(default;10px), default, default, default, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default"
+			} ) {
+				name: "panel1"
+				"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Options", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_useStrictTokenOwnership"
+					"text": "Strict token ownership"
+					"actionCommand": "Strict token ownership"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 2
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_playersCanRevealVision"
+					"text": "Players can reveal vision"
+					"actionCommand": "Players can reveal vision"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 4
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_useIndividualViews"
+					"text": "Use Individual Views"
+					"actionCommand": "Use Individual Views"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 6
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_restrictedImpersonation"
+					"text": "Restricted Player Impersonation"
+					"actionCommand": "Use Unrestricted Player Impersonation"
+					"toolTipText": "Gives players the ability to impersonate any character as if they had GM status."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 9
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_playersReceiveCampaignMacros"
+					"text": "Players Receive Campaign Macros"
+					"actionCommand": "Use Unrestricted Player Impersonation"
+					"toolTipText": "The campaign panel macros will be available for players to use (but not edit)."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 11
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_useToolTipsForUnformattedRolls"
+					"text": "Use ToolTips for [] Rolls"
+					"actionCommand": "Use Unrestricted Player Impersonation"
+					"toolTipText": "Tool Tips will be used for [ ] rolls where no format options are specified"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 13
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label8"
+					"text": "Movement metric"
+					"toolTipText": "Determines how TabletopTool handles movement on the selected grid type."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 15
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_useIndividualFOW"
+					"text": "Use Individual FOW\t"
+					"actionCommand": "Use Individual Views"
+					"toolTipText": "Each token has it's own FOW"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 7
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "movementMetric"
+					"toolTipText": "Determines how TabletopTool handles movement on the selected grid type.\t"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 4
+					"gridY": 15
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_autoRevealOnMovement"
+					"text": "Auto Reveal On Movement"
+					"actionCommand": "Auto Reveal On Movement"
+					"toolTipText": "Allows tokens to automatically reveal FoW at the end of movement."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 5
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 12
+				"gridWidth": 5
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, max(default;10px), max(default;10px), max(default;10px), default, max(default;10px), default"
+				"$rowSpecs": "default"
+			} ) {
+				name: "panel2"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "networkingHelpButton"
+					"text": "Networking Help"
+					"actionCommand": "Test Connection"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "okButton"
+					"text": "OK"
+					"actionCommand": "OK"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelButton"
+					"text": "Cancel"
+					"actionCommand": "Cancel"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 7
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 14
+				"gridWidth": 5
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, 39px, default:grow"
+				"$rowSpecs": "default"
+			} ) {
+				name: "panel3"
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "_port"
+					"columns": 5
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "_useUPnP"
+					"text": "Use UPnP"
+					"actionCommand": "Use UPnP"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 4
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

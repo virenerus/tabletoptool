@@ -1,0 +1,450 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "unrelgap, default, default, default:grow, unrelgap"
+			"$rowSpecs": "max(default;10px), default, max(default;10px), fill:default:grow, max(default;10px), default, max(default;10px)"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabs"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, default:grow, max(default;10px), fill:default:grow, max(default;10px)"
+				} ) {
+					name: "notesPanel"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "_notes"
+							"lineWrap": true
+							"wrapStyleWord": true
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 3
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "Notes"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default:grow"
+						"$rowSpecs": "default, default:grow"
+					} ) {
+						name: "gmNotesPanel"
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane2"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "_GMNotes"
+								"lineWrap": true
+								"disabledTextColor": new java.awt.Color( 255, 255, 255, 255 )
+								"wrapStyleWord": true
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 2
+							"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+							"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "GM Notes"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 5
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Notes"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default, default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default:grow, max(default;10px)"
+				} ) {
+					name: "propertiesPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "propertiesTable"
+						"text": "propertiesTable"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"gridWidth": 2
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Properties"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), fill:default:grow, max(default;10px)"
+				} ) {
+					name: "panel1"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						"horizontalScrollBarPolicy": 31
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "max(default;10px), max(default;10px), max(default;10px), max(default;10px), max(default;10px), max(default;10px)"
+							"$rowSpecs": "max(default;10px)"
+						} ) {
+							name: "statesPanel"
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "State"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel2"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane4"
+						"horizontalScrollBarPolicy": 31
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "speechTable"
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel3"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "speechClearAllButton"
+							"text": "Clear All"
+							"actionCommand": "Clear All"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Speech"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default:grow, max(default;10px)"
+				} ) {
+					name: "ownershipPanel"
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "_ownedByAll"
+						"text": "All Players"
+						"actionCommand": "All Players"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "ownershipList"
+						"text": "ownerShipLabel"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Ownership"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "default:grow"
+					"$rowSpecs": "default, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel4"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default, max(default;10px), default, default, default, max(default;10px), max(default;10px), max(default;10px), default, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), max(default;10px), max(default;10px)"
+					} ) {
+						name: "panel5"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "Shape:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label4"
+							"text": "Size:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label5"
+							"text": "Properties:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "shape"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+							"gridWidth": 3
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "size"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+							"gridWidth": 3
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "propertyTypeCombo"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+							"gridWidth": 3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Snap To Grid:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 10
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "_snapToGrid"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 12
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "visibleLabel"
+							"text": "Visible to players:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 10
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "_visible"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 12
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "Has Sight:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "_hasSight"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "sightTypeCombo"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "visibleOnlyToOwnerLabel"
+							"text": "Visible to Owners Only"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 10
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "_visibleOnlyToOwner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 12
+							"gridY": 6
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 1
+						"gridY": 1
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel6"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "default"
+						} ) {
+							name: "charsheetPanel"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 0, 0, 0, 255 ), 1, false ), "Handout", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "charsheet"
+								"text": "Charsheet"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 5
+							"gridY": 1
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "default"
+						} ) {
+							name: "tokenLayoutPanel"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 0, 0, 0, 255 ), 1, false ), "Layout", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "tokenLayout"
+								"text": "Layout"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "default"
+						} ) {
+							name: "portraitPanel"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 0, 0, 0, 255 ), 1, false ), "Portrait", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "portrait"
+								"text": "Portrait"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 3
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 1
+						"gridY": 3
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Config"
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 4
+				"gridWidth": 3
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "tokenImage"
+				"text": "Image"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 2
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, unrelgap, default"
+				"$rowSpecs": "default"
+			} ) {
+				name: "panel7"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelButton"
+					"text": "Close"
+					"actionCommand": "Cancel"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "okButton"
+					"text": "OK"
+					"actionCommand": "OK"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 6
+				"gridWidth": 3
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, max(default;10px), default, max(default;10px), default"
+				"$rowSpecs": "default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+			} ) {
+				name: "panel8"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label8"
+					"text": "Name:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "_name"
+					"font": new java.awt.Font( "Dialog", 1, 12 )
+					"columns": 30
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "tokenGMNameLabel"
+					"text": "GM Name:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 3
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "_GMName"
+					"font": new java.awt.Font( "Dialog", 1, 12 )
+					"columns": 30
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 3
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "_type"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label9"
+					"text": "Label:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 5
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "_label"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 5
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 4
+				"gridY": 2
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

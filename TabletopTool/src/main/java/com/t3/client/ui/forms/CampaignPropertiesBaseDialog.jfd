@@ -1,0 +1,873 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+			"$rowSpecs": "max(default;10px), fill:default:grow, max(default;10px), default, max(default;10px)"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), fill:default:grow, max(default;10px)"
+				} ) {
+					name: "propertiesPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenPropertiesPanel"
+						"text": "Token Properties Panel"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Token Properties"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, default, default, max(default;10px), default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel1"
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "newServer"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "addRepoButton"
+						"text": "Add"
+						"actionCommand": "Add"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						add( new FormComponent( "javax.swing.JList" ) {
+							name: "repoList"
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+						"gridWidth": 3
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel2"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "deleteRepoButton"
+							"text": "Delete"
+							"actionCommand": "JButton"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 4
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints TOP
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel3"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "addGalleryIndexButton"
+							"text": "Add Tabletoptool Gallery Index"
+							"actionCommand": "Add Tabletoptool Gallery Index"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 6
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Repositories"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel4"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane2"
+						add( new FormComponent( "javax.swing.JEditorPane" ) {
+							name: "sightPanel"
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "<html><b>Format:</b> &nbsp&nbsp&nbsp;Name : options <p><p> Each sight type can have zero or more options.  Having zero options implies using defaults for all values (e.g. Normal vision).  use spaces between each option <p><p> <b>\n\nOptions:</b> <p><p> \nshape - shape may be circle, square, or cone\ndistance=y - Distance is the range at which this vision type ends.  Can be a decimal value. Ex: distance=10<br>\narc=y -  When used with the cone shape, it signifies how large a field of vision the token has.  Can be an interger value. Ex: arc=120<br>\noffset=y -  When used with the cone shape, it signifies how much offest the cone begins from the center of the tokens facing.  Can be an interger value. Ex: offset=120<br>\nx# - Maginifier, multiplies each light source radius by this value.  Can be a decimal value.  Ex: x2<br> \nr# - Range of personal light.  The token will have a light source centered on them that only they can see with a radius of this value.  Ex: r60<br>   "
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Sight"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default:grow, default:grow, default, max(default;10px)"
+				} ) {
+					name: "panel5"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						add( new FormComponent( "javax.swing.JEditorPane" ) {
+							name: "lightPanel"
+							"autoscrolls": false
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane4"
+						"horizontalScrollBarPolicy": 31
+						"verticalScrollBarPolicy": 22
+						add( new FormComponent( "javax.swing.JEditorPane" ) {
+							name: "lightHelp"
+							"selectionEnd": 3195
+							"text": "<html>\n  <head>\n    \n  </head>\n  <body>\n    <b>Format:</b> \n\n    <table>\n      <tr>\n        <td>\n          &#160;&#160;&#160;&#160;\n        </td>\n        <td>\n          <pre>Group name\n----------\nname <b>:</b> <i>type</i> <i>shape</i> <b>OPTIONS</b> range <b>#</b>rrggbb\n&lt;blank line&gt;</pre>\n        </td>\n      </tr>\n    </table>\n    Define groups of light types with a line of text to indicate the group \n    name followed by one or more <b>name</b> definitions. End a group with a \n    blank line. All text is case-insensitive. Lines that start with a &quot;-&quot; are \n    considered comments and are ignored. The group name becomes an entry on \n    the token's popup menu under the <b>Light Sources</b> element, and \n    individual light source definitions become sub-entries. Group names are \n    displayed in sorted order, and the sub-entries are alphabetically sorted \n    as well.\n\n    <p>\n      <b>name:</b> A user-visible name for light definition.<br><b>type:</b> \n      An optional type for the light. Currently only <b>aura</b> is valid. \n      (See below for a description of auras.)<br><b>shape:</b> An optional \n      shape for the light emanation. Can be <b>circle</b> (default), <b>square</b>, \n      or <b>cone</b> (cones also have an <b>arc=<i>angle</i></b> field). \n      Shapes apply from the point they are included in the definition until \n      the end of the definition or until another shape is specified. This \n      means multiple light shapes can be created under a single name and \n      turned on or off as a unit.<br><b>range:</b> A distance measured in map \n      units (defined when the map is created). Units are measured from the \n      centerpoint of the grid cell, hence the extra 2 &#189; feet added in the \n      below example to make neat squares. Can have an optional <i>#rrggbb</i> \n      hex color component appended to it as per typical CSS rules.<br><b>OPTIONS:</b> \n      The only valid options are <b>GM</b> and <b>OWNER</b> and they apply \n      only to auras (see below).\n    </p>\n    <br>\n    <hr>\n    \n\n    <p>\n      <b>Example:</b>\n    </p>\n    <table>\n      <tr>\n        <td>\n          &#160;&#160;&#160;&#160;\n        </td>\n        <td>\n          <pre>Sample Lights - 5' square grid\n----\nCandle - 5 : 7.5 12.5#000000 \nLamp - 15 : 17.5 32.5#000000 \nTorch - 20 : 22.5 42.5#000000 \nLantern, bullseye - 60 : cone arc=60 62.5 122.5#000000 \nLantern, bullseye (leaks light) - 60 : cone arc=60 62.5 122.5#000000 circle 2.5#000000\nNightvision goggles - 40 : cone arc=30 42.5#00e000 \n&lt;blank line&gt;</pre>\n        </td>\n      </tr>\n    </table>\n    <hr>\n    \n\n    <p>\n      <b>Auras:</b>\n    </p>\n    <p>\n      To create an aura, put the keyword <b>aura</b> at the beginning of the \n      definition. Auras radiate a colored area and interact with the vision \n      blocking layer (i.e. are blocked by VBL), but do not actually cast any \n      visible light and therefore do not expose any fog-of-war. GM-only auras \n      are only visible by clients logged into the server as GM. They remain \n      visible even when the map is in <i>Show As Player</i> mode. Owner-only \n      auras are only visible to the player(s) who owns the token they are \n      attached to and are always visible to the GM. See examples, below.\n    </p>\n    <p>\n      In the following example, the GM-only auras are red, the owner-only \n      auras are green, and the player auras are blue. You can of course define \n      your own colors.\n    </p>\n    <table>\n      <tr>\n        <td>\n          &#160;&#160;&#160;&#160;\n        </td>\n        <td>\n          <pre>Sample Auras - 5' square grid\n----\nAura red 5 : aura square GM 2.5#ff0000\nAura red 10 : aura GM 7.5#ff0000\nAura Owner Also 5 : aura square owner 2.5#00ff00\nAura Owner Also 10 : aura owner 7.5#00ff00\nAura Player Also 5 : aura square 2.5#0000ff\nAura Player Also 10 : aura 7.5#0000ff</pre>\n        </td>\n      </tr>\n    </table>\n    The first line creates a square GM-only aura in red that is 5-feet across. \n    The second creates a round GM-only aura in red with a 15-foot diameter. \n    Lines three and four do the same thing, but with a green aura that is only \n    visible to players who own the token with the aura attached to it. Lines \n    five and six are visible to all players and are in blue.\n  </body>\n</html>\n"
+							"contentType": "text/html"
+							"editable": false
+							"background": new java.awt.Color( 238, 238, 238, 255 )
+							"selectionStart": 3195
+							"autoscrolls": false
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 3
+						"gridHeight": 2
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Light"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), right:default, 4dlu, default, 8dlu, right:default, 4dlu, 25px, 8dlu, right:default, 4dlu, 50px, 8dlu, right:default, 4dlu, 50px, 0px:grow, relgap, default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, narrowlinegap, default, narrowlinegap, default, default, narrowlinegap, default, relgap, fill:default:grow, max(default;10px)"
+				} ) {
+					name: "tokenStatesPanel"
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "tokenStatesType"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "Image"
+							addElement( "Image" )
+							addElement( "Corner Image" )
+							addElement( "Grid Image" )
+							addElement( "Dot" )
+							addElement( "Grid Dot" )
+							addElement( "Circle" )
+							addElement( "Shaded" )
+							addElement( "X" )
+							addElement( "Cross" )
+							addElement( "Diamond" )
+							addElement( "Grid Diamond" )
+							addElement( "Yield" )
+							addElement( "Grid Yield" )
+							addElement( "Triangle" )
+							addElement( "Grid Triangle" )
+							addElement( "Grid Square" )
+						}
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenStatesColorLabel"
+						"text": "Color:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 4
+					} )
+					add( new FormComponent( "com.jeta.forms.components.colors.JETAColorWell" ) {
+						name: "tokenStatesColor"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 8
+						"gridY": 4
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenStatesWidthLabel"
+						"text": "Width:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 10
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JSpinner" ) {
+						name: "tokenStatesWidth"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 12
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Type:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane5"
+						add( new FormComponent( "javax.swing.JList" ) {
+							name: "tokenStatesStates"
+							"selectionMode": 0
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 11
+						"gridWidth": 16
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenStatesImageFileLabel"
+						"text": "Image:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 9
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "tokenStatesImageFile"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 9
+						"gridWidth": 14
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "tokenStatesCorner"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "North East"
+							addElement( "North East" )
+							addElement( "North West" )
+							addElement( "South East" )
+							addElement( "South West" )
+						}
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JSpinner" ) {
+						name: "tokenStatesFlowGrid"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 12
+						"gridY": 6
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenStatesCornerLabel"
+						"text": "Corner:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tokenStatesFlowGridLabel"
+						"text": "Grid Size:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 10
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "Mouseover:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "tokenStatesMouseover"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 8
+						"gridY": 6
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label4"
+						"text": "Opacity:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 14
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JSpinner" ) {
+						name: "tokenStatesOpacity"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 16
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "tokenStatesBrowseImage"
+						"text": "Browse"
+						"actionCommand": "Add"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 19
+						"gridY": 9
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label5"
+						"text": "Name:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default"
+						"$rowSpecs": "top:default, relgap, default, relgap, default, relgap, default, relgap, default"
+					} ) {
+						name: "panel6"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "tokenStatesAddState"
+							"text": "Add"
+							"actionCommand": "Add"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "tokenStatesDeleteState"
+							"text": "Delete"
+							"actionCommand": "deleteState\t"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 5
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "tokenStatesUpdateState"
+							"text": "Update"
+							"actionCommand": "Add"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 3
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "tokenStatesMoveUp"
+							"text": "Move Up"
+							"actionCommand": "deleteState\t"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 7
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "tokenStatesMoveDown"
+							"text": "Move Down"
+							"actionCommand": "deleteState\t"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 9
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 19
+						"gridY": 11
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "0px:grow, max(default;10px), default, relgap, 0px:grow"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel7"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "tokenStatesName"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Group:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 3
+							"gridY": 1
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "tokenStatesGroup"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 5
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+						"gridWidth": 14
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default"
+						"$rowSpecs": "default"
+					} ) {
+						name: "panel8"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default, unrelgap, default, unrelgap, default"
+							"$rowSpecs": "default"
+						} ) {
+							name: "panel9"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 0, 0, 0, 255 ), 1, false ), "Show To:", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "tokenStatesGM"
+								"text": "GM"
+								"selected": true
+								"actionCommand": "GM"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "tokenStatesOwner"
+								"text": "Owner"
+								"selected": true
+								"actionCommand": "GM"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 3
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "tokenStatesEverybody"
+								"text": "Everybody Else"
+								"selected": true
+								"actionCommand": "GM"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 5
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 7
+						"gridWidth": 16
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "States"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "default:grow"
+					"$rowSpecs": "fill:default:grow"
+				} ) {
+					name: "panel10"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default, right:default, 4dlu, default, 8dlu, right:default, 4dlu, 25px, 8dlu, right:default, 4dlu, 50px, 8dlu, right:default, 4dlu, 50px, 0px:grow, relgap, default, max(default;10px)"
+						"$rowSpecs": "max(default;10px), default, narrowlinegap, default, narrowlinegap, default, default, narrowlinegap, fill:default, relgap, fill:default:grow, max(default;10px)"
+					} ) {
+						name: "tokenStatesPanel2"
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "tokenBarType"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Two Image"
+								addElement( "Two Image" )
+								addElement( "Single Image" )
+								addElement( "Multiple Images" )
+								addElement( "Solid" )
+								addElement( "Two Tone" )
+							}
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "tokenBarColorLabel"
+							"text": "Bar Color:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 4
+						} )
+						add( new FormComponent( "com.jeta.forms.components.colors.JETAColorWell" ) {
+							name: "tokenBarColor"
+							"color": new java.awt.Color( 255, 255, 255, 255 )
+							"foreground": new java.awt.Color( 255, 255, 255, 255 )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 8
+							"gridY": 4
+							"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "tokenBarThicknessLabel"
+							"text": "Thickness:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 10
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "tokenBarThickness"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 12
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "Type:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "tokenBarSide"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Top"
+								addElement( "Top" )
+								addElement( "Bottom" )
+								addElement( "Left" )
+								addElement( "Right" )
+							}
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label8"
+							"text": "Side:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label9"
+							"text": "Name:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label10"
+							"text": "Opacity:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 10
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "tokenBarOpacity"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 12
+							"gridY": 6
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane6"
+							add( new FormComponent( "javax.swing.JList" ) {
+								name: "tokenBarImages"
+								"selectionMode": 0
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 9
+							"gridWidth": 14
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label11"
+							"text": "Increments:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 14
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "tokenBarIncrements"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 16
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label12"
+							"text": "Mouseover:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 14
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "tokenBarBgColorLabel"
+							"text": "Background:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "tokenBarMouseover"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 16
+							"gridY": 6
+						} )
+						add( new FormComponent( "com.jeta.forms.components.colors.JETAColorWell" ) {
+							name: "tokenBarBgColor"
+							"color": new java.awt.Color( 51, 51, 51, 255 )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 8
+							"gridY": 6
+							"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "top:default, relgap, default, relgap, default, relgap, default, relgap, default"
+						} ) {
+							name: "panel11"
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarAddBar"
+								"text": "Add"
+								"actionCommand": "Add"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarDeleteBar"
+								"text": "Delete"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 5
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarUpdateBar"
+								"text": "Update"
+								"actionCommand": "Add"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 3
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarMoveUp"
+								"text": "Move Up"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 7
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarMoveDown"
+								"text": "Move Down"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 9
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 19
+							"gridY": 11
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "0px:grow"
+							"$rowSpecs": "default"
+						} ) {
+							name: "panel12"
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "tokenBarName"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+							"gridWidth": 14
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "default"
+						} ) {
+							name: "panel13"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+								"$columnSpecs": "default, unrelgap, default, unrelgap, default"
+								"$rowSpecs": "default"
+							} ) {
+								name: "panel14"
+								"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 0, 0, 0, 255 ), 1, false ), "Show To:", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "tokenBarGM"
+									"text": "GM"
+									"selected": true
+									"actionCommand": "GM"
+								}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+									"gridX": 1
+									"gridY": 1
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "tokenBarOwner"
+									"text": "Owner"
+									"selected": true
+									"actionCommand": "GM"
+								}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+									"gridX": 3
+									"gridY": 1
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "tokenBarEverybody"
+									"text": "Everybody Else"
+									"selected": true
+									"actionCommand": "GM"
+								}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+									"gridX": 5
+									"gridY": 1
+								} )
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 7
+							"gridWidth": 16
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default"
+							"$rowSpecs": "top:default, relgap, default, relgap, default, relgap, default, relgap, default"
+						} ) {
+							name: "panel15"
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarAddImage"
+								"text": "Add"
+								"actionCommand": "Add"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarDeleteImage"
+								"text": "Delete"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 5
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarUpdateImage"
+								"text": "Update"
+								"actionCommand": "Add"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 3
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarMoveUpImage"
+								"text": "Move Up"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 7
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "tokenBarMoveDownImage"
+								"text": "Move Down"
+								"actionCommand": "deleteState\t"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 9
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 19
+							"gridY": 9
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "tokenBarImagesLabel"
+							"text": "Images:"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 9
+							"vAlign": sfield com.jgoodies.forms.layout.CellConstraints TOP
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "default, relgap, default:grow"
+							"$rowSpecs": "fill:default:grow, default"
+						} ) {
+							name: "panel16"
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane7"
+								add( new FormComponent( "javax.swing.JList" ) {
+									name: "tokenBarBars"
+									"selectionMode": 0
+								} )
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 3
+								"gridY": 1
+								"gridHeight": 2
+							} )
+							add( new FormComponent( "javax.swing.JSlider" ) {
+								name: "tokenBarTest"
+								"majorTickSpacing": 20
+								"paintTicks": true
+								"orientation": 1
+								"paintLabels": true
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label13"
+								"text": "Preview"
+								"horizontalTextPosition": 0
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 1
+								"gridY": 2
+								"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 11
+							"gridWidth": 17
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 1
+						"gridY": 1
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Bars"
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 2
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, max(default;10px), default, max(default;10px), default, max(default;10px), default"
+				"$rowSpecs": "default"
+			} ) {
+				name: "panel17"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "okButton"
+					"text": "OK"
+					"actionCommand": "OK"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelButton"
+					"text": "Cancel"
+					"actionCommand": "Cancel"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 7
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "importButton"
+					"text": "Import"
+					"actionCommand": "Import"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "exportButton"
+					"text": "Export"
+					"actionCommand": "Export"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 4
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

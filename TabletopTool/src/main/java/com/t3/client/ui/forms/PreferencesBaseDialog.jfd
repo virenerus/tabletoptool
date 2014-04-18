@@ -1,0 +1,1024 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "Preferences"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "unrelgap, default, max(default;10px), default, max(default;10px), default"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel1"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel2"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Maps", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "New maps have Fog of War"
+							"toolTipText": "Fog of War can be enabled or disabled on individual maps."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "newMapsHaveFOWCheckBox"
+							"actionCommand": "New maps have fog of war"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "New maps visible to players"
+							"toolTipText": "Individual maps may or may not be visible to players."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "newMapsVisibleCheckBox"
+							"actionCommand": "New maps are visible to players"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "New Map Grid Type"
+							"toolTipText": "The grid type for new maps.  Cannot be changed once the map has been created."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "defaultGridTypeCombo"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label4"
+							"text": "New Map Grid Size"
+							"toolTipText": "Number of map pixels that represents one unit of distance.  Cannot be changed once the map has been created."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "defaultGridSizeTextField"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label5"
+							"text": "New Map Units Per Cell"
+							"toolTipText": "The size of a grid cell in game-system units.  Cannot be changed once the map has been created."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "defaultUnitsPerCellTextField"
+							"toolTipText": "Only applies to newly created maps."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Movement metric"
+							"toolTipText": "Determines how TabletopTool handles movement on the selected grid type."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "movementMetricCombo"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "New Map Vision Distance"
+							"toolTipText": "The distance at which TabletopTool should stop calculating sight lines.  Cannot be changed once the map has been created."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "defaultVisionDistanceTextField"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 12
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel3"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Tokens", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label8"
+							"text": "Start Snap to Grid"
+							"toolTipText": "Whether tokens have snap-to-grid turned on by default."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "tokensStartSnapToGridCheckBox"
+							"actionCommand": "Tokens start with snap to grid"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label9"
+							"text": "New tokens visible to players"
+							"toolTipText": "Whether tokens dropped by the GM are immediately visible to players.  (Note that token owners can always see their tokens.)"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "newTokensVisibleCheckBox"
+							"actionCommand": "New tokens are visible to players"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label10"
+							"text": "Duplicate Token Numbering"
+							"toolTipText": "When a token is pasted or dropped onto a map, how should duplicate names be resolved."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "duplicateTokenCombo"
+							"model": new javax.swing.DefaultComboBoxModel
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label11"
+							"text": "Show Numbering on"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "showNumberingCombo"
+							"model": new javax.swing.DefaultComboBoxModel
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label12"
+							"text": "New Token Naming"
+							"toolTipText": "Determines how new tokens are initially named."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "tokenNamingCombo"
+							"model": new javax.swing.DefaultComboBoxModel
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label13"
+							"text": "Start Freesize"
+							"toolTipText": "If enabled, new tokens will be shown at their native resolution."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "tokensStartFreeSizeCheckBox"
+							"actionCommand": "Start tokens in freesize"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label14"
+							"text": "Show Dialog on New Token"
+							"toolTipText": "Determines whether the New Token dialog appears when a token is dropped onto the map."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 16
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "showDialogOnNewTokenCheckBox"
+							"actionCommand": "Show token creation dialog"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 16
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label15"
+							"text": "Statsheet Portrait Size"
+							"toolTipText": "Size of the image that appears next to the statsheet on mouseover.  Set to zero to disable portraits."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 18
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "statsheetPortraitSize"
+							"columns": 5
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 18
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label16"
+							"text": "Warn when tokens are deleted"
+							"toolTipText": "There is no \"undo\" for token deletion.  You probably want this enabled."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "tokensPopupWarningWhenDeletedCheckBox"
+							"actionCommand": "Warn when tokens are deleted"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label17"
+							"text": "Show stat sheet on mouseover"
+							"toolTipText": "Whether to show the statsheet.  The portrait is controlled separately."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 20
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "showStatSheetCheckBox"
+							"actionCommand": "Show statsheet on mouseover"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 20
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel4"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Objects", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label18"
+							"text": "Start Snap to Grid"
+							"toolTipText": "Whether images dropped on the Object layer have snap-to-grid turned on by default."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "stampsStartSnapToGridCheckBox"
+							"actionCommand": "Stamps start Snap to Grid"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label19"
+							"text": "Start Freesize"
+							"toolTipText": "If enabled, new objects will be shown at their native resolution with a resizing handle attached."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "stampsStartFreeSizeCheckBox"
+							"actionCommand": "Stamps start Freesize"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel5"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Backgrounds", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label20"
+							"text": "Start Snap to Grid"
+							"toolTipText": "Whether images dropped on the Background layer have snap-to-grid turned on by default."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "backgroundsStartSnapToGridCheckBox"
+							"actionCommand": "Backgrounds start Snap to Grid"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label21"
+							"text": "Start Freesize"
+							"toolTipText": "If enabled, new background images will be shown at their native resolution with a resizing handle attached."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "backgroundsStartFreeSizeCheckBox"
+							"actionCommand": "Backgrounds start Freesize"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 4
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints FILL
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 23dlu, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel6"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Chat", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label22"
+							"text": "Show Avatar per line"
+							"toolTipText": "Causes an icon of the impersonated token to appear at the beginning of each chat message."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "showChatAvatarCheckBox"
+							"actionCommand": "Show avatar on each chat line"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "showSmiliesCheckBox"
+							"actionCommand": "Insert smilies"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label23"
+							"text": "Insert Smilies"
+							"toolTipText": "Certain strings of text are treated as smilies and replaced with images.  A popup panel of smilies appears to the right of the chat input box."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label25"
+							"text": "Trusted Prefix Background"
+							"toolTipText": "Text generated by trusted macros is forced to a particular background color."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label26"
+							"text": "Trusted Prefix Foreground"
+							"toolTipText": "Text generated by trusted macros is forced to a particular foreground color."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 16
+						} )
+						add( new FormComponent( "com.jidesoft.combobox.ColorComboBox" ) {
+							name: "trustedOuputBackground"
+							"colorValueVisible": false
+							"selectedColor": sfield java.awt.Color black
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 14
+						} )
+						add( new FormComponent( "com.jidesoft.combobox.ColorComboBox" ) {
+							name: "trustedOuputForeground"
+							"colorValueVisible": false
+							"selectedColor": sfield java.awt.Color black
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 16
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label27"
+							"text": "Typing Notification Duration Seconds"
+							"toolTipText": "Time before typing notifications disappear (in milliseconds)."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label28"
+							"text": "Typing Notification Color"
+							"toolTipText": "Color of the text for typing notifications"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 10
+						} )
+						add( new FormComponent( "com.jidesoft.combobox.ColorComboBox" ) {
+							name: "chatNotificationColor"
+							"useAlphaColorButtons": false
+							"colorValueVisible": false
+							"invalidValueAllowed": true
+							"selectedColor": sfield java.awt.Color black
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label29"
+							"text": "Show Chat Notification Background"
+							"toolTipText": "Color of the text for typing notifications"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "chatNotificationShowBackgroundCheckBox"
+							"text": "\t"
+							"actionCommand": "Show Chat Notification Background\t"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "typingNotificationDuration"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label30"
+							"text": "Suppress ToolTips for MacroLinks"
+							"toolTipText": "MacroLinks show normally tooltips that state informations about the link target. This is a anti cheating device. This options let you disable this tooltips for aesthetic reasons. "
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "suppressToolTipsMacroLinksCheckBox"
+							"actionCommand": "Use tooltips for inline rolls"
+							"toolTipText": "<html>Enabled: do not show tooltips for macroLinks<br>\nDisabled (default): show tooltips for macroLinks"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 2
+						"vAlign": sfield com.jgoodies.forms.layout.CellConstraints TOP
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel7"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Facing", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label31"
+							"text": "On Edges"
+							"toolTipText": "Causes token facing rotation to snap to edges of the grid cell."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "facingFaceEdgesCheckBox"
+							"actionCommand": "Tokens can face edges."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label32"
+							"text": "On Vertices"
+							"toolTipText": "Causes token facing rotation to snap to the vertices of the grid cell."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "facingFaceVerticesCheckBox"
+							"actionCommand": "Tokens can face vertices."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 4
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Interactions"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel8"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label33"
+						"text": "Chat Font Size"
+						"toolTipText": "Point size for all chat window text (both input and output)."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "fontSizeTextField"
+						"columns": 4
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label34"
+						"text": "ToolTip Initial Delay"
+						"toolTipText": "The initial delay (in milliseconds) before a tooltip is displayed."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label35"
+						"text": "ToolTip Dismiss Delay"
+						"toolTipText": "The amount of time (in milliseconds) the tooltip will remain before being removed."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "toolTipInitialDelay"
+						"columns": 4
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "toolTipDismissDelay"
+						"columns": 4
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 6
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Accessibility"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default:grow, max(default;10px), default:grow, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, default, default, default, max(default;10px)"
+				} ) {
+					name: "panel9"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 40dlu, max(default;10px), 15dlu, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel10"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Map Visuals", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label36"
+							"text": "Halo line width"
+							"toolTipText": "The width of the single-color halo around individual tokens."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "haloLineWidthSpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "haloOverlayOpacitySpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label37"
+							"text": "Halo opacity"
+							"toolTipText": "Measures how opaque the halo vision overlay is drawn (0-255)."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label38"
+							"text": "Auto-expose fog on token movement (GM Only)"
+							"toolTipText": "If enabled, the fog of war is automatically exposed as a token moves on maps with a grid.  Gridless maps cannot auto-expose fog."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "autoRevealVisionOnGMMoveCheckBox"
+							"actionCommand": "Auto-expose Fog"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 14
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label39"
+							"text": "Aura opacity"
+							"toolTipText": "Measures how opaque the aura overlay is drawn (0-255)."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label40"
+							"text": "Light opacity"
+							"toolTipText": "Measures how opaque the light overlay is drawn (0-255)."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "auraOverlayOpacitySpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "lightOverlayOpacitySpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 10
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label41"
+							"text": "Fog opacity"
+							"toolTipText": "Measures how opaque the \"soft fog\" overlay is drawn (0-255)."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "fogOverlayOpacitySpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 12
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label42"
+							"text": "Use halo color for vision"
+							"toolTipText": "If enabled, the area visible to a token will be colored the same as the halo."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "useHaloColorAsVisionOverlayCheckBox"
+							"actionCommand": "Use halo color for vision"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 40dlu, default, 15dlu, 1px:grow, max(default;10px)"
+						"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+					} ) {
+						name: "panel11"
+						"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Save", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label43"
+							"text": "Campaign autosave every"
+							"toolTipText": "<html>Autosaved campaigns are in <b>${appHome}/autosave</b>.  Autosaving a campaign is memory-intensive.  Be sure to take that into account.  Set to 0 to disable."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "autoSaveSpinner"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label44"
+							"text": "min"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label45"
+							"text": "Save reminder on close"
+							"toolTipText": "Whether a prompt appears before TabletopTool closes."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "saveReminderCheckBox"
+							"horizontalTextPosition": 2
+							"actionCommand": "Save reminder on close"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label46"
+							"text": "Time between autosaves"
+							"toolTipText": "The chat log will be autosaved at this interval (in minutes) using the filename pattern below.  Set to 0 to disable."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label47"
+							"text": "min"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label48"
+							"text": "Autosave chat log filename"
+							"toolTipText": "<html>Specify a filename.  Without a directory name is relative to <b>${appHome}/autosave</b>."
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "chatFilenameFormat"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 8
+							"gridWidth": 4
+						} )
+						add( new FormComponent( "javax.swing.JSpinner" ) {
+							name: "chatAutosaveTime"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 6
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default:grow"
+						"$rowSpecs": "default, max(default;10px), default, max(default;10px), default, max(default;10px), default"
+					} ) {
+						name: "panel12"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 40dlu, max(default;10px), max(default;10px), max(default;10px)"
+							"$rowSpecs": "narrowlinegap, default, narrowlinegap"
+						} ) {
+							name: "panel13"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Performance", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "fillSelectionCheckBox"
+								"actionCommand": "Fill selection box"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 2
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label49"
+								"text": "Fill selection box"
+								"toolTipText": "If enabled, a shaded area is used when dragging the mouse to select multiple tokens."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 2
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 1
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "max(default;10px), default, max(default;10px), 40dlu, max(default;10px), max(default;10px), max(default;10px)"
+							"$rowSpecs": "narrowlinegap, default, max(default;10px), default, max(default;10px), default, max(default;10px), default, narrowlinegap"
+						} ) {
+							name: "panel14"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Initiative Defaults", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label50"
+								"text": "Hide NPCs from players on new maps"
+								"toolTipText": "If enabled, NPCs will not appear in the players views of the Initiative panel."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 2
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "hideNPCsCheckBox"
+								"actionCommand": "Hide NPCs from players on new maps"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 2
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label51"
+								"text": "Give Owners Permission in new campaigns"
+								"toolTipText": "Owner Permission allows players to perform certain actions on their tokens in the Initiative panel."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 4
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "ownerPermissionCheckBox"
+								"actionCommand": "Give owners Permission in new campaigns"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 4
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label52"
+								"text": "Lock Player Movement in new campaigns"
+								"toolTipText": "When enabled, players will only be able to move their token when that token has initiative."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 6
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "lockMovementCheckBox"
+								"actionCommand": "Lock Player Movement in new campaigns"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 6
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label53"
+								"text": "Show Initative Gain Message"
+								"toolTipText": "When enabled, a message is sent to chat when a token gains initative."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 8
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "showInitGainMessageCheckBox"
+								"actionCommand": "Lock Player Movement in new campaigns"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 8
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 3
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 40dlu, max(default;10px), max(default;10px), max(default;10px)"
+							"$rowSpecs": "default, narrowlinegap"
+						} ) {
+							name: "panel15"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Client", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label54"
+								"text": "Fit GM view "
+								"toolTipText": "When forcing players to the GM's view, should the player's map be zoomed such that their screen shows at least the same content as the GM's screen?"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 1
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "fitGMViewCheckBox"
+								"actionCommand": "Fit GM view"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 1
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 5
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+							"$columnSpecs": "max(default;10px), default:grow, max(default;10px), 40dlu, max(default;10px), max(default;10px), max(default;10px)"
+							"$rowSpecs": "narrowlinegap, default, narrowlinegap"
+						} ) {
+							name: "panel16"
+							"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( new java.awt.Color( 153, 153, 153, 255 ), 1, false ), "Macro Panels", 0, 0, null, new java.awt.Color( 0, 0, 0, 255 ) )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label55"
+								"text": "Default: Allow players to edit macros"
+								"toolTipText": "<html>Player-editable macros cannot call <b>trusted</b> functions.  When developing a framework, this should be disabled."
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 2
+								"gridY": 2
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "allowPlayerMacroEditsDefaultCheckBox"
+								"actionCommand": "Default: Allow Players to Edit Macros"
+							}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+								"gridX": 4
+								"gridY": 2
+							} )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 1
+							"gridY": 7
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+						"gridHeight": 4
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Application"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel17"
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "playSystemSoundsCheckBox"
+						"actionCommand": "Play system sounds"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "soundsOnlyWhenNotFocusedCheckBox"
+						"actionCommand": "Only when window not focused"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label56"
+						"text": "Play system sounds\t"
+						"toolTipText": "Turn this off to prevent all sounds from within TabletopTool.  Needed for some Java implementations as too many sounds queued up can crash the JVM."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label57"
+						"text": "Only when window not focused"
+						"toolTipText": "Only turn off sounds when the window is not focused."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Sounds"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+				"hgap": 5
+			} ) {
+				name: "panel18"
+				"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "okButton"
+					"text": "OK"
+					"actionCommand": "OK"
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "East"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 5, 0 )
+			"size": new java.awt.Dimension( 775, 530 )
+		} )
+	}
+}

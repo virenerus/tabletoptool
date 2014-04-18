@@ -1,0 +1,416 @@
+JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "max(default;10px), default, max(default;10px)"
+			"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Export screenshot"
+				"font": new java.awt.Font( "Tahoma", 1, 12 )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 2
+			} )
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabs"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default, max(default;10px), default:grow, max(default;10px), default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px)"
+				} ) {
+					name: "panel1"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Location:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "locationTextField"
+						"columns": 30
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "browseButton"
+						"text": "Browse ..."
+						"actionCommand": "Browse ..."
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 2
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Filesystem"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px)"
+					"$rowSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px), default, max(default;10px), default, default, max(default;10px)"
+				} ) {
+					name: "panel2"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "Host:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "host"
+						"columns": 30
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label4"
+						"text": "Username:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label5"
+						"text": "Password:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "username"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label6"
+						"text": "Path/Filename:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 8
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "path"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 8
+					} )
+					add( new FormComponent( "javax.swing.JPasswordField" ) {
+						name: "password"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 6
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label7"
+						"text": "(ex: myhost.com)"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label8"
+						"text": "(ex: pbpuser)"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 4
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label9"
+						"text": "(ex: path/to/my/images/map.png)"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 8
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label10"
+						"text": "NOTE: path must already exist"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 9
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "FTP"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "relgap, pref, relgap, default, relgap, default, relgap, default"
+					"$rowSpecs": "23px, default, max(default;10px)"
+				} ) {
+					name: "panel3"
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "METHOD_IMAGE_WRITER"
+						"text": "Image Writer"
+						"actionCommand": "Image Writer"
+						"toolTipText": "Renders the image incrementally as it is needed by the file output formatting code. Uses less memory. Extremely large files can take a long time. The UI will not update during the file output, so the program may be unresponsive for several minutes while the file is saved."
+						"$buttonGroup": new FormReference( "buttonGroup4" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "METHOD_BACKGROUND"
+						"text": "Background Thread"
+						"actionCommand": "Background Thread"
+						"toolTipText": "NOT IMPLEMENTED! Uses a the Image Writer technique in a background thread so that the UI can be updated with the progress."
+						"$buttonGroup": new FormReference( "buttonGroup4" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 8
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "METHOD_LABEL"
+						"text": "Rendering Method:"
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "METHOD_BUFFERED_IMAGE"
+						"text": "Buffered Image"
+						"selected": true
+						"actionCommand": "Buffered Image"
+						"toolTipText": "Renders the image into a single bitmap then saves that to the chosen location. Can use a lot of memory, and may fail if the image is too large."
+						"$buttonGroup": new FormReference( "buttonGroup4" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Advanced"
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 6
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "max(default;10px), default, max(default;10px), default, max(default;10px)"
+				"$rowSpecs": "default"
+			} ) {
+				name: "panel4"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "exportButton"
+					"text": "Export"
+					"actionCommand": "Export"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 2
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelButton"
+					"text": "Cancel"
+					"actionCommand": "Cancel"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 4
+					"gridY": 1
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 8
+				"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+				"$columnSpecs": "default, relgap, default, max(default;10px), default, 46px, default, relgap, default, default"
+				"$rowSpecs": "default, default, 13dlu, default, default, default, max(default;10px)"
+			} ) {
+				name: "panel5"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label11"
+					"text": "View:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 6
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "VIEW_GM"
+					"text": "GM"
+					"actionCommand": "GM"
+					"toolTipText": "Everything the GM sees"
+					"$buttonGroup": new FormReference( "buttonGroup2" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 6
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "VIEW_PLAYER"
+					"text": "Player"
+					"actionCommand": "Player"
+					"toolTipText": "Only what a Player can see"
+					"$buttonGroup": new FormReference( "buttonGroup2" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 6
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label12"
+					"text": "Type:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "TYPE_CURRENT_VIEW"
+					"text": "Current View"
+					"selected": true
+					"actionCommand": "Current View"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "TYPE_ENTIRE_MAP"
+					"text": "Entire Map"
+					"actionCommand": "Entire Map"
+					"toolTipText": "Entire map, respects visibility and fog"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "LAYERS_LABEL"
+					"enabled": false
+					"text": "Layers:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 7
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_TOKEN"
+					"enabled": false
+					"text": "Token"
+					"selected": true
+					"actionCommand": "Token"
+					"toolTipText": "include this layer"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 1
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_HIDDEN"
+					"enabled": false
+					"text": "Hidden"
+					"selected": true
+					"actionCommand": "Hidden"
+					"toolTipText": "include this layer"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 2
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_FOG"
+					"enabled": false
+					"text": "Fog"
+					"selected": true
+					"actionCommand": "Fog"
+					"toolTipText": "Entire Map:  \n    Same as enabling fog on the Map menu.\n\nEntire Map As Layers: \n    If checked, a separate file will be exported with the current fog mask."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 10
+					"gridY": 2
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label13"
+					"text": "Layers:"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 4
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "LAYERS_CURRENT"
+					"text": "Current View"
+					"selected": true
+					"actionCommand": "Current View"
+					"toolTipText": "What you see is what you get."
+					"$buttonGroup": new FormReference( "buttonGroup3" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 3
+					"gridY": 4
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "LAYERS_AS_SELECTED"
+					"text": "As Selected"
+					"actionCommand": "As Selected"
+					"toolTipText": "Pick which layers to include in the screenshot."
+					"$buttonGroup": new FormReference( "buttonGroup3" )
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 5
+					"gridY": 4
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_OBJECT"
+					"enabled": false
+					"text": "Object"
+					"selected": true
+					"actionCommand": "Object"
+					"toolTipText": "include this layer"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 3
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_BACKGROUND"
+					"enabled": false
+					"text": "Background"
+					"selected": true
+					"actionCommand": "Background"
+					"toolTipText": "include this layer"
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 4
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_BOARD"
+					"enabled": false
+					"text": "Board"
+					"selected": true
+					"actionCommand": "Board"
+					"toolTipText": "The tiling background and/or the image used in \"New Map\""
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 9
+					"gridY": 5
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "LAYER_VISIBILITY"
+					"enabled": false
+					"text": "Visibility"
+					"selected": true
+					"actionCommand": "Visibility"
+					"toolTipText": "Saves Visibility Blocking Layer (VBL) as a monochrome image."
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 10
+					"gridY": 3
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 2
+				"gridY": 4
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup4"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 415 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup2"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 467 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup1"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 519 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup3"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 571 )
+		} )
+	}
+}
