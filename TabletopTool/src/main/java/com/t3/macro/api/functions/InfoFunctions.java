@@ -123,7 +123,6 @@ public class InfoFunctions {
 		Map<String, Object> sinfo = new HashMap<String, Object>();
 		ServerPolicy sp = TabletopTool.getServerPolicy();
 
-		sinfo.put("tooltips for default roll format", sp.getUseToolTipsForDefaultRollFormat() ? BigDecimal.ONE : BigDecimal.ZERO);
 		sinfo.put("players can reveal", sp.getPlayersCanRevealVision() ? BigDecimal.ONE : BigDecimal.ZERO);
 		sinfo.put("movement locked", sp.isMovementLocked() ? BigDecimal.ONE : BigDecimal.ZERO);
 		sinfo.put("restricted impersonation", sp.isRestrictedImpersonation() ? BigDecimal.ONE : BigDecimal.ZERO);

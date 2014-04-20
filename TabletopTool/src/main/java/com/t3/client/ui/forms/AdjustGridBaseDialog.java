@@ -1,14 +1,15 @@
 package com.t3.client.ui.forms;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import com.jeta.forms.components.colors.JETAColorWell;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jidesoft.combobox.ColorComboBox;
 
 /**
  * @author Virenerus
@@ -27,7 +28,7 @@ public abstract class AdjustGridBaseDialog extends JPanel {
 	protected JSlider zoom;
 	protected JLabel label3;
 	protected JPanel panel2;
-	protected JETAColorWell color;
+	protected ColorComboBox color;
 	protected JLabel label4;
 	protected JTextField yOffset;
 	protected JLabel label5;
@@ -51,7 +52,7 @@ public abstract class AdjustGridBaseDialog extends JPanel {
 		zoom = new JSlider();
 		label3 = new JLabel();
 		panel2 = new JPanel();
-		color = new JETAColorWell();
+		color = new ColorComboBox();
 		label4 = new JLabel();
 		yOffset = new JTextField();
 		label5 = new JLabel();
@@ -108,6 +109,8 @@ public abstract class AdjustGridBaseDialog extends JPanel {
 			panel2.setLayout(new FormLayout(
 				"default", //$NON-NLS-1$
 				"default")); //$NON-NLS-1$
+
+			color.setSelectedColor(Color.black);
 			panel2.add(color, CC.xy(1, 1));
 		}
 		add(panel2, CC.xy(12, 6));

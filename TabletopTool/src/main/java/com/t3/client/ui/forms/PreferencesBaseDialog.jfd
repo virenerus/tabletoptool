@@ -59,6 +59,9 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JComboBox" ) {
 							name: "defaultGridTypeCombo"
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "String"
+							}
 						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 							"gridX": 4
 							"gridY": 6
@@ -102,6 +105,9 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JComboBox" ) {
 							name: "movementMetricCombo"
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "com.t3.client.walker.WalkerMetric"
+							}
 						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 							"gridX": 4
 							"gridY": 14

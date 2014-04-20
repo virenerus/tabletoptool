@@ -38,13 +38,13 @@ public abstract class PreferencesBaseDialog extends JDialog {
 	protected JLabel label2;
 	protected JCheckBox newMapsVisibleCheckBox;
 	protected JLabel label3;
-	protected JComboBox defaultGridTypeCombo;
+	protected JComboBox<String> defaultGridTypeCombo;
 	protected JLabel label4;
 	protected JTextField defaultGridSizeTextField;
 	protected JLabel label5;
 	protected JTextField defaultUnitsPerCellTextField;
 	protected JLabel label6;
-	protected JComboBox movementMetricCombo;
+	protected JComboBox<com.t3.client.walker.WalkerMetric> movementMetricCombo;
 	protected JLabel label7;
 	protected JTextField defaultVisionDistanceTextField;
 	protected JPanel panel3;
@@ -183,13 +183,13 @@ public abstract class PreferencesBaseDialog extends JDialog {
 		label2 = new JLabel();
 		newMapsVisibleCheckBox = new JCheckBox();
 		label3 = new JLabel();
-		defaultGridTypeCombo = new JComboBox();
+		defaultGridTypeCombo = new JComboBox<>();
 		label4 = new JLabel();
 		defaultGridSizeTextField = new JTextField();
 		label5 = new JLabel();
 		defaultUnitsPerCellTextField = new JTextField();
 		label6 = new JLabel();
-		movementMetricCombo = new JComboBox();
+		movementMetricCombo = new JComboBox<>();
 		label7 = new JLabel();
 		defaultVisionDistanceTextField = new JTextField();
 		panel3 = new JPanel();
@@ -313,13 +313,6 @@ public abstract class PreferencesBaseDialog extends JDialog {
 		{
 
 			{
-
-				// JFormDesigner evaluation mark
-				panel1.setBorder(new javax.swing.border.CompoundBorder(
-					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER, //$NON-NLS-1$
-						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), //$NON-NLS-1$
-						java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}}); //$NON-NLS-1$
 
 				panel1.setLayout(new FormLayout(
 					"$ugap, 2*(default, [10px,default]), default", //$NON-NLS-1$

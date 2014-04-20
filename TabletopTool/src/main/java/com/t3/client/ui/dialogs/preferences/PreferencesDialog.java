@@ -22,10 +22,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -611,6 +607,6 @@ public class PreferencesDialog extends PreferencesBaseDialog {
 		typingNotificationDuration.setModel(typingDurationModel);
 
 		chatNotificationColor.setSelectedColor(AppPreferences.getChatNotificationColor());
-		chatNotificationShowBackground.setSelected(AppPreferences.getChatNotificationShowBackground());
+		chatNotificationShowBackgroundCheckBox.setSelected(AppPreferences.getChatNotificationShowBackground());
 	}
 }

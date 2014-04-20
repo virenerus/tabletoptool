@@ -87,8 +87,9 @@ new FormModel {
 				"$rowSpecs": "default"
 			} ) {
 				name: "panel2"
-				add( new FormComponent( "com.jeta.forms.components.colors.JETAColorWell" ) {
+				add( new FormComponent( "com.jidesoft.combobox.ColorComboBox" ) {
 					name: "color"
+					"selectedColor": sfield java.awt.Color black
 				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 					"gridX": 1
 					"gridY": 1

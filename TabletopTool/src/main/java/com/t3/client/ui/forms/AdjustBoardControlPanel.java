@@ -14,24 +14,64 @@ import com.jgoodies.forms.layout.FormLayout;
 /**
  * @author Virenerus
  */
-public abstract class AdjustBoardControlPanel extends JPanel {
+public class AdjustBoardControlPanel extends JPanel {
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
 	// Generated using JFormDesigner Evaluation license - Manuel Hegner
 	protected JLabel snapTitle;
 	protected JLabel label1;
 	protected JLabel label2;
-	protected JTextField offsetX;
-	protected JTextField offsetY;
+	protected JTextField boardPositionXTextField;
+	protected JTextField boardPositionYTextField;
 	protected JButton closeButton;
-	protected JRadioButton snapNone;
-	protected JRadioButton snapGrid;
-	protected JRadioButton snapTile;
+	protected JRadioButton snapNoneButton;
+	protected JRadioButton snapGridButton;
+	protected JRadioButton snapTileButton;
 	protected JLabel label3;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 
 	public AdjustBoardControlPanel() {
 		initComponents();
+	}
+
+	public JLabel getSnapTitle() {
+		return snapTitle;
+	}
+
+	public JLabel getLabel1() {
+		return label1;
+	}
+
+	public JLabel getLabel2() {
+		return label2;
+	}
+
+	public JTextField getBoardPositionXTextField() {
+		return boardPositionXTextField;
+	}
+
+	public JTextField getBoardPositionYTextField() {
+		return boardPositionYTextField;
+	}
+
+	public JButton getCloseButton() {
+		return closeButton;
+	}
+
+	public JRadioButton getSnapNoneButton() {
+		return snapNoneButton;
+	}
+
+	public JRadioButton getSnapGridButton() {
+		return snapGridButton;
+	}
+
+	public JRadioButton getSnapTileButton() {
+		return snapTileButton;
+	}
+
+	public JLabel getLabel3() {
+		return label3;
 	}
 
 	private void initComponents() {
@@ -40,22 +80,14 @@ public abstract class AdjustBoardControlPanel extends JPanel {
 		snapTitle = new JLabel();
 		label1 = new JLabel();
 		label2 = new JLabel();
-		offsetX = new JTextField();
-		offsetY = new JTextField();
+		boardPositionXTextField = new JTextField();
+		boardPositionYTextField = new JTextField();
 		closeButton = new JButton();
-		snapNone = new JRadioButton();
-		snapGrid = new JRadioButton();
-		snapTile = new JRadioButton();
+		snapNoneButton = new JRadioButton();
+		snapGridButton = new JRadioButton();
+		snapTileButton = new JRadioButton();
 		label3 = new JLabel();
-
-
-		// JFormDesigner evaluation mark
-		setBorder(new javax.swing.border.CompoundBorder(
-			new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-				"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER, //$NON-NLS-1$
-				javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), //$NON-NLS-1$
-				java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}}); //$NON-NLS-1$
-
+		
 		setLayout(new FormLayout(
 			"[10px,default], 3*(default), 21dlu, [10px,default]", //$NON-NLS-1$
 			"$nlgap, default, $rgap, 3*(20px), 2*($rgap, default), 16px, $rgap, default, $rgap")); //$NON-NLS-1$
@@ -69,31 +101,31 @@ public abstract class AdjustBoardControlPanel extends JPanel {
 		label2.setText("Offset Y:"); //$NON-NLS-1$
 		add(label2, CC.xy(2, 10));
 
-		offsetX.setColumns(6);
-		add(offsetX, CC.xywh(4, 8, 2, 1));
+		boardPositionXTextField.setColumns(6);
+		add(boardPositionXTextField, CC.xywh(4, 8, 2, 1));
 
-		offsetY.setColumns(6);
-		add(offsetY, CC.xywh(4, 10, 2, 1));
+		boardPositionYTextField.setColumns(6);
+		add(boardPositionYTextField, CC.xywh(4, 10, 2, 1));
 
 		closeButton.setText("Close"); //$NON-NLS-1$
 		closeButton.setActionCommand("Close"); //$NON-NLS-1$
 		add(closeButton, CC.xywh(2, 13, 4, 1));
 
-		snapNone.setText("None"); //$NON-NLS-1$
-		snapNone.setActionCommand("None"); //$NON-NLS-1$
-		snapNone.setToolTipText("no snap"); //$NON-NLS-1$
-		add(snapNone, CC.xy(4, 4));
+		snapNoneButton.setText("None"); //$NON-NLS-1$
+		snapNoneButton.setActionCommand("None"); //$NON-NLS-1$
+		snapNoneButton.setToolTipText("no snap"); //$NON-NLS-1$
+		add(snapNoneButton, CC.xy(4, 4));
 
-		snapGrid.setText("Grid"); //$NON-NLS-1$
-		snapGrid.setActionCommand("None"); //$NON-NLS-1$
-		snapGrid.setToolTipText("the token grid"); //$NON-NLS-1$
-		add(snapGrid, CC.xy(4, 5));
+		snapGridButton.setText("Grid"); //$NON-NLS-1$
+		snapGridButton.setActionCommand("None"); //$NON-NLS-1$
+		snapGridButton.setToolTipText("the token grid"); //$NON-NLS-1$
+		add(snapGridButton, CC.xy(4, 5));
 
-		snapTile.setText("Tile"); //$NON-NLS-1$
-		snapTile.setSelected(true);
-		snapTile.setActionCommand("None"); //$NON-NLS-1$
-		snapTile.setToolTipText("the repeating background texture"); //$NON-NLS-1$
-		add(snapTile, CC.xy(4, 6));
+		snapTileButton.setText("Tile"); //$NON-NLS-1$
+		snapTileButton.setSelected(true);
+		snapTileButton.setActionCommand("None"); //$NON-NLS-1$
+		snapTileButton.setToolTipText("the repeating background texture"); //$NON-NLS-1$
+		add(snapTileButton, CC.xy(4, 6));
 
 		label3.setHorizontalAlignment(SwingConstants.CENTER);
 		label3.setText("Adjust Board Position"); //$NON-NLS-1$
@@ -101,9 +133,9 @@ public abstract class AdjustBoardControlPanel extends JPanel {
 		add(label3, CC.xywh(2, 2, 4, 1));
 
 		ButtonGroup buttonGroupsnap = new ButtonGroup();
-		buttonGroupsnap.add(snapNone);
-		buttonGroupsnap.add(snapGrid);
-		buttonGroupsnap.add(snapTile);
+		buttonGroupsnap.add(snapNoneButton);
+		buttonGroupsnap.add(snapGridButton);
+		buttonGroupsnap.add(snapTileButton);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 }

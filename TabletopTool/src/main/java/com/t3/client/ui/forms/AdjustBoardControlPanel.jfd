@@ -3,11 +3,17 @@ JFDML JFormDesigner: "5.2.0.0.87" Java: "1.7.0_45" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.defaultVariableGetter": true
+		}
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
 			"$columnSpecs": "max(default;10px), default, default, default, 21dlu, max(default;10px)"
 			"$rowSpecs": "narrowlinegap, default, relgap, 20px, 20px, 20px, relgap, default, relgap, default, 16px, relgap, default, relgap"
 		} ) {
 			name: "this"
+			auxiliary() {
+				"JavaCodeGenerator.variableModifiers": 1
+			}
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "snapTitle"
 				"text": "Snap to:"
@@ -30,7 +36,7 @@ new FormModel {
 				"gridY": 10
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "offsetX"
+				name: "boardPositionXTextField"
 				"columns": 6
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 4
@@ -38,7 +44,7 @@ new FormModel {
 				"gridWidth": 2
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "offsetY"
+				name: "boardPositionYTextField"
 				"columns": 6
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 4
@@ -55,7 +61,7 @@ new FormModel {
 				"gridWidth": 4
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
-				name: "snapNone"
+				name: "snapNoneButton"
 				"text": "None"
 				"actionCommand": "None"
 				"toolTipText": "no snap"
@@ -65,7 +71,7 @@ new FormModel {
 				"gridY": 4
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
-				name: "snapGrid"
+				name: "snapGridButton"
 				"text": "Grid"
 				"actionCommand": "None"
 				"toolTipText": "the token grid"
@@ -75,7 +81,7 @@ new FormModel {
 				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JRadioButton" ) {
-				name: "snapTile"
+				name: "snapTileButton"
 				"text": "Tile"
 				"selected": true
 				"actionCommand": "None"

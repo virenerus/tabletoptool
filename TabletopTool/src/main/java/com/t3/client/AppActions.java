@@ -1832,9 +1832,6 @@ public class AppActions {
 					policy.setPlayersReceiveCampaignMacros(serverProps.getPlayersReceiveCampaignMacros());
 					policy.setIsMovementLocked(TabletopTool.getServerPolicy().isMovementLocked());
 
-					// Tool Tips for unformatted inline rolls.
-					policy.setUseToolTipsForDefaultRollFormat(serverProps.getUseToolTipsForUnformattedRolls());
-
 					//my addition
 					policy.setRestrictedImpersonation(serverProps.getRestrictedImpersonation());
 					policy.setMovementMetric(serverProps.getMovementMetric());

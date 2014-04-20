@@ -26,19 +26,15 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.JTextComponent;
 
-import com.jeta.forms.components.panel.FormPanel;
 import com.t3.client.AppState;
 import com.t3.client.ScreenPoint;
 import com.t3.client.TabletopTool;
+import com.t3.client.ui.forms.AdjustBoardControlPanel;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
 import com.t3.model.Zone;
@@ -71,12 +67,7 @@ public class BoardTool extends DefaultTool {
 	private Point boardStart;
 
 	// UI button fields
-	private final JTextField boardPositionXTextField;
-	private final JTextField boardPositionYTextField;
-	private final FormPanel controlPanel;
-	private final JRadioButton snapNoneButton;
-	private final JRadioButton snapGridButton;
-	private final JRadioButton snapTileButton;
+	private final AdjustBoardControlPanel controlPanel;
 
 	/**
 	 * Initialize the panel and set up the actions.
@@ -87,15 +78,11 @@ public class BoardTool extends DefaultTool {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		// Create the control panel
-		controlPanel = new FormPanel("com/t3/client/ui/forms/adjustBoardControlPanel.xml");
-//		controlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		controlPanel = new AdjustBoardControlPanel();
 
-		boardPositionXTextField = controlPanel.getTextField("offsetX");
-		boardPositionXTextField.addKeyListener(new UpdateBoardListener());
+		controlPanel.getBoardPositionXTextField().addKeyListener(new UpdateBoardListener());
 
-		boardPositionYTextField = controlPanel.getTextField("offsetY");
-		boardPositionYTextField.addKeyListener(new UpdateBoardListener());
+		controlPanel.getBoardPositionYTextField().addKeyListener(new UpdateBoardListener());
 
 		ActionListener enforceRules = new ActionListener() {
 			@Override
@@ -103,17 +90,13 @@ public class BoardTool extends DefaultTool {
 				enforceButtonRules();
 			}
 		};
-		snapNoneButton = controlPanel.getRadioButton("snapNone");
-		snapNoneButton.addActionListener(enforceRules);
+		controlPanel.getSnapNoneButton().addActionListener(enforceRules);
 
-		snapGridButton = controlPanel.getRadioButton("snapGrid");
-		snapGridButton.addActionListener(enforceRules);
+		controlPanel.getSnapGridButton().addActionListener(enforceRules);
 
-		snapTileButton = controlPanel.getRadioButton("snapTile");
-		snapTileButton.addActionListener(enforceRules);
+		controlPanel.getSnapTileButton().addActionListener(enforceRules);
 
-		JButton closeButton = (JButton) controlPanel.getComponentByName("closeButton");
-		closeButton.addActionListener(new ActionListener() {
+		controlPanel.getCloseButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				resetTool();
@@ -175,8 +158,8 @@ public class BoardTool extends DefaultTool {
 	}
 
 	private void updateGUI() {
-		boardPositionXTextField.setText(Integer.toString(boardPosition.x));
-		boardPositionYTextField.setText(Integer.toString(boardPosition.y));
+		controlPanel.getBoardPositionXTextField().setText(Integer.toString(boardPosition.x));
+		controlPanel.getBoardPositionYTextField().setText(Integer.toString(boardPosition.y));
 	}
 
 	/**
@@ -192,8 +175,8 @@ public class BoardTool extends DefaultTool {
 	}
 
 	private void copyControlPanelToBoard() {
-		boardPosition.x = getInt(boardPositionXTextField, 0);
-		boardPosition.y = getInt(boardPositionYTextField, 0);
+		boardPosition.x = StringUtil.parseInteger(controlPanel.getBoardPositionXTextField().getText(), 0);
+		boardPosition.y = StringUtil.parseInteger(controlPanel.getBoardPositionYTextField().getText(), 0);
 		zone.setBoard(boardPosition);
 	}
 
@@ -205,16 +188,6 @@ public class BoardTool extends DefaultTool {
 	@Override
 	public String getInstructions() {
 		return "tool.boardtool.instructions";
-	}
-
-	/**
-	 * Parses the text field of the component into a number, returning the
-	 * default value if the text field is _not_ a number.
-	 */
-	private int getInt(JTextComponent component, int defaultValue) {
-		// Get the string from the component, then
-		// call the more-generic getInt-from-a-string
-		return StringUtil.parseInteger(component.getText(), defaultValue);
 	}
 
 	/*
@@ -244,13 +217,13 @@ public class BoardTool extends DefaultTool {
 
 		if ((tileSize != null) && ((offset % tileSize.width) == 0)) {
 			setSnap(tileSize.width, tileSize.height);
-			snapTileButton.setSelected(true);
+			controlPanel.getSnapTileButton().setSelected(true);
 		} else if ((offset % gridSize) == 0) {
 			setSnap(gridSize, gridSize);
-			snapGridButton.setSelected(true);
+			controlPanel.getSnapGridButton().setSelected(true);
 		} else {
 			setSnap(1, 1);
-			snapNoneButton.setSelected(true);
+			controlPanel.getSnapNoneButton().setSelected(true);
 		}
 		TabletopTool.getFrame().showControlPanel(controlPanel);
 	}
@@ -381,10 +354,10 @@ public class BoardTool extends DefaultTool {
 	}
 
 	private void enforceButtonRules() {
-		if (snapGridButton.isSelected()) {
+		if (controlPanel.getSnapGridButton().isSelected()) {
 			final int gridSize = zone.getGrid().getSize();
 			setSnap(gridSize, gridSize);
-		} else if (snapTileButton.isSelected()) {
+		} else if (controlPanel.getSnapTileButton().isSelected()) {
 			final Dimension tileSize = getTileSize();
 			if (tileSize != null)
 				setSnap(tileSize.width, tileSize.height);
