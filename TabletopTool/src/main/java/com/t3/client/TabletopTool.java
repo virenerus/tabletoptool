@@ -1231,7 +1231,7 @@ public class TabletopTool {
 		factory.registerProtocol("asset", new AssetURLStreamHandler());
 		URL.setURLStreamHandlerFactory(factory);
 
-		//configureJide();
+		configureJide(); //TODO find out how to not call this twice without destroying error windows
 		
 		final Toolkit tk = Toolkit.getDefaultToolkit();
 		tk.getSystemEventQueue().push(new T3EventQueue());
@@ -1245,8 +1245,6 @@ public class TabletopTool {
 			if (MAC_OS_X) {
 				macOSXicon();
 			}
-			//yes, this needs to be called again because we change the look and feel
-			
 			menuBar=new AppMenuBar();
 		} catch (Exception e) {
 			TabletopTool.showError("msg.error.lafSetup", e);

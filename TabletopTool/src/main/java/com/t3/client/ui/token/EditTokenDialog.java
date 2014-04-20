@@ -426,7 +426,6 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				JSlider bar = (JSlider) bars[i + 1];
 				Float value = cb.isSelected() ? null : new Float(bar.getValue()/100f);
 				token.setBar(bar.getName(), value);
-				bar.setValue((int) (token.getBar(bar.getName()) * 100));
 			}
 		}
 		// Ownership
