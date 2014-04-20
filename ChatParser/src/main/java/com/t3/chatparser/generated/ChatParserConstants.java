@@ -104,19 +104,17 @@ public interface ChatParserConstants {
   /** RegularExpression Id. */
   int DICE_EXPLODING = 42;
   /** RegularExpression Id. */
-  int DICE_OPEN = 43;
+  int DICE_FUDGE = 43;
   /** RegularExpression Id. */
-  int DICE_FUDGE = 44;
+  int DICE_UBIQUITY = 44;
   /** RegularExpression Id. */
-  int DICE_UBIQUITY = 45;
+  int DICE_SHADOWRUN_EXPLODING_GREMLIN = 45;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_EXPLODING_GREMLIN = 46;
+  int DICE_SHADOWRUN_EXPLODING = 46;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_EXPLODING = 47;
+  int DICE_SHADOWRUN_GREMLIN = 47;
   /** RegularExpression Id. */
-  int DICE_SHADOWRUN_GREMLIN = 48;
-  /** RegularExpression Id. */
-  int DICE_SHADOWRUN = 49;
+  int DICE_SHADOWRUN = 48;
 
   /** Lexical state. */
   int CHATCOMMAND = 0;
@@ -176,7 +174,6 @@ public interface ChatParserConstants {
     "\"s\"",
     "\"es\"",
     "\"e\"",
-    "\"o\"",
     "\"df\"",
     "\"du\"",
     "\"sr4eg\"",

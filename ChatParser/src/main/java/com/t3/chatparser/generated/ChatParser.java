@@ -456,7 +456,6 @@ public class ChatParser implements ChatParserConstants {
       case DICE_SUCCESS:
       case DICE_EXPLODING_SUCCESS:
       case DICE_EXPLODING:
-      case DICE_OPEN:
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case DICE_D:
           jj_consume_token(DICE_D);
@@ -485,10 +484,6 @@ public class ChatParser implements ChatParserConstants {
           break;
         case DICE_EXPLODING:
           jj_consume_token(DICE_EXPLODING);
-                                         {if (true) return DiceBuilder.roll(count).d(type).explode();}
-          break;
-        case DICE_OPEN:
-          jj_consume_token(DICE_OPEN);
                                          {if (true) return DiceBuilder.roll(count).d(type).explode();}
           break;
         default:
@@ -545,7 +540,7 @@ public class ChatParser implements ChatParserConstants {
       jj_la1_0 = new int[] {0x8000001,0x1000000,0xe000000,0xe000000,0x800000,0x400,0x80,0x800000,0x400000,0x7ff87e,0x60000000,0x60000000,0x60000000,0x80000000,0x80000000,0x80000000,0x0,0x40000000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x3f020,0x1a,0x3f000,0xfe0,0xfe0,0x3f020,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x1f820,0x1a,0x1f800,0x7e0,0x7e0,0x1f820,};
    }
 
   /** Constructor with InputStream. */
@@ -662,7 +657,7 @@ public class ChatParser implements ChatParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[50];
+    boolean[] la1tokens = new boolean[49];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -679,7 +674,7 @@ public class ChatParser implements ChatParserConstants {
         }
       }
     }
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < 49; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -100,7 +100,6 @@ PARSER_END(ChatParser)
 <DICE_EXPR> TOKEN : { < DICE_SUCCESS : "s" > }
 <DICE_EXPR> TOKEN : { < DICE_EXPLODING_SUCCESS : "es" > }
 <DICE_EXPR> TOKEN : { < DICE_EXPLODING : "e" > }
-<DICE_EXPR> TOKEN : { < DICE_OPEN : "o" > }
 <DICE_EXPR> TOKEN : { < DICE_FUDGE : "df" > }
 <DICE_EXPR> TOKEN : { < DICE_UBIQUITY : "du" > }
 <DICE_EXPR> TOKEN : { < DICE_SHADOWRUN_EXPLODING_GREMLIN : "sr4eg" > }
@@ -389,10 +388,6 @@ private Dice DICE(int count) :
 				) |
 				(
 					<DICE_EXPLODING>
-					{return DiceBuilder.roll(count).d(type).explode();}
-				) |
-				(
-					<DICE_OPEN>
 					{return DiceBuilder.roll(count).d(type).explode();}
 				)
 			)?
