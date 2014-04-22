@@ -959,6 +959,7 @@ public class Token extends BaseModel {
 		return getPropertyMap().put(key, value);
 	}
 
+	//overthink this -> this should return the default if it is null
 	public Object getProperty(String key) {
 		Object value = getPropertyMap().get(key);
 

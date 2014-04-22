@@ -404,7 +404,7 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			compileCommand();
 		} catch (MacroException e) {
 			//TODO replace this with a better error dialog
-			throw new RuntimeException("This script you tried to save is not valid.", e);
+			TabletopTool.showError("This script you tried to save is not valid.",e);
 		}
 	}
 
