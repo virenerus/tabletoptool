@@ -71,8 +71,11 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.image.ImageUtil;
 import com.t3.GUID;
 import com.t3.model.ObservableList;
-import com.t3.model.TextMessage;
 import com.t3.model.Token;
+import com.t3.model.chat.PlayerSpeaker;
+import com.t3.model.chat.Speaker;
+import com.t3.model.chat.TextMessage;
+import com.t3.model.chat.TokenSpeaker;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
@@ -102,7 +105,6 @@ public class CommandPanel extends JPanel implements Observer {
 
 	private ChatProcessor chatProcessor;
 
-	private String identityName;
 	private GUID identityGUID;
 
 	public CommandPanel() {
@@ -131,20 +133,17 @@ public class CommandPanel extends JPanel implements Observer {
 	 * Whether the player is currently impersonating a token
 	 */
 	public boolean isImpersonating() {
-		return identityName != null;
+		return identityGUID != null;
 	}
-
+	
 	/**
 	 * The name currently in use; if the user is not impersonating a token, this will return the player's name.
 	 */
-	public String getIdentity() {
-		if (identityName == null) {
-			if (identityGUID == null)
-				return TabletopTool.getPlayer().getName();
-			else
-				return identityGUID.toString();
-		}
-		return identityName;
+	public Speaker getSpeaker() {
+		if (identityGUID == null)
+			return new PlayerSpeaker(TabletopTool.getPlayer().getName());
+		else
+			return new TokenSpeaker(identityGUID.toString());
 	}
 
 	/**
@@ -161,12 +160,10 @@ public class CommandPanel extends JPanel implements Observer {
 	private void setIdentityImpl(Token token) {
 		if (token != null) {
 			identityGUID = token.getId();
-			identityName = token.getName();
 			avatarPanel.setImage(ImageManager.getImageAndWait(token.getImageAssetId()));
-			setCharacterLabel("Speaking as: " + getIdentity());
+			setCharacterLabel("Speaking as: " + getSpeaker().toString());
 		} else {
 			identityGUID = null;
-			identityName = null;
 			avatarPanel.setImage(null);
 			setCharacterLabel("");
 		}
@@ -184,27 +181,6 @@ public class CommandPanel extends JPanel implements Observer {
 		if (zr != null)
 			token = zr.getZone().getToken(guid);
 		setIdentityImpl(token);
-	}
-
-	/**
-	 * Sets the impersonated identity to <code>identity</code> which is a token name. This allows impersonation of a
-	 * token that doesn't exist; the name is stored with a <code>null</code> for the GUID.
-	 * 
-	 * @param identity
-	 */
-	public void setIdentityName(String identity) {
-		if (identity == null) {
-			setIdentityImpl(null);
-		} else {
-			Token token = null;
-			ZoneRenderer zr = TabletopTool.getFrame().getCurrentZoneRenderer();
-			if (zr != null)
-				token = zr.getZone().getTokenByName(identity);
-			setIdentityImpl(token);
-			// For the name to be used, even if there is no such token
-			identityName = identity;
-			setCharacterLabel("Speaking as: " + getIdentity());
-		}
 	}
 
 	public JButton getEmotePopupButton() {
@@ -479,7 +455,7 @@ public class CommandPanel extends JPanel implements Observer {
 		
 		
 		//try {
-			ChatExecutor.executeChat(text,this.getIdentity());
+			ChatExecutor.executeChat(text,this.getSpeaker());
 			//FIXMESOON print the message as needed on different computers
 			//MacroEngine.getInstance().evaluate(text, macroContext);
 		/*} catch (MacroException e) {

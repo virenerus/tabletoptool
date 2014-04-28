@@ -26,13 +26,13 @@ import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Pointer;
-import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.Zone.VisionType;
 import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
+import com.t3.model.chat.TextMessage;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
 

@@ -28,7 +28,10 @@ import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.LookupTable.LookupEntry;
 import com.t3.model.Player;
-import com.t3.model.TextMessage;
+import com.t3.model.chat.PlayerSpeaker;
+import com.t3.model.chat.Speaker;
+import com.t3.model.chat.TextMessage;
+import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.Token;
 
 /**
@@ -48,7 +51,7 @@ public class ChatExecutor {
 		return new com.t3.chatparser.generated.ChatParser(text).parse();
 	}
 
-	public static void executeChat(String text, String identity) {
+	public static void executeChat(String text, Speaker identity) {
 		try {
 			ParsedChat parts=parseChat(text);
 			if(parts.getChatCommand()!=null) {
@@ -112,12 +115,12 @@ public class ChatExecutor {
 					case ROLL_SECRET:
 						String roll=((ExpressionPart)parts.get(0)).getDiceExpression().toCompleteChatString();
 						if (!TabletopTool.getPlayer().isGM()) {
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, identity, "* " + 
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, TabletopTool.getPlayer().getName(), "* " + 
 			            			I18N.getText("rollsecret.gm.string", identity, roll)));
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.ME, null, identity, 
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.ME, null, TabletopTool.getPlayer().getName(), 
 			            			I18N.getText("rollsecret.self.string")));
 			            } else {
-			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, identity, "* " + 
+			            	TabletopTool.addMessage(new TextMessage(TextMessage.Channel.GM, null, TabletopTool.getPlayer().getName(), "* " + 
 			            			I18N.getText("rollsecret.gmself.string", roll)));
 			            }
 						break;
@@ -181,7 +184,7 @@ public class ChatExecutor {
 							String speechKey = token.getSpeech(parts.getArguments()[0]);
 							String speech=token.getSpeech(speechKey);
 							if(text!=null)
-								TabletopTool.addMessage(TextMessage.say(speech, token.getName()));
+								TabletopTool.addMessage(TextMessage.say(speech, new TokenSpeaker(token.getName())));
 						}
 						break;
 					case WHISPER:
@@ -209,15 +212,15 @@ public class ChatExecutor {
 		}
 	}
 
-	public static void gm(String message, String identity) {
+	public static void gm(String message, Speaker identity) {
 		TabletopTool.addMessage(TextMessage.gm(message, identity));
 	}
 
-	public static void say(String message, String identity) {
+	public static void say(String message, Speaker identity) {
 		TabletopTool.addMessage(TextMessage.say(message, identity));
 	}
 
-	public static void whisper(String message, String identity, String targetPlayer) {
+	public static void whisper(String message, Speaker identity, String targetPlayer) {
 		try {
 			
 	       
@@ -245,7 +248,7 @@ public class ChatExecutor {
 		TabletopTool.addMessage(TextMessage.me(message));
 	}
 
-	public static void reply(String message, String identity) {
+	public static void reply(String message, Speaker identity) {
 		String playerName = TabletopTool.getLastWhisperer();
         if (playerName == null) 
         {
@@ -270,15 +273,15 @@ public class ChatExecutor {
 	}
 
 	public static void outOfCharacter(String message) {
-		TabletopTool.addMessage(TextMessage.say("(( "+message+" ))", TabletopTool.getPlayer().getName()));
+		TabletopTool.addMessage(TextMessage.say("(( "+message+" ))", new PlayerSpeaker(TabletopTool.getPlayer().getName())));
 	}
 
-	public static void emote(String message, String identity) {
+	public static void emote(String message, Speaker identity) {
 		TabletopTool.addGlobalMessage("<span color=\"green\" style=\"font-style: italic;\">"
 				+identity+" "+message+"</span>");
 	}
 
-	public static void emit(String message, String identity) {
+	public static void emit(String message, Speaker identity) {
 		if(TabletopTool.getPlayer().isGM())
 			TabletopTool.addGlobalMessage(message);
 		else

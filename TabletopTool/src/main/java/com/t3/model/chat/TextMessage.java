@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model;
+package com.t3.model.chat;
 
 import com.t3.client.TabletopTool;
 
@@ -24,16 +24,16 @@ public class TextMessage {
 		GROUP, // All in the group
 		WHISPER; // To a specific player/character
 	}
-
+	
 	private Channel channel;
 	private final String target;
 	private final String message;
 	private final String source;
-	private final String speaker;
+	private final Speaker speaker;
 
 	////
 	// CONSTRUCTION
-	public TextMessage(Channel channel, String target, String source, String message, String speaker) {
+	public TextMessage(Channel channel, String target, String source, String message, Speaker speaker) {
 		this.channel = channel;
 		this.target = target;
 		this.message = message;
@@ -45,7 +45,7 @@ public class TextMessage {
 		this(channel, target, source, message, null);
 	}
 
-	public static TextMessage say(String message, String speaker) {
+	public static TextMessage say(String message, Speaker speaker) {
 		return new TextMessage(Channel.SAY, null, TabletopTool.getPlayer().getName(), message, speaker);
 	}
 	
@@ -57,7 +57,7 @@ public class TextMessage {
 		return new TextMessage(Channel.GM, null, TabletopTool.getPlayer().getName(), message, null);
 	}
 	
-	public static TextMessage gm(String message, String speaker) {
+	public static TextMessage gm(String message, Speaker speaker) {
 		return new TextMessage(Channel.GM, null, TabletopTool.getPlayer().getName(), message, speaker);
 	}
 
@@ -126,7 +126,7 @@ public class TextMessage {
 		return channel == Channel.WHISPER;
 	}
 
-	public String getSpeaker() {
+	public Speaker getSpeaker() {
 		return speaker;
 	}
 }

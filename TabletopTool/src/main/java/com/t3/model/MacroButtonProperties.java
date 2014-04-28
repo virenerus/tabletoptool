@@ -32,6 +32,7 @@ import com.t3.client.ui.macrobuttons.buttons.MacroButton;
 import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
+import com.t3.model.chat.TextMessage;
 import com.t3.util.StringUtil;
 
 /**

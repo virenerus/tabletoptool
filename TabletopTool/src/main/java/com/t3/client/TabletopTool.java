@@ -101,12 +101,12 @@ import com.t3.model.AssetManager;
 import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.Player;
-import com.t3.model.TextMessage;
 import com.t3.model.Zone;
 import com.t3.model.ZoneFactory;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.campaign.TokenPropertyType;
+import com.t3.model.chat.TextMessage;
 import com.t3.net.RPTURLStreamHandlerFactory;
 import com.t3.networking.ClientMethodHandler;
 import com.t3.networking.ServerCommand;
@@ -1031,7 +1031,7 @@ public class TabletopTool {
 
 	public static void createConnection(String host, int port, Player player) throws UnknownHostException, IOException {
 		TabletopTool.player = player;
-		TabletopTool.getFrame().getCommandPanel().setIdentityName(null);
+		TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
 
 		ClientConnection clientConn = new T3Connection(host, port, player);
 

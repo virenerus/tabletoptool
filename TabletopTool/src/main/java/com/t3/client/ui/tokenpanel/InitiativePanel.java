@@ -60,11 +60,11 @@ import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.InitiativeListModel;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
-import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Token.Type;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
+import com.t3.model.chat.TextMessage;
 
 /**
  * This panel shows the initiative order inside of TabletopTools.
@@ -532,7 +532,7 @@ public class InitiativePanel extends JPanel implements PropertyChangeListener, M
 				return;
 			String s = I18N.getText("initPanel.displayMessage", t.getName());
 			if (InitiativeListModel.isTokenVisible(t, list.isHideNPC()) && t.getType() != Type.NPC && AppPreferences.isShowInitGainMessage())
-				TabletopTool.addMessage(TextMessage.say(null, s));
+				TabletopTool.addMessage(TextMessage.say(s));
 			displayList.ensureIndexIsVisible(model.getDisplayIndex(list.getCurrent()));
 			if (menuButton.getAction() == NEXT_ACTION)
 				menuButton.setButtonEnabled(list.getCurrent() >= 0 && hasOwnerPermission(list.getToken(list.getCurrent())));

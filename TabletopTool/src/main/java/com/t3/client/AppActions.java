@@ -96,7 +96,6 @@ import com.t3.model.ExposedAreaMetaData;
 import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.Player;
-import com.t3.model.TextMessage;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Layer;
@@ -106,6 +105,7 @@ import com.t3.model.ZonePoint;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.campaign.CampaignProperties;
+import com.t3.model.chat.TextMessage;
 import com.t3.model.drawing.DrawableTexturePaint;
 import com.t3.model.grid.Grid;
 import com.t3.networking.ServerConfig;
@@ -2119,7 +2119,7 @@ public class AppActions {
 							TabletopTool.getAutoSaveManager().tidy();
 
 							// UI related stuff
-							TabletopTool.getFrame().getCommandPanel().setIdentityName(null);
+							TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
 							TabletopTool.getFrame().resetPanels();
 						}
 					} finally {

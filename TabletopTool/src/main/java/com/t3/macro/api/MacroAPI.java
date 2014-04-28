@@ -27,6 +27,7 @@ import com.t3.macro.api.functions.MapFunctions;
 import com.t3.macro.api.functions.PathFunctions;
 import com.t3.macro.api.functions.PlayerFunctions;
 import com.t3.macro.api.views.InitiativeListView;
+import com.t3.model.chat.PlayerSpeaker;
 
 //TODO make PLUG-INs for this package
 public abstract class MacroAPI extends Script {
@@ -53,7 +54,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void say(Object message) {
-		ChatExecutor.say(message.toString(),TabletopTool.getPlayer().getName());
+		ChatExecutor.say(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()));
 	}
 	
 	/**
@@ -61,7 +62,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisper(Object message, String targetPlayer) {
-		ChatExecutor.whisper(message.toString(), TabletopTool.getPlayer().getName(), targetPlayer);		
+		ChatExecutor.whisper(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()), targetPlayer);		
 	}
 	
 	/**
@@ -69,7 +70,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisperToGM(Object message) {
-		ChatExecutor.gm(message.toString(), TabletopTool.getPlayer().getName());
+		ChatExecutor.gm(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()));
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void emit(Object message) {
-		ChatExecutor.emit(message.toString(), TabletopTool.getPlayer().getName());
+		ChatExecutor.emit(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()));
 	}
 
 	/**
@@ -93,7 +94,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void emote(Object message) {
-		ChatExecutor.emote(message.toString(), TabletopTool.getPlayer().getName());
+		ChatExecutor.emote(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()));
 	}
 	
 	/**
@@ -101,7 +102,7 @@ public abstract class MacroAPI extends Script {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void reply(Object message) {
-		ChatExecutor.reply(message.toString(), TabletopTool.getPlayer().getName());
+		ChatExecutor.reply(message.toString(), new PlayerSpeaker(TabletopTool.getPlayer().getName()));
 	}
 	
 	/**

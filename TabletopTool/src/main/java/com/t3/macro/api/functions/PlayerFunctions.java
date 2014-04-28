@@ -26,11 +26,7 @@ public class PlayerFunctions {
 	 */
 	public TokenView getLocalImpersonatedToken() {
 		GUID guid = TabletopTool.getFrame().getCommandPanel().getIdentityGUID();
-		Token t;
-		if (guid != null)
-			t=TabletopTool.getFrame().findToken(guid);
-		else
-			t=TabletopTool.getFrame().getCurrentZoneRenderer().getZone().resolveToken(TabletopTool.getFrame().getCommandPanel().getIdentity());
+		Token t=TabletopTool.getFrame().findToken(guid);
 		
 		return t==null ? null : new TokenView(t);
 	}

@@ -41,7 +41,8 @@ import com.t3.client.TabletopTool;
 import com.t3.client.swing.MessagePanelEditorKit;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
-import com.t3.model.TextMessage;
+import com.t3.model.chat.Speaker;
+import com.t3.model.chat.TextMessage;
 
 //FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here
 public class MessagePanel extends JPanel {
@@ -51,7 +52,7 @@ public class MessagePanel extends JPanel {
 	private final JScrollPane scrollPane;
 	private final HTMLDocument document;
 	private final JEditorPane textPane;
-	private String lastSpeaker;
+	private Speaker lastSpeaker;
 
 	private static final String SND_MESSAGE_RECEIVED = "messageReceived";
 
@@ -215,7 +216,7 @@ public class MessagePanel extends JPanel {
 							else
 								document.insertBeforeEnd(element, 
 										"<div><table cellpadding=0><tr><td valign=top rowspan=0 style=\"margin-right: 5px\">"+
-										message.getSpeaker()+ "</td><td valign=top align=left><div>" + output + "</div></td></tr></table></div>");
+										message.getSpeaker().toHTML()+ "</td><td valign=top align=left><div>" + output + "</div></td></tr></table></div>");
 						lastSpeaker=message.getSpeaker();
 
 						if (!message.getSource().equals(TabletopTool.getPlayer().getName())) {

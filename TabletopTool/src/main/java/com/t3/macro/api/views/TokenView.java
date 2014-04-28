@@ -28,6 +28,9 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.syntax.ParserException;
 
+
+
+
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.T3Util;
@@ -59,6 +62,7 @@ import com.t3.model.Zone;
 import com.t3.model.Zone.Layer;
 import com.t3.model.ZonePoint;
 import com.t3.model.campaign.TokenProperty;
+import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
 import com.t3.util.ImageManager;
@@ -112,7 +116,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void say(Object message) {
-		ChatExecutor.say(message.toString(),token.getId().toString());
+		ChatExecutor.say(message.toString(),new TokenSpeaker(token.getId().toString()));
 	}
 	
 	/**
@@ -120,7 +124,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisper(Object message, String targetPlayer) {
-		ChatExecutor.whisper(message.toString(), token.getId().toString(), targetPlayer);		
+		ChatExecutor.whisper(message.toString(), new TokenSpeaker(token.getId().toString()), targetPlayer);		
 	}
 	
 	/**
@@ -128,7 +132,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisperToGM(Object message) {
-		ChatExecutor.gm(message.toString(), token.getId().toString());
+		ChatExecutor.gm(message.toString(), new TokenSpeaker(token.getId().toString()));
 	}
 
 	/**
@@ -136,7 +140,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void emote(Object message) {
-		ChatExecutor.emote(message.toString(), token.getId().toString());
+		ChatExecutor.emote(message.toString(), new TokenSpeaker(token.getId().toString()));
 	}
 	
 	/**
@@ -144,7 +148,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void reply(Object message) {
-		ChatExecutor.reply(message.toString(), token.getId().toString());
+		ChatExecutor.reply(message.toString(), new TokenSpeaker(token.getId().toString()));
 	}
 	
 	/**
