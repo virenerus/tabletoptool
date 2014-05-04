@@ -216,10 +216,10 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 					colorComboBox.setEditable(true);
 					panel5.add(colorComboBox);
 
-					//---- macroFontSizeLabel ----
-					macroFontSizeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-					macroFontSizeLabel.setText("Font Size:"); //$NON-NLS-1$
-					panel5.add(macroFontSizeLabel);
+					//---- macroToolTipLabel ----
+					macroToolTipLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+					macroToolTipLabel.setText("Tool Tip:"); //$NON-NLS-1$
+					panel5.add(macroToolTipLabel);
 
 					//---- tooltipTextField ----
 					tooltipTextField.setColumns(15);
@@ -244,10 +244,10 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 					fontColorComboBox.setEditable(true);
 					panel5.add(fontColorComboBox);
 
-					//---- macroToolTipLabel ----
-					macroToolTipLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-					macroToolTipLabel.setText("Tool Tip:"); //$NON-NLS-1$
-					panel5.add(macroToolTipLabel);
+					//---- macroFontSizeLabel ----
+					macroFontSizeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+					macroFontSizeLabel.setText("Font Size:"); //$NON-NLS-1$
+					panel5.add(macroFontSizeLabel);
 
 					//---- fontSizeComboBox ----
 					fontSizeComboBox.setRequestFocusEnabled(false);
