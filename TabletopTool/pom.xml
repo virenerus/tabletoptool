@@ -26,9 +26,19 @@
     </plugins>
     <resources>
     	<resource>
-    		<directory>src/main/resources</directory>
-    		<filtering>true</filtering>
-    	</resource>
+	        <directory>src/main/resources</directory>
+	        <filtering>true</filtering>
+	        <includes>
+	          <include>**/*.txt</include>
+	        </includes>
+	      </resource>
+	      <resource>
+	        <directory>src/main/resources</directory>
+	        <filtering>false</filtering>
+	        <excludes>
+	          <exclude>**/*.txt</exclude>
+	        </excludes>
+	      </resource>
     </resources>
   </build>
   <dependencies>
@@ -61,17 +71,17 @@
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ChatParser</artifactId>
-		<version>[0.3,)</version>
+		<version>0.3</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>rplib</artifactId>
-		<version>[0.3,)</version>
+		<version>0.3</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ClientServer</artifactId>
-		<version>[0.3,)</version>
+		<version>0.3</version>
 	</dependency>
 	<dependency>
 		<groupId>log4j</groupId>
