@@ -24,7 +24,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.t3.FileUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.TransferableAsset;
 import com.t3.client.TransferableToken;
@@ -32,9 +31,10 @@ import com.t3.image.ImageUtil;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.Token;
+import com.t3.persistence.FileUtil;
+import com.t3.persistence.PersistenceUtil;
 import com.t3.swing.ImagePanelModel;
 import com.t3.util.ImageManager;
-import com.t3.util.PersistenceUtil;
 
 public class ImageFileImagePanelModel implements ImagePanelModel {
 

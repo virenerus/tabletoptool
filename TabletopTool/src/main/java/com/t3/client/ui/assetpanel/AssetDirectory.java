@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.Token;
-import com.t3.util.PersistenceUtil;
+import com.t3.persistence.PersistenceUtil;
 
 public class AssetDirectory extends Directory {
 

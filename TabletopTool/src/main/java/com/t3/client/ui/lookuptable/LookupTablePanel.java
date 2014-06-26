@@ -33,9 +33,9 @@ import com.t3.client.TabletopTool;
 import com.t3.client.swing.AbeillePanel;
 import com.t3.language.I18N;
 import com.t3.model.LookupTable;
+import com.t3.persistence.PersistenceUtil;
 import com.t3.swing.ImagePanel;
 import com.t3.swing.SwingUtil;
-import com.t3.util.PersistenceUtil;
 
 public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 	private static final long serialVersionUID = -4404834393567699280L;

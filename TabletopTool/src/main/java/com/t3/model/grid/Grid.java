@@ -25,7 +25,6 @@ import javax.swing.KeyStroke;
 
 import org.apache.log4j.Logger;
 
-import com.t3.FileUtil;
 import com.t3.client.AppPreferences;
 import com.t3.client.tool.PointerTool;
 import com.t3.client.ui.zone.ZoneRenderer;
@@ -40,6 +39,7 @@ import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.ZonePoint;
+import com.t3.persistence.FileUtil;
 
 /**
  * Base class for grids.

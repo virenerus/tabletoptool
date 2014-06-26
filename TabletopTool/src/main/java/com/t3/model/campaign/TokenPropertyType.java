@@ -11,10 +11,22 @@
  */
 package com.t3.model.campaign;
 
+import java.util.Collections;
+
+import javax.swing.CellEditor;
+
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
+import com.jidesoft.grid.CellEditorFactory;
+import com.jidesoft.grid.CellEditorManager;
+import com.jidesoft.grid.CellRendererManager;
 import com.jidesoft.grid.EditorContext;
+import com.t3.client.ui.token.CappedIntegerCellEditor;
+import com.t3.client.ui.token.CappedIntegerCellRenderer;
+import com.t3.client.ui.token.DiceExpressionCellEditor;
+import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
+import com.t3.model.TokenPropertiesList;
 import com.t3.util.math.CappedInteger;
 
 public enum TokenPropertyType {
@@ -37,9 +49,26 @@ public enum TokenPropertyType {
 				return capped.getValue()+" / "+capped.getMax();
 			}
 		}
+		
+		@Override
+		public void registerCellEditors() {
+			CellRendererManager.registerRenderer(CappedInteger.class, new CappedIntegerCellRenderer());
+			CellEditorManager.registerEditor(CappedInteger.class, new CappedIntegerCellEditor.Factory());
+		}
 	},
-	EXPRESSION("Expression", Expression.class, Expression.ZERO_EXPRESSION),
-	MACRO("Macro", PropertyMacroView.class,PropertyMacroView.EMPTY_MACRO);	
+	EXPRESSION("Expression", Expression.class, Expression.ZERO_EXPRESSION) {
+		@Override
+		public void registerCellEditors() {
+			CellEditorManager.registerEditor(Expression.class, new DiceExpressionCellEditor.Factory());
+		}
+	},
+	MACRO("Macro", PropertyMacroView.class,PropertyMacroView.EMPTY_MACRO) {
+		@Override
+		public void registerCellEditors() {
+			CellEditorManager.registerEditor(PropertyMacroView.class, new PropertyMacroViewCellEditor.Factory());
+		}
+	},
+	LIST("List",TokenPropertiesList.class,new TokenPropertiesList());	
 	
 	private final Class<?> type;
 	private final String name;
@@ -78,5 +107,10 @@ public enum TokenPropertyType {
 	public Object getDefaultDefaultValue() {
 		return defaultDefaultValue;
 	}
+
+	/**
+	 * This class should register specialized cell renderer and cell editors if they are needed.
+	 */
+	public void registerCellEditors() {}
 	
 }

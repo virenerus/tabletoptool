@@ -52,8 +52,8 @@ import com.t3.model.TokenFootprint;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
+import com.t3.persistence.PersistenceUtil;
 import com.t3.util.ImageManager;
-import com.t3.util.PersistenceUtil;
 import com.t3.util.TokenUtil;
 
 public abstract class AbstractTokenPopupMenu extends JPopupMenu {

@@ -28,6 +28,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +37,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.t3.FileUtil;
+import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -73,8 +74,9 @@ public class ImageUtil {
 	 * Load the image.  Does not create a graphics configuration compatible version.
 	 */
     public static Image getImage (File file) throws IOException {
-    	
-        return bytesToImage(FileUtil.getBytes(file));
+    	try(FileInputStream is=new FileInputStream(file)) {
+    		return bytesToImage(IOUtils.toByteArray(is));
+    	}
     }
     
 	/**

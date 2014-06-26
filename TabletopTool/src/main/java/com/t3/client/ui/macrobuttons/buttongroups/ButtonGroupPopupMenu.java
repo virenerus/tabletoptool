@@ -33,7 +33,7 @@ import com.t3.language.I18N;
 import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
-import com.t3.util.PersistenceUtil;
+import com.t3.persistence.PersistenceUtil;
 
 @SuppressWarnings("serial")
 public class ButtonGroupPopupMenu extends JPopupMenu {

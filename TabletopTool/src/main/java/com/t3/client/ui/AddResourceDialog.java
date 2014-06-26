@@ -42,7 +42,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.jidesoft.swing.FolderChooser;
-import com.t3.FileUtil;
 import com.t3.client.AppPreferences;
 import com.t3.client.AppSetup;
 import com.t3.client.RemoteFileDownloader;
@@ -51,6 +50,7 @@ import com.t3.client.WebDownloader;
 import com.t3.client.swing.AbeillePanel;
 import com.t3.client.swing.GenericDialog;
 import com.t3.language.I18N;
+import com.t3.persistence.FileUtil;
 
 public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 

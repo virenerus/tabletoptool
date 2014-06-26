@@ -21,7 +21,7 @@ import java.net.URLStreamHandlerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.t3.FileUtil;
+import org.apache.commons.io.IOUtils;
 
 public class RPTURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
@@ -63,8 +63,8 @@ public class RPTURLStreamHandlerFactory implements URLStreamHandlerFactory {
 			String path = url.getHost() + url.getFile();
 			data = imageMap.get(path);
 			if (data == null) {
-				try {
-					data = FileUtil.loadResource(path);
+				try(InputStream in=RPTURLStreamHandlerFactory.class.getClassLoader().getResourceAsStream(path)) {
+					data = IOUtils.toByteArray(in);
 					imageMap.put(path, data);
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
