@@ -21,7 +21,7 @@ import com.t3.model.Light;
 import com.t3.model.LightSource;
 import com.t3.model.ShapeType;
 import com.t3.model.drawing.DrawableColorPaint;
-import com.thoughtworks.xstream.XStream;
+import com.t3.persistence.Persister;
 
 public class LightSourceCreator {
 	public static void main(String[] args) {
@@ -49,8 +49,7 @@ public class LightSourceCreator {
 
 		lightSourcesMap.put("Generic", lightSourceList);
 
-		XStream xstream = new XStream();
-		System.out.println(xstream.toXML(lightSourcesMap));
+		System.out.println(Persister.newInstance().toXML(lightSourcesMap));
 	}
 
 	private static LightSource createLightSource(String name, double radius, double arcAngle) {

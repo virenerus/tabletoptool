@@ -1,9 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>tabletoptool</groupId>
 	<artifactId>tabletoptool</artifactId>
-	<version>0.3</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -32,9 +30,6 @@
 				<includes>
 					<include>**/*.txt</include>
 				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/persistence</directory>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -113,5 +108,15 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.7.3</version>
 		</dependency>
+		<dependency>
+			<groupId>tabletoptool</groupId>
+			<artifactId>xstream-versioned</artifactId>
+			<version>0.3</version>
+		</dependency>
 	</dependencies>
+	<parent>
+		<groupId>tabletoptool</groupId>
+		<artifactId>t3-master</artifactId>
+		<version>0.3</version>
+	</parent>
 </project>

@@ -21,7 +21,7 @@ import javax.imageio.stream.ImageInputStream;
 
 import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.t3.persistence.converter.AssetImageConverter;
 
 /**
  * The binary representation of an image.
@@ -31,7 +31,6 @@ public class Asset {
 	private String name;
 	private String extension;
 
-	@XStreamConverter(AssetImageConverter.class)
 	private byte[] image;
 
 	protected Asset() {

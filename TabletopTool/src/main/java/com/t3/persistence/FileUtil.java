@@ -40,8 +40,6 @@ import java.util.zip.ZipInputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-import com.thoughtworks.xstream.XStream;
-
 public class FileUtil {
 	private static final Logger log = Logger.getLogger(FileUtil.class);
 
@@ -424,7 +422,7 @@ public class FileUtil {
 
 	public static Object objFromResource(Class<?> loadingClass, String name) {
 		try (InputStream is=loadingClass.getResourceAsStream(name)) {
-			return new XStream().fromXML(is);
+			return Persister.newInstance().fromXML(is);
 		} catch (IOException e) {
 			throw new Error(e);
 		}

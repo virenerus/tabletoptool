@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.t3.model.TokenFootprint;
-import com.thoughtworks.xstream.XStream;
+import com.t3.persistence.Persister;
 
 public class TokenFootprintCreator {
 	public static void main(String[] args) {
@@ -24,8 +24,7 @@ public class TokenFootprintCreator {
 		List<TokenFootprint> footprintList = makeVertHex();				
 //		List<TokenFootprint> footprintList = makeSquare();				
 //		List<TokenFootprint> footprintList = makeGridless();				
-		XStream xstream = new XStream();
-		System.out.println(xstream.toXML(footprintList));
+		System.out.println(Persister.newInstance().toXML(footprintList));
 	}
 
 	private static Point[] points(int[][] points) {

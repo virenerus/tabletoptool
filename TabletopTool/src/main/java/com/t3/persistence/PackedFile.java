@@ -15,6 +15,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -85,7 +86,7 @@ import com.t3.GUID;
  * UTF-8 using the {@link String#getBytes(String)} method.
  */
 //TODO refactor this piece of shit
-public class PackedFile {
+public class PackedFile implements Closeable {
 
 	private static final String PROPERTY_FILE = "properties.xml";
 	private static final String CONTENT_FILE = "content.xml";
@@ -251,7 +252,7 @@ public class PackedFile {
 				removeFile(PROPERTY_FILE);
 			} else {
 				zout.putNextEntry(new ZipEntry(PROPERTY_FILE));
-				Persister.getNewInstance().toXML(getPropertyMap(), zout);
+				Persister.newInstance().toXML(getPropertyMap(), zout);
 				zout.closeEntry();
 			}
 			saveTimer.stop("propertyFile");
@@ -417,7 +418,7 @@ public class PackedFile {
 	public void putFile(String path, Object obj) throws IOException {
 		File explodedFile = putFileImpl(path);
 		try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(explodedFile), "UTF-8"))) {
-			Persister.getNewInstance().toXML(obj, bw);
+			Persister.newInstance().toXML(obj, bw);
 			bw.newLine();		// Not necessary but editing the file looks nicer. ;-)
 		}
 	}
@@ -482,7 +483,7 @@ public class PackedFile {
 		// older pre-1.3.b64 campaigns to be loaded but only the newer format
 		// (with a separate image file) works on output.
 		try(Reader r = getFileAsReader(path)) {
-			return Persister.getNewInstance().fromXML(r);
+			return Persister.newInstance().fromXML(r);
 		}
 	}
 
@@ -560,13 +561,10 @@ public class PackedFile {
 		throw new FileNotFoundException(path);
 	}
 
+	@Override
 	public void close() {
 		if (zFile != null) {
-			try {
-				zFile.close();
-			} catch (IOException e) {
-				// Ignore it
-			}
+			IOUtils.closeQuietly(zFile);
 			zFile = null;
 		}
 		if (tmpFile.exists())

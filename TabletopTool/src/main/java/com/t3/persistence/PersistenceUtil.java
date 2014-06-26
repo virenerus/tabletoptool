@@ -58,6 +58,7 @@ import com.t3.model.campaign.CampaignProperties;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
+import com.thoughtworks.xstream.converters.ConversionException;
 
 /**
  * @author trevor
@@ -100,8 +101,6 @@ public class PersistenceUtil {
 			pakFile = new PackedFile(mapFile);
 			saveAssets(z.getAllAssetIds(), pakFile);
 			pakFile.setContent(pMap);
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
-			pakFile.setProperty(PROP_CAMPAIGN_VERSION, CAMPAIGN_VERSION);
 			pakFile.save();
 		} finally {
 			if (pakFile != null)
@@ -113,11 +112,6 @@ public class PersistenceUtil {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(mapFile);
-
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
 
 			PersistedMap persistedMap = (PersistedMap) pakFile.getContent();
 
@@ -218,8 +212,6 @@ public class PersistenceUtil {
 			try {
 				saveTimer.start("Set content");
 				pakFile.setContent(persistedCampaign);
-				pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
-				pakFile.setProperty(PROP_CAMPAIGN_VERSION, CAMPAIGN_VERSION);
 				saveTimer.stop("Set content");
 
 				saveTimer.start("Save");
@@ -342,19 +334,9 @@ public class PersistenceUtil {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(campaignFile);
-			pakFile.setModelVersionManager(campaignVersionManager);
-
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
-
-			String campaignVersion = (String) pakFile.getProperty(PROP_CAMPAIGN_VERSION);
-			// This is where the campaignVersion was added
-			campaignVersion = campaignVersion == null ? "1.3.50" : campaignVersion;
 
 			try {
-				persistedCampaign = (PersistedCampaign) pakFile.getContent(campaignVersion);
+				persistedCampaign = (PersistedCampaign) pakFile.getContent();
 			} catch (ConversionException ce) {
 				// Ignore the exception and check for "campaign == null" below...
 				TabletopTool.showError("PersistenceUtil.error.campaignVersion", ce);
@@ -428,7 +410,6 @@ public class PersistenceUtil {
 			saveAssets(token.getAllImageAssets(), pakFile);
 			pakFile.putFile(Token.FILE_THUMBNAIL, ImageUtil.imageToBytes(thumb, "png"));
 			pakFile.setContent(token);
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
 			pakFile.save();
 		} finally {
 			if (pakFile != null)
@@ -441,14 +422,8 @@ public class PersistenceUtil {
 		Token token = null;
 		try {
 			pakFile = new PackedFile(file);
-			pakFile.setModelVersionManager(tokenVersionManager);
 
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
-
-			token = (Token) pakFile.getContent(progVersion);
+			token = (Token) pakFile.getContent();
 			loadAssets(token.getAllImageAssets(), pakFile);
 		} catch (ConversionException ce) {
 			TabletopTool.showError("PersistenceUtil.error.tokenVersion", ce);
@@ -471,10 +446,6 @@ public class PersistenceUtil {
 	}
 
 	private static void loadAssets(Collection<MD5Key> assetIds, PackedFile pakFile) throws IOException {
-		// Special handling of assets:  XML file to describe the Asset, but binary file for the image data
-		pakFile.getXStream().processAnnotations(Asset.class);
-
-		String campaignVersion = (String) pakFile.getProperty(PROP_CAMPAIGN_VERSION);
 		List<Asset> addToServer = new ArrayList<Asset>(assetIds.size());
 
 		for (MD5Key key : assetIds) {
@@ -508,7 +479,6 @@ public class PersistenceUtil {
 				if (asset.getImage() == null || asset.getImage().length < 4) {
 					String ext = asset.getImageExtension();
 					pathname = pathname + "." + (StringUtil.isEmpty(ext) ? "dat" : ext);
-					pathname = assetnameVersionManager.transform(pathname, campaignVersion);
 					try(InputStream is = pakFile.getFileAsInputStream(pathname)){
 						asset.setImage(IOUtils.toByteArray(is));
 					} catch (FileNotFoundException fnf) {
@@ -542,9 +512,6 @@ public class PersistenceUtil {
 	}
 
 	private static void saveAssets(Collection<MD5Key> assetIds, PackedFile pakFile) throws IOException {
-		// Special handling of assets:  XML file to describe the Asset, but binary file for the image data
-		pakFile.getXStream().processAnnotations(Asset.class);
-
 		for (MD5Key assetId : assetIds) {
 			if (assetId == null)
 				continue;
@@ -581,63 +548,25 @@ public class PersistenceUtil {
 	public static CampaignProperties loadCampaignProperties(InputStream in) throws IOException {
 		CampaignProperties props = null;
 		try {
-			props = (CampaignProperties) new XStream().fromXML(new InputStreamReader(in, "UTF-8"));
+			props = (CampaignProperties) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
 		} catch (ConversionException ce) {
 			TabletopTool.showError("PersistenceUtil.error.campaignPropertiesVersion", ce);
 		}
 		return props;
 	}
 
-	/**
-	 * Answers the question, "Can this version of TabletopTool load an XML file with
-	 * a version string of <code>progVersion</code>?"
-	 * 
-	 * @param progVersion
-	 *            version string read from the XML file
-	 * @return <code>true</code> if this MT can read the file based on the
-	 *         version string, <code>false</code> if it can't.
-	 */
-	private static boolean versionCheck(String progVersion) {
-		boolean okay = true;
-		String mtversion = ModelVersionManager.cleanVersionNumber(TabletopTool.getVersion());
-		String cleanedProgVersion = ModelVersionManager.cleanVersionNumber(progVersion); // uses "0" if version is null
-
-		// If this version of TabletopTool (check added in 1.3b78) is earlier than the one that created the file, warn the user. :)
-		if (!TabletopTool.isDevelopment() && ModelVersionManager.isBefore(mtversion, cleanedProgVersion)) {
-			// Give the user a chance to abort this attempt to load the file
-			okay = TabletopTool.confirm("msg.confirm.newerVersion", TabletopTool.getVersion(), progVersion);
-		}
-		return okay;
-	}
-
 	public static CampaignProperties loadCampaignProperties(File file) {
-		PackedFile pakFile = null;
+		PackedFile pakFile = new PackedFile(file);
+		CampaignProperties props = null;
 		try {
-			pakFile = new PackedFile(file);
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
-			CampaignProperties props = null;
-			try {
-				props = (CampaignProperties) pakFile.getContent();
-				loadAssets(props.getAllImageAssets(), pakFile);
-			} catch (ConversionException ce) {
-				TabletopTool.showError("PersistenceUtil.error.campaignPropertiesVersion", ce);
-			} catch (IOException ioe) {
-				TabletopTool.showError("Could not load campaign properties", ioe);
-			}
-			return props;
-		} catch (IOException e) {
-			try {
-				if (pakFile != null)
-					pakFile.close(); // first close PackedFile (if it was opened) 'cuz some stupid OSes won't allow a file to be opened twice (ugh).
-				pakFile = null;
-				return loadLegacyCampaignProperties(file);
-			} catch (IOException ioe) {
-				TabletopTool.showError("PersistenceUtil.error.campaignPropertiesLegacy", ioe);
-			}
+			props = (CampaignProperties) pakFile.getContent();
+			loadAssets(props.getAllImageAssets(), pakFile);
+		} catch (ConversionException ce) {
+			TabletopTool.showError("PersistenceUtil.error.campaignPropertiesVersion", ce);
+		} catch (IOException ioe) {
+			TabletopTool.showError("Could not load campaign properties", ioe);
 		}
-		return null;
+		return props;
 	}
 
 	public static void saveCampaignProperties(Campaign campaign, File file) throws IOException {
@@ -651,7 +580,6 @@ public class PersistenceUtil {
 			clearAssets(pakFile);
 			saveAssets(campaign.getCampaignProperties().getAllImageAssets(), pakFile);
 			pakFile.setContent(campaign.getCampaignProperties());
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
 			pakFile.save();
 		} finally {
 			if (pakFile != null)
@@ -672,7 +600,7 @@ public class PersistenceUtil {
 	public static MacroButtonProperties loadMacro(InputStream in) throws IOException {
 		MacroButtonProperties mbProps = null;
 		try {
-			mbProps = (MacroButtonProperties) new XStream().fromXML(new InputStreamReader(in, "UTF-8"));
+			mbProps = (MacroButtonProperties) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
 		} catch (ConversionException ce) {
 			TabletopTool.showError("PersistenceUtil.error.macroVersion", ce);
 		} catch (IOException ioe) {
@@ -685,11 +613,6 @@ public class PersistenceUtil {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(file);
-
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
 
 			MacroButtonProperties macroButton = (MacroButtonProperties) pakFile.getContent();
 			return macroButton;
@@ -713,7 +636,6 @@ public class PersistenceUtil {
 		try {
 			pakFile = new PackedFile(file);
 			pakFile.setContent(macroButton);
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
 			pakFile.save();
 		} finally {
 			if (pakFile != null)
@@ -734,7 +656,7 @@ public class PersistenceUtil {
 	public static List<MacroButtonProperties> loadMacroSet(InputStream in) throws IOException {
 		List<MacroButtonProperties> macroButtonSet = null;
 		try {
-			macroButtonSet = (List<MacroButtonProperties>) new XStream().fromXML(new InputStreamReader(in, "UTF-8"));
+			macroButtonSet = (List<MacroButtonProperties>) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
 		} catch (ConversionException ce) {
 			TabletopTool.showError("PersistenceUtil.error.macrosetVersion", ce);
 		}
@@ -747,11 +669,6 @@ public class PersistenceUtil {
 		List<MacroButtonProperties> macroButtonSet = null;
 		try {
 			pakFile = new PackedFile(file);
-
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
 
 			macroButtonSet = (List<MacroButtonProperties>) pakFile.getContent();
 		} catch (ConversionException ce) {
@@ -774,7 +691,6 @@ public class PersistenceUtil {
 		try {
 			pakFile = new PackedFile(file);
 			pakFile.setContent(macroButtonSet);
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
 			pakFile.save();
 		} finally {
 			if (pakFile != null)
@@ -797,7 +713,7 @@ public class PersistenceUtil {
 	public static LookupTable loadTable(InputStream in) {
 		LookupTable table = null;
 		try {
-			table = (LookupTable) new XStream().fromXML(new InputStreamReader(in, "UTF-8"));
+			table = (LookupTable) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
 		} catch (ConversionException ce) {
 			TabletopTool.showError("PersistenceUtil.error.tableVersion", ce);
 		} catch (IOException ioe) {
@@ -810,11 +726,6 @@ public class PersistenceUtil {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(file);
-
-			// Sanity check
-			String progVersion = (String) pakFile.getProperty(PROP_VERSION);
-			if (!versionCheck(progVersion))
-				return null;
 
 			LookupTable lookupTable = (LookupTable) pakFile.getContent();
 			loadAssets(lookupTable.getAllAssetIds(), pakFile);
@@ -847,7 +758,6 @@ public class PersistenceUtil {
 			pakFile = new PackedFile(file);
 			pakFile.setContent(lookupTable);
 			saveAssets(lookupTable.getAllAssetIds(), pakFile);
-			pakFile.setProperty(PROP_VERSION, TabletopTool.getVersion());
 			pakFile.save();
 		} finally {
 			if (pakFile != null)

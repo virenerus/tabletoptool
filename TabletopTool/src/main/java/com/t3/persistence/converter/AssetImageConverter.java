@@ -9,8 +9,9 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model;
+package com.t3.persistence.converter;
 
+import com.t3.model.Asset;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.extended.EncodedByteArrayConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -35,6 +36,6 @@ public class AssetImageConverter extends EncodedByteArrayConverter {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean canConvert(Class type) {
-		return true; // Tell XStream that we can convert the image so it uses our methods
+		return Asset.class.isAssignableFrom(type);
 	}
 }
