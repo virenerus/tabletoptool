@@ -16,6 +16,9 @@ import java.awt.Paint;
 import java.awt.image.ImageObserver;
 import java.io.Serializable;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class DrawableColorPaint extends DrawablePaint implements Serializable {
 	private int color;
 	private transient Color colorCache;

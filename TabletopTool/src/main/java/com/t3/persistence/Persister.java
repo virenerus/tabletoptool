@@ -19,6 +19,6 @@ public class Persister {
 		//ADD ALL CONVERTERS HERE THAT DECIDE HOW TO SERIALIZE DESERIALIZE CERTAIN CLASSES
 		xstream.registerConverter((Converter)new AssetImageConverter());
 		//asset -> assetImageCOnverter
-		return null;
+		return xstream;
 	}
 }

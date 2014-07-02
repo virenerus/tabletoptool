@@ -22,10 +22,12 @@ import javax.imageio.stream.ImageInputStream;
 import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
 import com.t3.persistence.converter.AssetImageConverter;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * The binary representation of an image.
  */
+@SerializationVersion(0)
 public class Asset {
 	private MD5Key id;
 	private String name;
