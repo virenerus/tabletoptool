@@ -22,6 +22,7 @@ import com.t3.dice.expression.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+@SuppressWarnings({"rawtypes","unused"})
 public class ChatParser implements ChatParserConstants {
 
         private String inputString;
