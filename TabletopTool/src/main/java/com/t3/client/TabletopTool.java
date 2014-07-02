@@ -638,8 +638,6 @@ public class TabletopTool {
 		messageList = new ObservableList<TextMessage>(Collections.synchronizedList(new ArrayList<TextMessage>()));
 
 		handler = new ClientMethodHandler();
-
-		MacroEngine.getInstance().initialize();
 		
 		setClientFrame(new T3Frame(menuBar));
 
@@ -989,6 +987,10 @@ public class TabletopTool {
 		}
 		return false;
 	}
+	
+	public static int getNumberOfPlayers() {
+		return playerList!=null?playerList.size():1;
+	}
 
 	public static void removeZone(Zone zone) {
 		TabletopTool.serverCommand().removeZone(zone.getId());
@@ -1219,6 +1221,7 @@ public class TabletopTool {
 		factory.registerProtocol("asset", new AssetURLStreamHandler());
 		URL.setURLStreamHandlerFactory(factory);
 
+		MacroEngine.initialize();
 		configureJide(); //TODO find out how to not call this twice without destroying error windows
 		
 		final Toolkit tk = Toolkit.getDefaultToolkit();

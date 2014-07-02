@@ -57,7 +57,7 @@ public class T3Registry {
 								name, 
 								Integer.toString(port), 
 								TabletopTool.getVersion(), 
-								Integer.toString(TabletopTool.getPlayerList().size()))));
+								Integer.toString(TabletopTool.getNumberOfPlayers()))));
 	}
 
 	public static void unregisterInstance(int port) {
@@ -67,7 +67,7 @@ public class T3Registry {
 	public static boolean heartBeat(int port) {
 		return Boolean.parseBoolean(callRegistry("heartbeat", 
 				Integer.toString(port), 
-				Integer.toString(TabletopTool.getPlayerList().size())).text());
+				Integer.toString(TabletopTool.getNumberOfPlayers())).text());
 	}
 
 	private static Document callRegistry(String action, String... params) {
@@ -82,34 +82,5 @@ public class T3Registry {
 			return null;
 		}
 		
-	}
-
-	public static void main(String[] args) throws Exception {
-		long delay = 100;
-
-		Thread.sleep(delay);
-		System.out.println("Register");
-		registerInstance("my test", 4444);
-
-		Thread.sleep(delay);
-		System.out.println("Heartbeat");
-
-		heartBeat(4444);
-
-		Thread.sleep(delay);
-
-		Thread.sleep(delay);
-		System.out.println("RERegister");
-		registerInstance("my test", 4444);
-
-		Thread.sleep(delay);
-
-		Thread.sleep(delay);
-
-		Thread.sleep(delay);
-		System.out.println("UnRegister");
-		unregisterInstance(4444);
-
-		System.out.println("All instances: " + findAllInstances());
 	}
 }
