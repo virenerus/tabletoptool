@@ -14,6 +14,9 @@ package com.t3.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class BaseModel {
 
 	// Transient so that it isn't transfered over the wire

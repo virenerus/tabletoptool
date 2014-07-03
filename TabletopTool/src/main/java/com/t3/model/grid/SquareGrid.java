@@ -44,7 +44,9 @@ import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
 import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class SquareGrid extends Grid {
 	private static final String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //$NON-NLS-1$
 	private static final Dimension CELL_OFFSET = new Dimension(0, 0);

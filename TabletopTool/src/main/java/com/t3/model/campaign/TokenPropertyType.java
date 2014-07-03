@@ -11,12 +11,7 @@
  */
 package com.t3.model.campaign;
 
-import java.util.Collections;
-
-import javax.swing.CellEditor;
-
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
-import com.jidesoft.grid.CellEditorFactory;
 import com.jidesoft.grid.CellEditorManager;
 import com.jidesoft.grid.CellRendererManager;
 import com.jidesoft.grid.EditorContext;
@@ -28,7 +23,9 @@ import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.TokenPropertiesList;
 import com.t3.util.math.CappedInteger;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public enum TokenPropertyType {
 	BOOLEAN("Boolean", Boolean.class, Boolean.FALSE) {
 		@Override

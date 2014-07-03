@@ -28,7 +28,7 @@ public class VersionedConverter implements Converter {
 
 	@Override
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-		String version=VersionedXStream.generateVersionAsString(source.getClass(), strategy.isStrict());
+		String version=VersionGenerator.generateVersionAsString(source.getClass(), strategy.isStrict(), strategy.getIgnoredPackages());
 		if(version!=null)
 			writer.addAttribute("version", version);
 		parentConverter.marshal(source, writer, context);
@@ -65,7 +65,7 @@ public class VersionedConverter implements Converter {
 	 */
 	private SerializedObject migrate(SerializedObject ser, Class<?> requiredType) {
 		
-		int[] targetVersions=VersionedXStream.generateVersion(requiredType, strategy.isStrict());
+		int[] targetVersions=VersionGenerator.generateVersion(requiredType, strategy.isStrict(), strategy.getIgnoredPackages());
 		if(targetVersions!=null) {
 			String[] versionStrings=StringUtils.split(ser.getVersion(), '.');
 			int[] currentVersions=new int[targetVersions.length];

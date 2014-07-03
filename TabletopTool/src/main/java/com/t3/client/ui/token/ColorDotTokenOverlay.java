@@ -22,6 +22,7 @@ import java.awt.geom.Ellipse2D;
 
 import com.t3.model.Token;
 import com.t3.model.drawing.AbstractTemplate.Quadrant;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Token overlay that draws a colored dot in one of the corners.
@@ -29,6 +30,7 @@ import com.t3.model.drawing.AbstractTemplate.Quadrant;
  * @author giliath
  * @version $Revision$ $Date$ $Author$
  */
+@SerializationVersion(0)
 public class ColorDotTokenOverlay extends XTokenOverlay {
 
   /**

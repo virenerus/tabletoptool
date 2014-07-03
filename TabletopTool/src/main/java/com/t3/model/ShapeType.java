@@ -11,6 +11,9 @@
  */
 package com.t3.model;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public enum ShapeType {
 	SQUARE,
 	CIRCLE,

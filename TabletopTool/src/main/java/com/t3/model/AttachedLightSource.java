@@ -12,7 +12,9 @@
 package com.t3.model;
 
 import com.t3.GUID;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class AttachedLightSource {
 
 	private GUID lightSourceId;

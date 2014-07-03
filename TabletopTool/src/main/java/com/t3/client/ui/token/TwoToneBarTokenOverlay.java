@@ -16,11 +16,13 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  *
  * @author Jay
  */
+@SerializationVersion(0)
 public class TwoToneBarTokenOverlay extends DrawnBarTokenOverlay {
 
     /**

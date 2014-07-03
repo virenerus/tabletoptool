@@ -18,12 +18,14 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Paint a square so that it doesn't overlay any other states being displayed in the same grid.
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class FlowYieldTokenOverlay extends FlowColorDotTokenOverlay {
 
 

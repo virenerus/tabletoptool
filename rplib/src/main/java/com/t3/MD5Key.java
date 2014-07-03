@@ -21,10 +21,13 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 /**
  * Represents the MD5 key for a certain set of data.
  * Can be used in maps as keys.
  */
+@SerializationVersion(0)
 public class MD5Key implements Serializable {
 
     private static MessageDigest md5Digest;

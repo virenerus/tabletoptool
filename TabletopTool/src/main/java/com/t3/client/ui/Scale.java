@@ -16,6 +16,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class Scale implements Serializable {
 
 	private final double oneToOneScale = 1; // Let this be configurable at some point

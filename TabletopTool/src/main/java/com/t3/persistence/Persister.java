@@ -13,12 +13,19 @@ public class Persister {
 	 * @return the xstream instance
 	 */
 	public static XStream newInstance() {
+		VersionedMarshallingStrategy vms=new VersionedMarshallingStrategy();
+		
+		//add migrators here for changed classes
+		//vms.registerTypeUpdater(type, updater);
+		
+		//add packages from 3rd party libraries that should be ignored
+		vms.addUnversionedPackage("org.apache.commons");
+		
 		XStream xstream=new XStream();
-		xstream.setMarshallingStrategy(new VersionedMarshallingStrategy());
+		xstream.setMarshallingStrategy(vms);
 		
 		//ADD ALL CONVERTERS HERE THAT DECIDE HOW TO SERIALIZE DESERIALIZE CERTAIN CLASSES
 		xstream.registerConverter((Converter)new AssetImageConverter());
-		//asset -> assetImageCOnverter
 		return xstream;
 	}
 }

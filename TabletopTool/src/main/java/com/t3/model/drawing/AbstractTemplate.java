@@ -21,6 +21,7 @@ import com.t3.client.TabletopTool;
 import com.t3.GUID;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Base class for the radius, line, and cone templates.
@@ -125,6 +126,7 @@ public abstract class AbstractTemplate extends AbstractDrawing {
 	/**
 	 * The quadrants for drawing.
 	 */
+	@SerializationVersion(0)
 	public static enum Quadrant {
 		/** Draw in the north east (upper right) quadrant. */
 		NORTH_EAST,

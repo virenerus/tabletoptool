@@ -50,6 +50,7 @@ import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
 import com.t3.util.StringUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This object represents the maps that will appear for placement of
@@ -60,17 +61,21 @@ import com.t3.util.StringUtil;
  * {@link #readResolve()} to ensure they are properly initialized for maximum
  * compatibility.
  */
+@SerializationVersion(0)
 public class Zone extends BaseModel {
 	private static final Logger log = Logger.getLogger(Zone.class);
 
+	@SerializationVersion(0)
 	public static enum VisionType {
 		OFF, DAY, NIGHT
 	}
 
+	@SerializationVersion(0)
 	public static enum Event {
 		TOKEN_ADDED, TOKEN_REMOVED, TOKEN_CHANGED, GRID_CHANGED, DRAWABLE_ADDED, DRAWABLE_REMOVED, FOG_CHANGED, LABEL_ADDED, LABEL_REMOVED, LABEL_CHANGED, TOPOLOGY_CHANGED, INITIATIVE_LIST_CHANGED, BOARD_CHANGED
 	}
 
+	@SerializationVersion(0)
 	public static enum Layer {
 		TOKEN("Token"), GM("Hidden"), OBJECT("Object"), BACKGROUND("Background");
 

@@ -2,8 +2,10 @@ package com.t3.xstreamversioned;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.ConverterLookup;
@@ -20,6 +22,7 @@ public class VersionedMarshallingStrategy extends AbstractTreeMarshallingStrateg
 
 	private HashMap<Class<?>, Map<Integer, Migrator>> typeUpdaters=new HashMap<>();
 	private final boolean strict;
+	private Set<String> ignoredPackages=new HashSet<>();
 	
 	public VersionedMarshallingStrategy() {
 		this(true);
@@ -93,5 +96,17 @@ public class VersionedMarshallingStrategy extends AbstractTreeMarshallingStrateg
 
 	public boolean isStrict() {
 		return strict;
+	}
+
+	/**
+	 * Every package (and all subpackages) added like this will not throw exception in stirct mode
+	 * @param pckg the package that you want to ignore
+	 */
+	public void addUnversionedPackage(String pckg) {
+		ignoredPackages.add(pckg);
+	}
+
+	public Set<String> getIgnoredPackages() {
+		return ignoredPackages;
 	}
 }

@@ -58,6 +58,7 @@ import com.t3.model.campaign.CampaignProperties;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 import com.thoughtworks.xstream.converters.ConversionException;
 
 /**
@@ -78,6 +79,7 @@ public class PersistenceUtil {
 		public String tabletopToolVersion;
 	}
 
+	@SerializationVersion(0)
 	public static class PersistedCampaign {
 		public Campaign campaign;
 		public Map<MD5Key, Asset> assetMap = new HashMap<MD5Key, Asset>();

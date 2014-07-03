@@ -20,6 +20,7 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Place a diamond over a token.
@@ -27,6 +28,7 @@ import com.t3.model.Token;
  * @author pwright
  * @version $Revision$ $Date$ $Author$
  */
+@SerializationVersion(0)
 public class DiamondTokenOverlay extends XTokenOverlay {
 
   /**

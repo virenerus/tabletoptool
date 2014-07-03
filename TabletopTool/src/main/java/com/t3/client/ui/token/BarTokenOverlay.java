@@ -16,6 +16,7 @@ import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 
 /**
@@ -24,6 +25,7 @@ import com.t3.model.Token;
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public abstract class BarTokenOverlay extends AbstractTokenOverlay<Float> {
 
     /*---------------------------------------------------------------------------------------------
@@ -156,6 +158,7 @@ public abstract class BarTokenOverlay extends AbstractTokenOverlay<Float> {
      * 
      * @author Jay
      */
+    @SerializationVersion(0)
     public enum Side {
         /** Draw the bar at the top of the token */
         TOP,

@@ -29,6 +29,7 @@ import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
 public class LightSource implements Comparable<LightSource> {
+	@SerializationVersion(0)
 	public enum Type {
 		NORMAL,
 		AURA

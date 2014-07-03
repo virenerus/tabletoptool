@@ -16,12 +16,14 @@ import java.awt.Rectangle;
 import com.t3.MD5Key;
 import com.t3.model.Token;
 import com.t3.model.drawing.AbstractTemplate.Quadrant;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Place an image in a given corner.
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class CornerImageTokenOverlay extends ImageTokenOverlay {
 
     /**

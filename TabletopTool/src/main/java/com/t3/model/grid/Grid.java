@@ -40,12 +40,14 @@ import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.ZonePoint;
 import com.t3.persistence.FileUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Base class for grids.
  * 
  * @author trevor
  */
+@SerializationVersion(0)
 public abstract class Grid implements Cloneable {
 	private static final Logger log = Logger.getLogger(Grid.class);
 	/**

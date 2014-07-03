@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import com.t3.GUID;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * All of the tokens currently being shown in the initiative list. It includes a reference to all
@@ -36,6 +37,7 @@ import com.t3.client.TabletopTool;
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class InitiativeList implements Serializable {
 
     /*---------------------------------------------------------------------------------------------

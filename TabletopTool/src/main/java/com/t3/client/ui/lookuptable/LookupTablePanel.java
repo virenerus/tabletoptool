@@ -83,7 +83,7 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 					if (lookupTable == null) {
 						return;
 					}
-					TabletopTool.getFrame().getCommandPanel().getCommandTextArea().setText("/tbl \"" + lookupTable.getName() + "\"");
+					TabletopTool.getFrame().getCommandPanel().getCommandTextArea().setText("/tbl " + lookupTable.getName());
 					TabletopTool.getFrame().getCommandPanel().commitCommand();
 				}
 			}

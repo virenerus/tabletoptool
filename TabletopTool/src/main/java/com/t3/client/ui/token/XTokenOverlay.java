@@ -21,6 +21,7 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Draw an X over a token.
@@ -28,6 +29,7 @@ import com.t3.model.Token;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class XTokenOverlay extends BooleanTokenOverlay {
 
   /**
