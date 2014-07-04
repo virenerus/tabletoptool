@@ -11,6 +11,9 @@
  */
 package com.t3.model;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class ZonePoint extends AbstractPoint {
 	public ZonePoint(int x, int y) {
 		super(x, y);
