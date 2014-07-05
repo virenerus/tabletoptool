@@ -1570,8 +1570,11 @@ public class TokenView extends TokenPropertyView {
 	 */
 	public MacroButtonView createMacro(String macroName) {
 		MacroButtonProperties mbp = new MacroButtonProperties(token.getMacroNextIndex());
+		mbp.setLabel(macroName);
 		mbp.setToken(token);
+		token.getMacroPropertiesMap(true).put(mbp.getIndex(), mbp);
 		TabletopTool.serverCommand().putToken(token.getZone().getId(), token);
+		TabletopTool.getFrame().getSelectionPanel().reset();
 		return new MacroButtonView(mbp);
 	}
 	
