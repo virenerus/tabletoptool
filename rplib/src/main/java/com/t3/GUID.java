@@ -18,11 +18,14 @@ import java.net.UnknownHostException;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 import sun.util.logging.resources.logging;
 
 /**
  * Global unique identificator object.
  */
+@SerializationVersion(0)
 public class GUID extends Object implements Serializable, Comparable<GUID> {
 
     /** Serial version unique identifier. */

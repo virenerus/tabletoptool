@@ -72,9 +72,7 @@ import com.jidesoft.grid.ListComboBoxCellEditor;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
-import com.t3.BackupManager;
 import com.t3.EventDispatcher;
-import com.t3.FileUtil;
 import com.t3.TaskBarFlasher;
 import com.t3.client.swing.NoteFrame;
 import com.t3.client.swing.SplashScreen;
@@ -117,6 +115,8 @@ import com.t3.networking.ServerPolicy;
 import com.t3.networking.T3Connection;
 import com.t3.networking.T3Server;
 import com.t3.networking.registry.T3Registry;
+import com.t3.persistence.BackupManager;
+import com.t3.persistence.FileUtil;
 import com.t3.sound.SoundManager;
 import com.t3.swing.SwingUtil;
 import com.t3.transfer.AssetTransferManager;
@@ -638,8 +638,6 @@ public class TabletopTool {
 		messageList = new ObservableList<TextMessage>(Collections.synchronizedList(new ArrayList<TextMessage>()));
 
 		handler = new ClientMethodHandler();
-
-		MacroEngine.getInstance().initialize();
 		
 		setClientFrame(new T3Frame(menuBar));
 
@@ -989,6 +987,10 @@ public class TabletopTool {
 		}
 		return false;
 	}
+	
+	public static int getNumberOfPlayers() {
+		return playerList!=null?playerList.size():1;
+	}
 
 	public static void removeZone(Zone zone) {
 		TabletopTool.serverCommand().removeZone(zone.getId());
@@ -1166,25 +1168,13 @@ public class TabletopTool {
 		};
 		uiDefaultsCustomizer.customize(UIManager.getDefaults());
 		
-		//add CappedIntegerCellEditor/Renderer to managers
-		CellRendererManager.registerRenderer(CappedInteger.class, new CappedIntegerCellRenderer());
-		CellEditorManager.registerEditor(CappedInteger.class, new CappedIntegerCellEditor.Factory());
+		//register cell editors and renderers
+		for(TokenPropertyType tpt:TokenPropertyType.values())
+			tpt.registerCellEditors();
 		CellEditorManager.registerEditor(TokenPropertyType.class, new CellEditorFactory() {
 			@Override
 			public CellEditor create() {
 				return new ListComboBoxCellEditor(TokenPropertyType.values());
-			}
-		});
-		CellEditorManager.registerEditor(PropertyMacroView.class, new CellEditorFactory() {
-			@Override
-			public CellEditor create() {
-				return new PropertyMacroViewCellEditor();
-			}
-		});
-		CellEditorManager.registerEditor(Expression.class, new CellEditorFactory() {
-			@Override
-			public CellEditor create() {
-				return new DiceExpressionCellEditor();
 			}
 		});
 	}
@@ -1231,6 +1221,7 @@ public class TabletopTool {
 		factory.registerProtocol("asset", new AssetURLStreamHandler());
 		URL.setURLStreamHandlerFactory(factory);
 
+		MacroEngine.initialize();
 		configureJide(); //TODO find out how to not call this twice without destroying error windows
 		
 		final Toolkit tk = Toolkit.getDefaultToolkit();

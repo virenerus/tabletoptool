@@ -14,7 +14,9 @@ package com.t3.model;
 import java.awt.Color;
 
 import com.t3.GUID;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class Label {
 	private final GUID id;
 	private String label;

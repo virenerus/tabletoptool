@@ -13,6 +13,9 @@ package com.t3.util.math;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class CappedInteger {
 	private int value;
 	private int max;

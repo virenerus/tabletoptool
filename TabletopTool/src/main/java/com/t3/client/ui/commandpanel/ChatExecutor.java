@@ -19,6 +19,7 @@ import com.t3.chatparser.ChatPart;
 import com.t3.chatparser.ExpressionPart;
 import com.t3.chatparser.ParsedChat;
 import com.t3.chatparser.UnknownCommandException;
+import com.t3.chatparser.generated.ParseException;
 import com.t3.client.TabletopTool;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
@@ -46,8 +47,9 @@ public class ChatExecutor {
 	 * @param str the text to parse
 	 * @return a list of the understood words
 	 * @throws UnknownCommandException if you try to call an unknown chat command 
+	 * @throws ParseException when the command could not be parsed correctly (e.g. invalid parameters)
 	 */
-	public static ParsedChat parseChat(String text) throws UnknownCommandException {
+	public static ParsedChat parseChat(String text) throws UnknownCommandException, ParseException {
 		return new com.t3.chatparser.generated.ChatParser(text).parse();
 	}
 
@@ -205,7 +207,7 @@ public class ChatExecutor {
 			}
 			else
 				say(buildDefaultStringRepresentation(parts), identity);
-		} catch (MacroException | IllegalArgumentException | UnknownCommandException e) {
+		} catch (MacroException | IllegalArgumentException | UnknownCommandException | ParseException e) {
 			TabletopTool.addLocalMessage("<font color=\"red\">"+e.getMessage()+"</font>");
 			log.error(e);
 			e.printStackTrace();

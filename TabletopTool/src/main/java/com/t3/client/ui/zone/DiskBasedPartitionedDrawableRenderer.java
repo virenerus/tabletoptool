@@ -31,11 +31,11 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import com.t3.FileUtil;
 import com.t3.client.AppUtil;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
+import com.t3.persistence.FileUtil;
 
 /**
  */

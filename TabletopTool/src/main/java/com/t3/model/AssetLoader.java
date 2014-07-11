@@ -34,10 +34,10 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.t3.FileUtil;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
+import com.t3.persistence.FileUtil;
 
 public class AssetLoader {
 	private static final Logger log = Logger.getLogger(AssetLoader.class);

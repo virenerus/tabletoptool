@@ -20,11 +20,13 @@ import java.util.Set;
 
 import com.t3.GUID;
 import com.t3.model.grid.Grid;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This class represents the set of cells a token occupies based on its size. Each token is assumed to take up at least
  * one cell, additional cells are indicated by cell offsets assuming the occupied cell is at 0, 0
  */
+@SerializationVersion(0)
 public class TokenFootprint {
 	private final Set<Point> cellSet = new HashSet<Point>();
 

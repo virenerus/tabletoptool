@@ -16,6 +16,7 @@ import java.awt.Rectangle;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /** The cone template draws a highlight over all the squares effected from a
  * specific spine. There are 8 different directions from each spine.
@@ -23,6 +24,7 @@ import com.t3.model.ZonePoint;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun
  *          2013) $ $Author: azhrei_fje $ */
+@SerializationVersion(0)
 public class ConeTemplate extends RadiusTemplate {
 
 	/*---------------------------------------------------------------------------------------------

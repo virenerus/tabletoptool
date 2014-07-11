@@ -23,8 +23,8 @@ import javax.swing.SwingWorker;
 
 import org.apache.log4j.Logger;
 
-import com.t3.FileUtil;
 import com.t3.model.AssetManager;
+import com.t3.persistence.FileUtil;
 
 /**
  * Executes only the first time the application is run.

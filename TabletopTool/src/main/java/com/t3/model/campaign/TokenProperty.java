@@ -13,6 +13,9 @@ package com.t3.model.campaign;
 
 import java.io.Serializable;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class TokenProperty implements Serializable {
 	private String name;
 	private String shortName;

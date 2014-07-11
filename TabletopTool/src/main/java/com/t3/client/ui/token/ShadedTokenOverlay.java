@@ -18,6 +18,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Paints a single reduced alpha color over the token.
@@ -25,6 +26,7 @@ import com.t3.model.Token;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class ShadedTokenOverlay extends BooleanTokenOverlay {
 
   /*---------------------------------------------------------------------------------------------

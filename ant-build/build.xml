@@ -47,6 +47,9 @@
 			<property name="subproject.folder" value="../ClientServer"/>
 		</ant>
 		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../xstream-versioned"/>
+		</ant>
+		<ant antfile="build-subproject.xml">
 			<property name="subproject.folder" value="../rplib"/>
 		</ant>
 	</target>

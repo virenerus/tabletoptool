@@ -41,12 +41,12 @@ import com.t3.language.I18N;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.Token;
+import com.t3.persistence.PersistenceUtil;
 import com.t3.transferable.FileTransferableHandler;
 import com.t3.transferable.GroupTokenTransferData;
 import com.t3.transferable.ImageTransferableHandler;
 import com.t3.transferable.T3TokenTransferData;
 import com.t3.transferable.TokenTransferData;
-import com.t3.util.PersistenceUtil;
 import com.t3.util.StringUtil;
 
 /**

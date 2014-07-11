@@ -19,7 +19,7 @@ import java.net.URL;
 
 import javax.imageio.ImageWriter;
 
-import com.t3.FileUtil;
+import org.apache.commons.io.IOUtils;
 
 public class FTPLocation implements Location {
 
@@ -68,7 +68,8 @@ public class FTPLocation implements Location {
 	@Override
 	public void putContent(InputStream content) throws IOException {
         try (OutputStream os = new URL(composeFileLocation()).openConnection().getOutputStream()){
-            FileUtil.copyWithClose(content, os);
+        	IOUtils.copy(content, os);
+        	IOUtils.closeQuietly(content);
         }
 	}
 

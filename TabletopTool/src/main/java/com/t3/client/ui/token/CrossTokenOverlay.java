@@ -20,6 +20,7 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Place a cross over a token.
@@ -27,6 +28,7 @@ import com.t3.model.Token;
  * @author jgorrell
  * @version $Revision$ $Date$ $Author$
  */
+@SerializationVersion(0)
 public class CrossTokenOverlay extends XTokenOverlay {
 
   /**

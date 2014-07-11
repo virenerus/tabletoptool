@@ -22,6 +22,7 @@ import com.t3.dice.expression.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+@SuppressWarnings({"rawtypes","unused"})
 public class ChatParser implements ChatParserConstants {
 
         private String inputString;
@@ -31,15 +32,10 @@ public class ChatParser implements ChatParserConstants {
                 this.inputString=str;
         }
 
-        public ParsedChat parse() throws UnknownCommandException {
-                try {
-                        return START();
-                } catch(ParseException e) {
-                        e.printStackTrace();
-                        return new ParsedChat(new TextPart(inputString));
-                }
+        public ParsedChat parse() throws UnknownCommandException, ParseException {
+            return START();
         }
-
+        
         public Expression parseExpression() throws ParseException {
                 this.token_source.SwitchTo(DICE_EXPR);
                 return DICE_EXPRESSION();

@@ -11,15 +11,16 @@
  */
 package com.t3.transfer;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
+public class AssetTransferTest {
 
-public class AssetTransferTest extends TestCase {
-
+	@Test
 	public void testBasicTransfer() throws Exception {
 		
 		byte[] data = new byte[1024];
@@ -33,14 +34,14 @@ public class AssetTransferTest extends TestCase {
 		AssetProducer producer = new AssetProducer("Testing", "onetwo", tmpFile);
 		AssetHeader header = producer.getHeader();
 		
-		assertNotNull(header);
-		assertEquals(data.length, header.getSize());
-		assertFalse(producer.isComplete());
+		AssertJUnit.assertNotNull(header);
+		AssertJUnit.assertEquals(data.length, header.getSize());
+		AssertJUnit.assertFalse(producer.isComplete());
 		
 		// CONSUMER
 		AssetConsumer consumer = new AssetConsumer(new File("."), header);
 
-		assertFalse(consumer.isComplete());
+		AssertJUnit.assertFalse(consumer.isComplete());
 		
 		// TEST
 		while (!producer.isComplete()) {
@@ -50,19 +51,19 @@ public class AssetTransferTest extends TestCase {
 		}
 		
 		// CHECK
-		assertTrue(consumer.isComplete());
-		assertTrue(consumer.getFilename().exists());
-		assertEquals(header.getSize(), consumer.getFilename().length());
+		AssertJUnit.assertTrue(consumer.isComplete());
+		AssertJUnit.assertTrue(consumer.getFilename().exists());
+		AssertJUnit.assertEquals(header.getSize(), consumer.getFilename().length());
 
 		int count = 0;
 		int val;
 		try(FileInputStream in = new FileInputStream(consumer.getFilename())) {
 			while ((val = in.read()) != -1) {
-				assertEquals(data[count], (byte)val);
+				AssertJUnit.assertEquals(data[count], (byte)val);
 				count ++;
 			}
 		}
-		assertEquals(data.length, count);
+		AssertJUnit.assertEquals(data.length, count);
 		
 		// CLEANUP
 		tmpFile.delete();

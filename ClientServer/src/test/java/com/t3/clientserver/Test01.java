@@ -26,7 +26,7 @@ public class Test01 {
 	private enum NetworkMessage implements Command {A,B};
 
 	@Test
-    public void simpleNetworkTest() throws Exception {
+    public void simpleNetworkTest() throws Throwable {
         ServerConnection server = new ServerConnection(4444);
         ServerHandler sh = new ServerHandler();
         server.addMessageHandler(sh);
@@ -38,7 +38,7 @@ public class Test01 {
         
         for (int i = 0; i < 5; i++) {
             if (i % 3 == 0) {
-                client.callMethod(NetworkMessage.A, new Float(2.3f));
+                client.callMethod(NetworkMessage.A, new Float(2.3f), new Double(7.035923057230));
             }
             server.broadcastCallMethod(NetworkMessage.B, new Float(5.3f));
             Thread.sleep(1000);
@@ -47,14 +47,14 @@ public class Test01 {
         client.close();
         server.close();
 
-        for(Exception t:ch.exceptions)
+        for(Throwable t:ch.exceptions)
         	throw t;
-        for(Exception t:sh.exceptions)
+        for(Throwable t:sh.exceptions)
         	throw t;
     }
 
     private static class ServerHandler extends AbstractMethodHandler<NetworkMessage> {
-    	public List<Exception> exceptions=new LinkedList<Exception>();
+    	public List<Throwable> exceptions=new LinkedList<Throwable>();
     	
     	@Override
         public void handleMethod(String id, NetworkMessage method, Object... parameters) {
@@ -65,14 +65,14 @@ public class Test01 {
 	            Assert.assertEquals(parameters[0], 2.3f);
 	            Assert.assertEquals(parameters[1], 7.035923057230);
             }
-	        catch(Exception e) {
+	        catch(Throwable e) {
 	        	exceptions.add(e);
 	        }
         }
     }
 
     private static class ClientHandler extends AbstractMethodHandler<NetworkMessage> {
-    	public List<Exception> exceptions=new LinkedList<Exception>();
+    	public List<Throwable> exceptions=new LinkedList<Throwable>();
     	
     	@Override
         public void handleMethod(String id, NetworkMessage method, Object... parameters) {
@@ -81,7 +81,7 @@ public class Test01 {
 	            Assert.assertEquals(parameters.length, 1);
 	            Assert.assertEquals(parameters[0], 5.3f);
 			}
-		    catch(Exception e) {
+		    catch(Throwable e) {
 		    	exceptions.add(e);
 		    }
         }

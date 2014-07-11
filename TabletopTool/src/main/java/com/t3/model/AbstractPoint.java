@@ -11,6 +11,9 @@
  */
 package com.t3.model;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public abstract class AbstractPoint implements Cloneable {
 
     public int x;

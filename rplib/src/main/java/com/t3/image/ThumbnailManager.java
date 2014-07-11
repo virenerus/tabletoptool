@@ -17,11 +17,16 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
-import com.t3.FileUtil;
+import org.apache.commons.io.IOUtils;
+
 import com.t3.MD5Key;
 import com.t3.swing.SwingUtil;
 
@@ -73,8 +78,15 @@ public class ThumbnailManager {
         g.drawImage(image, 0, 0, imgSize.width, imgSize.height, null);
         g.dispose();
         
-        // Use png to preserve transparency
-        FileUtil.writeBytes(thumbnailFile, ImageUtil.imageToBytes(thumbnailImage, "png"));
+     	// Ensure path exists
+ 		if (thumbnailFile.exists())
+ 			thumbnailFile.delete();
+ 		else
+ 			thumbnailFile.getParentFile().mkdirs();
+
+ 		try (OutputStream os = new FileOutputStream(file)){
+ 			IOUtils.write(ImageUtil.imageToBytes(thumbnailImage, "png"), os);
+ 		}
 
         return thumbnailImage;
     }

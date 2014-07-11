@@ -26,7 +26,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-import com.t3.FileUtil;
 import com.t3.client.AppActions;
 import com.t3.client.AppActions.OpenUrlAction;
 import com.t3.client.AppConstants;
@@ -38,6 +37,7 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.T3Frame.MTFrame;
 import com.t3.language.I18N;
 import com.t3.model.Zone;
+import com.t3.persistence.FileUtil;
 
 public class AppMenuBar extends JMenuBar {
 	private static MRUCampaignManager mruManager;

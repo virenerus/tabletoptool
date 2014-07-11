@@ -11,13 +11,14 @@
  */
 package com.t3.model;
 
-import junit.framework.TestCase;
-
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import com.t3.client.ScreenPoint;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
 
-public class TestScreenPoint extends TestCase {
+public class TestScreenPoint {
+	@Test
 	public void testConversion() throws Exception {
 		ZoneRenderer renderer = ZoneRendererFactory.newRenderer(new Zone());
 		renderer.moveViewBy(-100, -100);
@@ -25,7 +26,7 @@ public class TestScreenPoint extends TestCase {
 		for (int i = -10; i < 10; i++) {
 			for (int j = -10; j < 10; j++) {
 				ZonePoint zp = new ZonePoint(i, j);
-				assertEquals(zp, ScreenPoint.fromZonePoint(renderer, zp).convertToZone(renderer));
+				AssertJUnit.assertEquals(zp, ScreenPoint.fromZonePoint(renderer, zp).convertToZone(renderer));
 			}
 		}
 	}

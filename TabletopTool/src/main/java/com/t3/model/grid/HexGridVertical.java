@@ -35,7 +35,9 @@ import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
 import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class HexGridVertical extends HexGrid {
 
 	private static final int[] ALL_ANGLES = new int[] { -150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150, 180 };

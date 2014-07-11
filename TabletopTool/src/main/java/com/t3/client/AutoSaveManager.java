@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.t3.language.I18N;
 import com.t3.model.campaign.Campaign;
-import com.t3.util.PersistenceUtil;
+import com.t3.persistence.PersistenceUtil;
 
 /**
  * @author tylere

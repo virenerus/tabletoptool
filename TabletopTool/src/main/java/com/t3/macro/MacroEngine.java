@@ -33,18 +33,19 @@ public abstract class MacroEngine<T> {
 	
 	public static MacroEngine<Script> getInstance() {
 		if(INSTANCE==null)
-			INSTANCE=new GroovyMacroEngine();
+			throw new RuntimeException("MacroEngine not initialized yet");
 		return INSTANCE;
 	}
 
 	private Map<String,Object> scriptBindings;
 
-	public void initialize() {
-		scriptBindings=new HashMap<String,Object>();
+	public static void initialize() {
+		INSTANCE=new GroovyMacroEngine();
+		INSTANCE.scriptBindings=new HashMap<String,Object>();
 		//TODO load libraries from plugins
 		//load libraries like this
 		//scriptBindings.put(lib.getVariableName(), lib);
-		init();
+		INSTANCE.init();
 	}
 	
 	public abstract void init();

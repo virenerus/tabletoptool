@@ -11,12 +11,13 @@
  */
 package com.t3.model;
 
-import junit.framework.TestCase;
-
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import com.t3.model.grid.HexGrid;
 import com.t3.model.grid.HexGridHorizontal;
 
-public class TestHexGrid extends TestCase {
+public class TestHexGrid {
+	@Test
 	public void testConvertCellToZone() throws Exception {
 		int start = -100;
 		//int start = 0;
@@ -25,11 +26,12 @@ public class TestHexGrid extends TestCase {
 			for (int x = start; x < 100; x++) {
 				CellPoint cp = new CellPoint(x, y);
 				ZonePoint zp = grid.convert(cp);
-				assertEquals(cp, grid.convert(zp));
+				AssertJUnit.assertEquals(cp, grid.convert(zp));
 			}
 		}
 	}
 
+	@Test
 	public void testSpotCheck() throws Exception {
 		HexGrid grid = new HexGridHorizontal();
 

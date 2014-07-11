@@ -58,8 +58,8 @@ import com.t3.model.SightType;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.drawing.DrawableColorPaint;
+import com.t3.persistence.PersistenceUtil;
 import com.t3.swing.SwingUtil;
-import com.t3.util.PersistenceUtil;
 import com.t3.util.StringUtil;
 
 public class CampaignPropertiesDialog extends JDialog {

@@ -11,18 +11,14 @@
  */
 package com.t3.lib.sound;
 
-import junit.framework.TestCase;
-
+import org.testng.annotations.Test;
 import com.t3.sound.SoundPlayer;
 
-public class SoundPlayerTest extends TestCase {
+public class SoundPlayerTest {
 
+	@Test
 	public void testPlay() throws Exception {
-
-		System.out.println("1");
-		SoundPlayer.play("com/t3/sound/door.mp3");
-		System.out.println("2");
-		
+		SoundPlayer.play(SoundPlayerTest.class.getResource("door.mp3"));
 		SoundPlayer.waitFor();
 	}
 }

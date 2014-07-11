@@ -22,12 +22,14 @@ import com.t3.MD5Key;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Token overlay for bar meters.
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class SingleImageBarTokenOverlay extends BarTokenOverlay {
 
     /**

@@ -34,12 +34,14 @@ import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.chat.TextMessage;
 import com.t3.util.StringUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This (data)class is used by all Macro Buttons, including campaign, global and token macro buttons.
  * 
  * @see com.t3.client.ui.macrobuttons.buttons.MacroButton
  */
+@SerializationVersion(0)
 public class MacroButtonProperties implements Comparable<MacroButtonProperties> {
 
 	private static final Logger log = Logger.getLogger(MacroButtonProperties.class);

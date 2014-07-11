@@ -11,12 +11,12 @@
  */
 package com.t3.model;
 
-import junit.framework.TestCase;
-
+import org.testng.annotations.Test;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
 
-public class TestSquareGrid extends TestCase {
+public class TestSquareGrid {
+	@Test
 	public void testSpotCheck() throws Exception {
 		Grid grid = new SquareGrid();
 		System.out.println(grid.convert(new CellPoint(-1, 0)));

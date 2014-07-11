@@ -43,14 +43,9 @@
   </build>
   <dependencies>
   	<dependency>
-  		<groupId>com.thoughtworks.xstream</groupId>
-  		<artifactId>xstream</artifactId>
-  		<version>1.4.6</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.apache.commons</groupId>
   		<artifactId>commons-lang3</artifactId>
-  		<version>3.2.1</version>
+  		<version>3.3.2</version>
   	</dependency>
   	<dependency>
 		<groupId>com.fifesoft</groupId>
@@ -126,5 +121,16 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
+	<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.9-RC2</version>
+			<scope>test</scope>
+	</dependency>
   </dependencies>
+	<parent>
+		<groupId>tabletoptool</groupId>
+		<artifactId>t3-master</artifactId>
+		<version>0.3</version>
+	</parent>
 </project>

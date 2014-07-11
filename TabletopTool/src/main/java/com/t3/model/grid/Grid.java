@@ -25,7 +25,6 @@ import javax.swing.KeyStroke;
 
 import org.apache.log4j.Logger;
 
-import com.t3.FileUtil;
 import com.t3.client.AppPreferences;
 import com.t3.client.tool.PointerTool;
 import com.t3.client.ui.zone.ZoneRenderer;
@@ -40,12 +39,15 @@ import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.ZonePoint;
+import com.t3.persistence.FileUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Base class for grids.
  * 
  * @author trevor
  */
+@SerializationVersion(0)
 public abstract class Grid implements Cloneable {
 	private static final Logger log = Logger.getLogger(Grid.class);
 	/**

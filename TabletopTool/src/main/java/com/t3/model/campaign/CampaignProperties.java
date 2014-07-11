@@ -47,7 +47,9 @@ import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
 import com.t3.util.math.CappedInteger;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class CampaignProperties {
 	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
 

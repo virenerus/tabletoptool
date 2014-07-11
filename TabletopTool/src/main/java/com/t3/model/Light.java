@@ -18,7 +18,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import com.t3.model.drawing.DrawablePaint;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class Light {
 	private DrawablePaint paint;
 	private double facingOffset;

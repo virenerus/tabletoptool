@@ -22,7 +22,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageWriter;
 
-import com.t3.FileUtil;
+import org.apache.commons.io.IOUtils;
 
 public class LocalLocation implements Location {
 
@@ -48,7 +48,8 @@ public class LocalLocation implements Location {
 	@Override
 	public void putContent(InputStream content) throws IOException {
 		try(BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(getFile()))) {
-			FileUtil.copyWithClose(content, out);
+			IOUtils.copy(content, out);
+			IOUtils.closeQuietly(content);
 		}
 	}
 

@@ -23,11 +23,13 @@ import java.awt.image.ImageObserver;
 import com.t3.client.TabletopTool;
 import com.t3.GUID;
 import com.t3.model.Zone;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Abstract drawing. This class takes care of setting up the Pen since that will be the same for all implementing
  * classes.
  */
+@SerializationVersion(0)
 public abstract class AbstractDrawing implements Drawable, ImageObserver {
 	/**
 	 * The unique identifier for this drawable. It is immutable.

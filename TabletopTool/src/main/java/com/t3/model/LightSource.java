@@ -22,11 +22,14 @@ import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.t3.FileUtil;
 import com.t3.GUID;
 import com.t3.model.grid.Grid;
+import com.t3.persistence.FileUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class LightSource implements Comparable<LightSource> {
+	@SerializationVersion(0)
 	public enum Type {
 		NORMAL,
 		AURA

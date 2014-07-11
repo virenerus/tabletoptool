@@ -11,9 +11,10 @@
  */
 package com.t3.model.drawing;
 
+import com.t3.xstreamversioned.SerializationVersion;
 
-/**
- */
+
+@SerializationVersion(0)
 public class DrawnElement {
 
 	private Drawable drawable;

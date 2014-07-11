@@ -49,11 +49,13 @@ import com.t3.model.grid.Grid;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This object represents the placeable objects on a map. For example an icon that represents a character would exist as
  * an {@link Asset} (the image itself) and a location and scale.
  */
+@SerializationVersion(0)
 public class Token extends BaseModel {
 	private static final Logger log = Logger.getLogger(Token.class);
 
@@ -75,6 +77,7 @@ public class Token extends BaseModel {
 	private boolean beingImpersonated = false;
 	private GUID exposedAreaGUID;
 
+	@SerializationVersion(0)
 	public enum TokenShape {
 		TOP_DOWN("Top down"), CIRCLE("Circle"), SQUARE("Square");
 
@@ -90,6 +93,7 @@ public class Token extends BaseModel {
 		}
 	}
 
+	@SerializationVersion(0)
 	public enum Type {
 		PC, NPC
 	}
@@ -195,6 +199,7 @@ public class Token extends BaseModel {
 
 	private Map<String, String> speechMap;
 
+	@SerializationVersion(0)
 	public enum ChangeEvent {
 		name, MACRO_CHANGED
 	}

@@ -17,6 +17,7 @@ import java.util.Comparator;
 
 import com.t3.model.Player;
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * An overlay that may be applied to a token to show state.
@@ -24,6 +25,7 @@ import com.t3.model.Token;
  * @author jgorrell
  * @version $Revision: 4531 $ $Date: 2008-08-20 14:15:46 -0500 (Wed, 20 Aug 2008) $ $Author: coloneldork $
  */
+@SerializationVersion(0)
 public abstract class AbstractTokenOverlay<T> implements Cloneable {
 
     /*---------------------------------------------------------------------------------------------

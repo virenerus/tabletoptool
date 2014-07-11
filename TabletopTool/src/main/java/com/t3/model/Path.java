@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class Path<T extends AbstractPoint> {
 	private final List<T> cellList = new LinkedList<T>();
 	private final List<T> waypointList = new LinkedList<T>();

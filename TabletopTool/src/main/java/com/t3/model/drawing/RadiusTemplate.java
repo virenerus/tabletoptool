@@ -18,6 +18,7 @@ import java.awt.geom.Area;
 import com.t3.client.TabletopTool;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * The radius template draws a highlight over all the squares effected from a specific spine.
@@ -25,6 +26,7 @@ import com.t3.model.ZonePoint;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class RadiusTemplate extends AbstractTemplate {
 	/**
 	 * Paint the border at a specific radius.

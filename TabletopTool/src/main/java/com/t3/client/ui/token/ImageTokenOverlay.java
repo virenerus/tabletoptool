@@ -23,12 +23,14 @@ import com.t3.MD5Key;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This is a token overlay that shows an image over the entire token
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class ImageTokenOverlay extends BooleanTokenOverlay {
 
     /**

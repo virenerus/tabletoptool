@@ -32,6 +32,7 @@ import com.t3.model.Token;
 import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * An abstract hex grid class that uses generic Cartesian-coordinates for calculations to allow for various hex grid
@@ -39,6 +40,7 @@ import com.t3.swing.SwingUtil;
  * 
  * The v-axis points along the direction of edge to edge hexes
  */
+@SerializationVersion(0)
 public abstract class HexGrid extends Grid {
 	// A regular hexagon is one where all angles are 60 degrees.
 	// the ratio = minor_radius / edge_length

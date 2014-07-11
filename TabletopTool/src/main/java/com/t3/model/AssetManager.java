@@ -33,10 +33,10 @@ import java.util.concurrent.Executors;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.t3.FileUtil;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
+import com.t3.persistence.FileUtil;
 
 /**
  * This class handles the caching, loading, and downloading of assets. All assets are loaded through this class.
