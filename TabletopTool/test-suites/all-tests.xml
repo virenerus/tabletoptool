@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1" >
+	<test name="T³ - All Tests">
+		<packages>
+			<package name="com.t3.client.ui.chat"/>
+			<package name="com.t3.model"/>
+			<package name="com.t3.networking"/>
+			<package name="com.t3.persistence"/>
+			<package name="com.t3.transfer"/>
+			<package name="com.t3.util"/>
+		</packages>
+	</test>
+	
+	<test name="T³ - XStream Versioned Tests">
+		<packages>
+			<package name="com.t3.xstreamversioned"/>
+		</packages>
+	</test>
+	
+	<test name="T³ - RPLib Tests">
+		<packages>
+			<package name="com.t3.lib.sound"/>
+		</packages>
+	</test>
+	
+	<test name="T³ - Dice Lib Tests">
+		<packages>
+			<package name="com.t3.dice"/>
+		</packages>
+	</test>
+	
+	<test name="T³ - Client Server Tests">
+		<packages>
+			<package name="com.t3.clientserver"/>
+		</packages>
+	</test>
+	
+	<test name="T³ - Chatparser Tests">
+		<packages>
+			<package name="com.t3.chatparser"/>
+		</packages>
+	</test>
+</suite>

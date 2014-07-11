@@ -1,5 +1,7 @@
 package com.t3.persistence;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,7 +25,7 @@ public class SerializationVersionAnnotationTest {
 		Reflections reflections = new Reflections("com.t3");
 		LinkedList<Class<?>> annotatedClasses = new LinkedList<>(reflections.getTypesAnnotatedWith(SerializationVersion.class));
 
-		Assert.assertFalse(annotatedClasses.isEmpty());
+		AssertJUnit.assertFalse(annotatedClasses.isEmpty());
 
 		HashSet<Class<?>> checked = new HashSet<Class<?>>();
 		while (!annotatedClasses.isEmpty()) {

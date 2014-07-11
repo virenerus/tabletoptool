@@ -1,4 +1,4 @@
-package com.t3.xstreamversioned.test;
+package com.t3.xstreamversioned;
 
 import java.lang.reflect.Field;
 import java.util.Collections;

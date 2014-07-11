@@ -1,5 +1,7 @@
 package com.t3.persistence;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,11 +16,11 @@ public class LoadCampaignTest {
 	  File testCampaign=new File("target/test-classes/com/t3/persistence/test.cmpgn");
 	  MacroEngine.initialize(); //needed
 	  System.out.println(testCampaign.getAbsolutePath());
-	  Assert.assertTrue(testCampaign.exists());
+	  AssertJUnit.assertTrue(testCampaign.exists());
 	  
 	  PackedFile pf=new PackedFile(testCampaign);
 	  
-	  Assert.assertNotNull(pf.getContent());
+	  AssertJUnit.assertNotNull(pf.getContent());
 	  pf.close();
   }
 }

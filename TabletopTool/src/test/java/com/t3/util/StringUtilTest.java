@@ -11,20 +11,22 @@
  */
 package com.t3.util;
 
-import junit.framework.TestCase;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 
-public class StringUtilTest extends TestCase {
+public class StringUtilTest {
 
 	
+	@Test
 	public void testCountOccurances() throws Exception {
 		
 		String str = "<div>";
 		
-		assertEquals(0, StringUtil.countOccurances("", str));
-		assertEquals(1, StringUtil.countOccurances("<div>", str));
-		assertEquals(1, StringUtil.countOccurances("one<div>two", str));
-		assertEquals(2, StringUtil.countOccurances("one<div>two<div>three", str));
-		assertEquals(3, StringUtil.countOccurances("one<div>two<div>three<div>", str));
+		AssertJUnit.assertEquals(0, StringUtil.countOccurances("", str));
+		AssertJUnit.assertEquals(1, StringUtil.countOccurances("<div>", str));
+		AssertJUnit.assertEquals(1, StringUtil.countOccurances("one<div>two", str));
+		AssertJUnit.assertEquals(2, StringUtil.countOccurances("one<div>two<div>three", str));
+		AssertJUnit.assertEquals(3, StringUtil.countOccurances("one<div>two<div>three<div>", str));
 		
 	}
 }

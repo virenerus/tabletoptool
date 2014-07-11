@@ -1,4 +1,4 @@
-package com.t3.xstreamversioned.test;
+package com.t3.xstreamversioned;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
