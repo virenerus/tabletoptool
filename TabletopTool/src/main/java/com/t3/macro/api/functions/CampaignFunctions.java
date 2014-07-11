@@ -14,14 +14,17 @@ package com.t3.macro.api.functions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Map.Entry;
 
 import com.t3.client.TabletopTool;
+import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ImageTokenOverlay;
 import com.t3.language.I18N;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.views.MacroButtonView;
+import com.t3.model.MacroButtonProperties;
 import com.t3.model.campaign.TokenProperty;
 
 public class CampaignFunctions {
@@ -95,18 +98,26 @@ public class CampaignFunctions {
 	/**
 	 * This method will return a macro button from the global panel.
 	 * @param macroName the name of the macro you want the button for
-	 * @return the macro button
+	 * @return the macro button or null if it was not found
 	 */
 	public MacroButtonView getGlobalMacro(String macroName) {
-		return new MacroButtonView(TabletopTool.getFrame().getGlobalPanel().getToken().getMacro(macroName, false));
+		for(MacroButtonProperties mbp:MacroButtonPrefs.getButtonProperties()) {
+			if(Objects.equals(mbp.getLabel(), macroName))
+				return new MacroButtonView(mbp);
+		}
+		return null;
 	}
 	
 	/**
 	 * This method will return a macro button from the campaign panel.
 	 * @param macroName the name of the macro you want the button for
-	 * @return the macro button
+	 * @return the macro button or null if it was not found
 	 */
 	public MacroButtonView getCampaignMacro(String macroName) {
-		return new MacroButtonView(TabletopTool.getFrame().getCampaignPanel().getToken().getMacro(macroName, false));
+		for(MacroButtonProperties mbp:TabletopTool.getCampaign().getMacroButtonPropertiesArray()) {
+			if(Objects.equals(mbp.getLabel(), macroName))
+				return new MacroButtonView(mbp);
+		}
+		return null;
 	}
 }
