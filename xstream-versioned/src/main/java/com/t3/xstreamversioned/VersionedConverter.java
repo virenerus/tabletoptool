@@ -1,6 +1,11 @@
 package com.t3.xstreamversioned;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -99,10 +104,17 @@ public class VersionedConverter implements Converter {
 		int internalId=reader.getAttribute("id")==null?-1:Integer.parseInt(reader.getAttribute("id"));
 		String referenceId=reader.getAttribute("reference");
 		String currentVersion=reader.getAttribute("version");
+		
+		//collect all attributes to ensure compatibility
+		HashMap<String, String> allAttributes=new HashMap<String, String>();
+		for(int i=0;i<reader.getAttributeCount();i++)
+			allAttributes.put(reader.getAttributeName(i), reader.getAttribute(i));
+		
 		SerializedObject ser=new SerializedObject(
 				(context==null || context.getRequiredType()==null)?reader.getAttribute("class"):context.getRequiredType().getName(), 
 				internalId, currentVersion, 
-				reader.getNodeName());
+				reader.getNodeName(),
+				allAttributes);
 		if(referenceId!=null)
 			ser.setReferenceId(Integer.parseInt(referenceId));
 		

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class SerializedObject {
@@ -13,15 +14,26 @@ public class SerializedObject {
 	private ArrayList<SerializedObject> children;
 	private String content;
 	private String name;
+	/**
+	 * be aware that this field stores all atributes and should thus also be changed if version, type or ids are changed
+	 */
+	private Map<String, String> allAttributes;
+	/**
+	 * this internal id this object has
+	 */
 	private final int internalId;
+	/**
+	 * this id is something else than -1 if this object is only a reference to the object with the given internal id
+	 */
 	private int referenceId=-1;
 	
-	public SerializedObject(String type, int internalId, String currentVersion, String name) {
+	public SerializedObject(String type, int internalId, String currentVersion, String name, Map<String, String> allAttributes) {
 		children=new ArrayList<>();
 		this.version = currentVersion;
 		this.type=type;
 		this.internalId=internalId;
 		this.name=name;
+		this.allAttributes=allAttributes;
 	}
 
 	public String getVersion() {
@@ -29,22 +41,12 @@ public class SerializedObject {
 	}
 	
 	public LinkedHashMap<String, String> getAttributes() {
-		LinkedHashMap<String, String> map=new LinkedHashMap<>();
-		if(internalId!=-1)
-			map.put("id", Integer.toString(internalId));
-		if(version!=null)
-			map.put("version", version);
-		if(type!=null)
-			map.put("type", type);
-		if(referenceId!=-1)
-			map.put("reference", Integer.toString(referenceId));
-		if(type!=null)
-			map.put("class", type);
-		return map;
+		return new LinkedHashMap<>(allAttributes);
 	}
 
 	public void setVersion(String version) {
 		this.version = version;
+		allAttributes.put("version", version);
 	}
 
 	public String getType() {
@@ -101,5 +103,7 @@ public class SerializedObject {
 
 	public void setReferenceId(int referenceId) {
 		this.referenceId = referenceId;
+		allAttributes.put("reference", Integer.toString(referenceId));
 	}
+
 }
