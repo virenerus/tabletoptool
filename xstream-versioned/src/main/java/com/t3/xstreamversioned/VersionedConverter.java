@@ -73,6 +73,8 @@ public class VersionedConverter implements Converter {
 		int[] targetVersions=VersionGenerator.generateVersion(requiredType, strategy.isStrict(), strategy.getIgnoredPackages());
 		if(targetVersions!=null) {
 			String[] versionStrings=StringUtils.split(ser.getVersion(), '.');
+			if(versionStrings!=null && targetVersions.length<versionStrings.length)
+				System.out.println("WTF");
 			int[] currentVersions=new int[targetVersions.length];
 			for(int i=0;versionStrings!=null && i<versionStrings.length;i++)
 				currentVersions[i]=Integer.parseInt(versionStrings[i]);

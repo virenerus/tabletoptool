@@ -53,16 +53,19 @@ public class VersionGenerator {
 		if(type==null || Object.class.equals(type) || type.isArray())
 			return false;
 		
+		//subclasses of enums can't be annotated and their serialization is done by the enum parent class
+		if(type.getSuperclass()!=null && type.getSuperclass().isEnum())
+			return generateVersion(type.getSuperclass(), list, strict, ignoredPackages);
+		
 		SerializationVersion version=type.getAnnotation(SerializationVersion.class);
 		if(version==null) {
-			if(strict && 
-					type.getClassLoader()!=null && 
-					!isInIgnoredPackage(ignoredPackages, type) &&
-					!type.getSuperclass().isEnum()) //subclasses of enums can't be annotated and their serialization is done by the enum parent class
-				
+			//if strict and class is not default jre class and not in ignroed package
+			if(strict && type.getClassLoader()!=null && !isInIgnoredPackage(ignoredPackages, type))
 				throw new IllegalArgumentException("Cant serialize Element of type "+type.getName()+" because it is missing a version.");
-			list.addLast(0);
-			return generateVersion(type.getSuperclass(), list, strict, ignoredPackages);
+			else {
+				list.addLast(0);
+				return generateVersion(type.getSuperclass(), list, strict, ignoredPackages);
+			}
 		}
 		else {
 			list.addLast(version.value());
