@@ -477,11 +477,6 @@ public class PackedFile implements Closeable {
 	 * @throws IOException
 	 */
 	public Object getFileObject(String path) throws IOException {
-		// This next line really should be routed thru the version manager...
-		// Update:  a new XStreamConverter was created for the Asset object that
-		// never marshalls the image data, but *does* unmarshall it.  This allows
-		// older pre-1.3.b64 campaigns to be loaded but only the newer format
-		// (with a separate image file) works on output.
 		try(Reader r = getFileAsReader(path)) {
 			return Persister.newInstance().fromXML(r);
 		}
