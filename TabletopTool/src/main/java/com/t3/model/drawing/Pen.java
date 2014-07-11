@@ -13,10 +13,13 @@ package com.t3.model.drawing;
 
 import java.awt.Color;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 /**
  * The color and thickness to draw a {@link Drawable}with. Also used to erase
  * by drawing {@link Drawable}s with a Pen whose {@link #setEraser}is true.
  */
+@SerializationVersion(0)
 public class Pen {
     public static final int MODE_SOLID       = 0;
     public static final int MODE_TRANSPARENT = 1;

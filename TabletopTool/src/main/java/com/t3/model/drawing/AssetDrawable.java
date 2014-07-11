@@ -21,6 +21,7 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.GUID;
 import com.t3.util.ImageManager;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * This class allows an asset to be used as a drawable.
@@ -28,6 +29,7 @@ import com.t3.util.ImageManager;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class AssetDrawable extends AbstractDrawing {
 
 	/**

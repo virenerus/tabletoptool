@@ -16,9 +16,12 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Area;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 /**
  * An rectangle
  */
+@SerializationVersion(0)
 public class ShapeDrawable extends AbstractDrawing {
 	private final Shape shape;
 	private final boolean useAntiAliasing;

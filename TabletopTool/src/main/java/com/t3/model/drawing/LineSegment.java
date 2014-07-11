@@ -20,9 +20,12 @@ import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 /**
  * @author drice
  */
+@SerializationVersion(0)
 public class LineSegment extends AbstractDrawing {
 	private final List<Point> points = new ArrayList<Point>();
 	private Float width;

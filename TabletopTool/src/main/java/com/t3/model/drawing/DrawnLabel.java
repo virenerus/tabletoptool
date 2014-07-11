@@ -20,11 +20,13 @@ import javax.swing.CellRendererPane;
 
 import com.t3.client.swing.TwoToneTextPane;
 import com.t3.client.tool.drawing.DrawnTextTool;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class DrawnLabel extends AbstractDrawing {
 
 	/**

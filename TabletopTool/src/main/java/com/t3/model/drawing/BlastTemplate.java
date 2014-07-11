@@ -19,6 +19,7 @@ import java.awt.Shape;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * The blast template draws a square for D&D 4e
@@ -26,6 +27,7 @@ import com.t3.model.ZonePoint;
  * @author jgorrell
  * @version $Revision: $ $Date: $ $Author: $
  */
+@SerializationVersion(0)
 public class BlastTemplate extends ConeTemplate {
 
     /*---------------------------------------------------------------------------------------------

@@ -29,6 +29,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * @author jgorrell
  * @version $Revision: 5945 $ $Date: 2013-06-02 21:05:50 +0200 (Sun, 02 Jun 2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public abstract class AbstractTemplate extends AbstractDrawing {
 	/*---------------------------------------------------------------------------------------------
 	 * Instance Variables

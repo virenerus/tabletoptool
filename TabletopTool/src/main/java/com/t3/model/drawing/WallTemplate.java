@@ -15,12 +15,14 @@ import java.util.List;
 
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * A template that draws consecutive blocks
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class WallTemplate extends LineTemplate {
     /**
      * Set the path vertex, it isn't needed by the wall template but the superclass needs it to paint.

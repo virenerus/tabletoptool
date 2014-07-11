@@ -19,12 +19,14 @@ import java.awt.Shape;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * Create and paint a donut burst
  * 
  * @author Jay
  */
+@SerializationVersion(0)
 public class BurstTemplate extends RadiusTemplate {
 	/*---------------------------------------------------------------------------------------------
 	 * Instance Variables

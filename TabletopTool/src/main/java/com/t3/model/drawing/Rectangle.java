@@ -16,9 +16,12 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Area;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
 /**
  * An rectangle
  */
+@SerializationVersion(0)
 public class Rectangle extends AbstractDrawing {
 	protected Point startPoint;
 	protected Point endPoint;

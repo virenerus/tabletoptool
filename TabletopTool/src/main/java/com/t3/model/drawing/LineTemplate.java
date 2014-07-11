@@ -25,6 +25,7 @@ import com.t3.client.AppState;
 import com.t3.client.TabletopTool;
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
+import com.t3.xstreamversioned.SerializationVersion;
 
 /**
  * A drawing tool that will draw a line template between 2 vertices.
@@ -33,6 +34,7 @@ import com.t3.model.ZonePoint;
  * @version $Revision: 5967 $ $Date: 2013-06-02 15:05:50 -0400 (Sun, 02 Jun
  *          2013) $ $Author: azhrei_fje $
  */
+@SerializationVersion(0)
 public class LineTemplate extends AbstractTemplate {
 	/*---------------------------------------------------------------------------------------------
 	 * Instance Variables
