@@ -584,7 +584,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 
 	@Override
 	public void undoDraw(GUID zoneGUID, GUID drawableGUID) {
-		// This is a problem.  The contents of the UndoManager are not synchronized across machines
+		//TODO: This is a problem.  The contents of the UndoManager are not synchronized across machines
 		// so if one machine uses Meta-Z to undo a drawing, that drawable will be removed on all
 		// machines, but there is no attempt to keep the UndoManager in sync.  So that same drawable
 		// will still be in the UndoManager queue on other machines.  Ideally we should be filtering
