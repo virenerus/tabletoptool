@@ -20,6 +20,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
+import com.t3.client.TabletopTool;
 import com.t3.clientserver.connection.ClientConnection;
 import com.t3.clientserver.connection.ServerObserver;
 import com.t3.common.T3Constants;
@@ -182,7 +183,7 @@ public class T3Server {
 		public void run() {
 			while (!stop) {
 				try {
-					Thread.sleep(HEARTBEAT_DELAY + (int) (HEARTBEAT_FLUX * random.nextFloat()));
+					Thread.sleep(HEARTBEAT_DELAY + random.nextInt(HEARTBEAT_FLUX));
 				} catch (InterruptedException ie) {
 					// This means stop
 					break;
@@ -190,7 +191,8 @@ public class T3Server {
 				// Pulse
 				if(!T3Registry.heartBeat(config.getPort())) {
 					//if server is no longer registered (temporary disconnected?)
-					throw new RuntimeException("Your server disconnected from T³. It can no longer be found.");
+					TabletopTool.showError("Your server disconnected from T³. It can no longer be found.");
+					//TODO try to reconnect first!
 				}
 			}
 		}
