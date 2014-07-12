@@ -2473,6 +2473,7 @@ public class AppActions {
 			// TODO: There should probably be only one of these
 			CampaignPropertiesDialog dialog = new CampaignPropertiesDialog(TabletopTool.getFrame());
 			dialog.setCampaign(campaign);
+			dialog.pack();
 			dialog.setVisible(true);
 			if (dialog.getStatus() == CampaignPropertiesDialog.Status.CANCEL) {
 				return;

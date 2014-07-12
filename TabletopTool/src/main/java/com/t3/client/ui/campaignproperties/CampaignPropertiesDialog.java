@@ -78,12 +78,8 @@ public class CampaignPropertiesDialog extends JDialog {
 	public CampaignPropertiesDialog(JFrame owner) {
 		super(owner, "Campaign Properties", true);
 		setMinimumSize(new Dimension(450, 450)); // These sizes mess up my custom LAF settings. :(
-//		setPreferredSize(new Dimension(450, 450));	// If the dialog were packed() would they be needed?
 
 		initialize();
-		pack(); // FJE
-
-//		setSize(635, 605);
 	}
 
 	public Status getStatus() {
@@ -754,60 +750,5 @@ public class CampaignPropertiesDialog extends JDialog {
 				}
 			}
 		});
-	}
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Testing campaign properties dialog syntax-specific fields");
-		CampaignPropertiesDialog cpd = new CampaignPropertiesDialog(frame);
-		// @formatter:off
-		String lights = "D20\n" +
-				"----\n" +
-				"Lantern, Bullseye - 60 : cone arc=60 60#f0f0f0 120#330000\n" +
-				"Lantern, Hooded - 30 : circle 30 60#330000 arc=60 120#f0f0f0\n" +
-				"Torch - 20 : circle 20 40#330000\n" +
-				"\n" +
-				"Aura\n" +
-				"----\n" +
-				"Arc 120deg OWNERonly - 20 : owner aura arc=120 22.5#115511\n" +
-				"Arc 60deg - 60 : aura cone arc=60 62.5#77ffaa\n" +
-				"Circle - 20 : aura circle 22.5#220000\n" +
-				"Circle GM+Owner : aura circle GM Owner 62.5#ff8080\n" +
-				"Circle GMonly : aura circle GM 62.5#ff8080\n" +
-				"Fancy - 30/60/120 : aura GM circle 30 60#330000 owner arc=60 120#f0f0f0\n" +
-				"\n";
-		// @formatter:on
-		System.out.print(lights);
-
-		Map<String, Map<GUID, LightSource>> originalLightSourcesMap = new HashMap<String, Map<GUID, LightSource>>();
-		Map<String, Map<GUID, LightSource>> lightMap = new HashMap<String, Map<GUID, LightSource>>();
-		try {
-			lightMap = cpd.commitLightMap(lights, originalLightSourcesMap);
-		} catch (Exception e) {
-		}
-
-		String text = cpd.updateLightPanel(lightMap);
-		System.out.print(text);
-
-		// keySet() might be empty if an exception occurred.
-		for (String string : lightMap.keySet()) {
-			System.out.println("\nGroup Name: " + string);
-			System.out.println("-------------");
-			for (GUID guid : lightMap.get(string).keySet()) {
-				LightSource ls = lightMap.get(string).get(guid);
-				System.out.println(ls.getType() + ", " + ls.getName() + ":");
-				for (Light light : ls.getLightList()) {
-					System.out.print("  [shape=" + light.getShape());
-					if (light.getShape() == ShapeType.CONE) {
-						System.out.print(", arc=" + light.getArcAngle());
-						System.out.print(", facing=" + light.getFacingOffset());
-					}
-					System.out.print(", gm=" + light.isGM());
-					System.out.print(", owner=" + light.isOwnerOnly());
-					System.out.print(", radius=" + light.getRadius());
-					System.out.print(", color=" + light.getPaint() + "]\n");
-				}
-			}
-		}
-		System.exit(1);
 	}
 }
