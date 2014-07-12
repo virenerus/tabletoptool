@@ -31,6 +31,6 @@
   <parent>
   	<groupId>tabletoptool</groupId>
   	<artifactId>t3-master</artifactId>
-  	<version>0.3</version>
+  	<version>0.4</version>
   </parent>
 </project>
