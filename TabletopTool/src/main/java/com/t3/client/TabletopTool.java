@@ -1032,6 +1032,8 @@ public class TabletopTool {
 	}
 
 	public static void createConnection(String host, int port, Player player) throws UnknownHostException, IOException {
+		if(host==null || host.trim().isEmpty())
+			throw new IllegalArgumentException("host is null or empty string");
 		TabletopTool.player = player;
 		TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
 

@@ -19,6 +19,8 @@ public class RegisteredServer {
 	private final String	name;
 	
 	public RegisteredServer(String name, String address, int port, String t3Version, int numberOfPlayers) {
+		if(address==null || address.trim().isEmpty())
+			throw new IllegalArgumentException("Invalid server address");
 		this.name = name;
 		this.address = address;
 		this.port = port;
