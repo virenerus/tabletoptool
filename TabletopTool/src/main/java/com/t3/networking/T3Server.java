@@ -175,7 +175,7 @@ public class T3Server {
 
 	private class HeartbeatThread extends Thread {
 		private boolean stop = false;
-		private static final int HEARTBEAT_DELAY = 7 * 60 * 1000; // 7 minutes
+		private static final int HEARTBEAT_DELAY = 80 * 1000; // 80-100 seconds (server expects at least 120s)
 		private static final int HEARTBEAT_FLUX = 20 * 1000; // 20 seconds
 
 		@Override
@@ -188,7 +188,10 @@ public class T3Server {
 					break;
 				}
 				// Pulse
-				T3Registry.heartBeat(config.getPort());
+				if(!T3Registry.heartBeat(config.getPort())) {
+					//if server is no longer registered (temporary disconnected?)
+					throw new RuntimeException("Your server disconnected from T³. It can no longer be found.");
+				}
 			}
 		}
 
