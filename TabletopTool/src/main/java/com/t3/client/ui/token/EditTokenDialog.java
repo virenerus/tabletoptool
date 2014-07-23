@@ -63,7 +63,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jidesoft.grid.AbstractPropertyTableModel;
 import com.jidesoft.grid.Property;
 import com.jidesoft.grid.PropertyPane;
-import com.jidesoft.grid.PropertyTable;
 import com.jidesoft.swing.CheckBoxListWithSelectable;
 import com.jidesoft.swing.DefaultSelectable;
 import com.jidesoft.swing.Selectable;
@@ -71,6 +70,7 @@ import com.t3.client.T3Util;
 import com.t3.client.TabletopTool;
 import com.t3.client.swing.AbeillePanel;
 import com.t3.client.swing.GenericDialog;
+import com.t3.client.ui.properties.PropertiesEditor;
 import com.t3.language.I18N;
 import com.t3.model.AssetManager;
 import com.t3.model.Association;
@@ -78,10 +78,11 @@ import com.t3.model.ObservableList;
 import com.t3.model.Player;
 import com.t3.model.Token;
 import com.t3.model.TokenFootprint;
+import com.t3.model.TokenPropertiesList;
 import com.t3.model.Zone.Layer;
-import com.t3.model.campaign.TokenProperty;
-import com.t3.model.campaign.TokenPropertyType;
 import com.t3.model.grid.Grid;
+import com.t3.model.properties.TokenProperty;
+import com.t3.model.properties.TokenPropertyType;
 import com.t3.util.ImageManager;
 
 /**
@@ -143,6 +144,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 
 		// PROPERTIES
 		updatePropertyTypeCombo();
+		getPropertiesEditor().setPropertyHolder(token);
 		updatePropertiesTable(token.getPropertyType());
 
 		// SIGHT
@@ -343,9 +345,8 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				PropertyTable pp = getPropertyTable();
-				pp.setModel(new TokenPropertyTableModel());
-				pp.expandAll();
+				PropertiesEditor pe = getPropertiesEditor();
+				pe.setPropertyType(propertyType);
 			}
 		});
 	}
@@ -384,9 +385,6 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		}
 		if (getSpeechTable().isEditing()) {
 			getSpeechTable().getCellEditor().stopCellEditing();
-		}
-		if (getPropertyTable().isEditing()) {
-			getPropertyTable().getCellEditor().stopCellEditing();
 		}
 		// Commit the changes to the token properties
 		if (!super.commit()) {
@@ -465,7 +463,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		token.setSpeechMap(((KeyValueTableModel) getSpeechTable().getModel()).getMap());
 
 		// Properties
-		((TokenPropertyTableModel) getPropertyTable().getModel()).applyTo(token);
+		getPropertiesEditor().applyTo(token);
 
 		// Charsheet
 		if (getCharSheetPanel().getImageId() != null) {
@@ -527,8 +525,8 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		return (JButton) getComponent("cancelButton");
 	}
 
-	public PropertyTable getPropertyTable() {
-		return (PropertyTable) getComponent("propertiesTable");
+	public PropertiesEditor getPropertiesEditor() {
+		return (PropertiesEditor) getComponent("propertiesTable");
 	}
 
 	private void updateStatesPanel() {
@@ -729,14 +727,10 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 	}
 
 	public void initPropertiesPanel() {
-		PropertyTable propertyTable = new PropertyTable();
-		propertyTable.setFillsViewportHeight(true); // XXX This is Java6-only -- need Java5 solution
-		propertyTable.setName("propertiesTable");
+		PropertiesEditor editor = new PropertiesEditor();
+		editor.setName("propertiesTable");
 
-		PropertyPane pane = new PropertyPane(propertyTable);
-//		pane.setPreferredSize(new Dimension(100, 300));
-
-		replaceComponent("propertiesPanel", "propertiesTable", pane);
+		replaceComponent("propertiesPanel", "propertiesTable", editor);
 	}
 
 //	/**
@@ -820,103 +814,6 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 				});
 				menu.add(sendAsEmoteItem);
 				menu.show((JComponent) e.getSource(), e.getX(), e.getY());
-			}
-		}
-	}
-
-	// //
-	// MODELS
-	private class TokenPropertyTableModel extends AbstractPropertyTableModel<com.t3.client.ui.token.EditTokenDialog.TokenPropertyTableModel.EditTokenProperty> {
-		private static final long serialVersionUID = 2822797264738675580L;
-
-		private Map<String, Object> propertyMap;
-		private List<com.t3.model.campaign.TokenProperty> propertyList;
-
-		private Map<String, Object> getPropertyMap() {
-			Token token = getModel();
-
-			if (propertyMap == null) {
-				propertyMap = new HashMap<String, Object>();
-
-				List<com.t3.model.campaign.TokenProperty> propertyList = getPropertyList();
-				for (com.t3.model.campaign.TokenProperty property : propertyList) {
-					Object value = token.getProperty(property.getName());
-					if (value == null) {
-						value = property.getDefaultValue();
-					}
-					propertyMap.put(property.getName(), value);
-				}
-			}
-			return propertyMap;
-		}
-
-		private List<com.t3.model.campaign.TokenProperty> getPropertyList() {
-			if (propertyList == null) {
-				propertyList = TabletopTool.getCampaign().getTokenPropertyList((String) getPropertyTypeCombo().getSelectedItem());
-			}
-			return propertyList;
-		}
-
-		public void applyTo(Token token) {
-			for (com.t3.model.campaign.TokenProperty property : getPropertyList()) {
-				Object value = getPropertyMap().get(property.getName());
-				if (property.getDefaultValue() != null && property.getDefaultValue().equals(value)) {
-					token.setProperty(property.getName(), null); // Clear original value
-					continue;
-				}
-				token.setProperty(property.getName(), value);
-			}
-		}
-
-		@Override
-		public EditTokenProperty getProperty(int index) {
-			return new EditTokenProperty(getPropertyList().get(index));
-		}
-
-		@Override
-		public int getPropertyCount() {
-			return getPropertyList() != null ? getPropertyList().size() : 0;
-		}
-
-		class EditTokenProperty extends Property {
-			private static final long serialVersionUID = 4129033551005743554L;
-
-			private final String key;
-
-			private TokenPropertyType type;
-
-			public EditTokenProperty(TokenProperty property) {
-				super(property.getName(), property.getName(), null, (String) getPropertyTypeCombo().getSelectedItem());
-				this.key = property.getName();
-				
-				//get Type from key
-				type=property.getType();
-				
-				if(type.getEditorContext()!=null)
-					this.setEditorContext(type.getEditorContext());
-			}
-
-			@Override
-			public Object getValue() {
-				return getPropertyMap().get(key);
-			}
-
-			@Override
-			public void setValue(Object value) {
-				if(value==null)
-					throw new NullPointerException("Tried to set null for "+key);
-				else
-				getPropertyMap().put(key, value);
-			}
-
-			@Override
-			public boolean hasValue() {
-				return getPropertyMap().get(key) != null;
-			}
-			
-			@Override
-			public Class<?> getType() {
-				return type.getType();
 			}
 		}
 	}

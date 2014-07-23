@@ -31,6 +31,7 @@ import org.codehaus.groovy.syntax.ParserException;
 
 
 
+
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.T3Util;
@@ -61,10 +62,10 @@ import com.t3.model.TokenFootprint;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Layer;
 import com.t3.model.ZonePoint;
-import com.t3.model.campaign.TokenProperty;
 import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
+import com.t3.model.properties.TokenProperty;
 import com.t3.util.ImageManager;
 import com.t3.util.TokenUtil;
 import com.t3.util.math.IntPoint;

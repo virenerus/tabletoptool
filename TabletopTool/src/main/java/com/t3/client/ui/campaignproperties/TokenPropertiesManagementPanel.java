@@ -31,9 +31,10 @@ import javax.swing.event.ListSelectionListener;
 import com.jidesoft.grid.TreeTable;
 import com.jidesoft.swing.JideScrollPane;
 import com.t3.client.swing.AbeillePanel;
+import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
-import com.t3.model.campaign.TokenProperty;
+import com.t3.model.properties.TokenProperty;
 
 public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignProperties> {
 
@@ -133,7 +134,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tokenPropertiesTableModel!=null)
-					tokenPropertiesTableModel.addRow(new PropertyTypeRow(new TokenProperty()));
+					tokenPropertiesTableModel.addRow(tokenPropertiesTableModel.new PropertyTypeRow(new TokenProperty()));
 			}
 		});
 	}
@@ -182,9 +183,10 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 		
 		try {
 			List<TokenProperty> current=new ArrayList<TokenProperty>();
-			for(PropertyTypeRow r:tokenPropertiesTableModel.getRows())
-				if(r.getProperty().getName()!=null && !r.getProperty().getName().isEmpty())
+			for(PropertyTypeRow r:tokenPropertiesTableModel.getRows()) {
+				if(r.getProperty().getName()!=null && !r.getProperty().getName().isEmpty() && r.getLevel()==0)
 					current.add(r.getProperty());
+			}
 
 			tokenTypeMap.remove(editingType);
 			tokenTypeMap.put(getTokenTypeName().getText().trim(), current);

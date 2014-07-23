@@ -46,10 +46,12 @@ import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
+import com.t3.model.properties.TokenProperty;
+import com.t3.model.properties.TokenPropertyType;
 import com.t3.util.math.CappedInteger;
 import com.t3.xstreamversioned.SerializationVersion;
 
-@SerializationVersion(0)
+@SerializationVersion(1)
 public class CampaignProperties {
 	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
 
@@ -64,7 +66,6 @@ public class CampaignProperties {
 
 	private Map<String, BooleanTokenOverlay> tokenStates;
 	private Map<String, BarTokenOverlay> tokenBars;
-	private Map<String, String> characterSheets;
 
 	/** Flag indicating that owners have special permissions */
 	private boolean initiativeOwnerPermissions = AppPreferences.getInitOwnerPermissions();
@@ -118,14 +119,6 @@ public class CampaignProperties {
 
 		initiativeOwnerPermissions = properties.initiativeOwnerPermissions;
 		initiativeMovementLock = properties.initiativeMovementLock;
-
-		characterSheets = new HashMap<String, String>();
-		if (properties.characterSheets == null || properties.characterSheets.isEmpty()) {
-			properties.initCharacterSheetsMap();
-		}
-		for (String type : properties.characterSheets.keySet()) {
-			characterSheets.put(type, properties.characterSheets.get(type));
-		}
 	}
 
 	public void mergeInto(CampaignProperties properties) {
@@ -251,7 +244,6 @@ public class CampaignProperties {
 		initSightTypeMap();
 		initTokenStatesMap();
 		initTokenBarsMap();
-		initCharacterSheetsMap();
 	}
 
 	private void initLookupTableMap() {
@@ -368,11 +360,6 @@ public class CampaignProperties {
 		tokenBars.put("Health", new TwoToneBarTokenOverlay("Health", new Color(0x20b420), Color.BLACK, 6));
 	}
 
-	private void initCharacterSheetsMap() {
-		characterSheets = new HashMap<String, String>();
-		characterSheets.put("Basic", "com/t3/client/ui/forms/basicCharacterSheet.xml");
-	}
-
 	public Set<MD5Key> getAllImageAssets() {
 		Set<MD5Key> set = new HashSet<MD5Key>();
 
@@ -425,23 +412,5 @@ public class CampaignProperties {
 	 */
 	public void setInitiativeMovementLock(boolean initiativeMovementLock) {
 		this.initiativeMovementLock = initiativeMovementLock;
-	}
-
-	/**
-	 * Getter for characterSheets. Only called by {@link Campaign#getCharacterSheets()} and that function is never used
-	 * elsewhere within TabletopTool. Yet. ;-)
-	 */
-	public Map<String, String> getCharacterSheets() {
-		if (characterSheets == null)
-			initCharacterSheetsMap();
-		return characterSheets;
-	}
-
-	/**
-	 * @param characterSheets
-	 *            Setter for characterSheets
-	 */
-	public void setCharacterSheets(Map<String, String> characterSheets) {
-		this.characterSheets = characterSheets;
 	}
 }

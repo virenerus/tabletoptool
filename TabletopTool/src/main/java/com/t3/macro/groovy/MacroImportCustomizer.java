@@ -14,7 +14,7 @@ package com.t3.macro.groovy;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
 import com.t3.dice.Dice;
-import com.t3.model.campaign.TokenPropertyType;
+import com.t3.model.properties.TokenPropertyType;
 import com.t3.util.math.CappedInteger;
 import com.t3.util.math.IntPoint;
 

@@ -46,6 +46,7 @@ import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.grid.Grid;
+import com.t3.model.properties.PropertiesHolder;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
@@ -56,7 +57,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * an {@link Asset} (the image itself) and a location and scale.
  */
 @SerializationVersion(0)
-public class Token extends BaseModel {
+public class Token extends PropertiesHolder {
 	private static final Logger log = Logger.getLogger(Token.class);
 
 	private GUID id = new GUID();
@@ -148,8 +149,6 @@ public class Token extends BaseModel {
 	private Type tokenType;
 	private Zone.Layer layer;
 
-	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
-
 	private Integer facing = null;
 
 	private Integer haloColorValue;
@@ -189,12 +188,6 @@ public class Token extends BaseModel {
 	 */
 	private HashMap<String, Float> bars;
 	
-
-	/**
-	 * Properties
-	 */
-	private CaseInsensitiveMap<String,Object> propertyMap;
-
 	private Map<Integer, MacroButtonProperties> macroPropertiesMap;
 
 	private Map<String, String> speechMap;
@@ -205,7 +198,14 @@ public class Token extends BaseModel {
 	}
 
 	public Token(Token token) {
-		this(token.name, token.getImageAssetId());
+		super(token);
+		this.name = token.name;
+		states = new HashSet<String>();
+		bars = new HashMap<String, Float>();
+		imageAssetMap = new HashMap<String, MD5Key>();
+
+		// NULL key is the default
+		imageAssetMap.put(null, token.getImageAssetId());
 		currentImageAsset = token.currentImageAsset;
 
 		x = token.x;
@@ -250,7 +250,6 @@ public class Token extends BaseModel {
 		sizeScale = token.sizeScale;
 		sightType = token.sightType;
 		hasSight = token.hasSight;
-		propertyType = token.propertyType;
 
 		ownedByAll = token.ownedByAll;
 		if (token.ownerList != null) {
@@ -264,10 +263,6 @@ public class Token extends BaseModel {
 			states.addAll(token.states);
 		if (token.bars != null)
 			bars.putAll(token.bars);
-		if (token.propertyMap != null) {
-			getPropertyMap().clear();
-			getPropertyMap().putAll(token.propertyMap);
-		}
 		if (token.macroPropertiesMap != null) {
 			macroPropertiesMap = new HashMap<Integer, MacroButtonProperties>(token.macroPropertiesMap);
 		}
@@ -339,14 +334,6 @@ public class Token extends BaseModel {
 
 	public boolean isMarker() {
 		return isStamp() && (!StringUtil.isEmpty(notes) || !StringUtil.isEmpty(gmNotes) || portraitImage != null);
-	}
-
-	public String getPropertyType() {
-		return propertyType;
-	}
-
-	public void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
 	}
 
 	public String getGMNotes() {
@@ -955,46 +942,6 @@ public class Token extends BaseModel {
 			return bars.put(barName, value);
 	}
 	
-
-	public void resetProperty(String key) {
-		getPropertyMap().remove(key);
-	}
-
-	public Object setProperty(String key, Object value) {
-		return getPropertyMap().put(key, value);
-	}
-
-	//overthink this -> this should return the default if it is null
-	public Object getProperty(String key) {
-		Object value = getPropertyMap().get(key);
-
-//		// Short name ?
-//		if (value == null) {
-//			for (EditTokenProperty property : TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(getPropertyType())) {
-//				if (property.getShortName().equals(key)) {
-//					value = getPropertyMap().get(property.getShortName().toUpperCase());
-//				}
-//			}
-//		}
-		return value;
-	}
-
-	/**
-	 * Returns all property names, all in lowercase.
-	 * 
-	 * @return
-	 */
-	public Set<String> getPropertyNames() {
-		return getPropertyMap().keySet();
-	}
-
-	private CaseInsensitiveMap<String,Object> getPropertyMap() {
-		if (propertyMap == null) {
-			propertyMap = new CaseInsensitiveMap<String,Object>();
-		}
-		return propertyMap;
-	}
-
 	public int getMacroNextIndex() {
 		if (macroPropertiesMap == null) {
 			macroPropertiesMap = new HashMap<Integer, MacroButtonProperties>();

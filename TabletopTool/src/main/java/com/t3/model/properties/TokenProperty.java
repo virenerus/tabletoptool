@@ -9,9 +9,12 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model.campaign;
+package com.t3.model.properties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.t3.xstreamversioned.SerializationVersion;
 
@@ -24,10 +27,12 @@ public class TokenProperty implements Serializable {
 	private boolean gmOnly;
 	private Object defaultValue;
 	private TokenPropertyType type;
+	private List<TokenProperty> subTypes;
 
 	public TokenProperty() {
 		// For serialization
 		type=TokenPropertyType.TEXT; //there must always be a type set
+		subTypes=Collections.emptyList();
 	}
 
 	public TokenProperty(String name) {
@@ -49,6 +54,7 @@ public class TokenProperty implements Serializable {
 		this.gmOnly = isGMOnly;
 		this.type=type;
 		this.defaultValue=type.getDefaultDefaultValue();
+		this.subTypes=createDefaultSubTypes(type);
 	}
 
 	public TokenProperty(TokenProperty p) {
@@ -59,6 +65,7 @@ public class TokenProperty implements Serializable {
 		gmOnly=p.gmOnly;
 		defaultValue=p.defaultValue==null?p.type.getDefaultDefaultValue():p.defaultValue;
 		type=p.type;
+		subTypes=new ArrayList<>(p.getSubTypes());
 	}
 
 	public boolean isOwnerOnly() {
@@ -116,5 +123,19 @@ public class TokenProperty implements Serializable {
 	public void setType(TokenPropertyType type) {
 		this.type=type;
 		this.defaultValue=type.getDefaultDefaultValue();
+		this.subTypes=createDefaultSubTypes(type);
 	}
+	
+	private static List<TokenProperty> createDefaultSubTypes(TokenPropertyType type) {
+		if(type==TokenPropertyType.LIST)
+			return Collections.singletonList(new TokenProperty(TokenPropertyType.TEXT,"listType",""));
+		//TODO add struct type
+		else
+			return Collections.emptyList();
+	}
+
+	public List<TokenProperty> getSubTypes() {
+		return subTypes;
+	}
+	
 }

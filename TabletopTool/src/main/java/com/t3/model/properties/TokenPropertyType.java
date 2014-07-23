@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model.campaign;
+package com.t3.model.properties;
 
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.CellEditorManager;
@@ -19,6 +19,7 @@ import com.t3.client.ui.token.CappedIntegerCellEditor;
 import com.t3.client.ui.token.CappedIntegerCellRenderer;
 import com.t3.client.ui.token.DiceExpressionCellEditor;
 import com.t3.client.ui.token.PropertyMacroViewCellEditor;
+import com.t3.client.ui.token.TokenPropertiesListCellEditor;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.TokenPropertiesList;
@@ -65,7 +66,11 @@ public enum TokenPropertyType {
 			CellEditorManager.registerEditor(PropertyMacroView.class, new PropertyMacroViewCellEditor.Factory());
 		}
 	},
-	LIST("List",TokenPropertiesList.class,new TokenPropertiesList());	
+	LIST("List",TokenPropertiesList.class, new TokenPropertiesList<Void>(Void.class)) {
+		public void registerCellEditors() {
+			CellEditorManager.registerEditor(TokenPropertiesList.class, new TokenPropertiesListCellEditor.Factory());
+		}
+	};
 	
 	private final Class<?> type;
 	private final String name;

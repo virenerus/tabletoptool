@@ -39,6 +39,7 @@ import com.t3.model.LookupTable;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.SightType;
 import com.t3.model.Zone;
+import com.t3.model.properties.TokenProperty;
 import com.t3.net.Location;
 import com.t3.xstreamversioned.SerializationVersion;
 
@@ -187,6 +188,13 @@ public class Campaign {
 
 	public List<TokenProperty> getTokenPropertyList(String tokenType) {
 		return getTokenTypeMap().containsKey(tokenType) ? getTokenTypeMap().get(tokenType) : new ArrayList<TokenProperty>();
+	}
+	
+	public TokenProperty getTokenProperty(String tokenType, String propertyName) {
+		for(TokenProperty tp:getTokenPropertyList(tokenType))
+			if(tp.getName().equals(propertyName))
+				return tp;
+		return null;
 	}
 
 	public void putTokenType(String name, List<TokenProperty> propertyList) {
@@ -489,11 +497,6 @@ public class Campaign {
 	 */
 	public void setInitiativeMovementLock(boolean initiativeMovementLock) {
 		campaignProperties.setInitiativeMovementLock(initiativeMovementLock);
-	}
-
-	/** @return Getter for characterSheets */
-	public Map<String, String> getCharacterSheets() {
-		return getCampaignProperties().getCharacterSheets();
 	}
 
 	public ExportDialog getExportDialog() {

@@ -44,6 +44,16 @@ public class ParsedChatTest {
 	@DataProvider(name="chatParserProvider", parallel=false) 
 	public Object[][] getChatParserData () {
 		return new Object[][] {
+			{"hallo welt",
+				null,
+				"hallo welt",
+				null,
+				null,false},
+			{"return \"hallo\";",
+				null,
+				"return \"hallo\";",
+				null,
+				null,false},
 			{"/macro print(\"Hallo\");",
 				MACRO_EXEC,
 				"",

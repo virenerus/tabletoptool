@@ -19,7 +19,7 @@ import java.util.Set;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.Token;
-import com.t3.model.campaign.TokenProperty;
+import com.t3.model.properties.TokenProperty;
 import com.t3.util.StringUtil;
 
 /**
@@ -46,7 +46,7 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 	public boolean containsKey(Object key) {
 		if(key==null)
 			return false;
-		Object val = token.getProperty(key.toString());
+		Object val = token.getPropertyOrNull(key.toString());
 		if (val == null) {
 			return false;
 		}
@@ -60,10 +60,7 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 
 	@Override
 	public boolean containsValue(Object value) {
-		for(String pn:token.getPropertyNames())
-			if(token.getProperty(pn).equals(value))
-				return true;
-		return false;
+		return token.containsValue(value);
 	}
 
 	@Override
