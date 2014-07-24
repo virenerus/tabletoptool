@@ -28,7 +28,8 @@ public class TokenProperty implements Serializable {
 	private Object defaultValue;
 	private TokenPropertyType type;
 	private List<TokenProperty> subTypes;
-
+	private 
+	
 	public TokenProperty() {
 		// For serialization
 		type=TokenPropertyType.TEXT; //there must always be a type set

@@ -190,6 +190,7 @@ public class Campaign {
 		return getTokenTypeMap().containsKey(tokenType) ? getTokenTypeMap().get(tokenType) : new ArrayList<TokenProperty>();
 	}
 	
+	//TODO make this fast via a 2d hashmap
 	public TokenProperty getTokenProperty(String tokenType, String propertyName) {
 		for(TokenProperty tp:getTokenPropertyList(tokenType))
 			if(tp.getName().equals(propertyName))

@@ -19,7 +19,8 @@ public class Persister {
 		//vms.registerTypeUpdater(type, updater);
 		
 		//add packages from 3rd party libraries that should be ignored
-		vms.addUnversionedPackage("org.apache.commons");
+		vms.addUnversionedPackage("org.apache");
+		vms.addUnversionedPackage("com.google");
 		
 		XStream xstream=new XStream();
 		xstream.setMarshallingStrategy(vms);

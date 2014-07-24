@@ -61,7 +61,16 @@ public class PropertiesEditor extends JPanel {
 				detailEditors.put(tp, de);
 				de.setValue(propertyHolder.getProperty(tp.getName()));
 				//if columnspan == 1 add with label
-				if(de.getColumnSpan()==1) {
+				if(de.isSpanningTwoColumns()) {
+					c.gridx=0;
+					c.gridwidth=2;
+					c.gridy=gridY;
+					c.anchor=GridBagConstraints.CENTER;
+					c.weightx=0;
+					c.fill=GridBagConstraints.BOTH;
+					c.anchor=GridBagConstraints.CENTER;
+				}
+				else {
 					c.gridx=0;
 					c.gridwidth=1;
 					c.gridy=gridY;
@@ -75,11 +84,10 @@ public class PropertiesEditor extends JPanel {
 					c.fill=GridBagConstraints.BOTH;
 					c.anchor=GridBagConstraints.CENTER;
 				}
+				
 				contentPanel.add(de,c);
 				
 				gridY++;
-				
-				c.gridwidth=2;
 			}
 		}
 		this.revalidate();

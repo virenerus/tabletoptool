@@ -1,12 +1,11 @@
 package com.t3.model.properties;
 
-import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.t3.client.TabletopTool;
 import com.t3.model.BaseModel;
 import com.t3.model.campaign.Campaign;
@@ -16,8 +15,7 @@ import com.t3.xstreamversioned.SerializationVersion;
 public class PropertiesHolder extends BaseModel {
 
 	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
-	private CaseInsensitiveMap<String,Object> propertyMap=new CaseInsensitiveMap<>();
-	private transient CaseInsensitiveMap<String, TokenProperty> propertyInfo=new CaseInsensitiveMap<>();
+	private Table<String, TokenPropertyType, Object> propertyMap=HashBasedTable.create();
 	
 	public PropertiesHolder() {
 	}
@@ -33,7 +31,7 @@ public class PropertiesHolder extends BaseModel {
 	 * @return all property names, all in lowercase.
 	 */
 	public Set<String> getPropertyNames() {
-		return propertyMap.keySet();
+		return propertyMap.rowKeySet();
 	}
 	
 	public boolean containsValue(Object value) {
@@ -48,27 +46,25 @@ public class PropertiesHolder extends BaseModel {
 		if(propertyType==null)
 			throw new IllegalArgumentException("The property type of a token can't be null");
 		this.propertyType = propertyType;
-		this.propertyInfo.clear();
 	}
 	
 	public void resetProperty(String key) {
-		propertyMap.remove(key);
+		propertyMap.remove(key, getPropertyInfo(key).getType());
 	}
 
 	public Object setProperty(String key, Object value) {
-		if(!getPropertyInfo(key).getType().isInstance(value))
+		if(value==null)
+			return propertyMap.remove(key, getPropertyInfo(key).getType());
+		else if(!getPropertyInfo(key).getType().isInstance(value))
 			throw new IllegalArgumentException("Property "+key+" must be of type "+getPropertyInfo(key).getType());
-		return propertyMap.put(key, value);
+		else
+			return propertyMap.put(key, getPropertyInfo(key).getType(), value);
 	}
 
 	private TokenProperty getPropertyInfo(String key) {
-		TokenProperty tp=propertyInfo.get(key);
-		if(tp==null) {
-			tp=TabletopTool.getCampaign().getTokenProperty(propertyType, key);
-			if(tp==null)
-				throw new IllegalArgumentException("There is no property "+key+" in "+propertyType);
-			propertyInfo.put(key, tp);
-		}
+		TokenProperty tp = TabletopTool.getCampaign().getTokenProperty(propertyType, key);
+		if(tp==null)
+			throw new IllegalArgumentException("There is no property "+key+" in "+propertyType);
 		return tp;
 	}
 	
@@ -78,8 +74,8 @@ public class PropertiesHolder extends BaseModel {
 	 * @return its value
 	 */
 	public Object getProperty(String key) {
-		Object value = propertyMap.get(key);
-		if(value==null)
+		Object value = propertyMap.get(key, getPropertyInfo(key).getType());
+		if(value==null) //or is not set
 			value=getPropertyInfo(key).getDefaultValue();
 		return value;
 	}
@@ -90,6 +86,6 @@ public class PropertiesHolder extends BaseModel {
 	 * @return its value
 	 */
 	public Object getPropertyOrNull(String key) {
-		return propertyMap.get(key);
+		return propertyMap.get(key,getPropertyInfo(key).getType());
 	}
 }

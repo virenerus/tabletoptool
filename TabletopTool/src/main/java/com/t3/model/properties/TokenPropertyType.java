@@ -66,7 +66,7 @@ public enum TokenPropertyType {
 			CellEditorManager.registerEditor(PropertyMacroView.class, new PropertyMacroViewCellEditor.Factory());
 		}
 	},
-	LIST("List",TokenPropertiesList.class, new TokenPropertiesList<Void>(Void.class)) {
+	LIST("List",TokenPropertiesList.class, new TokenPropertiesList<Void>(null)) {
 		public void registerCellEditors() {
 			CellEditorManager.registerEditor(TokenPropertiesList.class, new TokenPropertiesListCellEditor.Factory());
 		}

@@ -19,6 +19,7 @@ import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 import com.jidesoft.grid.TreeTableModel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
+import com.t3.model.TokenPropertiesList;
 import com.t3.model.properties.TokenProperty;
 import com.t3.model.properties.TokenPropertyType;
 
@@ -71,7 +72,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		
 		@Override
 		public boolean isCellEditable(int columnIndex) {
-			return true;
+			return property.getType()!=TokenPropertyType.LIST;//TODO node && property.getType()!=TokenPropertyType.;
 		}
 		
 		@Override
@@ -89,6 +90,15 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 				TokenPropertyType newType = (TokenPropertyType)value;
 				property.setType(newType);
 				property.setDefaultValue(newType.getDefaultDefaultValue());
+				
+				//change list type if this is the child of a list
+				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==TokenPropertyType.LIST)
+					((PropertyTypeRow)this.getParent()).setValueAt(new TokenPropertiesList<>(newType), 3);
+				//change list type if this is a list
+				if(this.property.getType()==TokenPropertyType.LIST) {
+					TokenPropertyType subType = property.getSubTypes().get(0).getType();
+					this.setValueAt(new TokenPropertiesList<>(subType), 3);
+				}
 				PropertyTypesTableModel.this.refresh();
 			}
 			else if(columnIndex==1)

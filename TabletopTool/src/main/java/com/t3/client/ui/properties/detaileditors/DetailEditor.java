@@ -10,19 +10,19 @@ import com.t3.util.math.CappedInteger;
 
 public abstract class DetailEditor<TYPE> extends JPanel {
 
-	private final int columnSpan;
+	private final boolean spansTwoColumns;
 	
 	public DetailEditor() {
-		this(1);
+		this(false);
 	}
 	
-	public DetailEditor(int columnSpan) {
-		this.columnSpan=columnSpan;
+	public DetailEditor(boolean spansTwoColumns) {
+		this.spansTwoColumns=spansTwoColumns;
 		this.setLayout(new BorderLayout(10,2));
 	}
 	
-	public int getColumnSpan() {
-		return columnSpan;
+	public boolean isSpanningTwoColumns() {
+		return spansTwoColumns;
 	}
 	
 	public static DetailEditor<?> createDetailEditor(TokenProperty tokenProperty) {
@@ -38,7 +38,7 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 			case INTEGER:
 				return new IntegerEditor();
 			case LIST:
-				return new ListEditor();
+				return new ListEditor(tokenProperty);
 			case MACRO:
 				return new MacroEditor();
 			case TEXT:

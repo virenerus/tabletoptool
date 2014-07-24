@@ -5,13 +5,14 @@ import java.awt.TextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.jidesoft.swing.AutoResizingTextArea;
+
 public class TextEditor extends DetailEditor<String> {
 
 	private JTextArea	textArea;
 
 	public TextEditor() {
-		textArea=new JTextArea();
-		textArea.setRows(8);
+		textArea=new AutoResizingTextArea(1,15);
 		this.add(new JScrollPane(textArea));
 	}
 	

@@ -23,6 +23,8 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.shaded.org.objenesis.strategy.StdInstantiatorStrategy;
+import com.google.common.collect.HashBasedTable;
+import com.t3.clientserver.serializers.HashBasedTableSerializer;
 
 import de.javakaffee.kryoserializers.SynchronizedCollectionsSerializer;
 
@@ -43,7 +45,7 @@ public class KryoPool extends GenericObjectPool<Kryo> {
 		public Kryo create() throws Exception {
 			Kryo kryo = new Kryo();
 			kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
-
+			kryo.register(HashBasedTable.class, new HashBasedTableSerializer());
 			registerSerializers(kryo);
 			
 			return kryo;
