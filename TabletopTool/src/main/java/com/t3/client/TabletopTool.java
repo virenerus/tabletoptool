@@ -1140,7 +1140,7 @@ public class TabletopTool {
 	}
 
 	private static final void configureJide() {
-		com.jidesoft.utils.Lm.verifyLicense("Trevor Croft", "rptools", "5MfIVe:WXJBDrToeLWPhMv3kI2s3VFo");
+		com.jidesoft.utils.Lm.verifyLicense("T3 Team", "MapTool", "EOCG3JevAmlHo1o6OdcI80kvcf2wQkI2");
 		
 		LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = new LookAndFeelFactory.UIDefaultsCustomizer() {
 			@Override
