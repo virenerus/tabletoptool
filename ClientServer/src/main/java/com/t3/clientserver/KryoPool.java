@@ -17,12 +17,12 @@ import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.shaded.org.objenesis.strategy.StdInstantiatorStrategy;
 
 import de.javakaffee.kryoserializers.SynchronizedCollectionsSerializer;
 
@@ -42,7 +42,7 @@ public class KryoPool extends GenericObjectPool<Kryo> {
 		@Override
 		public Kryo create() throws Exception {
 			Kryo kryo = new Kryo();
-			kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
+			((Kryo.DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy()).setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());
 
 			registerSerializers(kryo);
 			
