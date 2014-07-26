@@ -28,7 +28,6 @@ public class TokenProperty implements Serializable {
 	private Object defaultValue;
 	private TokenPropertyType type;
 	private List<TokenProperty> subTypes;
-	private 
 	
 	public TokenProperty() {
 		// For serialization
@@ -100,6 +99,40 @@ public class TokenProperty implements Serializable {
 
 	public boolean isGMOnly() {
 		return gmOnly;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((subTypes == null) ? 0 : subTypes.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TokenProperty other = (TokenProperty) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (subTypes == null) {
+			if (other.subTypes != null)
+				return false;
+		} else if (!subTypes.equals(other.subTypes))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
 	}
 
 	public void setGMOnly(boolean gmOnly) {

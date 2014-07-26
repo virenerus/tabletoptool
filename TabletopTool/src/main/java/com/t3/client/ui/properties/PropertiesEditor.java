@@ -59,7 +59,7 @@ public class PropertiesEditor extends JPanel {
 			for(TokenProperty tp:TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(propertyType)) {
 				DetailEditor<?> de=DetailEditor.createDetailEditor(tp);
 				detailEditors.put(tp, de);
-				de.setValue(propertyHolder.getProperty(tp.getName()));
+				de.setValue(propertyHolder.getProperty(tp));
 				//if columnspan == 1 add with label
 				if(de.isSpanningTwoColumns()) {
 					c.gridx=0;
@@ -95,7 +95,7 @@ public class PropertiesEditor extends JPanel {
 	
 	public void applyTo(Token propertyHolder) {
 		for(Entry<TokenProperty, DetailEditor<?>> e:detailEditors.entrySet())
-			propertyHolder.setProperty(e.getKey().getName(), e.getValue().getValue());
+			propertyHolder.setProperty(e.getKey(), e.getValue().getValue());
 	}
 
 }

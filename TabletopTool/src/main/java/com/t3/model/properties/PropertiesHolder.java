@@ -1,11 +1,9 @@
 package com.t3.model.properties;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.collections4.map.CaseInsensitiveMap;
-
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.t3.client.TabletopTool;
 import com.t3.model.BaseModel;
 import com.t3.model.campaign.Campaign;
@@ -15,7 +13,7 @@ import com.t3.xstreamversioned.SerializationVersion;
 public class PropertiesHolder extends BaseModel {
 
 	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
-	private Table<String, TokenPropertyType, Object> propertyMap=HashBasedTable.create();
+	private HashMap<TokenProperty, Object> propertyMap=new HashMap<>();
 	
 	public PropertiesHolder() {
 	}
@@ -31,7 +29,10 @@ public class PropertiesHolder extends BaseModel {
 	 * @return all property names, all in lowercase.
 	 */
 	public Set<String> getPropertyNames() {
-		return propertyMap.rowKeySet();
+		HashSet<String> set=new HashSet<>(propertyMap.size());
+		for(TokenProperty tp:propertyMap.keySet())
+			set.add(tp.getName());
+		return set;
 	}
 	
 	public boolean containsValue(Object value) {
@@ -49,16 +50,25 @@ public class PropertiesHolder extends BaseModel {
 	}
 	
 	public void resetProperty(String key) {
-		propertyMap.remove(key, getPropertyInfo(key).getType());
+		propertyMap.remove(getPropertyInfo(key));
 	}
 
 	public Object setProperty(String key, Object value) {
 		if(value==null)
-			return propertyMap.remove(key, getPropertyInfo(key).getType());
+			return propertyMap.remove(getPropertyInfo(key));
 		else if(!getPropertyInfo(key).getType().isInstance(value))
 			throw new IllegalArgumentException("Property "+key+" must be of type "+getPropertyInfo(key).getType());
 		else
-			return propertyMap.put(key, getPropertyInfo(key).getType(), value);
+			return propertyMap.put(getPropertyInfo(key), value);
+	}
+	
+	public Object setProperty(TokenProperty tp, Object value) {
+		if(value==null)
+			return propertyMap.remove(tp);
+		else if(!tp.getType().isInstance(value))
+			throw new IllegalArgumentException("Property "+tp.getName()+" must be of type "+tp.getType());
+		else
+			return propertyMap.put(tp, value);
 	}
 
 	private TokenProperty getPropertyInfo(String key) {
@@ -74,9 +84,16 @@ public class PropertiesHolder extends BaseModel {
 	 * @return its value
 	 */
 	public Object getProperty(String key) {
-		Object value = propertyMap.get(key, getPropertyInfo(key).getType());
+		Object value = propertyMap.get(getPropertyInfo(key));
 		if(value==null) //or is not set
 			value=getPropertyInfo(key).getDefaultValue();
+		return value;
+	}
+	
+	public Object getProperty(TokenProperty tp) {
+		Object value = propertyMap.get(tp);
+		if(value==null) //or is not set
+			value=tp.getDefaultValue();
 		return value;
 	}
 	
@@ -86,6 +103,6 @@ public class PropertiesHolder extends BaseModel {
 	 * @return its value
 	 */
 	public Object getPropertyOrNull(String key) {
-		return propertyMap.get(key,getPropertyInfo(key).getType());
+		return propertyMap.get(getPropertyInfo(key));
 	}
 }
