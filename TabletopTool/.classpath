@@ -23,37 +23,37 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/jide-common-3.5.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jide-components-3.5.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jide-dialogs-3.5.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jide-dock-3.5.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jide-grids-3.5.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/renderpack-1.2004.jar"/>
 	<classpathentry kind="lib" path="lib/servicediscoverylib-1.0.b5.jar"/>
 	<classpathentry kind="lib" path="lib/upnplib-1.0.9-nodebug.jar"/>
 	<classpathentry kind="lib" path="lib/yasb-0.2-21012007.jar"/>
 	<classpathentry kind="lib" path="lib/hessian-4.0.37.jar"/>
 	<classpathentry kind="lib" path="lib/abeille-formsrt-2.1.0_M3.jar" sourcepath="lib/src/formsdesigner-2.1.0_M3_src.zip"/>
+	<classpathentry kind="lib" path="lib/jide-common-3.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jide-components-3.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jide-dialogs-3.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jide-dock-3.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jide-grids-3.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jidesoft.com/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

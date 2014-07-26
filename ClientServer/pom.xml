@@ -21,7 +21,7 @@
   	<dependency>
   		<groupId>com.esotericsoftware.kryo</groupId>
   		<artifactId>kryo</artifactId>
-  		<version>2.22</version>
+  		<version>2.24.0</version>
   	</dependency>
   	<dependency>
   		<groupId>org.apache.commons</groupId>
@@ -31,7 +31,7 @@
   	<dependency>
   		<groupId>de.javakaffee</groupId>
   		<artifactId>kryo-serializers</artifactId>
-  		<version>0.26</version>
+  		<version>0.27</version>
   	</dependency>
   	<dependency>
   		<groupId>com.google.guava</groupId>

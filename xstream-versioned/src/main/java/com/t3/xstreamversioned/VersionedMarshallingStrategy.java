@@ -42,7 +42,11 @@ public class VersionedMarshallingStrategy extends AbstractTreeMarshallingStrateg
 	}
 	
 	public Migrator getTypeUpdater(Class<?> type, int fromVersion) {
-		return typeUpdaters.getOrDefault(type, Collections.EMPTY_MAP).get(fromVersion);
+		Map<Integer, Migrator> map=typeUpdaters.get(type);
+		if(map==null)
+			return null;
+		else
+			return map.get(fromVersion);
 	}
 	
 	protected TreeUnmarshaller createUnmarshallingContext(Object root,

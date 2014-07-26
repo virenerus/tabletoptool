@@ -1232,9 +1232,13 @@ public class TabletopTool {
 		// LAF
 		try {
 			
+			
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			configureJide();
-			LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
+			if(WINDOWS)
+				LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
+			else
+				LookAndFeelFactory.installJideExtension();
 			if (MAC_OS_X) {
 				macOSXicon();
 			}

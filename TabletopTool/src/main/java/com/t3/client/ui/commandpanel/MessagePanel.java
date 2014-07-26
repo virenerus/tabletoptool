@@ -43,6 +43,7 @@ import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.chat.Speaker;
 import com.t3.model.chat.TextMessage;
+import com.t3.util.URLUtil;
 
 //FIXMESOON full of weird stuff that should no longer be required -> use a diffrent script here
 public class MessagePanel extends JPanel {
@@ -188,9 +189,7 @@ public class MessagePanel extends JPanel {
 			@Override
 			public void run() {
 				String output = message.getMessage();
-				// Auto inline expansion for {HTTP|HTTPS} URLs
-				//TODO test this
-				output = output.replaceAll("(https?://[\\w.%-/~?&+#=]+)", "<a href='$2'>$2</a>");
+				output=URLUtil.replaceUrlsWithLinks(output);
 
 				if (!message.getSource().equals(TabletopTool.getPlayer().getName())) {
 					// TODO change this so 'macro' is case-insensitive

@@ -17,12 +17,12 @@ import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.shaded.org.objenesis.strategy.StdInstantiatorStrategy;
 import com.google.common.collect.HashBasedTable;
 import com.t3.clientserver.serializers.HashBasedTableSerializer;
 
@@ -44,14 +44,16 @@ public class KryoPool extends GenericObjectPool<Kryo> {
 		@Override
 		public Kryo create() throws Exception {
 			Kryo kryo = new Kryo();
-			kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
-			kryo.register(HashBasedTable.class, new HashBasedTableSerializer());
+			
+			((Kryo.DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy()).setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());
+
 			registerSerializers(kryo);
 			
 			return kryo;
 		}
 
 		private void registerSerializers(Kryo kryo) {
+					
 			//register custom serializers here
 			kryo.register(Color.class, new Serializer<Color>() {
 				@Override
@@ -64,6 +66,7 @@ public class KryoPool extends GenericObjectPool<Kryo> {
 					return new Color(input.readInt(), true);
 				}
 			});
+			kryo.register(HashBasedTable.class, new HashBasedTableSerializer());
 			SynchronizedCollectionsSerializer.registerSerializers( kryo );
 		}
 	}
