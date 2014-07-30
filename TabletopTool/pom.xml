@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tabletoptool</artifactId>
@@ -58,17 +59,17 @@
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ChatParser</artifactId>
-		<version>0.4</version>
+		<version>0.4.3</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>rplib</artifactId>
-		<version>0.4</version>
+		<version>0.4.3</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ClientServer</artifactId>
-		<version>0.4</version>
+		<version>0.4.3</version>
 	</dependency>
 	<dependency>
 		<groupId>log4j</groupId>
@@ -134,6 +135,6 @@
 	<parent>
 		<groupId>tabletoptool</groupId>
 		<artifactId>t3-master</artifactId>
-		<version>0.4</version>
+		<version>0.4.3</version>
 	</parent>
 </project>
