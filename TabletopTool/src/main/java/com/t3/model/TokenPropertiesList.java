@@ -76,4 +76,8 @@ public class TokenPropertiesList<T> implements Iterable<T> {
 	public boolean isEmpty() {
 		return elements.length==0;
 	}
+
+	public TokenPropertiesList<T> without(int index) {
+		return new TokenPropertiesList<>(type, ArrayUtils.remove(elements, index));
+	}
 }

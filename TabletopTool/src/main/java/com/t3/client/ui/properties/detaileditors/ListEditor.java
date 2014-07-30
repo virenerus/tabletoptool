@@ -18,6 +18,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.jidesoft.pane.CollapsiblePane;
+import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
 import com.t3.image.ImageUtil;
 import com.t3.model.Token;
@@ -37,7 +38,7 @@ public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 	public ListEditor(TokenProperty tokenProperty, PropertyHolder propertyHolder) {
 		super(true);
 		this.propertyHolder=propertyHolder;
-		this.listElementsProperty=tokenProperty.getSubTypes().get(0);
+		this.listElementsProperty=tokenProperty.getSubType();
 		
 		collapsiblePane=new CollapsiblePane(tokenProperty.getName());
 		collapsiblePane.setStyle(CollapsiblePane.SEPARATOR_STYLE);
@@ -101,14 +102,20 @@ public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 
 		GridBagConstraints c=new GridBagConstraints();
 		c.insets=new Insets(5, 5, 5, 5);
+		c.gridx=0;
+		c.gridwidth=1;
+		c.gridy=subEditors.size();
+		c.weightx=0;
+		JButton deleteButton=new JButton(new ImageIcon(AppStyle.removeButton));
+		deleteButton.addActionListener(new RemoveListEntryListener(subEditors.size()));
+		listElementsPane.add(deleteButton,c);
 		if(de.isSpanningTwoColumns()) {
 			c.gridx=1;
 			c.gridwidth=2;
 			c.gridy=subEditors.size();
 			c.anchor=GridBagConstraints.CENTER;
-			c.weightx=0;
+			c.weightx=1;
 			c.fill=GridBagConstraints.BOTH;
-			c.anchor=GridBagConstraints.CENTER;
 		}
 		else {
 			c.gridx=1;
@@ -130,5 +137,17 @@ public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 		listElementsPane.add(de,c);
 		subEditors.add((DetailEditor<TYPE>) de);
 		de.setValue(value);
+	}
+	
+	private class RemoveListEntryListener implements ActionListener {
+		private final int index;
+		
+		public RemoveListEntryListener(int index) {
+			this.index=index;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setTypedValue(getValue().without(index));
+		}
 	}
 }

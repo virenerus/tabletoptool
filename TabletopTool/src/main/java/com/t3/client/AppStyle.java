@@ -61,6 +61,7 @@ public class AppStyle {
 
 	public static BufferedImage cancelButton;
 	public static BufferedImage addButton;
+	public static BufferedImage removeButton;
 
 	public static BufferedImage panelTexture;
 
@@ -106,7 +107,8 @@ public class AppStyle {
 
 			cancelButton = ImageUtil.getCompatibleImage("com/t3/client/image/cancel_sm.png");
 			addButton = ImageUtil.getCompatibleImage("com/t3/client/image/add_sm.png");
-
+			removeButton = ImageUtil.getCompatibleImage("com/t3/client/image/delete.png");
+			
 			lookupTableDefaultImage = ImageUtil.getCompatibleImage("com/t3/client/image/document.jpg");
 
 			resourceLibraryImage = ImageUtil.getCompatibleImage("com/t3/client/image/book_open.png");

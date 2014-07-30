@@ -13,9 +13,13 @@ package com.t3.model.properties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.jidesoft.grid.ContextSensitiveCellEditor;
 import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
@@ -27,13 +31,13 @@ public class TokenProperty implements Serializable {
 	private boolean gmOnly;
 	private Object defaultValue;
 	private final TokenPropertyType type;
-	private final List<TokenProperty> subTypes;
+	private final TokenProperty[] subTypes;
 	
 	public TokenProperty() {
 		// For serialization
 		name="";
 		type=TokenPropertyType.TEXT; //there must always be a type set
-		subTypes=Collections.emptyList();
+		subTypes=new TokenProperty[0];
 	}
 
 	public TokenProperty(String name) {
@@ -47,7 +51,12 @@ public class TokenProperty implements Serializable {
 	public TokenProperty(TokenPropertyType type, String name, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
 		this(type,name, null, highPriority, isOwnerOnly, isGMOnly);
 	}
+	
 	public TokenProperty(TokenPropertyType type, String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly) {
+		this(type,name,shortName,highPriority,isOwnerOnly,isGMOnly,createDefaultSubTypes(type));
+	}
+	
+	public TokenProperty(TokenPropertyType type, String name, String shortName, boolean highPriority, boolean isOwnerOnly, boolean isGMOnly, TokenProperty[] subTypes) {
 		this.name = name;
 		this.shortName = shortName;
 		this.highPriority = highPriority;
@@ -55,7 +64,7 @@ public class TokenProperty implements Serializable {
 		this.gmOnly = isGMOnly;
 		this.type=type;
 		this.defaultValue=type.getDefaultDefaultValue();
-		this.subTypes=createDefaultSubTypes(type);
+		this.subTypes=subTypes;
 	}
 
 	public TokenProperty(TokenProperty p) {
@@ -66,7 +75,7 @@ public class TokenProperty implements Serializable {
 		gmOnly=p.gmOnly;
 		defaultValue=p.defaultValue==null?p.type.getDefaultDefaultValue():p.defaultValue;
 		type=p.type;
-		subTypes=new ArrayList<>(p.getSubTypes());
+		subTypes=ArrayUtils.clone(p.getSubTypes());
 	}
 
 	public boolean isOwnerOnly() {
@@ -87,10 +96,8 @@ public class TokenProperty implements Serializable {
 		return name;
 	}
 	public TokenProperty withName(String name) {
-		TokenProperty tp=new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly);
+		TokenProperty tp=new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly,ArrayUtils.clone(subTypes));
 		tp.setDefaultValue(defaultValue);
-		tp.getSubTypes().clear();
-		tp.getSubTypes().addAll(subTypes);
 		return tp;
 	}
 
@@ -163,21 +170,31 @@ public class TokenProperty implements Serializable {
 		return new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly);
 	}
 	
-	private static List<TokenProperty> createDefaultSubTypes(TokenPropertyType type) {
+	private static TokenProperty[] createDefaultSubTypes(TokenPropertyType type) {
 		if(type==TokenPropertyType.LIST)
-			return Collections.singletonList(new TokenProperty(TokenPropertyType.TEXT,"listType",""));
+			return new TokenProperty[]{new TokenProperty(TokenPropertyType.TEXT,"listType","")};
 		//TODO add struct type
 		else
-			return Collections.emptyList();
+			return new TokenProperty[0];
 	}
 
-	public List<TokenProperty> getSubTypes() {
+	public TokenProperty[] getSubTypes() {
 		return subTypes;
 	}
 
 	@Override
 	public String toString() {
-		return "TokenProperty [name=" + name + ", type=" + type + ", subTypes=" + subTypes + "]";
+		return "TokenProperty [name=" + name + ", type=" + type + ", subTypes=" + Arrays.toString(subTypes) + "]";
+	}
+
+	public TokenProperty getSubType() {
+		if(subTypes.length!=1)
+			throw new RuntimeException(toString()+" has no singular subType");
+		return subTypes[0];
+	}
+
+	public TokenProperty withSubTypes(List<TokenProperty> subTypes) {
+		return new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly, subTypes.toArray(new TokenProperty[subTypes.size()]));
 	}
 	
 }

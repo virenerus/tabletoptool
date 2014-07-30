@@ -71,15 +71,20 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 
 		public PropertyTypeRow(TokenProperty p) {
 			this.property=p;
+			createSubRows();
+		}
+		
+		private void createSubRows() {
 			subRows=new ArrayList<>();
 			for(TokenProperty tp:property.getSubTypes()) {
 				subRows.add(new PropertyTypeRow(tp));
 			}
 		}
-		
+
 		@Override
 		public boolean isCellEditable(int columnIndex) {
-			return property.getType()!=TokenPropertyType.LIST;//TODO node && property.getType()!=TokenPropertyType.;
+			//editable if not the default value of list or struct
+			return !(columnIndex==3 && property.getType()==TokenPropertyType.LIST);//TODO node && property.getType()!=TokenPropertyType.;
 		}
 		
 		@Override
@@ -102,9 +107,10 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 					((PropertyTypeRow)this.getParent()).setValueAt(new TokenPropertiesList<>(newType), 3);
 				//change list type if this is a list
 				if(this.property.getType()==TokenPropertyType.LIST) {
-					TokenPropertyType subType = property.getSubTypes().get(0).getType();
+					TokenPropertyType subType = property.getSubType().getType();
 					this.setValueAt(new TokenPropertiesList<>(subType), 3);
 				}
+				createSubRows();
 				PropertyTypesTableModel.this.refresh();
 			}
 			else if(columnIndex==1)
@@ -187,21 +193,19 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		for(PropertyTypeRow r:this.getOriginalRows()) {
 			if(!StringUtils.isBlank(r.getProperty().getName())) {
 				TokenProperty prop=r.getProperty();
-				list.add(prop);
-				collectTokenProperties(prop, r.getChildren());
+				list.add(collectTokenProperties(prop, r.getChildren()));
 			}
 		}
 		return list;
 	}
 
-	private void collectTokenProperties(TokenProperty prop, List<PropertyTypeRow> children) {
-		prop.getSubTypes().clear();
+	private TokenProperty collectTokenProperties(TokenProperty prop, List<PropertyTypeRow> children) {
+		ArrayList<TokenProperty> subTypes=new ArrayList<>();
 		for(PropertyTypeRow childRow:children) {
 			TokenProperty tp=childRow.getProperty();
-			if(prop.getType()==TokenPropertyType.LIST || !StringUtils.isBlank(tp.getName())) {
-				prop.getSubTypes().add(tp);
-				collectTokenProperties(tp,childRow.getChildren());
-			}
+			if(prop.getType()==TokenPropertyType.LIST || !StringUtils.isBlank(tp.getName()))
+				subTypes.add(collectTokenProperties(tp,childRow.getChildren()));
 		}
+		return prop.withSubTypes(subTypes);
 	}
 }
