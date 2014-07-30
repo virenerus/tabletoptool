@@ -39,6 +39,8 @@ import javax.swing.border.TitledBorder;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import com.t3.client.ui.macroeditor.MacroEditor;
+
 /**
  * @author Virenerus
  */
@@ -46,8 +48,7 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 
 	protected JTabbedPane macroTabs;
 	protected JPanel detailsPanel;
-	protected RTextScrollPane commandScrollPane;
-	protected RSyntaxTextArea commandTextArea;
+	protected MacroEditor commandEditor;
 	protected JLabel macroCommandLabel;
 	protected JPanel panel4;
 	protected JLabel macroLabelLabel;
@@ -92,8 +93,7 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 		macroTabs = new JTabbedPane();
 		macroTabs.setBorder(null);
 		detailsPanel = new JPanel();
-		commandScrollPane = new RTextScrollPane();
-		commandTextArea = new RSyntaxTextArea();
+		commandEditor = new MacroEditor();
 		macroCommandLabel = new JLabel();
 		panel4 = new JPanel();
 		macroLabelLabel = new JLabel();
@@ -139,18 +139,8 @@ public abstract class MacroButtonBaseDialog extends JDialog {
 
 				detailsPanel.setLayout(new BorderLayout(5, 5));
 
-				//======== commandScrollPane ========
-				{
-
-					//---- commandTextArea ----
-					commandTextArea.setHighlightCurrentLine(false);
-					commandTextArea.setCodeFoldingEnabled(true);
-					commandTextArea.setSyntaxEditingStyle("text/groovy"); //$NON-NLS-1$
-					commandScrollPane.setFoldIndicatorEnabled(true);
-					commandScrollPane.setLineNumbersEnabled(true);
-					commandScrollPane.setViewportView(commandTextArea);
-				}
-				detailsPanel.add(commandScrollPane, BorderLayout.CENTER);
+				
+				detailsPanel.add(commandEditor, BorderLayout.CENTER);
 
 				//---- macroCommandLabel ----
 				macroCommandLabel.setText("Command:"); //$NON-NLS-1$

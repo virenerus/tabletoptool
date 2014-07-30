@@ -115,9 +115,7 @@ public class MacroButtonDialog extends MacroButtonBaseDialog {
 			labelTextField.setText(properties.getLabel());
 			groupTextField.setText(properties.getGroup());
 			sortByTextField.setText(properties.getSortby());
-			commandTextArea.setText(properties.getCommand());
-			commandTextArea.setCaretPosition(0);
-			commandTextArea.discardAllEdits(); //this removes all edits, otherwise adding all the text is an edit itself
+			commandEditor.setMacro(properties.getCommand());
 
 			fontColorComboBox.setSelectedItem(properties.getFontColorKey());
 			fontSizeComboBox.setSelectedItem(properties.getFontSize());
@@ -134,7 +132,7 @@ public class MacroButtonDialog extends MacroButtonBaseDialog {
 				hotKeyCombo.setEnabled(false);
 				groupTextField.setEnabled(properties.getCompareGroup());
 				sortByTextField.setEnabled(properties.getCompareSortPrefix());
-				commandTextArea.setEnabled(properties.getCompareCommand());
+				commandEditor.setEnabled(properties.getCompareCommand());
 				fontColorComboBox.setEnabled(false);
 				fontSizeComboBox.setEnabled(false);
 				minWidthTextField.setEnabled(false);
@@ -212,7 +210,7 @@ public class MacroButtonDialog extends MacroButtonBaseDialog {
 		properties.setLabel(labelTextField.getText());
 		properties.setGroup(groupTextField.getText());
 		properties.setSortby(sortByTextField.getText());
-		properties.setCommand(commandTextArea.getText());
+		properties.setCommand(commandEditor.getMacro());
 		properties.setFontColorKey(fontColorComboBox.getSelectedItem().toString());
 		properties.setFontSize(fontSizeComboBox.getSelectedItem().toString());
 		properties.setMinWidth(minWidthTextField.getText());
