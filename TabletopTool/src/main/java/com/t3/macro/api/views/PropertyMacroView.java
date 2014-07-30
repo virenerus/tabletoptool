@@ -18,12 +18,15 @@ import java.util.Map;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.Token;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class PropertyMacroView implements MacroView {
 
 	public static final PropertyMacroView	EMPTY_MACRO;
+	/**the token this macro belongs to or null if there is none**/
 	private Token	token;
-	private Script	script;
+	private transient Script	script;
 	private String	macroText;
 	
 	static {
@@ -40,8 +43,12 @@ public class PropertyMacroView implements MacroView {
 		this.script=MacroEngine.getInstance().compile(macroText);
 	}
 	
-	public PropertyMacroView(PropertyMacroView pmv, String text) throws MacroException {
-		this(text,pmv.token);
+	public PropertyMacroView(PropertyMacroView pmv, String macroText) throws MacroException {
+		this(macroText,pmv.token);
+	}
+
+	public PropertyMacroView(String macroText) throws MacroException {
+		this(macroText,null);
 	}
 
 	@Override
@@ -50,6 +57,8 @@ public class PropertyMacroView implements MacroView {
 	 * @returns the object returned by the called macro
 	 */
 	public Object execute() throws MacroException {
+		if(script==null)
+			script=MacroEngine.getInstance().compile(macroText);
 		return MacroEngine.getInstance().run(script, token);
 	}
 	
@@ -60,7 +69,9 @@ public class PropertyMacroView implements MacroView {
 	 * @returns the object returned by the called macro
 	 */
 	public Object execute(Map<String, Object> arguments) throws MacroException {
-		return MacroEngine.getInstance().run(script, token);
+		if(script==null)
+			script=MacroEngine.getInstance().compile(macroText);
+		return MacroEngine.getInstance().run(script, arguments, token, null);
 	}
 	
 	@Override

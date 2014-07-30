@@ -6,6 +6,8 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import com.t3.model.Token;
+import com.t3.model.properties.PropertyHolder;
 import com.t3.model.properties.TokenProperty;
 import com.t3.util.math.CappedInteger;
 
@@ -26,7 +28,7 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 		return spansTwoColumns;
 	}
 	
-	public static DetailEditor<?> createDetailEditor(TokenProperty tokenProperty) {
+	public static DetailEditor<?> createDetailEditor(TokenProperty tokenProperty, PropertyHolder propertyHolder) {
 		switch(tokenProperty.getType()) {
 			case BOOLEAN:
 				return new BooleanDetailEditor();
@@ -39,9 +41,9 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 			case INTEGER:
 				return new IntegerEditor();
 			case LIST:
-				return new ListEditor(tokenProperty);
+				return new ListEditor(tokenProperty, propertyHolder);
 			case MACRO:
-				return new MacroEditor();
+				return new MacroDetailEditor(propertyHolder);
 			case TEXT:
 				return new TextEditor();
 		}

@@ -46,7 +46,7 @@ import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.grid.Grid;
-import com.t3.model.properties.PropertiesHolder;
+import com.t3.model.properties.PropertyHolder;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
@@ -57,7 +57,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * an {@link Asset} (the image itself) and a location and scale.
  */
 @SerializationVersion(0)
-public class Token extends PropertiesHolder {
+public class Token extends PropertyHolder {
 	private static final Logger log = Logger.getLogger(Token.class);
 
 	private GUID id = new GUID();

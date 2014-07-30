@@ -20,7 +20,9 @@ import org.apache.log4j.Logger;
 import com.jidesoft.pane.CollapsiblePane;
 import com.t3.client.TabletopTool;
 import com.t3.image.ImageUtil;
+import com.t3.model.Token;
 import com.t3.model.TokenPropertiesList;
+import com.t3.model.properties.PropertyHolder;
 import com.t3.model.properties.TokenProperty;
 
 public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
@@ -30,9 +32,11 @@ public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 	private JPanel listElementsPane;
 	private TokenProperty	listElementsProperty;
 	private ArrayList<DetailEditor<TYPE>> subEditors=new ArrayList<>();
+	private PropertyHolder	propertyHolder;
 
-	public ListEditor(TokenProperty tokenProperty) {
+	public ListEditor(TokenProperty tokenProperty, PropertyHolder propertyHolder) {
 		super(true);
+		this.propertyHolder=propertyHolder;
 		this.listElementsProperty=tokenProperty.getSubTypes().get(0);
 		
 		collapsiblePane=new CollapsiblePane(tokenProperty.getName());
@@ -93,7 +97,7 @@ public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 	}
 
 	public void addNewDetailsEditor(Object value) {
-		DetailEditor<?> de=DetailEditor.createDetailEditor(listElementsProperty);
+		DetailEditor<?> de=DetailEditor.createDetailEditor(listElementsProperty, propertyHolder);
 
 		GridBagConstraints c=new GridBagConstraints();
 		c.insets=new Insets(5, 5, 5, 5);

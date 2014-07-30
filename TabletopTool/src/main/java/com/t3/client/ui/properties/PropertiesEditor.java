@@ -20,12 +20,12 @@ import javax.swing.JSeparator;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.properties.detaileditors.DetailEditor;
 import com.t3.model.Token;
-import com.t3.model.properties.PropertiesHolder;
+import com.t3.model.properties.PropertyHolder;
 import com.t3.model.properties.TokenProperty;
 
 public class PropertiesEditor extends JPanel {
 
-	private PropertiesHolder	propertyHolder;
+	private PropertyHolder	propertyHolder;
 	private String	propertyType;
 	private JPanel	contentPanel;
 	private Map<TokenProperty,DetailEditor<?>> detailEditors=new HashMap<>();
@@ -42,7 +42,7 @@ public class PropertiesEditor extends JPanel {
 		createSubComponents();
 	}
 
-	public void setPropertyHolder(PropertiesHolder propertyHolder) {
+	public void setPropertyHolder(PropertyHolder propertyHolder) {
 		this.propertyHolder=propertyHolder;
 		createSubComponents();
 	}
@@ -57,7 +57,7 @@ public class PropertiesEditor extends JPanel {
 			int gridY=0;
 			
 			for(TokenProperty tp:TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(propertyType)) {
-				DetailEditor<?> de=DetailEditor.createDetailEditor(tp);
+				DetailEditor<?> de=DetailEditor.createDetailEditor(tp, propertyHolder);
 				detailEditors.put(tp, de);
 				de.setValue(propertyHolder.getProperty(tp));
 				//if columnspan == 1 add with label

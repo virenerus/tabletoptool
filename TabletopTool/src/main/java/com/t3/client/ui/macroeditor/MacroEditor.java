@@ -9,7 +9,7 @@ public class MacroEditor extends RTextScrollPane {
 
 	public MacroEditor() {
 		super(new RSyntaxTextArea(),true);
-		rTextArea=(RSyntaxTextArea)this.getViewport().getComponent(0);
+		rTextArea=(RSyntaxTextArea)this.getTextArea();
 		rTextArea.setHighlightCurrentLine(false);
 		rTextArea.setCodeFoldingEnabled(true);
 		rTextArea.setSyntaxEditingStyle("text/groovy"); //$NON-NLS-1$
@@ -24,5 +24,9 @@ public class MacroEditor extends RTextScrollPane {
 
 	public String getMacro() {
 		return rTextArea.getText();
+	}
+
+	public void setMinimumRows(int numberOfRows) {
+		rTextArea.setRows(numberOfRows);
 	}
 }

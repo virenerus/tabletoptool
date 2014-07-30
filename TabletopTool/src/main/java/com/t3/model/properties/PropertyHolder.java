@@ -10,15 +10,15 @@ import com.t3.model.campaign.Campaign;
 import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
-public class PropertiesHolder extends BaseModel {
+public class PropertyHolder extends BaseModel {
 
 	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
 	private HashMap<TokenProperty, Object> propertyMap=new HashMap<>();
 	
-	public PropertiesHolder() {
+	public PropertyHolder() {
 	}
 	
-	public PropertiesHolder(PropertiesHolder ph) {
+	public PropertyHolder(PropertyHolder ph) {
 		if(ph.propertyType!=null)
 			this.propertyType=ph.propertyType;
 		this.propertyMap.clear();	
