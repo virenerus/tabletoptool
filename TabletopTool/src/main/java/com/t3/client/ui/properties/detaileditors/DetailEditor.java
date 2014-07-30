@@ -1,6 +1,7 @@
 package com.t3.client.ui.properties.detaileditors;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 	public static DetailEditor<?> createDetailEditor(TokenProperty tokenProperty) {
 		switch(tokenProperty.getType()) {
 			case BOOLEAN:
-				return new BooleanDetailEditor(tokenProperty.getName());
+				return new BooleanDetailEditor();
 			case CAPPED:
 				return new CappedIntegerEditor();
 			case EXPRESSION:

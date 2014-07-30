@@ -28,6 +28,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.jidesoft.grid.TreeTable;
 import com.jidesoft.swing.JideScrollPane;
 import com.t3.client.swing.AbeillePanel;
@@ -182,11 +184,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 		// Pull the old one out and put the new one in (rename)
 		
 		try {
-			List<TokenProperty> current=new ArrayList<TokenProperty>();
-			for(PropertyTypeRow r:tokenPropertiesTableModel.getRows()) {
-				if(r.getProperty().getName()!=null && !r.getProperty().getName().isEmpty() && r.getLevel()==0)
-					current.add(r.getProperty());
-			}
+			List<TokenProperty> current=tokenPropertiesTableModel.collectTokenProperties();
 
 			tokenTypeMap.remove(editingType);
 			tokenTypeMap.put(getTokenTypeName().getText().trim(), current);

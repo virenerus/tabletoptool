@@ -7,8 +7,8 @@ import javax.swing.JCheckBox;
 public class BooleanDetailEditor extends DetailEditor<Boolean> {
 	private JCheckBox	checkbox;
 
-	public BooleanDetailEditor(String title) {
-		checkbox=new JCheckBox(title);
+	public BooleanDetailEditor() {
+		checkbox=new JCheckBox();
 		this.setLayout(new BorderLayout());
 		this.add(checkbox,BorderLayout.CENTER);
 	}

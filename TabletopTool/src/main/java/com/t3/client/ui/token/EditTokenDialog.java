@@ -134,6 +134,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		};
 		bind(token);
 		getRootPane().setDefaultButton(getOKButton());
+		dialog.pack();
 		dialog.showDialog();
 	}
 

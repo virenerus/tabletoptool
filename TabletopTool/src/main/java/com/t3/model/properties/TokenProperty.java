@@ -20,17 +20,18 @@ import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
 public class TokenProperty implements Serializable {
-	private String name;
+	private final String name;
 	private String shortName;
 	private boolean highPriority;
 	private boolean ownerOnly;
 	private boolean gmOnly;
 	private Object defaultValue;
-	private TokenPropertyType type;
-	private List<TokenProperty> subTypes;
+	private final TokenPropertyType type;
+	private final List<TokenProperty> subTypes;
 	
 	public TokenProperty() {
 		// For serialization
+		name="";
 		type=TokenPropertyType.TEXT; //there must always be a type set
 		subTypes=Collections.emptyList();
 	}
@@ -85,8 +86,12 @@ public class TokenProperty implements Serializable {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public TokenProperty withName(String name) {
+		TokenProperty tp=new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly);
+		tp.setDefaultValue(defaultValue);
+		tp.getSubTypes().clear();
+		tp.getSubTypes().addAll(subTypes);
+		return tp;
 	}
 
 	public String getShortName() {
@@ -154,10 +159,8 @@ public class TokenProperty implements Serializable {
 		return this.type;
 	}
 	
-	public void setType(TokenPropertyType type) {
-		this.type=type;
-		this.defaultValue=type.getDefaultDefaultValue();
-		this.subTypes=createDefaultSubTypes(type);
+	public TokenProperty withType(TokenPropertyType type) {
+		return new TokenProperty(type, name, shortName, highPriority, ownerOnly, gmOnly);
 	}
 	
 	private static List<TokenProperty> createDefaultSubTypes(TokenPropertyType type) {
@@ -170,6 +173,11 @@ public class TokenProperty implements Serializable {
 
 	public List<TokenProperty> getSubTypes() {
 		return subTypes;
+	}
+
+	@Override
+	public String toString() {
+		return "TokenProperty [name=" + name + ", type=" + type + ", subTypes=" + subTypes + "]";
 	}
 	
 }

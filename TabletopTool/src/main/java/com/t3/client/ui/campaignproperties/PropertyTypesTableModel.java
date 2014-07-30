@@ -14,6 +14,8 @@ package com.t3.client.ui.campaignproperties;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.jidesoft.grid.AbstractExpandableRow;
 import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
@@ -65,9 +67,14 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 	public class PropertyTypeRow extends AbstractExpandableRow {
 
 		private TokenProperty property;
+		private ArrayList<PropertyTypeRow> subRows;
 
 		public PropertyTypeRow(TokenProperty p) {
 			this.property=p;
+			subRows=new ArrayList<>();
+			for(TokenProperty tp:property.getSubTypes()) {
+				subRows.add(new PropertyTypeRow(tp));
+			}
 		}
 		
 		@Override
@@ -88,8 +95,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		public void setValueAt(Object value, int columnIndex) {
 			if(columnIndex==0) {
 				TokenPropertyType newType = (TokenPropertyType)value;
-				property.setType(newType);
-				property.setDefaultValue(newType.getDefaultDefaultValue());
+				property=property.withType(newType);
 				
 				//change list type if this is the child of a list
 				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==TokenPropertyType.LIST)
@@ -102,7 +108,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 				PropertyTypesTableModel.this.refresh();
 			}
 			else if(columnIndex==1)
-				property.setName((String)value);
+				property=property.withName((String)value);
 			else if(columnIndex==2)
 				property.setShortName((String)value);
 			else if(columnIndex==3)
@@ -163,16 +169,39 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 
 		@Override
 		public List<PropertyTypeRow> getChildren() {
-			ArrayList<PropertyTypeRow> subRows=new ArrayList<>();
-			for(TokenProperty tp:property.getSubTypes()) {
-				subRows.add(new PropertyTypeRow(tp));
-			}
 			return subRows;
 		}
 
 		@Override
 		public void setChildren(List<?> l) {
 			System.out.println(l);
+		}
+	}
+
+
+
+
+
+	public List<TokenProperty> collectTokenProperties() {
+		ArrayList<TokenProperty> list=new ArrayList<>();
+		for(PropertyTypeRow r:this.getOriginalRows()) {
+			if(!StringUtils.isBlank(r.getProperty().getName())) {
+				TokenProperty prop=r.getProperty();
+				list.add(prop);
+				collectTokenProperties(prop, r.getChildren());
+			}
+		}
+		return list;
+	}
+
+	private void collectTokenProperties(TokenProperty prop, List<PropertyTypeRow> children) {
+		prop.getSubTypes().clear();
+		for(PropertyTypeRow childRow:children) {
+			TokenProperty tp=childRow.getProperty();
+			if(prop.getType()==TokenPropertyType.LIST || !StringUtils.isBlank(tp.getName())) {
+				prop.getSubTypes().add(tp);
+				collectTokenProperties(tp,childRow.getChildren());
+			}
 		}
 	}
 }
