@@ -84,7 +84,7 @@ public class ThumbnailManager {
  		else
  			thumbnailFile.getParentFile().mkdirs();
 
- 		try (OutputStream os = new FileOutputStream(file)){
+ 		try (OutputStream os = new FileOutputStream(thumbnailFile)){
  			IOUtils.write(ImageUtil.imageToBytes(thumbnailImage, "png"), os);
  		}
 
