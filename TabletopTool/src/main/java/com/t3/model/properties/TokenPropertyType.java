@@ -19,10 +19,8 @@ import com.t3.client.ui.token.CappedIntegerCellEditor;
 import com.t3.client.ui.token.CappedIntegerCellRenderer;
 import com.t3.client.ui.token.DiceExpressionCellEditor;
 import com.t3.client.ui.token.PropertyMacroViewCellEditor;
-import com.t3.client.ui.token.TokenPropertiesListCellEditor;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
-import com.t3.model.TokenPropertiesList;
 import com.t3.util.math.CappedInteger;
 import com.t3.xstreamversioned.SerializationVersion;
 
@@ -66,11 +64,8 @@ public enum TokenPropertyType {
 			CellEditorManager.registerEditor(PropertyMacroView.class, new PropertyMacroViewCellEditor.Factory());
 		}
 	},
-	LIST("List",TokenPropertiesList.class, new TokenPropertiesList<Void>(null)) {
-		public void registerCellEditors() {
-			CellEditorManager.registerEditor(TokenPropertiesList.class, new TokenPropertiesListCellEditor.Factory());
-		}
-	};
+	LIST("List",TokenPropertiesList.class, new TokenPropertiesList<Void>(null)),
+	STRUCT("Struct",Struct.class, new Struct());
 	
 	private final Class<?> type;
 	private final String name;

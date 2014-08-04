@@ -71,7 +71,7 @@ public class PropertyHolder extends BaseModel {
 			return propertyMap.put(tp, value);
 	}
 
-	private TokenProperty getPropertyInfo(String key) {
+	protected TokenProperty getPropertyInfo(String key) {
 		TokenProperty tp = TabletopTool.getCampaign().getTokenProperty(propertyType, key);
 		if(tp==null)
 			throw new IllegalArgumentException("There is no property "+key+" in "+propertyType);
@@ -90,6 +90,11 @@ public class PropertyHolder extends BaseModel {
 		return value;
 	}
 	
+	/**
+	 * This method returns the value of the given property or the default value if it is not set
+	 * @param tp the property
+	 * @return its value
+	 */
 	public Object getProperty(TokenProperty tp) {
 		Object value = propertyMap.get(tp);
 		if(value==null) //or is not set

@@ -1,4 +1,4 @@
-package com.t3.model;
+package com.t3.model.properties;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.t3.model.properties.TokenPropertyType;
 import com.t3.xstreamversioned.SerializationVersion;
 
 /**This is an immutable list of TokenProperty instances*/

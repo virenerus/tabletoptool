@@ -21,7 +21,7 @@ import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 import com.jidesoft.grid.TreeTableModel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
-import com.t3.model.TokenPropertiesList;
+import com.t3.model.properties.TokenPropertiesList;
 import com.t3.model.properties.TokenProperty;
 import com.t3.model.properties.TokenPropertyType;
 
@@ -84,7 +84,8 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		@Override
 		public boolean isCellEditable(int columnIndex) {
 			//editable if not the default value of list or struct
-			return !(columnIndex==3 && property.getType()==TokenPropertyType.LIST);//TODO node && property.getType()!=TokenPropertyType.;
+			return !(columnIndex==3 && (property.getType()==TokenPropertyType.LIST 
+									||  property.getType()==TokenPropertyType.STRUCT));
 		}
 		
 		@Override
@@ -181,6 +182,11 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		@Override
 		public void setChildren(List<?> l) {
 			System.out.println(l);
+		}
+		
+		@Override
+		public PropertyTypesTableModel getTreeTableModel() {
+			return (PropertyTypesTableModel) super.getTreeTableModel();
 		}
 	}
 

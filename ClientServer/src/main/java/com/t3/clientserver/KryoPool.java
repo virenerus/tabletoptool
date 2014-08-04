@@ -42,7 +42,7 @@ public class KryoPool extends GenericObjectPool<Kryo> {
 		}
 
 		@Override
-		public Kryo create() throws Exception {
+		public Kryo create() {
 			Kryo kryo = new Kryo();
 			
 			((Kryo.DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy()).setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());

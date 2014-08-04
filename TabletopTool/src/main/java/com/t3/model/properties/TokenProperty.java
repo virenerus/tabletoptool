@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.jidesoft.grid.ContextSensitiveCellEditor;
+import com.t3.clientserver.CopyUtil;
 import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
@@ -151,9 +152,8 @@ public class TokenProperty implements Serializable {
 		this.gmOnly = gmOnly;
 	}
 
-	public Object getDefaultValue()
-	{
-		return this.defaultValue;
+	public Object getDefaultValue() {
+		return CopyUtil.copy(this.defaultValue);
 	}
 
 	public void setDefaultValue(Object defaultValue) {
@@ -173,7 +173,8 @@ public class TokenProperty implements Serializable {
 	private static TokenProperty[] createDefaultSubTypes(TokenPropertyType type) {
 		if(type==TokenPropertyType.LIST)
 			return new TokenProperty[]{new TokenProperty(TokenPropertyType.TEXT,"listType","")};
-		//TODO add struct type
+		else if(type==TokenPropertyType.STRUCT)
+			return new TokenProperty[]{new TokenProperty(TokenPropertyType.TEXT,"name","")};
 		else
 			return new TokenProperty[0];
 	}

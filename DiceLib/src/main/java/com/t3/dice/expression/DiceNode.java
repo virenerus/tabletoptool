@@ -15,7 +15,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 import com.t3.dice.Dice;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class DiceNode extends Expression {
 
 	private Dice dice;

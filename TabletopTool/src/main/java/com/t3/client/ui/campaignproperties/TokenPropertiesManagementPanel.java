@@ -96,7 +96,8 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 	public void initTokenProperties() {
 		tokenPropertiesTableModel=new PropertyTypesTableModel(null);
 		tokenPropertiesTable = new TreeTable(tokenPropertiesTableModel);
-		tokenPropertiesTable.setFillsViewportHeight(true); // XXX This is Java6-only -- need Java5 solution
+		tokenPropertiesTable.addMouseListener(new PropertiesTablePopupMenuManager());
+		tokenPropertiesTable.setFillsViewportHeight(true);
 		tokenPropertiesTable.setName("propertiesTable");
 		tokenPropertiesTable.setColumnResizable(false);
 		//tokenPropertiesTable.set

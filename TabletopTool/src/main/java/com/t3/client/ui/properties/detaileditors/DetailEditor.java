@@ -46,8 +46,11 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 				return new MacroDetailEditor(propertyHolder);
 			case TEXT:
 				return new TextEditor();
+			case STRUCT:
+				return new StructEditor(tokenProperty, propertyHolder);
+			default:
+				throw new IllegalArgumentException("There is no detail editor defined for "+tokenProperty);
 		}
-		throw new IllegalArgumentException("There is no detail editor defined for "+tokenProperty);
 	}
 
 	public abstract TYPE getValue();

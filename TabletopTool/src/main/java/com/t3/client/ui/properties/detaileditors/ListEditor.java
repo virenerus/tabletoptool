@@ -22,8 +22,8 @@ import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
 import com.t3.image.ImageUtil;
 import com.t3.model.Token;
-import com.t3.model.TokenPropertiesList;
 import com.t3.model.properties.PropertyHolder;
+import com.t3.model.properties.TokenPropertiesList;
 import com.t3.model.properties.TokenProperty;
 
 public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
