@@ -40,7 +40,6 @@ import com.t3.model.SightType;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.Zone.TokenFilter;
-import com.t3.model.campaign.Campaign;
 
 public class ZoneView implements ModelChangeListener {
 	private final Zone zone;

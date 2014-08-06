@@ -289,7 +289,7 @@ public class ParsedChatTest {
     }
 	
 	@Test(expectedExceptions={UnknownCommandException.class})
-	public void unknownCommandTest() throws UnknownCommandException, ParseException {
+	public void unknownCommandTest() throws UnknownCommandException {
 		testParsedChat("/karwarble this hit", null, "/karwarble this hit", null, null, false);
 	}
 

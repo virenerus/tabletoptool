@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Area;
 
 import com.t3.client.AppStyle;
-import com.t3.client.TabletopTool;
 import com.t3.model.AttachedLightSource;
 import com.t3.model.LightSource;
 import com.t3.model.Token;

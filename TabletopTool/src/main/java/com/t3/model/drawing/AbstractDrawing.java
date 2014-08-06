@@ -22,7 +22,6 @@ import java.awt.image.ImageObserver;
 
 import com.t3.client.TabletopTool;
 import com.t3.guid.GUID;
-import com.t3.guid.UniquelyIdentifiable;
 import com.t3.model.Zone;
 import com.t3.xstreamversioned.SerializationVersion;
 

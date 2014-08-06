@@ -16,7 +16,6 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.t3.client.TabletopTool;
 import com.t3.client.TransferableAsset;
 import com.t3.client.TransferableToken;
 import com.t3.image.ImageUtil;
@@ -103,15 +101,9 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 
 		File file = fileList.get(index);
 		if (file.getName().toLowerCase().endsWith(Token.FILE_EXTENSION)) {
+			Token token = PersistenceUtil.loadToken(file);
 
-			try {
-				Token token = PersistenceUtil.loadToken(file);
-
-				return new TransferableToken(token);
-			} catch (IOException ioe) {
-				TabletopTool.showError("Could not load that token: ", ioe);
-				return null;
-			}
+			return new TransferableToken(token);
 		}
 
 		if (dir instanceof AssetDirectory) {
@@ -180,11 +172,7 @@ public class ImageFileImagePanelModel implements ImagePanelModel {
 			// Looks like all files with ".lnk" (see getAssetLinkFile() in the AssetManager class).
 			assert global;
 		} else {
-			try {
-				fileList.addAll(dir.getFiles());
-			} catch (FileNotFoundException fnf) {
-				TabletopTool.showError(fnf.getLocalizedMessage(), fnf);
-			}
+			fileList.addAll(dir.getFiles());
 		}
 		if (filter != null && filter.length() > 0) {
 			for (ListIterator<File> iter = fileList.listIterator(); iter.hasNext();) {

@@ -14,7 +14,6 @@ package com.t3.client.ui.assetpanel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,12 +72,12 @@ public class Directory {
 		files = null;
 	}
 
-	public List<Directory> getSubDirs() throws FileNotFoundException {
+	public List<Directory> getSubDirs() {
 		load();
 		return subdirs;
 	}
 
-	public List<File> getFiles() throws FileNotFoundException {
+	public List<File> getFiles() {
 		load();
 		return files;
 	}
@@ -87,7 +86,7 @@ public class Directory {
 		return parent;
 	}
 
-	private void load() throws FileNotFoundException {
+	private void load() {
 		if (files == null && subdirs == null) {
 			ArrayList<File> files = new ArrayList<File>();
 			ArrayList<Directory> subdirs = new ArrayList<Directory>();

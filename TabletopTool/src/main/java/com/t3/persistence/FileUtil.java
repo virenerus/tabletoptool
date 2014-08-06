@@ -75,7 +75,7 @@ public class FileUtil {
 			InputStream inStream = FileUtil.class.getClassLoader().getResourceAsStream(resource);
 			BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(outFilename));
 		){
-			copyWithoutClose(inStream, outStream);
+			IOUtils.copy(inStream, outStream);
 		}
 	}
 
@@ -340,7 +340,7 @@ public class FileUtil {
 			file.getParentFile().mkdirs();
 
 			try(OutputStream out = new FileOutputStream(file)) {
-				copyWithoutClose(in, out);
+				IOUtils.copy(in, out);
 			}
 			in.closeEntry();
 		}
@@ -367,26 +367,9 @@ public class FileUtil {
 					InputStream is = zipFile.getInputStream(entry);
 					BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(path));
 				) {
-					copyWithClose(is, os);
+					IOUtils.copy(is, os);
 				}
 			}
-		}
-	}
-
-	public static void copyWithoutClose(InputStream is, OutputStream os) throws IOException {
-		IOUtils.copy(is, os);
-	}
-
-	public static void copyWithClose(InputStream is, OutputStream os) throws IOException {
-		try {
-			IOUtils.copy(is, os);
-		} catch (IOException ioe) {
-			try {
-				if (os != null) os.close();
-			} catch (Exception e) { }
-			try {
-				if (is != null) is.close();
-			} catch (Exception e) { }
 		}
 	}
 

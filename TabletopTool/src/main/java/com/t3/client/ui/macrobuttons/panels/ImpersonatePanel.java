@@ -25,10 +25,8 @@ import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.T3Frame.MTFrame;
-import com.t3.guid.GUID;
 import com.t3.language.I18N;
 import com.t3.model.Token;
-import com.t3.util.guidreference.NullHelper;
 
 public class ImpersonatePanel extends AbstractMacroPanel {
 	private boolean currentlyImpersonating = false;

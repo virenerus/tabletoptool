@@ -54,6 +54,9 @@ public class ClientConnection extends AbstractConnection {
         }
     }
     
+    /**
+	 * @throws IOException could be thrown by subclasses 
+	 */
     public boolean sendHandshake(Socket s) throws IOException {
     	return true;
     }

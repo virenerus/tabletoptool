@@ -2412,45 +2412,41 @@ public class AppActions {
 				try {
 					StaticMessageDialog progressDialog = new StaticMessageDialog(I18N.getText("msg.info.mapLoading"));
 
-					try {
-						// I'm going to get struck by lighting for writing code like this.
-						// CLEAN ME CLEAN ME CLEAN ME ! I NEED A SWINGWORKER !
-						TabletopTool.getFrame().showFilledGlassPane(progressDialog);
+					// I'm going to get struck by lighting for writing code like this.
+					// CLEAN ME CLEAN ME CLEAN ME ! I NEED A SWINGWORKER !
+					TabletopTool.getFrame().showFilledGlassPane(progressDialog);
 
-						// Load
-						final PersistedMap map = PersistenceUtil.loadMap(mapFile);
+					// Load
+					final PersistedMap map = PersistenceUtil.loadMap(mapFile);
 
-						if (map != null) {
-							AppPreferences.setLoadDir(mapFile.getParentFile());
-							if ((map.zone.getExposedArea() != null && !map.zone.getExposedArea().isEmpty())
-									|| (map.zone.getExposedAreaMetaData() != null && !map.zone.getExposedAreaMetaData().isEmpty())) {
-								boolean ok = TabletopTool.confirm("<html>Map contains exposed areas of fog.<br>Do you want to reset all of the fog?");
-								if (ok == true) {
-									// This fires a ModelChangeEvent, but that shouldn't matter
-									map.zone.clearExposedArea();
-								}
+					if (map != null) {
+						AppPreferences.setLoadDir(mapFile.getParentFile());
+						if ((map.zone.getExposedArea() != null && !map.zone.getExposedArea().isEmpty())
+								|| (map.zone.getExposedAreaMetaData() != null && !map.zone.getExposedAreaMetaData().isEmpty())) {
+							boolean ok = TabletopTool.confirm("<html>Map contains exposed areas of fog.<br>Do you want to reset all of the fog?");
+							if (ok == true) {
+								// This fires a ModelChangeEvent, but that shouldn't matter
+								map.zone.clearExposedArea();
 							}
-							TabletopTool.addZone(map.zone);
-
-							TabletopTool.getAutoSaveManager().restart();
-							TabletopTool.getAutoSaveManager().tidy();
-
-							// Flush the images associated with the current
-							// campaign
-							// Do this juuuuuust before we get ready to show the
-							// new campaign, since we
-							// don't want the old campaign reloading images
-							// while we loaded the new campaign
-
-							// XXX (FJE) Is this call even needed for loading
-							// maps? Probably not...
-							ImageManager.flush();
 						}
-					} finally {
-						TabletopTool.getFrame().hideGlassPane();
+						TabletopTool.addZone(map.zone);
+
+						TabletopTool.getAutoSaveManager().restart();
+						TabletopTool.getAutoSaveManager().tidy();
+
+						// Flush the images associated with the current
+						// campaign
+						// Do this juuuuuust before we get ready to show the
+						// new campaign, since we
+						// don't want the old campaign reloading images
+						// while we loaded the new campaign
+
+						// XXX (FJE) Is this call even needed for loading
+						// maps? Probably not...
+						ImageManager.flush();
 					}
-				} catch (IOException ioe) {
-					TabletopTool.showError("msg.error.failedLoadMap", ioe);
+				} finally {
+					TabletopTool.getFrame().hideGlassPane();
 				}
 			}
 		}.start();

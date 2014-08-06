@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 
-import com.t3.client.TabletopTool;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.util.guidreference.NullHelper;

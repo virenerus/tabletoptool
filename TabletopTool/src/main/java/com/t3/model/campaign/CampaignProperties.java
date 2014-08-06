@@ -12,7 +12,6 @@
 package com.t3.model.campaign;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.TreeMap;
 
 import com.t3.MD5Key;
 import com.t3.client.AppPreferences;
-import com.t3.client.TabletopTool;
 import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ColorDotTokenOverlay;
@@ -267,17 +265,13 @@ public class CampaignProperties {
 		}
 		lightSourcesMap = new TreeMap<String, Map<GUID, LightSource>>();
 
-		try {
-			Map<String, List<LightSource>> map = LightSource.getDefaultLightSources();
-			for (String key : map.keySet()) {
-				Map<GUID, LightSource> lightSourceMap = new LinkedHashMap<GUID, LightSource>();
-				for (LightSource source : map.get(key)) {
-					lightSourceMap.put(source.getId(), source);
-				}
-				lightSourcesMap.put(key, lightSourceMap);
+		Map<String, List<LightSource>> map = LightSource.getDefaultLightSources();
+		for (String key : map.keySet()) {
+			Map<GUID, LightSource> lightSourceMap = new LinkedHashMap<GUID, LightSource>();
+			for (LightSource source : map.get(key)) {
+				lightSourceMap.put(source.getId(), source);
 			}
-		} catch (IOException ioe) {
-			TabletopTool.showError("CampaignProperties.error.initLightSources", ioe);
+			lightSourcesMap.put(key, lightSourceMap);
 		}
 	}
 
@@ -312,13 +306,9 @@ public class CampaignProperties {
 			sightTypeMap.put((String) row[0], st);
 		}
 		SightType dv = sightTypeMap.get("Darkvision");
-		try {
-			dv.setPersonalLightSource(LightSource.getDefaultLightSources().get("Generic").get(5));
-			// sightTypeMap.put("Darkvision & Lowlight", new SightType("Darkvision", 2,
-			// 		LightSource.getDefaultLightSources().get("Generic").get(4)));
-		} catch (IOException e) {
-			TabletopTool.showError("CampaignProperties.error.noGenericLight", e);
-		}
+		dv.setPersonalLightSource(LightSource.getDefaultLightSources().get("Generic").get(5));
+		// sightTypeMap.put("Darkvision & Lowlight", new SightType("Darkvision", 2,
+		// 		LightSource.getDefaultLightSources().get("Generic").get(4)));
 		defaultSightType = (String) starter[0][0];
 	}
 

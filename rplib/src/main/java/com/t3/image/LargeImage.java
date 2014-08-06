@@ -69,7 +69,7 @@ public class LargeImage {
 	private Map<Integer, BufferedImage> loadedChunkMap = new HashMap<Integer, BufferedImage>();
 	List<Integer> usedChunkList = new ArrayList<Integer>();
 	
-	public LargeImage(byte[] image, File cacheDir) throws IOException {
+	public LargeImage(byte[] image, File cacheDir) {
 		
 	}
 	
@@ -262,7 +262,7 @@ public class LargeImage {
 		return getId(ImageUtil.imageToBytes(image));
 	}
 	
-	private String getId(byte[] image) throws IOException {
+	private String getId(byte[] image) {
 		return new MD5Key(image).toString();
 	}
 	

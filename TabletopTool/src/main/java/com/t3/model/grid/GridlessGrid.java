@@ -14,7 +14,6 @@ package com.t3.model.grid;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import java.util.Map;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
 
-import com.t3.client.TabletopTool;
 import com.t3.client.tool.PointerTool;
 import com.t3.model.CellPoint;
 import com.t3.model.MovementKey;
@@ -53,13 +51,8 @@ public class GridlessGrid extends Grid {
 
 	@Override
 	public List<TokenFootprint> getFootprints() {
-		if (footprintList == null) {
-			try {
-				footprintList = loadFootprints("gridlessGridFootprints.xml");
-			} catch (IOException ioe) {
-				TabletopTool.showError("GridlessGrid.error.notLoaded", ioe);
-			}
-		}
+		if (footprintList == null)
+			footprintList = loadFootprints("gridlessGridFootprints.xml");
 		return footprintList;
 	}
 
