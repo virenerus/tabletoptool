@@ -658,7 +658,7 @@ public class InitiativeList implements Serializable {
          */
         private transient Icon displayIcon;
         
-        private transient InitiativeList initiativeList;
+        private InitiativeList initiativeList;
 
         /*---------------------------------------------------------------------------------------------
          * Constructors
