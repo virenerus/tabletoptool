@@ -66,13 +66,6 @@ public class Cross extends AbstractDrawing {
 
     @Override
 	protected void draw(Graphics2D g) {
-    	
-        int minX = Math.min(startPoint.x, endPoint.x);
-        int minY = Math.min(startPoint.y, endPoint.y);
-        
-        int width = Math.abs(startPoint.x - endPoint.x);
-        int height = Math.abs(startPoint.y - endPoint.y);
-        
     	Object oldAA = g.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
     	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         //g.drawRect(minX, minY, width, height);

@@ -304,7 +304,6 @@ public class ClientMethodHandler extends AbstractMethodHandler<NetworkCommand> {
 						currentRenderer = TabletopTool.getFrame().getZoneRenderer(zoneGUID);
 						TabletopTool.getFrame().setCurrentZoneRenderer(currentRenderer);
 					}
-					TabletopTool.getFrame().getZoneMiniMapPanel().flush();
 					TabletopTool.getFrame().refresh();
 					return;
 
