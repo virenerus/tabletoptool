@@ -18,6 +18,7 @@ import java.awt.geom.Area;
 import com.t3.client.TabletopTool;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.util.guidreference.NullHelper;
 import com.t3.xstreamversioned.SerializationVersion;
 
 /**
@@ -116,11 +117,11 @@ public class RadiusTemplate extends AbstractTemplate {
 	 */
 	@Override
 	public Rectangle getBounds() {
-		if (getZoneId() == null) {
+		if (getZoneReference() == null) {
 			// This avoids a NPE when loading up a campaign
 			return new Rectangle();
 		}
-		Zone zone = TabletopTool.getCampaign().getZone(getZoneId());
+		Zone zone = NullHelper.value(getZoneReference());
 		if (zone == null) {
 			return new Rectangle();
 		}

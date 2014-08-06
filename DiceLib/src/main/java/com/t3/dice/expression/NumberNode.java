@@ -14,7 +14,9 @@ package com.t3.dice.expression;
 import java.util.Random;
 
 import com.t3.dice.NumberUtil;
+import com.t3.xstreamversioned.SerializationVersion;
 
+@SerializationVersion(0)
 public class NumberNode extends Expression {
 
 	private float number;

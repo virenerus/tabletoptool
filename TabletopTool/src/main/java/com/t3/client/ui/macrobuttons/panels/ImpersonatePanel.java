@@ -25,9 +25,10 @@ import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.T3Frame.MTFrame;
+import com.t3.guid.GUID;
 import com.t3.language.I18N;
-import com.t3.GUID;
 import com.t3.model.Token;
+import com.t3.util.guidreference.NullHelper;
 
 public class ImpersonatePanel extends AbstractMacroPanel {
 	private boolean currentlyImpersonating = false;
@@ -56,7 +57,7 @@ public class ImpersonatePanel extends AbstractMacroPanel {
 				Token token = getToken();
 				mtf.getFrame(MTFrame.IMPERSONATED).setFrameIcon(token.getIcon(16, 16));
 				mtf.getFrame(MTFrame.IMPERSONATED).setTitle(getTitle(token));
-				addArea(getTokenId());
+				addArea(getTokenReference());
 			} else if (selectedTokenList.size() != 1) {
 				return;
 			} else {
@@ -87,7 +88,7 @@ public class ImpersonatePanel extends AbstractMacroPanel {
 
 	public void startImpersonating(Token token) {
 		stopImpersonating();
-		setTokenId(token);
+		setToken(token);
 		currentlyImpersonating = true;
 		token.setBeingImpersonated(true);
 		reset();
@@ -98,7 +99,7 @@ public class ImpersonatePanel extends AbstractMacroPanel {
 		if (token != null) {
 			token.setBeingImpersonated(false);
 		}
-		setTokenId((GUID) null);
+		setToken(null);
 		currentlyImpersonating = false;
 		clear();
 	}
@@ -116,7 +117,7 @@ public class ImpersonatePanel extends AbstractMacroPanel {
 		removeAll();
 		TabletopTool.getFrame().getFrame(MTFrame.IMPERSONATED).setFrameIcon(new ImageIcon(AppStyle.impersonatePanelImage));
 		TabletopTool.getFrame().getFrame(MTFrame.IMPERSONATED).setTitle(Tab.IMPERSONATED.title);
-		if (getTokenId() == null) {
+		if (getTokenReference() == null) {
 			currentlyImpersonating = false;
 		}
 		doLayout();

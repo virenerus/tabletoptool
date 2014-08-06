@@ -52,9 +52,9 @@ public class BurstTemplate extends RadiusTemplate {
 	 * in the squares, that case isn't allowed.
 	 */
 	private void adjustShape() {
-		if (getZoneId() == null)
+		if (getZoneReference() == null)
 			return;
-		int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+		int gridSize = getZoneReference().value().getGrid().getSize();
 		Rectangle r = (Rectangle) vertexRenderer.getShape();
 		r.setBounds(getVertex().x, getVertex().y, gridSize, gridSize);
 		r = (Rectangle) renderer.getShape();

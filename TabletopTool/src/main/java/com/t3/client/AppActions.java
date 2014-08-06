@@ -86,13 +86,13 @@ import com.t3.client.ui.io.ProgressBarList;
 import com.t3.client.ui.io.UpdateRepoDialog;
 import com.t3.client.ui.token.TransferProgressDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.Player;
 import com.t3.model.Token;
@@ -2111,7 +2111,7 @@ public class AppActions {
 							{
 								TabletopTool.serverCommand().setCampaign(campaign.campaign);
 							}
-							TabletopTool.setCampaign(campaign.campaign, campaign.currentZoneId);
+							TabletopTool.setCampaign(campaign.campaign, campaign.currentZone.getId());
 							ZoneRenderer current = TabletopTool.getFrame().getCurrentZoneRenderer();
 							if (campaign.currentView != null && current != null)
 								current.setZoneScale(campaign.currentView);
@@ -2119,7 +2119,7 @@ public class AppActions {
 							TabletopTool.getAutoSaveManager().tidy();
 
 							// UI related stuff
-							TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
+							TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(null);
 							TabletopTool.getFrame().resetPanels();
 						}
 					} finally {

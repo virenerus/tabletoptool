@@ -16,8 +16,9 @@ import java.util.Random;
 
 import com.t3.dice.modifiers.ExplodingModifier;
 import com.t3.dice.modifiers.SuccessModifier;
+import com.t3.xstreamversioned.SerializationVersion;
 
-
+@SerializationVersion(0)
 public class ShadowrunDice extends Dice {
 
 	private int	gremlinValue=0;

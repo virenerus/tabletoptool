@@ -128,7 +128,7 @@ public class LineTemplate extends AbstractTemplate {
 	 */
 	@Override
 	protected void paint(Graphics2D g, boolean border, boolean area) {
-		if (TabletopTool.getCampaign().getZone(getZoneId()) == null) {
+		if (getZoneReference() == null) {
 			return;
 		}
 		// Need to paint? We need a line and to translate the painting
@@ -140,7 +140,7 @@ public class LineTemplate extends AbstractTemplate {
 			return;
 
 		// Paint each element in the path
-		int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+		int gridSize = getZoneReference().value().getGrid().getSize();
 		ListIterator<CellPoint> i = path.listIterator();
 		while (i.hasNext()) {
 			CellPoint p = i.next();
@@ -412,10 +412,10 @@ public class LineTemplate extends AbstractTemplate {
 	@Override
 	public Rectangle getBounds() {
 		// Get all of the numbers needed for the calculation
-		if (TabletopTool.getCampaign().getZone(getZoneId()) == null) {
+		if (getZoneReference() == null) {
 			return new Rectangle();
 		}
-		int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+		int gridSize = getZoneReference().value().getGrid().getSize();
 		ZonePoint vertex = getVertex();
 
 		// Find the point that is farthest away in the path, then adjust
@@ -429,7 +429,7 @@ public class LineTemplate extends AbstractTemplate {
 			}
 		}
 		for (CellPoint pt : path) {
-			ZonePoint p = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().convert(pt);
+			ZonePoint p = getZoneReference().value().getGrid().convert(pt);
 			p = new ZonePoint(vertex.x + p.x, vertex.y + p.y);
 
 			if (minp == null) {

@@ -16,7 +16,6 @@ import java.util.List;
 
 import com.t3.client.TabletopTool;
 import com.t3.macro.api.views.TokenView;
-import com.t3.GUID;
 import com.t3.model.Player;
 import com.t3.model.Token;
 
@@ -25,8 +24,7 @@ public class PlayerFunctions {
 	 * @return the token the local player has impersonated or null if there is none
 	 */
 	public TokenView getLocalImpersonatedToken() {
-		GUID guid = TabletopTool.getFrame().getCommandPanel().getIdentityGUID();
-		Token t=TabletopTool.getFrame().findToken(guid);
+		Token t = TabletopTool.getFrame().getCommandPanel().getImpersonatedToken();
 		
 		return t==null ? null : new TokenView(t);
 	}

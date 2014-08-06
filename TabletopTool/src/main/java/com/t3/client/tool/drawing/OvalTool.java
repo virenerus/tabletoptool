@@ -30,6 +30,7 @@ import com.t3.model.ZonePoint;
 import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.ShapeDrawable;
+import com.t3.util.guidreference.ZoneReference;
 
 
 /**
@@ -102,7 +103,7 @@ public class OvalTool extends AbstractDrawingTool implements MouseMotionListener
 					oval.height *= 2;
 				}
 
-				completeDrawable(renderer.getZone().getId(), getPen(), new ShapeDrawable(new Ellipse2D.Float(oval.x, oval.y, oval.width, oval.height), true));
+				completeDrawable(new ZoneReference(renderer.getZone()), getPen(), new ShapeDrawable(new Ellipse2D.Float(oval.x, oval.y, oval.width, oval.height), true));
 				oval = null;
 			}
 

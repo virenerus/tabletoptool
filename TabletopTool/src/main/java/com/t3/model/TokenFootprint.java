@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.grid.Grid;
 import com.t3.xstreamversioned.SerializationVersion;
 

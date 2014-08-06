@@ -21,11 +21,11 @@ import com.t3.chatparser.ParsedChat;
 import com.t3.chatparser.UnknownCommandException;
 import com.t3.chatparser.generated.ParseException;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.CellPoint;
-import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.LookupTable.LookupEntry;
 import com.t3.model.Player;
@@ -34,6 +34,7 @@ import com.t3.model.chat.Speaker;
 import com.t3.model.chat.TextMessage;
 import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.Token;
+import com.t3.util.guidreference.TokenReference;
 
 /**
  * This is the class responsible for starting the chat parser on a given string and executing 
@@ -84,13 +85,13 @@ public class ChatExecutor {
 					case IMPERSONATE: 
 						try {
 							GUID guid = new GUID(parts.getArguments()[0]);
-							TabletopTool.getFrame().getCommandPanel().setIdentityGUID(guid);
+							TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(new TokenReference(TabletopTool.getFrame().getCurrentZoneRenderer().getZone(), guid));
 						} catch(Exception e) {
 							throw new IllegalArgumentException("impersonate expects one 16 characters token id");
 						}
 						break;
 					case CLEAR_IMPERSONATE: 
-						TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
+						TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(null);
 						break;
 					case MACRO_EXEC:
 						List<Token> l=TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList();

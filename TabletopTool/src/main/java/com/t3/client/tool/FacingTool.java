@@ -26,8 +26,8 @@ import javax.swing.KeyStroke;
 
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
 import com.t3.language.I18N;
-import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;
 import com.t3.util.TokenUtil;

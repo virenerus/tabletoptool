@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3;
+package com.t3.guid;
 
 import java.io.Serializable;
 import java.net.InetAddress;

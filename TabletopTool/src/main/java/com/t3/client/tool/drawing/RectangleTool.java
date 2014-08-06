@@ -29,6 +29,7 @@ import com.t3.model.ZonePoint;
 import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.ShapeDrawable;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * @author drice
@@ -101,7 +102,7 @@ public class RectangleTool extends AbstractDrawingTool implements MouseMotionLis
 					rectangle.height *= 2;
 				}
 //				System.out.println("Adding Rectangle to zone: " + rectangle);
-				completeDrawable(renderer.getZone().getId(), getPen(), new ShapeDrawable(rectangle, false));
+				completeDrawable(new ZoneReference(renderer.getZone()), getPen(), new ShapeDrawable(rectangle, false));
 				rectangle = null;
 			}
 			setIsEraser(isEraser(e));

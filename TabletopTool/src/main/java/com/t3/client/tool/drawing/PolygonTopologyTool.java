@@ -27,13 +27,14 @@ import javax.swing.ImageIcon;
 import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.Zone;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.LineSegment;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.ShapeDrawable;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Tool for drawing freehand lines.
@@ -84,7 +85,7 @@ public class PolygonTopologyTool extends LineTool implements MouseMotionListener
 	}
 
 	@Override
-	protected void completeDrawable(GUID zoneGUID, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		Area area = new Area();
 	
 		if (drawable instanceof LineSegment) {	

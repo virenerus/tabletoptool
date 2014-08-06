@@ -31,7 +31,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.t3.GUID;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
@@ -40,6 +39,8 @@ import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneView;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.language.I18N;
 import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.drawing.Drawable;
@@ -62,7 +63,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * compatibility.
  */
 @SerializationVersion(0)
-public class Zone extends BaseModel {
+public class Zone extends BaseModel implements UniquelyIdentifiable {
 	private static final Logger log = Logger.getLogger(Zone.class);
 
 	@SerializationVersion(0)
@@ -356,6 +357,7 @@ public class Zone extends BaseModel {
 		hasFog = zone.hasFog;
 	}
 
+	@Override
 	public GUID getId() {
 		return id;
 	}

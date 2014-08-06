@@ -13,6 +13,9 @@ package com.t3.dice;
 
 import java.util.Random;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public abstract class Dice {
 
 	protected int	numberOfDices;

@@ -35,6 +35,7 @@ import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.RadiusTemplate;
 import com.t3.swing.SwingUtil;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Draw a template for an effect with a radius. Make the template show the squares that are effected, not just draw a
@@ -236,7 +237,7 @@ public class RadiusTemplateTool extends AbstractDrawingTool implements MouseMoti
 		} // endif
 		template = createBaseTemplate();
 		template.setVertex(vertex);
-		template.setZoneId(renderer.getZone().getId());
+		template.setZone(renderer.getZone());
 		controlOffset = null;
 		renderer.repaint();
 	}
@@ -375,7 +376,7 @@ public class RadiusTemplateTool extends AbstractDrawingTool implements MouseMoti
 	@Override
 	protected void detachFrom(ZoneRenderer renderer) {
 		super.detachFrom(renderer);
-		template.setZoneId(null);
+		template.setZone(null);
 		renderer.repaint();
 	}
 
@@ -384,7 +385,7 @@ public class RadiusTemplateTool extends AbstractDrawingTool implements MouseMoti
 	 */
 	@Override
 	protected void attachTo(ZoneRenderer renderer) {
-		template.setZoneId(renderer.getZone().getId());
+		template.setZone(renderer.getZone());
 		renderer.repaint();
 		super.attachTo(renderer);
 	}
@@ -435,7 +436,7 @@ public class RadiusTemplateTool extends AbstractDrawingTool implements MouseMoti
 			template.setRadius(getRadiusAtMouse(e));
 			ZonePoint vertex = template.getVertex();
 			ZonePoint newPoint = new ZonePoint(vertex.x, vertex.y);
-			completeDrawable(renderer.getZone().getId(), getPen(), template);
+			completeDrawable(new ZoneReference(renderer.getZone()), getPen(), template);
 			setIsEraser(false);
 			resetTool(newPoint);
 		}

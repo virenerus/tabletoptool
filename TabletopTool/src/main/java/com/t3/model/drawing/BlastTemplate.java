@@ -50,8 +50,8 @@ public class BlastTemplate extends ConeTemplate {
      * This methods adjusts the rectangle in the renderer to match the new radius, vertex, or location.
      */
     private void adjustRectangle() {
-        if (getZoneId() == null) return;
-        int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+        if (getZoneReference() == null) return;
+        int gridSize = getZoneReference().value().getGrid().getSize();
         int size = getRadius() * gridSize;
 
         Rectangle r = (Rectangle)renderer.getShape();

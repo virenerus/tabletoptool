@@ -23,7 +23,7 @@ import java.net.URLConnection;
 
 import javax.swing.ProgressMonitor;
 
-import com.t3.GUID;
+import com.t3.guid.GUID;
 
 public class RemoteFileDownloader {
 	private final URL url;

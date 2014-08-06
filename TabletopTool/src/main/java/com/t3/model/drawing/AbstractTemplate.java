@@ -18,9 +18,11 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
 import com.t3.client.TabletopTool;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.ZoneReference;
 import com.t3.xstreamversioned.SerializationVersion;
 
 /**
@@ -46,9 +48,9 @@ public abstract class AbstractTemplate extends AbstractDrawing {
 	private ZonePoint vertex = new ZonePoint(0, 0);
 
 	/**
-	 * The id of the zone where this drawable is painted.
+	 * The zone where this drawable is painted.
 	 */
-	private GUID zoneId;
+	private ZoneReference zone;
 
 	/*---------------------------------------------------------------------------------------------
 	 * Class Variables
@@ -186,20 +188,20 @@ public abstract class AbstractTemplate extends AbstractDrawing {
 	/**
 	 * Get the zoneId for this RadiusTemplate.
 	 * 
-	 * @return Returns the current value of zoneId.
+	 * @return Returns the current value of zone.
 	 */
-	public GUID getZoneId() {
-		return zoneId;
+	public ZoneReference getZoneReference() {
+		return zone;
 	}
 
 	/**
-	 * Set the value of zoneId for this RadiusTemplate.
+	 * Set the value of zone for this RadiusTemplate.
 	 * 
-	 * @param zoneId
-	 *            The zoneId to set.
+	 * @param zone
+	 *            The zone to set or null.
 	 */
-	public void setZoneId(GUID zoneId) {
-		this.zoneId = zoneId;
+	public void setZone(Zone zone) {
+		this.zone = NullHelper.referenceZone(zone);
 	}
 
 	/**
@@ -213,14 +215,11 @@ public abstract class AbstractTemplate extends AbstractDrawing {
 	 *            Paint the area?
 	 */
 	protected void paint(Graphics2D g, boolean border, boolean area) {
-		if (radius == 0)
-			return;
-		Zone zone = TabletopTool.getCampaign().getZone(zoneId);
-		if (zone == null)
+		if (radius == 0 || zone==null)
 			return;
 
 		// Find the proper distance
-		int gridSize = zone.getGrid().getSize();
+		int gridSize = zone.value().getGrid().getSize();
 		for (int y = 0; y < radius; y++) {
 			for (int x = 0; x < radius; x++) {
 
