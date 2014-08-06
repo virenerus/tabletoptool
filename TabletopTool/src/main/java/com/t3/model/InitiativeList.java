@@ -185,6 +185,7 @@ public class InitiativeList implements Serializable {
         	index = tokens.size();
         }
         TokenInitiative ti = new TokenInitiative(token);
+        ti.setInitiativeList(this);
         tokens.add(index, ti);
         getPCS().fireIndexedPropertyChange(TOKENS_PROP, index, null, ti);
         setCurrent(indexOf(currentInitiative)); // Restore current initiative
@@ -553,6 +554,7 @@ public class InitiativeList implements Serializable {
         startUnitOfWork();
         current = -1;
         TokenInitiative ti = tokens.remove(oldIndex);
+        ti.setInitiativeList(this);
         getPCS().fireIndexedPropertyChange(TOKENS_PROP, oldIndex, ti, null);
         
         // Add it at it's new position
@@ -630,7 +632,7 @@ public class InitiativeList implements Serializable {
      * 
      * @author Jay
      */
-    public class TokenInitiative {
+    public static class TokenInitiative {
         
         /*---------------------------------------------------------------------------------------------
          * Instance Variables 
@@ -655,6 +657,8 @@ public class InitiativeList implements Serializable {
          * Save off the icon so that it can be displayed as needed.
          */
         private transient Icon displayIcon;
+        
+        private InitiativeList initiativeList;
 
         /*---------------------------------------------------------------------------------------------
          * Constructors
@@ -676,7 +680,7 @@ public class InitiativeList implements Serializable {
         
         /** @return Getter for token */
         public Token getToken() {
-            return getZone().getToken(id);
+            return initiativeList.getZone().getToken(id);
         }
 
 
@@ -699,11 +703,11 @@ public class InitiativeList implements Serializable {
         public void setHolding(boolean isHolding) {
             if (holding == isHolding)
             	return;
-            startUnitOfWork();
+            initiativeList.startUnitOfWork();
             boolean old = holding;
             holding = isHolding;
-            getPCS().fireIndexedPropertyChange(TOKENS_PROP, tokens.indexOf(this), old, isHolding);
-            finishUnitOfWork(this);
+            initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), old, isHolding);
+            initiativeList.finishUnitOfWork(this);
         }
 
         /** @return Getter for state */
@@ -715,11 +719,11 @@ public class InitiativeList implements Serializable {
         public void setState(String aState) {
             if (state == aState || (state != null && state.equals(aState)))
             	return;
-            startUnitOfWork();
+            initiativeList.startUnitOfWork();
             String old = state;
             state = aState;
-            getPCS().fireIndexedPropertyChange(TOKENS_PROP, tokens.indexOf(this), old, aState);
-            finishUnitOfWork(this);
+            initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), old, aState);
+            initiativeList.finishUnitOfWork(this);
         }
 
         /** @return Getter for displayIcon */
@@ -744,8 +748,12 @@ public class InitiativeList implements Serializable {
             holding = isHolding;
             String oldState = state;
             state = aState;
-            getPCS().fireIndexedPropertyChange(TOKENS_PROP, tokens.indexOf(this), old, isHolding);
-            getPCS().fireIndexedPropertyChange(TOKENS_PROP, tokens.indexOf(this), oldState, aState);
+            initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), old, isHolding);
+            initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), oldState, aState);
         }
+
+		public void setInitiativeList(InitiativeList initiativeList) {
+			this.initiativeList = initiativeList;
+		}
     }
 }
