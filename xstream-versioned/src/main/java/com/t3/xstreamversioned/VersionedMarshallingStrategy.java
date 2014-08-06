@@ -49,12 +49,14 @@ public class VersionedMarshallingStrategy extends AbstractTreeMarshallingStrateg
 			return map.get(fromVersion);
 	}
 	
+	@Override
 	protected TreeUnmarshaller createUnmarshallingContext(Object root,
         HierarchicalStreamReader reader, ConverterLookup converterLookup, Mapper mapper) {
         return new VersionedUnmarshaller(this,root, reader, converterLookup, mapper);
     }
 
-    protected TreeMarshaller createMarshallingContext(
+    @Override
+	protected TreeMarshaller createMarshallingContext(
         HierarchicalStreamWriter writer, ConverterLookup converterLookup, Mapper mapper) {
         return new VersionedMarshaller(this,writer, converterLookup, mapper);
     }

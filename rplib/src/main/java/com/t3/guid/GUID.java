@@ -20,8 +20,6 @@ import org.apache.commons.codec.binary.Hex;
 
 import com.t3.xstreamversioned.SerializationVersion;
 
-import sun.util.logging.resources.logging;
-
 /**
  * Global unique identificator object.
  */
