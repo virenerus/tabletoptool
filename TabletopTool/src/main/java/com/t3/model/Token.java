@@ -37,10 +37,11 @@ import javax.swing.ImageIcon;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Logger;
 
-import com.t3.GUID;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
@@ -56,7 +57,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * an {@link Asset} (the image itself) and a location and scale.
  */
 @SerializationVersion(0)
-public class Token extends BaseModel {
+public class Token extends BaseModel implements UniquelyIdentifiable {
 	private static final Logger log = Logger.getLogger(Token.class);
 
 	private GUID id = new GUID();
@@ -471,7 +472,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null && lightSource.getType() == lightType)
 					i.remove();
 			}
@@ -482,7 +483,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -498,7 +499,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -514,7 +515,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -531,7 +532,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -548,7 +549,7 @@ public class Token extends BaseModel {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null && lightSource.getType() == lightType)
 					return true;
 			}
@@ -562,7 +563,7 @@ public class Token extends BaseModel {
 		}
 		for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 			AttachedLightSource als = i.next();
-			if (als != null && als.getLightSourceId() != null && als.getLightSourceId().equals(source.getId())) {
+			if (als != null && als.getLightSourceReference() != null && als.getLightSourceReference().getId().equals(source.getId())) {
 				i.remove();
 			}
 		}
@@ -584,7 +585,7 @@ public class Token extends BaseModel {
 		}
 		for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 			AttachedLightSource als = i.next();
-			if (als != null && als.getLightSourceId() != null && als.getLightSourceId().equals(source.getId())) {
+			if (als != null && als.getLightSourceReference() != null && als.getLightSourceReference().getId().equals(source.getId())) {
 				return true;
 			}
 		}
@@ -732,6 +733,7 @@ public class Token extends BaseModel {
 		this.charsheetImage = charsheetImage;
 	}
 
+	@Override
 	public GUID getId() {
 		return id;
 	}

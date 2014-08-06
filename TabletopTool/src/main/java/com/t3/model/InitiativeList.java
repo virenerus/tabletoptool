@@ -25,9 +25,12 @@ import javax.swing.Icon;
 
 import org.apache.log4j.Logger;
 
-import com.t3.GUID;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
+import com.t3.util.guidreference.ZoneReference;
 import com.t3.xstreamversioned.SerializationVersion;
 
 /**
@@ -65,14 +68,9 @@ public class InitiativeList implements Serializable {
     private transient PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
-     * The zone that owns this initiative list.
+     * The zone that owns this initiative list, used for persistence
      */
-    private transient Zone zone;
-    
-    /**
-     * The id of the zone that owns this initiative list, used for persistence
-     */
-    private GUID zoneId;
+    private ZoneReference zone;
     
     /**
      * Hold the update when this variable is greater than 0. Some methods need to call 
@@ -445,7 +443,7 @@ public class InitiativeList implements Serializable {
         ListIterator<TokenInitiative> i = tokens.listIterator();
         while (i.hasNext()) {
             TokenInitiative ti = i.next();
-            if (getZone().getToken(ti.getId()) == null) {
+            if (ti.getToken() == null) {
                 int index = tokens.indexOf(ti);
                 if (index <= current)
                 	setCurrent(current - 1);
@@ -519,9 +517,7 @@ public class InitiativeList implements Serializable {
     
     /** @return Getter for zone */
     public Zone getZone() {
-        if (zone == null && zoneId != null)
-            zone = TabletopTool.getCampaign().getZone(zoneId);
-        return zone;
+        return NullHelper.value(zone);
     }
 
     /** @return Getter for pcs */
@@ -574,7 +570,7 @@ public class InitiativeList implements Serializable {
      * Update the server with the new list
      */
     public void updateServer() {
-        if (zoneId == null)
+        if (zone== null)
         	return;
         LOGGER.debug("Full update");
         TabletopTool.serverCommand().updateInitiative(this, null);
@@ -586,20 +582,15 @@ public class InitiativeList implements Serializable {
      * @param ti Item to update
      */
     public void updateServer(TokenInitiative ti) {
-        if (zoneId == null)
+        if (zone == null)
             return;
         LOGGER.debug("Token Init update: " + ti.getId());
-        TabletopTool.serverCommand().updateTokenInitiative(zoneId, ti.getId(), ti.isHolding(), ti.getState(), indexOf(ti));
+        TabletopTool.serverCommand().updateTokenInitiative(zone.getId(), ti.getId(), ti.isHolding(), ti.getState(), indexOf(ti));
     }
 
     /** @param aZone Setter for the zone */
     public void setZone(Zone aZone) {
-        zone = aZone;
-        if (aZone != null) {
-            zoneId = aZone.getId();
-        } else {
-            zoneId = null;
-        } // endif
+        zone = NullHelper.referenceZone(aZone);
     }
 
     /** @return Getter for hideNPC */
@@ -640,9 +631,9 @@ public class InitiativeList implements Serializable {
          *-------------------------------------------------------------------------------------------*/
         
         /**
-         * The id of the token which is needed for persistence. It is immutable.
+         * The token which is needed for persistence. It is immutable.
          */
-        private GUID id;
+        private TokenReference token;
         
         /**
          * Flag indicating that the token is holding it's initiative.
@@ -671,8 +662,7 @@ public class InitiativeList implements Serializable {
          * @param aToken Add this token to the initiative.
          */
         public TokenInitiative(Token aToken) {
-            if (aToken != null) 
-            	id = aToken.getId();
+        	token=NullHelper.referenceToken(aToken);
         }
         
         /*---------------------------------------------------------------------------------------------
@@ -681,18 +671,13 @@ public class InitiativeList implements Serializable {
         
         /** @return Getter for token */
         public Token getToken() {
-            return initiativeList.getZone().getToken(id);
+            return NullHelper.value(token);
         }
 
 
         /** @return Getter for id */
         public GUID getId() {
-            return id;
-        }
-
-        /** @param id Setter for the id to set */
-        public void setId(GUID id) {
-            this.id = id;
+            return NullHelper.getId(token);
         }
 
         /** @return Getter for holding */

@@ -42,7 +42,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import com.t3.CodeTimer;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 
 /**
  * Represents a container of content/files within a single actual file.

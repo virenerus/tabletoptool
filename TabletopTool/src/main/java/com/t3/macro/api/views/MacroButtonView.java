@@ -23,7 +23,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.t3.client.TabletopTool;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 

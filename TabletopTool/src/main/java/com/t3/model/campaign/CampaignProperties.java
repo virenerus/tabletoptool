@@ -41,7 +41,7 @@ import com.t3.client.ui.token.TwoImageBarTokenOverlay;
 import com.t3.client.ui.token.TwoToneBarTokenOverlay;
 import com.t3.client.ui.token.XTokenOverlay;
 import com.t3.client.ui.token.YieldTokenOverlay;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;

@@ -68,8 +68,8 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.chat.ChatProcessor;
 import com.t3.client.ui.chat.SmileyChatTranslationRuleGroup;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
-import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.Token;
 import com.t3.model.chat.PlayerSpeaker;
@@ -79,6 +79,8 @@ import com.t3.model.chat.TokenSpeaker;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 public class CommandPanel extends JPanel implements Observer {
 	private static final long serialVersionUID = 8710948417044703674L;
@@ -105,7 +107,7 @@ public class CommandPanel extends JPanel implements Observer {
 
 	private ChatProcessor chatProcessor;
 
-	private GUID identityGUID;
+	private TokenReference impersonatedToken;
 
 	public CommandPanel() {
 		setLayout(new BorderLayout());
@@ -133,54 +135,33 @@ public class CommandPanel extends JPanel implements Observer {
 	 * Whether the player is currently impersonating a token
 	 */
 	public boolean isImpersonating() {
-		return identityGUID != null;
+		return impersonatedToken != null;
 	}
 	
 	/**
 	 * The name currently in use; if the user is not impersonating a token, this will return the player's name.
 	 */
 	public Speaker getSpeaker() {
-		if (identityGUID == null)
+		if (impersonatedToken == null)
 			return new PlayerSpeaker(TabletopTool.getPlayer().getName());
 		else
-			return new TokenSpeaker(identityGUID.toString());
+			return new TokenSpeaker(impersonatedToken.getId().toString());
 	}
 
-	/**
-	 * If the current impersonation was assigned using a GUID, that value is returned. This allows the calling code to
-	 * find a specific token even if there are duplicate names. If a GUID was not used (perhaps an arbitrary strings was
-	 * used via {@link #setIdentityName(String)}?) then <code>null</code> is returned.
-	 * 
-	 * @return
-	 */
-	public GUID getIdentityGUID() {
-		return identityGUID;
+	public Token getImpersonatedToken() {
+		return NullHelper.value(impersonatedToken);
 	}
 
-	private void setIdentityImpl(Token token) {
+	public void setImpersonatedToken(TokenReference token) {
 		if (token != null) {
-			identityGUID = token.getId();
-			avatarPanel.setImage(ImageManager.getImageAndWait(token.getImageAssetId()));
+			impersonatedToken = token;
+			avatarPanel.setImage(ImageManager.getImageAndWait(token.value().getImageAssetId()));
 			setCharacterLabel("Speaking as: " + getSpeaker().toString());
 		} else {
-			identityGUID = null;
+			impersonatedToken = null;
 			avatarPanel.setImage(null);
 			setCharacterLabel("");
 		}
-	}
-
-	/**
-	 * Sets the impersonated identity to <code>guid</code> which is a token GUID. This allows {@link #getIdentity()} to
-	 * retrieve the token name and/or token GUID for reporting to the user. (Name is preferred.)
-	 * 
-	 * @param guid
-	 */
-	public void setIdentityGUID(GUID guid) {
-		Token token = null;
-		ZoneRenderer zr = TabletopTool.getFrame().getCurrentZoneRenderer();
-		if (zr != null)
-			token = zr.getZone().getToken(guid);
-		setIdentityImpl(token);
 	}
 
 	public JButton getEmotePopupButton() {

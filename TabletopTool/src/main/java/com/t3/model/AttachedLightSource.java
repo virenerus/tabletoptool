@@ -11,13 +11,14 @@
  */
 package com.t3.model;
 
-import com.t3.GUID;
+import com.t3.util.guidreference.LightSourceReference;
+import com.t3.util.guidreference.NullHelper;
 import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)
 public class AttachedLightSource {
 
-	private GUID lightSourceId;
+	private LightSourceReference lightSource;
 	private Direction direction;
 
 	public AttachedLightSource() {
@@ -25,7 +26,7 @@ public class AttachedLightSource {
 	}
 	
 	public AttachedLightSource(LightSource source, Direction direction) {
-		lightSourceId = source.getId();
+		lightSource = new LightSourceReference(source);
 		this.direction = direction;
 	}
 	
@@ -33,7 +34,11 @@ public class AttachedLightSource {
 		return direction != null ? direction : Direction.CENTER;
 	}
 
-	public GUID getLightSourceId() {
-		return lightSourceId;
+	public LightSourceReference getLightSourceReference() {
+		return lightSource;
+	}
+	
+	public LightSource getLightSource() {
+		return NullHelper.value(lightSource);
 	}
 }

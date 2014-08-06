@@ -90,13 +90,13 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
 import com.t3.clientserver.connection.ClientConnection;
 import com.t3.dice.expression.Expression;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
-import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.Player;
 import com.t3.model.Zone;
@@ -1035,7 +1035,7 @@ public class TabletopTool {
 		if(host==null || host.trim().isEmpty())
 			throw new IllegalArgumentException("host is null or empty string");
 		TabletopTool.player = player;
-		TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
+		TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(null);
 
 		ClientConnection clientConn = new T3Connection(host, port, player);
 

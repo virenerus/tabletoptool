@@ -40,11 +40,13 @@ import com.t3.client.ui.macrobuttons.buttongroups.AbstractButtonGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroup;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.swing.SwingUtil;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 /**
  * Base class of {@link CampaignMacroButton} and {@link GlobalMacroButton}. {@link TokenMacroButton} doesn't extend this
@@ -58,7 +60,7 @@ public class MacroButton extends JButton implements MouseListener {
 	private final ButtonGroup buttonGroup;
 	private final AbstractMacroPanel panel;
 	private final String panelClass;
-	private final GUID tokenId;
+	private final TokenReference token;
 	private static final Insets buttonInsets = new Insets(2, 2, 2, 2);
 	private DragSource dragSource;
 	private DragGestureListener dgListener;
@@ -75,11 +77,7 @@ public class MacroButton extends JButton implements MouseListener {
 		this.buttonGroup = buttonGroup;
 		this.panel = buttonGroup.getPanel();
 		this.panelClass = buttonGroup.getPanel().getPanelClass();
-		if (token == null) {
-			this.tokenId = null;
-		} else {
-			this.tokenId = token.getId();
-		}
+		this.token=NullHelper.referenceToken(token);
 		this.properties.setToken(token);
 		this.properties.setSaveLocation(this.panelClass);
 		this.properties.setButton(this);
@@ -102,14 +100,8 @@ public class MacroButton extends JButton implements MouseListener {
 		return hotKeyManager;
 	}
 
-	public GUID getTokenId() {
-		return tokenId;
-	}
-
 	public Token getToken() {
-		ZoneRenderer zr = TabletopTool.getFrame().getCurrentZoneRenderer();
-		Zone z = (zr == null ? null : zr.getZone());
-		return z == null ? null : z.getToken(tokenId);
+		return NullHelper.value(token);
 	}
 
 	public AbstractButtonGroup getButtonGroup() {

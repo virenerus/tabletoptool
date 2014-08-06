@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.t3.GUID;
+import com.t3.guid.GUID;
 
 /**
  * Transferable for token identifiers.

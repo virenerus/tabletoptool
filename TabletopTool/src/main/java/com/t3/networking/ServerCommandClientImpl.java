@@ -18,10 +18,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
 import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;

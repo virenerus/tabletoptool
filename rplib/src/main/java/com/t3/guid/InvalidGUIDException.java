@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3;
+package com.t3.guid;
 
 public class InvalidGUIDException extends RuntimeException {
     private static final long serialVersionUID = 3257568421032768820L;

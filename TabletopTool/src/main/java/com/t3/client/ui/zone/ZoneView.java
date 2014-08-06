@@ -29,9 +29,9 @@ import com.t3.client.AppState;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.vbl.AreaTree;
+import com.t3.guid.GUID;
 import com.t3.model.AttachedLightSource;
 import com.t3.model.Direction;
-import com.t3.GUID;
 import com.t3.model.Light;
 import com.t3.model.LightSource;
 import com.t3.model.ModelChangeEvent;
@@ -104,7 +104,7 @@ public class ZoneView implements ModelChangeListener {
 		// Calculate
 		Area area = new Area();
 		for (AttachedLightSource attachedLightSource : lightSourceToken.getLightSources()) {
-			LightSource lightSource = TabletopTool.getCampaign().getLightSource(attachedLightSource.getLightSourceId());
+			LightSource lightSource = attachedLightSource.getLightSource();
 			if (lightSource == null) {
 				continue;
 			}
@@ -282,7 +282,7 @@ public class ZoneView implements ModelChangeListener {
 				Point p = FogUtil.calculateVisionCenter(token, zone);
 
 				for (AttachedLightSource als : token.getLightSources()) {
-					LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+					LightSource lightSource = als.getLightSource();
 					if (lightSource == null) {
 						continue;
 					}
@@ -325,7 +325,7 @@ public class ZoneView implements ModelChangeListener {
 			if (token.hasLightSources() && token.isVisible())
 				if (!token.isVisibleOnlyToOwner() || (token.isVisibleOnlyToOwner() && AppUtil.playerOwns(token))) {
 					for (AttachedLightSource als : token.getLightSources()) {
-						LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+						LightSource lightSource = als.getLightSource();
 						if (lightSource == null) {
 							continue;
 						}
@@ -479,7 +479,7 @@ public class ZoneView implements ModelChangeListener {
 			if (evt == Zone.Event.TOKEN_REMOVED) {
 				Token token = (Token) event.getArg();
 				for (AttachedLightSource als : token.getLightSources()) {
-					LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+					LightSource lightSource = als.getLightSource();
 					if (lightSource == null) {
 						continue;
 					}
@@ -497,12 +497,11 @@ public class ZoneView implements ModelChangeListener {
 	 */
 	private void processTokenAddChangeEvent(List<Token> tokens) {
 		boolean hasSight = false;
-		Campaign c = TabletopTool.getCampaign();
 
 		for (Token token : tokens) {
 			boolean hasLightSource = token.hasLightSources() && (token.isVisible() || (TabletopTool.getPlayer().isGM() && !AppState.isShowAsPlayer()));
 			for (AttachedLightSource als : token.getLightSources()) {
-				LightSource lightSource = c.getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					Set<GUID> lightSet = lightSourceMap.get(lightSource.getType());
 					if (hasLightSource) {

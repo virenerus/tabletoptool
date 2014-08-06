@@ -31,18 +31,20 @@ import com.t3.client.ui.macrobuttons.buttongroups.AreaGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroupPopupMenu;
 import com.t3.client.ui.macrobuttons.buttons.MacroButton;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 @SuppressWarnings("serial")
 public abstract class AbstractMacroPanel extends JPanel implements Scrollable, MouseListener, ModelChangeListener, AppEventListener {
 	private String panelClass = "";
-	private GUID tokenId = null;
+	private TokenReference token = null;
 
 	public void addArea(List<MacroButtonProperties> propertiesList, String label) {
 		add(new AreaGroup(propertiesList, label, this));
@@ -51,8 +53,8 @@ public abstract class AbstractMacroPanel extends JPanel implements Scrollable, M
 		repaint();
 	}
 
-	public void addArea(GUID tokenId) {
-		add(new AreaGroup(tokenId, this));
+	public void addArea(TokenReference token) {
+		add(new AreaGroup(token, this));
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		revalidate();
 		repaint();
@@ -96,27 +98,15 @@ public abstract class AbstractMacroPanel extends JPanel implements Scrollable, M
 	}
 
 	public Token getToken() {
-		if (this.tokenId == null) {
-			return null;
-		} else {
-			return TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(this.tokenId);
-		}
+		return NullHelper.value(token);
 	}
 
-	public GUID getTokenId() {
-		return this.tokenId;
+	public TokenReference getTokenReference() {
+		return this.token;
 	}
 
-	public void setTokenId(Token token) {
-		if (token == null) {
-			this.tokenId = null;
-		} else {
-			this.tokenId = token.getId();
-		}
-	}
-
-	public void setTokenId(GUID tokenId) {
-		this.tokenId = tokenId;
+	public void setToken(Token token) {
+		this.token=NullHelper.referenceToken(token);
 	}
 
 	protected void clear() {

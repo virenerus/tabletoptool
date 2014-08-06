@@ -33,6 +33,7 @@ import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.language.I18N;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
+import com.t3.util.guidreference.TokenReference;
 
 public class SelectionPanel extends AbstractMacroPanel {
 	private static final Logger log = Logger.getLogger(SelectionPanel.class);
@@ -94,7 +95,7 @@ public class SelectionPanel extends AbstractMacroPanel {
 				if (!AppUtil.playerOwns(token)) {
 					continue;
 				}
-				addArea(token.getId());
+				addArea(new TokenReference(token));
 			}
 			if (selectedTokenList.size() == 1 && AppUtil.playerOwns(selectedTokenList.get(0))) {
 				// if only one token selected, show its image as tab icon
