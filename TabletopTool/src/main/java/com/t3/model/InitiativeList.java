@@ -632,6 +632,7 @@ public class InitiativeList implements Serializable {
      * 
      * @author Jay
      */
+    @SerializationVersion(0)
     public static class TokenInitiative {
         
         /*---------------------------------------------------------------------------------------------

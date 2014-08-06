@@ -13,6 +13,9 @@ package com.t3.dice.expression;
 
 import java.util.Random;
 
+import com.t3.xstreamversioned.SerializationVersion;
+
+@SerializationVersion(0)
 public class NegationNode extends Expression {
 
 	private Expression expr;

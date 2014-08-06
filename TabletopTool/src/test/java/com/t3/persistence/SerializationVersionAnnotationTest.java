@@ -2,6 +2,7 @@ package com.t3.persistence;
 
 import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +17,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.beust.jcommander.Strings;
+import com.t3.macro.MacroEngine;
+import com.t3.model.campaign.TokenPropertyType;
 import com.t3.xstreamversioned.SerializationVersion;
 
 public class SerializationVersionAnnotationTest {
@@ -26,6 +29,10 @@ public class SerializationVersionAnnotationTest {
 		LinkedList<Class<?>> annotatedClasses = new LinkedList<>(reflections.getTypesAnnotatedWith(SerializationVersion.class));
 
 		AssertJUnit.assertFalse(annotatedClasses.isEmpty());
+		
+		MacroEngine.initialize();
+		for(TokenPropertyType tpt:TokenPropertyType.values())
+			annotatedClasses.add(tpt.getType());
 
 		HashSet<Class<?>> checked = new HashSet<Class<?>>();
 		while (!annotatedClasses.isEmpty()) {
