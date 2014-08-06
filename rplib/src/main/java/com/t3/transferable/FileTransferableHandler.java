@@ -14,6 +14,7 @@ package com.t3.transferable;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -36,11 +37,13 @@ public class FileTransferableHandler extends TransferableHandler {
 	}
 
 	@Override
-	public List<URL> getTransferObject(Transferable transferable)
+	public List<File> getTransferObject(Transferable transferable)
 			throws IOException, UnsupportedFlavorException {
 
 		if (transferable.isDataFlavorSupported(Flavor.fileList.getFlavor())) {
-			return (List<URL>)transferable.getTransferData(Flavor.fileList.getFlavor());
+            // THIS IS AN INVALID CAST!
+			// return (List<URL>)transferable.getTransferData(Flavor.fileList.getFlavor());
+            return (List<File>)transferable.getTransferData(Flavor.fileList.getFlavor());
 		}
 		
 		throw new UnsupportedFlavorException(null);
