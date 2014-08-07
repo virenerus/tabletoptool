@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -103,7 +102,7 @@ public abstract class Grid implements Cloneable {
 		return null;
 	}
 
-	protected List<TokenFootprint> loadFootprints(String name, OffsetTranslator... translators) throws IOException {
+	protected List<TokenFootprint> loadFootprints(String name, OffsetTranslator... translators) {
 		Object obj = FileUtil.objFromResource(Asset.class,name);
 		@SuppressWarnings("unchecked")
 		List<TokenFootprint> footprintList = (List<TokenFootprint>) obj;

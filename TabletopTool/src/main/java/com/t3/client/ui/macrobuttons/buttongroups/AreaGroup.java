@@ -25,7 +25,6 @@ import javax.swing.SwingUtilities;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
-import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.util.guidreference.NullHelper;

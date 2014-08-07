@@ -226,24 +226,20 @@ public class LookupTablePanel extends AbeillePanel<LookupTableImagePanelModel> {
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						try {
-							Map<String, LookupTable> lookupTables = TabletopTool.getCampaign().getLookupTableMap();
-							LookupTable newTable = PersistenceUtil.loadTable(selectedFile);
-							Boolean alreadyExists = lookupTables.keySet().contains(newTable.getName());
-							if (alreadyExists) {
-								if (TabletopTool.confirm("LookupTablePanel.confirm.import", newTable.getName())) {
-									lookupTables.remove(newTable.getName());
-								} else {
-									return;
-								}
+						Map<String, LookupTable> lookupTables = TabletopTool.getCampaign().getLookupTableMap();
+						LookupTable newTable = PersistenceUtil.loadTable(selectedFile);
+						Boolean alreadyExists = lookupTables.keySet().contains(newTable.getName());
+						if (alreadyExists) {
+							if (TabletopTool.confirm("LookupTablePanel.confirm.import", newTable.getName())) {
+								lookupTables.remove(newTable.getName());
+							} else {
+								return;
 							}
-							lookupTables.put(newTable.getName(), newTable);
-							imagePanel.clearSelection();
-							imagePanel.repaint();
-							TabletopTool.serverCommand().updateCampaign(TabletopTool.getCampaign().getCampaignProperties());
-						} catch (IOException ioe) {
-							TabletopTool.showError("LookupTablePanel.error.loadFailed", ioe);
 						}
+						lookupTables.put(newTable.getName(), newTable);
+						imagePanel.clearSelection();
+						imagePanel.repaint();
+						TabletopTool.serverCommand().updateCampaign(TabletopTool.getCampaign().getCampaignProperties());
 					}
 				});
 			}

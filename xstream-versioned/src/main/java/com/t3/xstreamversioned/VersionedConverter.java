@@ -1,12 +1,7 @@
 package com.t3.xstreamversioned;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.t3.xstreamversioned.VersionedMarshallingStrategy.VersionedUnmarshaller;

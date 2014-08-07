@@ -67,7 +67,6 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import com.jidesoft.grid.CellEditorFactory;
 import com.jidesoft.grid.CellEditorManager;
-import com.jidesoft.grid.CellRendererManager;
 import com.jidesoft.grid.ListComboBoxCellEditor;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
@@ -81,21 +80,15 @@ import com.t3.client.ui.AppMenuBar;
 import com.t3.client.ui.ConnectionStatusPanel;
 import com.t3.client.ui.StartServerDialogPreferences;
 import com.t3.client.ui.T3Frame;
-import com.t3.client.ui.token.CappedIntegerCellEditor;
-import com.t3.client.ui.token.CappedIntegerCellRenderer;
-import com.t3.client.ui.token.DiceExpressionCellEditor;
-import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
 import com.t3.clientserver.connection.ClientConnection;
-import com.t3.dice.expression.Expression;
 import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
-import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
 import com.t3.model.ObservableList;
 import com.t3.model.Player;
@@ -121,7 +114,6 @@ import com.t3.sound.SoundManager;
 import com.t3.swing.SwingUtil;
 import com.t3.transfer.AssetTransferManager;
 import com.t3.util.UPnPUtil;
-import com.t3.util.math.CappedInteger;
 
 /**
  */
@@ -460,11 +452,7 @@ public class TabletopTool {
 
 	public static BackupManager getBackupManager() {
 		if (backupManager == null) {
-			try {
-				backupManager = new BackupManager(AppUtil.getAppHome("backup"));
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			backupManager = new BackupManager(AppUtil.getAppHome("backup"));
 		}
 		return backupManager;
 	}

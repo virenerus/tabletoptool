@@ -266,17 +266,7 @@ public class AddResourceDialog extends AbeillePanel<AddResourceDialog.Model> {
 				TabletopTool.showMessage("dialog.addresource.warn.directoryrequired", "Error", JOptionPane.ERROR_MESSAGE, model.getLocalDirectory());
 				return false;
 			}
-			try {
-				AppSetup.installLibrary(FileUtil.getNameWithoutExtension(root), root);
-			} catch (MalformedURLException e) {
-				log.error("Bad path url: " + root.getPath(), e);
-				TabletopTool.showMessage("dialog.addresource.warn.badpath", "Error", JOptionPane.ERROR_MESSAGE, model.getLocalDirectory());
-				return false;
-			} catch (IOException e) {
-				log.error("IOException adding local root: " + root.getPath(), e);
-				TabletopTool.showMessage("dialog.addresource.warn.badpath", "Error", JOptionPane.ERROR_MESSAGE, model.getLocalDirectory());
-				return false;
-			}
+			AppSetup.installLibrary(FileUtil.getNameWithoutExtension(root), root);
 			return true;
 
 		case WEB:

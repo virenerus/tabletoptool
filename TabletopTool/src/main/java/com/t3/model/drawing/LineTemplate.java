@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 import com.t3.client.AppState;
-import com.t3.client.TabletopTool;
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
 import com.t3.xstreamversioned.SerializationVersion;

@@ -11,7 +11,6 @@
  */
 package com.t3.client.ui.assetpanel;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,8 +19,6 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-
-import com.t3.client.TabletopTool;
 
 /**
  */
@@ -78,13 +75,7 @@ public class ImageFileTreeModel implements TreeModel {
 			return rootDirectories.get(index);
 		}
 		Directory dir = (Directory) parent;
-		try {
-			return dir.getSubDirs().get(index);
-		} catch (FileNotFoundException fnf) {
-			TabletopTool.showError(fnf.getLocalizedMessage(), fnf);
-			// Returning 'null' should be okay, since getChildCount will always return 0 for this exception
-			return null;
-		}
+		return dir.getSubDirs().get(index);
 	}
 
 	/*
@@ -98,12 +89,7 @@ public class ImageFileTreeModel implements TreeModel {
 			return rootDirectories.size();
 		}
 		Directory dir = (Directory) parent;
-		try {
-			return dir.getSubDirs().size();
-		} catch (FileNotFoundException fnf) {
-			TabletopTool.showError(fnf.getLocalizedMessage(), fnf);
-			return 0;
-		}
+		return dir.getSubDirs().size();
 	}
 
 	/*
@@ -138,13 +124,7 @@ public class ImageFileTreeModel implements TreeModel {
 			return rootDirectories.indexOf(child);
 		}
 		Directory dir = (Directory) parent;
-		try {
-			return dir.getSubDirs().indexOf(child);
-		} catch (FileNotFoundException fnf) {
-			TabletopTool.showError(fnf.getLocalizedMessage(), fnf);
-			// Returning '0' should be okay, since getChildCount will always return 0 for this exception
-			return 0;
-		}
+		return dir.getSubDirs().indexOf(child);
 	}
 
 	/*

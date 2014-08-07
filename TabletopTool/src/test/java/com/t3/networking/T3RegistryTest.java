@@ -1,10 +1,7 @@
 package com.t3.networking;
 
 import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.t3.networking.registry.RegisteredServer;
 import com.t3.networking.registry.T3Registry;
 

@@ -40,7 +40,6 @@ public class ZonePopupMenu extends JPopupMenu {
 				public void actionPerformed(ActionEvent e) {
 					ZonePopupMenu.this.zone.setVisible(false);
 					TabletopTool.serverCommand().setZoneVisibility(ZonePopupMenu.this.zone.getId(), false);
-					TabletopTool.getFrame().getZoneMiniMapPanel().flush();
 					TabletopTool.getFrame().refresh();
 				}
 			};
@@ -54,7 +53,6 @@ public class ZonePopupMenu extends JPopupMenu {
 					
 					ZonePopupMenu.this.zone.setVisible(true);
 					TabletopTool.serverCommand().setZoneVisibility(ZonePopupMenu.this.zone.getId(), true);
-					TabletopTool.getFrame().getZoneMiniMapPanel().flush();
 					TabletopTool.getFrame().refresh();
 				}
 			};

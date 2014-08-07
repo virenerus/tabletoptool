@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import com.thoughtworks.xstream.converters.ErrorWriter;
-import com.thoughtworks.xstream.core.util.FastStack;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 
 public class SerializedObjectReader implements HierarchicalStreamReader {

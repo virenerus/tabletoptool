@@ -3,7 +3,6 @@ package com.t3.util.guidreference;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.guid.GUID;
-import com.t3.model.Zone;
 import com.t3.xstreamversioned.SerializationVersion;
 
 @SerializationVersion(0)

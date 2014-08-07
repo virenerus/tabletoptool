@@ -111,7 +111,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static PersistedMap loadMap(File mapFile) throws IOException {
+	public static PersistedMap loadMap(File mapFile) {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(mapFile);
@@ -416,7 +416,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static Token loadToken(File file) throws IOException {
+	public static Token loadToken(File file) {
 		PackedFile pakFile = null;
 		Token token = null;
 		try {
@@ -444,7 +444,7 @@ public class PersistenceUtil {
 		return token;
 	}
 
-	private static void loadAssets(Collection<MD5Key> assetIds, PackedFile pakFile) throws IOException {
+	private static void loadAssets(Collection<MD5Key> assetIds, PackedFile pakFile) {
 		List<Asset> addToServer = new ArrayList<Asset>(assetIds.size());
 
 		for (MD5Key key : assetIds) {
@@ -596,7 +596,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static MacroButtonProperties loadMacro(InputStream in) throws IOException {
+	public static MacroButtonProperties loadMacro(InputStream in) {
 		MacroButtonProperties mbProps = null;
 		try {
 			mbProps = (MacroButtonProperties) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
@@ -721,7 +721,7 @@ public class PersistenceUtil {
 		return table;
 	}
 
-	public static LookupTable loadTable(File file) throws IOException {
+	public static LookupTable loadTable(File file) {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(file);

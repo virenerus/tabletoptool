@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,6 @@ import javax.swing.Action;
 import javax.swing.KeyStroke;
 
 import com.t3.client.AppPreferences;
-import com.t3.client.TabletopTool;
 import com.t3.client.tool.PointerTool;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.walker.ZoneWalker;
@@ -132,13 +130,8 @@ public class HexGridVertical extends HexGrid {
 
 	@Override
 	public List<TokenFootprint> getFootprints() {
-		if (footprintList == null) {
-			try {
-				footprintList = loadFootprints("hexGridVertFootprints.xml", getOffsetTranslator());
-			} catch (IOException ioe) {
-				TabletopTool.showError("Could not load Hex Grid footprints", ioe);
-			}
-		}
+		if (footprintList == null)
+			footprintList = loadFootprints("hexGridVertFootprints.xml", getOffsetTranslator());
 		return footprintList;
 	}
 

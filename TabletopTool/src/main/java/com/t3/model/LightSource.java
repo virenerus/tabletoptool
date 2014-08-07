@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -191,7 +190,7 @@ public class LightSource implements Comparable<LightSource>, UniquelyIdentifiabl
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, List<LightSource>> getDefaultLightSources() throws IOException {
+	public static Map<String, List<LightSource>> getDefaultLightSources() {
 		Object defaultLights = FileUtil.objFromResource(LightSource.class,"defaultLightSourcesMap.xml");
 		return (Map<String, List<LightSource>>) defaultLights;
 	}

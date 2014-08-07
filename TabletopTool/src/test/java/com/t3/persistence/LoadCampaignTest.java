@@ -5,9 +5,6 @@ import org.testng.AssertJUnit;
 import java.io.File;
 import java.io.IOException;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.t3.macro.MacroEngine;
 
 public class LoadCampaignTest {

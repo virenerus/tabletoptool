@@ -197,11 +197,7 @@ public class SquareGrid extends Grid {
 	@Override
 	public List<TokenFootprint> getFootprints() {
 		if (footprintList == null) {
-			try {
-				footprintList = loadFootprints("squareGridFootprints.xml");
-			} catch (IOException ioe) {
-				TabletopTool.showError("SquareGrid.error.squareGridNotLoaded", ioe);
-			}
+			footprintList = loadFootprints("squareGridFootprints.xml");
 		}
 		return footprintList;
 	}

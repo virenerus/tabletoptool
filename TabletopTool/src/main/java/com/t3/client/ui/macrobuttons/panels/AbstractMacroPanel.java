@@ -31,7 +31,6 @@ import com.t3.client.ui.macrobuttons.buttongroups.AreaGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroup;
 import com.t3.client.ui.macrobuttons.buttongroups.ButtonGroupPopupMenu;
 import com.t3.client.ui.macrobuttons.buttons.MacroButton;
-import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;

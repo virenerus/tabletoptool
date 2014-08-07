@@ -11,7 +11,6 @@
  */
 package com.t3.model;
 
-import com.t3.guid.GUID;
 import com.t3.util.guidreference.ZoneReference;
 
 /**

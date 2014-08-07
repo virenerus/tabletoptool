@@ -12,13 +12,10 @@
 package com.t3.client.ui.token;
 
 import java.awt.Component;
-import java.util.EventObject;
-
 import javax.swing.AbstractCellEditor;
 import javax.swing.CellEditor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 
 import com.jidesoft.grid.CellEditorFactory;
