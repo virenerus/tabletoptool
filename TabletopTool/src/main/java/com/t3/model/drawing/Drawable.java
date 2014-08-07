@@ -16,7 +16,7 @@ import java.awt.geom.Area;
 
 import com.t3.guid.GUID;
 import com.t3.model.Zone;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * @author drice

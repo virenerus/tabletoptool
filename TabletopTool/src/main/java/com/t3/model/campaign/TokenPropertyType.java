@@ -23,7 +23,7 @@ import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.TokenPropertiesList;
 import com.t3.util.math.CappedInteger;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public enum TokenPropertyType {

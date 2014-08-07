@@ -32,7 +32,7 @@ import com.t3.model.Token;
 import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * An abstract hex grid class that uses generic Cartesian-coordinates for calculations to allow for various hex grid

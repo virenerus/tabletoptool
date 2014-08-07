@@ -39,7 +39,7 @@ import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.ZonePoint;
 import com.t3.persistence.FileUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Base class for grids.

@@ -1,18 +1,23 @@
-package com.t3.xstreamversioned;
+package com.t3.xstreamversioned.marshalling;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
+import com.t3.xstreamversioned.model.GenericObject;
 import com.thoughtworks.xstream.converters.ErrorWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 
 public class SerializedObjectReader implements HierarchicalStreamReader {
 
-	LinkedList<SerializedObject> objectStack=new LinkedList<>();
+	HashSet<Integer> readObjects=new HashSet<>();	
+	LinkedList<GenericObject> objectStack=new LinkedList<>();
 	LinkedList<Integer> childIdStack=new LinkedList<>();
 	
-	public SerializedObjectReader(SerializedObject ser) {
+	public SerializedObjectReader(GenericObject ser) {
 		objectStack.push(ser);
 		childIdStack.push(0);
 	}
@@ -22,7 +27,7 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 		return childIdStack.getFirst()<objectStack.getFirst().getChildren().size();
 	}
 	
-	public SerializedObject getCurrentObject() {
+	public GenericObject getCurrentObject() {
 		return objectStack.peek();
 	}
 
@@ -30,8 +35,20 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 	public void moveDown() {
 		int id=childIdStack.poll();
 		childIdStack.push(id+1);
-		objectStack.push(objectStack.getFirst().getChild(id));
+		objectStack.push(getObjectOrReference(new ArrayList<>(objectStack.getFirst().getChildren()).get(id)));
 		childIdStack.push(0);
+	}
+
+	private GenericObject getObjectOrReference(GenericObject go) {
+		if(readObjects.contains(go.getInternalId())) {
+			GenericObject ref=new GenericObject(go.getObjectManager(), -1);
+			ref.setXStreamAttributes(Collections.singletonMap("referencedId", Integer.toString(go.getInternalId())));
+			return ref;
+		}
+		else {
+			readObjects.add(go.getInternalId());
+			return go;
+		}
 	}
 
 	@Override
@@ -76,6 +93,7 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 		return it.next().getKey();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Iterator getAttributeNames() {
 		return objectStack.getFirst().getAttributes().keySet().iterator();

@@ -1,7 +1,7 @@
 package com.t3.persistence;
 
 import com.t3.persistence.converter.AssetImageConverter;
-import com.t3.xstreamversioned.VersionedMarshallingStrategy;
+import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.Converter;
 
@@ -13,7 +13,7 @@ public class Persister {
 	 * @return the xstream instance
 	 */
 	public static XStream newInstance() {
-		VersionedMarshallingStrategy vms=new VersionedMarshallingStrategy();
+		MigratingMarshallingStrategy vms=new MigratingMarshallingStrategy();
 		
 		//add migrators here for changed classes
 		//vms.registerTypeUpdater(type, updater);

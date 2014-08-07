@@ -1,4 +1,4 @@
-package com.t3.xstreamversioned;
+package com.t3.xstreamversioned.version;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

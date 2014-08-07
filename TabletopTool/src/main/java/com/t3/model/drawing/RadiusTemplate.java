@@ -18,7 +18,7 @@ import java.awt.geom.Area;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.util.guidreference.NullHelper;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * The radius template draws a highlight over all the squares effected from a specific spine.

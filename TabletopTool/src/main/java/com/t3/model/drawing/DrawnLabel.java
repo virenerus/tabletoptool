@@ -20,7 +20,7 @@ import javax.swing.CellRendererPane;
 
 import com.t3.client.swing.TwoToneTextPane;
 import com.t3.client.tool.drawing.DrawnTextTool;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * @author jgorrell

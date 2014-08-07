@@ -16,7 +16,7 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Area;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * An rectangle

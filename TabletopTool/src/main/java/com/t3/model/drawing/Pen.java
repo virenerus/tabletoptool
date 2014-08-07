@@ -13,7 +13,7 @@ package com.t3.model.drawing;
 
 import java.awt.Color;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * The color and thickness to draw a {@link Drawable}with. Also used to erase

@@ -18,7 +18,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Create and paint a donut burst

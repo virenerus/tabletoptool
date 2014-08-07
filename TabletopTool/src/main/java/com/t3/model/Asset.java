@@ -21,7 +21,7 @@ import javax.imageio.stream.ImageInputStream;
 
 import com.t3.MD5Key;
 import com.t3.client.TabletopTool;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * The binary representation of an image.

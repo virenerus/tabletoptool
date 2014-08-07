@@ -26,7 +26,7 @@ import com.t3.model.CellPoint;
 import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class GridlessGrid extends Grid {

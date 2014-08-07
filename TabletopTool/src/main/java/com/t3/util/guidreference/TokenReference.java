@@ -3,7 +3,7 @@ package com.t3.util.guidreference;
 import com.t3.guid.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class TokenReference extends GUIDReference<Token> {

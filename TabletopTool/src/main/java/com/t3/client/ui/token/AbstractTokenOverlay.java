@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 import com.t3.model.Player;
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * An overlay that may be applied to a token to show state.

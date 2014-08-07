@@ -8,12 +8,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
+
 import org.reflections.Reflections;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+
 import com.t3.macro.MacroEngine;
 import com.t3.model.campaign.TokenPropertyType;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 public class SerializationVersionAnnotationTest {
 

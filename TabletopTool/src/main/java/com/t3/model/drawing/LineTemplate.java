@@ -24,7 +24,7 @@ import java.util.ListIterator;
 import com.t3.client.AppState;
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * A drawing tool that will draw a line template between 2 vertices.

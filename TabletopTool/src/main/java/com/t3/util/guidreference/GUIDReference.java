@@ -3,7 +3,7 @@ package com.t3.util.guidreference;
 import com.t3.guid.GUID;
 import com.t3.guid.UniquelyIdentifiable;
 import com.t3.model.InvalidGUIDException;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This class represents a reference to a certain object. The reference is only defined by the GUID and thus if the 
@@ -11,7 +11,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * @author Virenerus
  *
  */
-@SerializationVersion(0)
+@SerializationVersion(1)
 public abstract class GUIDReference<VALUE extends UniquelyIdentifiable> implements UniquelyIdentifiable {
 	
 	private final GUID id;

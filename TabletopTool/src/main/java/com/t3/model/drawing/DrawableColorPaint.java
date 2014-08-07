@@ -16,7 +16,7 @@ import java.awt.Paint;
 import java.awt.image.ImageObserver;
 import java.io.Serializable;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class DrawableColorPaint extends DrawablePaint implements Serializable {

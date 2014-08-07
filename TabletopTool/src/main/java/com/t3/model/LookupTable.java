@@ -19,7 +19,7 @@ import java.util.Set;
 
 import com.t3.MD5Key;
 import com.t3.macro.MacroException;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class LookupTable {

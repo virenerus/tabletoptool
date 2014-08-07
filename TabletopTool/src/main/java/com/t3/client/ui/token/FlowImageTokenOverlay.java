@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 
 import com.t3.MD5Key;
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * An overlay that allows multiple images to be placed on the token so that they

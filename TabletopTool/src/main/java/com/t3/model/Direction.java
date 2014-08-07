@@ -11,7 +11,7 @@
  */
 package com.t3.model;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public enum Direction {

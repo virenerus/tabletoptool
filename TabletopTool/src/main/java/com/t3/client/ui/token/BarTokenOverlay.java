@@ -16,7 +16,7 @@ import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 
 /**
