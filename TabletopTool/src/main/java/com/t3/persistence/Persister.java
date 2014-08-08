@@ -1,7 +1,8 @@
 package com.t3.persistence;
 
 import com.t3.persistence.converter.AssetImageConverter;
-import com.t3.xstreamversioned.VersionedMarshallingStrategy;
+import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
+import com.t3.xstreamversioned.migration.MigrationManager;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.Converter;
 
@@ -13,16 +14,15 @@ public class Persister {
 	 * @return the xstream instance
 	 */
 	public static XStream newInstance() {
-		VersionedMarshallingStrategy vms=new VersionedMarshallingStrategy();
+		MigrationManager mm=new MigrationManager("com.t3.",true);
 		
 		//add migrators here for changed classes
-		//vms.registerTypeUpdater(type, updater);
+		//mm.registerMigrator(type, updater);
 		
-		//add packages from 3rd party libraries that should be ignored
-		vms.addUnversionedPackage("org.apache.commons");
 		
 		XStream xstream=new XStream();
-		xstream.setMarshallingStrategy(vms);
+		xstream.setMarshallingStrategy(new MigratingMarshallingStrategy(mm));
+
 		
 		//ADD ALL CONVERTERS HERE THAT DECIDE HOW TO SERIALIZE DESERIALIZE CERTAIN CLASSES
 		xstream.registerConverter((Converter)new AssetImageConverter());

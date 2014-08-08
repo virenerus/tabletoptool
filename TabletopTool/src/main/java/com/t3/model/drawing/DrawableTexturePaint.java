@@ -22,7 +22,7 @@ import com.t3.MD5Key;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.util.ImageManager;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class DrawableTexturePaint extends DrawablePaint implements Serializable {

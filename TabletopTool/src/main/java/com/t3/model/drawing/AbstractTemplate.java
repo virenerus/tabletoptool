@@ -21,7 +21,7 @@ import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
 import com.t3.util.guidreference.NullHelper;
 import com.t3.util.guidreference.ZoneReference;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Base class for the radius, line, and cone templates.

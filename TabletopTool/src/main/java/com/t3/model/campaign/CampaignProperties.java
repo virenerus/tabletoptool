@@ -45,7 +45,7 @@ import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
 import com.t3.util.math.CappedInteger;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class CampaignProperties {

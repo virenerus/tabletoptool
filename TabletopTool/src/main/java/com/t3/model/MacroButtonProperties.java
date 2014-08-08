@@ -34,7 +34,7 @@ import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.chat.TextMessage;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This (data)class is used by all Macro Buttons, including campaign, global and token macro buttons.

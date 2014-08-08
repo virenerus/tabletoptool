@@ -12,6 +12,7 @@
 package com.t3.clientserver.connection;
 
 import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,7 +22,7 @@ import java.net.UnknownHostException;
 import com.t3.clientserver.Command;
 import com.t3.clientserver.NetworkSerializer;
 
-public class ClientConnection extends AbstractConnection {
+public class ClientConnection extends AbstractConnection implements Closeable {
 
 	private final Socket socket;
 
@@ -78,7 +79,8 @@ public class ClientConnection extends AbstractConnection {
         return !socket.isClosed();
     }
 
-    public synchronized void close() throws IOException {
+    @Override
+	public synchronized void close() throws IOException {
 
     	if (send.stopRequested) {
     		return;

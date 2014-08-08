@@ -25,7 +25,7 @@ import com.t3.guid.GUID;
 import com.t3.guid.UniquelyIdentifiable;
 import com.t3.model.grid.Grid;
 import com.t3.persistence.FileUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class LightSource implements Comparable<LightSource>, UniquelyIdentifiable {

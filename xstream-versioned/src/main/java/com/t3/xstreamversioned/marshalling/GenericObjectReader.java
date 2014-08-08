@@ -1,18 +1,21 @@
-package com.t3.xstreamversioned;
+package com.t3.xstreamversioned.marshalling;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
+import com.t3.xstreamversioned.model.GenericObject;
 import com.thoughtworks.xstream.converters.ErrorWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 
-public class SerializedObjectReader implements HierarchicalStreamReader {
+public class GenericObjectReader implements HierarchicalStreamReader {
 
-	LinkedList<SerializedObject> objectStack=new LinkedList<>();
+	LinkedList<GenericObject> objectStack=new LinkedList<>();
 	LinkedList<Integer> childIdStack=new LinkedList<>();
 	
-	public SerializedObjectReader(SerializedObject ser) {
+	public GenericObjectReader(GenericObject ser) {
 		objectStack.push(ser);
 		childIdStack.push(0);
 	}
@@ -22,7 +25,7 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 		return childIdStack.getFirst()<objectStack.getFirst().getChildren().size();
 	}
 	
-	public SerializedObject getCurrentObject() {
+	public GenericObject getCurrentObject() {
 		return objectStack.peek();
 	}
 
@@ -30,7 +33,7 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 	public void moveDown() {
 		int id=childIdStack.poll();
 		childIdStack.push(id+1);
-		objectStack.push(objectStack.getFirst().getChild(id));
+		objectStack.push(objectStack.getFirst().getChildren().get(id));
 		childIdStack.push(0);
 	}
 
@@ -52,12 +55,12 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 
 	@Override
 	public String getAttribute(String name) {
-		return objectStack.getFirst().getAttributes().get(name);
+		return objectStack.getFirst().getXStreamAttributes().get(name);
 	}
 
 	@Override
 	public String getAttribute(int index) {
-		Iterator<Entry<String, String>> it=objectStack.getFirst().getAttributes().entrySet().iterator();
+		Iterator<Entry<String, String>> it=objectStack.getFirst().getXStreamAttributes().entrySet().iterator();
 		for(int i=0;i<index-1;i++)
 			it.next();
 		return it.next().getValue();
@@ -65,20 +68,21 @@ public class SerializedObjectReader implements HierarchicalStreamReader {
 
 	@Override
 	public int getAttributeCount() {
-		return objectStack.getFirst().getAttributes().size();
+		return objectStack.getFirst().getXStreamAttributes().size();
 	}
 
 	@Override
 	public String getAttributeName(int index) {
-		Iterator<Entry<String, String>> it=objectStack.getFirst().getAttributes().entrySet().iterator();
+		Iterator<Entry<String, String>> it=objectStack.getFirst().getXStreamAttributes().entrySet().iterator();
 		for(int i=0;i<index-1;i++)
 			it.next();
 		return it.next().getKey();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Iterator getAttributeNames() {
-		return objectStack.getFirst().getAttributes().keySet().iterator();
+		return objectStack.getFirst().getXStreamAttributes().keySet().iterator();
 	}
 
 	@Override

@@ -51,7 +51,7 @@ import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This object represents the maps that will appear for placement of

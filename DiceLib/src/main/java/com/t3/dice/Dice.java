@@ -13,7 +13,7 @@ package com.t3.dice;
 
 import java.util.Random;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public abstract class Dice {

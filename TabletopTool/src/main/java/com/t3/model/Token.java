@@ -50,7 +50,7 @@ import com.t3.model.grid.Grid;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This object represents the placeable objects on a map. For example an icon that represents a character would exist as

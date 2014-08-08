@@ -21,7 +21,7 @@ import com.t3.dice.modifiers.ExplodingModifier;
 import com.t3.dice.modifiers.KeepModifier;
 import com.t3.dice.modifiers.RerollModifier;
 import com.t3.dice.modifiers.SuccessModifier;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class ExtendableDice extends Dice {

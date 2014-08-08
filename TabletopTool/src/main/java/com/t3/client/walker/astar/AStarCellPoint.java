@@ -12,7 +12,7 @@
 package com.t3.client.walker.astar;
 
 import com.t3.model.CellPoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class AStarCellPoint extends CellPoint {

@@ -59,17 +59,17 @@
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ChatParser</artifactId>
-		<version>0.4.3</version>
+		<version>0.4.4</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>rplib</artifactId>
-		<version>0.4.3</version>
+		<version>0.4.4</version>
 	</dependency>
 	<dependency>
 		<groupId>tabletoptool</groupId>
 		<artifactId>ClientServer</artifactId>
-		<version>0.4.3</version>
+		<version>0.4.4</version>
 	</dependency>
 	<dependency>
 		<groupId>log4j</groupId>
@@ -130,6 +130,6 @@
 	<parent>
 		<groupId>tabletoptool</groupId>
 		<artifactId>t3-master</artifactId>
-		<version>0.4.3</version>
+		<version>0.4.4</version>
 	</parent>
 </project>

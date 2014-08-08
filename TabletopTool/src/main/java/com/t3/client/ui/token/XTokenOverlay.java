@@ -21,7 +21,7 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Draw an X over a token.

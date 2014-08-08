@@ -2,7 +2,7 @@ package com.t3.util.guidreference;
 
 import com.t3.guid.GUID;
 import com.t3.guid.UniquelyIdentifiable;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public abstract class CachedGUIDReference<VALUE extends UniquelyIdentifiable> extends GUIDReference<VALUE> {

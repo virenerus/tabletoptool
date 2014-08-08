@@ -31,7 +31,7 @@ import com.t3.guid.GUID;
 import com.t3.util.guidreference.NullHelper;
 import com.t3.util.guidreference.TokenReference;
 import com.t3.util.guidreference.ZoneReference;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * All of the tokens currently being shown in the initiative list. It includes a reference to all

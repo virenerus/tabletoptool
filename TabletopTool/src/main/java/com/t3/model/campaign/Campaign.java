@@ -40,7 +40,7 @@ import com.t3.model.MacroButtonProperties;
 import com.t3.model.SightType;
 import com.t3.model.Zone;
 import com.t3.net.Location;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * <p>

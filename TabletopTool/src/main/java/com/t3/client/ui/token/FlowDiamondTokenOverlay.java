@@ -18,7 +18,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Paint a square so that it doesn't overlay any other states being displayed in the same grid.

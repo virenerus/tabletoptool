@@ -15,7 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * An overlay that may be applied to a token to show state.

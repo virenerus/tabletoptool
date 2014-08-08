@@ -59,7 +59,7 @@ import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
 import com.t3.util.guidreference.ZoneReference;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 import com.thoughtworks.xstream.converters.ConversionException;
 
 /**

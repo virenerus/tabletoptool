@@ -3,8 +3,9 @@ package com.t3.xstreamversioned;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.t3.xstreamversioned.SerializationVersion;
-import com.t3.xstreamversioned.VersionedMarshallingStrategy;
+import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
+import com.t3.xstreamversioned.migration.MigrationManager;
+import com.t3.xstreamversioned.version.SerializationVersion;
 import com.thoughtworks.xstream.XStream;
 
 public class SerializationTest {
@@ -17,7 +18,7 @@ public class SerializationTest {
 	  tc.subTest.subTest=tc; //circle reference
 	  
 	  XStream xstream=new XStream();
-	  xstream.setMarshallingStrategy(new VersionedMarshallingStrategy());
+	  xstream.setMarshallingStrategy(new MigratingMarshallingStrategy(new MigrationManager("com.t3.", true)));
 	  String xml=xstream.toXML(tc);
 	  TestClass reser=(TestClass) xstream.fromXML(xml);
 	  Assert.assertEquals(reser, tc);

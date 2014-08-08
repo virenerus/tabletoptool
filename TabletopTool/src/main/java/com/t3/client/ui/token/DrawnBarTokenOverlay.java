@@ -16,7 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Draws a single color bar along one side of a token.
