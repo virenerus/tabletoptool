@@ -3,8 +3,10 @@ package com.t3.xstreamversioned.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import com.t3.xstreamversioned.version.Version;
@@ -12,7 +14,7 @@ import com.t3.xstreamversioned.version.Version;
 public class GenericObject {
 	
 	private Version currentVersion;
-	private HashSet<Integer> children;
+	private LinkedHashSet<Integer> children;
 	private String content;
 	private String name;
 	private Map<String, String> xStreamAttributes;
@@ -21,9 +23,10 @@ public class GenericObject {
 	 */
 	private final int internalId;
 	private final GenericObjectManager genericObjectManager;
+	private Integer referencing;
 	
 	public GenericObject(GenericObjectManager genericObjectManager, int internalId) {
-		this.children=new HashSet<>();
+		this.children=new LinkedHashSet<>();
 		this.internalId=internalId;
 		this.genericObjectManager=genericObjectManager;
 	}
@@ -32,7 +35,7 @@ public class GenericObject {
 		return currentVersion;
 	}
 	
-	public Map<String, String> getAttributes() {
+	public Map<String, String> getXStreamAttributes() {
 		return Collections.unmodifiableMap(xStreamAttributes);
 	}
 
@@ -106,5 +109,20 @@ public class GenericObject {
 
 	public GenericObjectManager getObjectManager() {
 		return genericObjectManager;
+	}
+	
+	public void setReferencing(GenericObject ref) {
+		if(ref==null) {
+			referencing=null;
+			xStreamAttributes.remove("reference");
+		}
+		else {
+			this.referencing=ref.getInternalId();
+			xStreamAttributes.put("reference", Integer.toString(ref.getInternalId()));
+		}
+	}
+	
+	public GenericObject getReferencing() {
+		return genericObjectManager.getObject(referencing);
 	}
 }

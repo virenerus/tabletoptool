@@ -22,6 +22,7 @@ public class OtherAttributesTest {
 		XStream xs=new XStream();
 		xs.setMarshallingStrategy(new MigratingMarshallingStrategy(new MigrationManager("com.t3.", true)));
 		
+		System.out.println(xs.toXML(map));
 		Map<String, String> map2=(Map<String, String>) xs.fromXML(xs.toXML(map));
 		
 		Assert.assertEquals(map, map2);

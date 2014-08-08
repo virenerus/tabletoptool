@@ -44,8 +44,8 @@ public class MigratingConverter implements Converter {
 
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		if(reader instanceof SerializedObjectReader) {//we already built a tree -> reuse
-			GenericObject ser=((SerializedObjectReader)reader).getCurrentObject();
+		if(reader instanceof GenericObjectReader) {//we already built a tree -> reuse
+			GenericObject ser=((GenericObjectReader)reader).getCurrentObject();
 			ser=migrationManager.migrate(ser, context.getRequiredType());
 			Object obj=parentConverter.unmarshal(reader, context);
 			return obj;
@@ -55,7 +55,7 @@ public class MigratingConverter implements Converter {
 			
 			ser=migrationManager.migrate(ser, context.getRequiredType());
 			
-			SerializedObjectReader serReader = new SerializedObjectReader(ser);
+			GenericObjectReader serReader = new GenericObjectReader(ser);
 			MigratingUnmarshaller vum = (MigratingUnmarshaller)context;
 			HierarchicalStreamReader tmp = vum.getReader();
 			vum.setReader(serReader);

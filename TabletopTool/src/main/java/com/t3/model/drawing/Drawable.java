@@ -21,7 +21,6 @@ import com.t3.xstreamversioned.version.SerializationVersion;
 /**
  * @author drice
  */
-@SerializationVersion(0)
 public interface Drawable {
 	public void draw(Graphics2D g, Pen pen);
 

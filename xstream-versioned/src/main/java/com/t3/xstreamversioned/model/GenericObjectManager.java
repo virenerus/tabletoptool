@@ -15,49 +15,50 @@ public class GenericObjectManager {
 	private int nextNegativeId=-1;
 	
 	public GenericObject parse(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		String referencedId=reader.getAttribute("reference");
+		int internalId=reader.getAttribute("id")==null?nextNegativeId--:Integer.parseInt(reader.getAttribute("id"));
 		
-		//if this is only a reference to an object already parsed earlier
+		GenericObject go=new GenericObject(this,internalId);
+		parsedObjects.put(internalId, go);
+		nextId=Math.max(internalId+1, nextId);
+		
+		go.setName(reader.getNodeName());
+		
+		//collect all attributes to ensure compatibility
+		HashMap<String, String> xStreamAttributes=new HashMap<String, String>();
+		for(int i=0;i<reader.getAttributeCount();i++) {
+			String attrName=reader.getAttributeName(i);
+			if(!"version".equals(attrName))
+				xStreamAttributes.put(attrName, reader.getAttribute(i));
+		}
+		go.setXStreamAttributes(xStreamAttributes);
+		
+		//version
+		String version=reader.getAttribute("version");
+		if(version!=null) go.setCurrentVersion(Version.parseVersion(version));
+		
+		
+		//reference
+		String referencedId=reader.getAttribute("reference");
 		if(referencedId!=null) {
-			GenericObject go=parsedObjects.get(Integer.parseInt(referencedId));
-			if(go==null)
+			GenericObject ref=parsedObjects.get(Integer.parseInt(referencedId));
+			if(ref==null)
 				throw new RuntimeException("Reference to object "+referencedId+" before it occured directly");
 			else
-				return go;
+				go.setReferencing(ref);
 		}
-		else {
-			int internalId=reader.getAttribute("id")==null?nextNegativeId--:Integer.parseInt(reader.getAttribute("id"));
-			
-			GenericObject go=new GenericObject(this,internalId);
-			parsedObjects.put(internalId, go);
-			nextId=Math.max(internalId+1, nextId);
-			
-			go.setName(reader.getNodeName());
-			
-			//collect all attributes to ensure compatibility
-			HashMap<String, String> xStreamAttributes=new HashMap<String, String>();
-			for(int i=0;i<reader.getAttributeCount();i++) {
-				String attrName=reader.getAttributeName(i);
-				if(!"version".equals(attrName))
-					xStreamAttributes.put(attrName, reader.getAttribute(i));
-			}
-			go.setXStreamAttributes(xStreamAttributes);
-			
-			//version
-			String version=reader.getAttribute("version");
-			if(version!=null) go.setCurrentVersion(Version.parseVersion(version));
-			
-			//if child nodes
-			if(reader.hasMoreChildren()) {
+		
+		
+		//child elements or content
+		if(reader.hasMoreChildren()) {
+			while(reader.hasMoreChildren()) {
 				reader.moveDown();
-				if(StringUtils.isEmpty(reader.getValue()))
 				go.addChild(parse(reader, null));
 				reader.moveUp();
 			}
-			else
-				go.setContent(reader.getValue());
-			return go;
 		}
+		else
+			go.setContent(reader.getValue());
+		return go;
 	}
 
 	public GenericObject getObject(Integer childId) {

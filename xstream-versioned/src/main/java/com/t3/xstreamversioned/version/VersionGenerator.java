@@ -21,11 +21,12 @@ public class VersionGenerator {
 			return null;
 		
 		//subclasses of enums can't be annotated and their serialization is done by the enum parent class
-		if(type.getSuperclass()!=null && type.getSuperclass().isEnum())
+		if(type.getSuperclass()!=null && type.getSuperclass().isEnum()) 
 			return generateVersion(type.getSuperclass(), strict, packageFilter);
 		
+		
 		Version version=generateVersion(type.getSuperclass(), strict, packageFilter);
-		if(version==null)
+		if(version==null || !isInPackages(packageFilter, generateName(type))) //if not controlled class there is no reason to go into depth)
 			version=new Version();
 		SerializationVersion versionAnnotation=type.getAnnotation(SerializationVersion.class);
 		if(versionAnnotation==null) {

@@ -16,6 +16,6 @@ public class VersionGeneratorTest {
 	@Test
 	public void versionGeneratorTest() {
 		Version list=VersionGenerator.generateVersion(ArrayList.class,true,Collections.<String>emptySet());
-		Assert.assertEquals(list, Version.parseVersion("[0@java.util.AbstractCollection, 0@java.util.AbstractList, 0@java.util.ArrayList]"));
+		Assert.assertEquals(list, Version.parseVersion("[0@java.util.ArrayList]"));
 	}
 }

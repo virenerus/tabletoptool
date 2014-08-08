@@ -28,4 +28,16 @@ public class Version extends ArrayList<VersionElement> {
 			throw new IllegalArgumentException(versionList+" is no valid version list",e);
 		}
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o==null) {
+			for(VersionElement ve:this)
+				if(ve.getSerializationVersion()>0)
+					return false;
+			return true;
+		}
+		else
+			return super.equals(o);
+	}
 }
