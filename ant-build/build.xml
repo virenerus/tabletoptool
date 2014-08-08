@@ -38,6 +38,9 @@
 	
 	<target name="build.subprojects" depends="mvn.init">
 		<ant antfile="build-subproject.xml">
+			<property name="subproject.folder" value="../xstream-versioned"/>
+		</ant>
+		<ant antfile="build-subproject.xml">
 			<property name="subproject.folder" value="../DiceLib"/>
 		</ant>
 		<ant antfile="build-subproject.xml">
@@ -45,9 +48,6 @@
 		</ant>
 		<ant antfile="build-subproject.xml">
 			<property name="subproject.folder" value="../ClientServer"/>
-		</ant>
-		<ant antfile="build-subproject.xml">
-			<property name="subproject.folder" value="../xstream-versioned"/>
 		</ant>
 		<ant antfile="build-subproject.xml">
 			<property name="subproject.folder" value="../rplib"/>
