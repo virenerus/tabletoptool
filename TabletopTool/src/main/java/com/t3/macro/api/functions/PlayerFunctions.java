@@ -42,6 +42,11 @@ public class PlayerFunctions {
 	public String getLocalName() {
 		return TabletopTool.getPlayer().getName();
 	}
+
+    /**
+     * @return if the current local player is a GM or not
+     */
+    public boolean isGM() { return TabletopTool.getPlayer().isGM(); }
 	
 	/**
 	 * @return a list of all the player names

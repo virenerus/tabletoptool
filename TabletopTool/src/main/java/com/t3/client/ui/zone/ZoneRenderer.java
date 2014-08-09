@@ -2845,6 +2845,25 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		return tokenList;
 	}
 
+    /**
+     * A convenience method to get selected tokens
+     * that are also owned by the current player
+     * @return List<Token>
+     */
+    public List<Token> getSelectedOwnedTokensList() {
+        List<Token> tokenList = new ArrayList<Token>();
+
+        for (GUID g : selectedTokenSet) {
+            if (zone.getToken(g) != null && zone.getToken(g).isOwner(TabletopTool.getPlayer().getName())) {
+                tokenList.add(zone.getToken(g));
+            }
+        }
+        // Commented out to preserve selection order
+        // Collections.sort(tokenList, Token.NAME_COMPARATOR);
+
+        return tokenList;
+    }
+
 	public boolean isTokenSelectable(GUID tokenGUID) {
 		if (tokenGUID == null) {
 			return false;

@@ -228,6 +228,14 @@ public class MapView {
 	public List<TokenView> getSelectedTokens() {
 		return TokenView.makeTokenViewList(zr.getSelectedTokensList());
 	}
+
+    /**
+     * This return
+     * @return the List of all the selected, owned TokenViews
+     */
+    public List<TokenView> getSelectedOwnedTokens() {
+        return TokenView.makeTokenViewList(zr.getSelectedOwnedTokensList());
+    }
 	
 	/**
 	 * @return a list of all the tokens on this map currently visible
