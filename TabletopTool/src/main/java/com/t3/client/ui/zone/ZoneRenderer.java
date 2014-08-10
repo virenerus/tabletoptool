@@ -2854,7 +2854,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
         List<Token> tokenList = new ArrayList<Token>();
 
         for (GUID g : selectedTokenSet) {
-            if (zone.getToken(g) != null && zone.getToken(g).isOwner(TabletopTool.getPlayer().getName())) {
+            if (zone.getToken(g) != null && (TabletopTool.getPlayer().isGM() || zone.getToken(g).isOwner(TabletopTool.getPlayer().getName()))) {
                 tokenList.add(zone.getToken(g));
             }
         }
