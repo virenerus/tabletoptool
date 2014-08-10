@@ -642,7 +642,7 @@ public class Token extends BaseModel implements UniquelyIdentifiable {
 	}
 
 	public synchronized boolean isOwner(String playerId) {
-		return this.ownedByAll || (ownerList != null && ownerList.contains(playerId));
+		return this.ownedByAll || (ownerList != null && ownerList.contains(playerId)) || TabletopTool.getPlayer().isGM();
 	}
 
 	@Override
