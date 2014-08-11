@@ -35,15 +35,20 @@ public abstract class GUIDReference<VALUE extends UniquelyIdentifiable> implemen
 	
 	/**
 	 * This method returns the value referenced by the GUID.
-	 * @throws InvalidGUIDException if the GUID resolves to null
+	 
 	 * @return the value of the id
 	 */
+	//* @throws InvalidGUIDException if the GUID resolves to null
 	public VALUE value() {
 		VALUE v=resolveReference(id);
 		if(v==null)
 			throw new InvalidGUIDException("The GUID "+id+" of type "+this.getClass().getSimpleName()+" was resolved to null");
 		else
 			return v;
+	}
+	
+	public boolean isValid() {
+		return null != resolveReference(id);
 	}
 
 	protected abstract VALUE resolveReference(GUID id);

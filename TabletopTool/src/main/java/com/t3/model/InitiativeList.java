@@ -443,7 +443,7 @@ public class InitiativeList implements Serializable {
         ListIterator<TokenInitiative> i = tokens.listIterator();
         while (i.hasNext()) {
             TokenInitiative ti = i.next();
-            if (ti.getToken() == null) {
+            if (!ti.tokenExists()) {
                 int index = tokens.indexOf(ti);
                 if (index <= current)
                 	setCurrent(current - 1);
@@ -669,7 +669,11 @@ public class InitiativeList implements Serializable {
          * Instance Methods 
          *-------------------------------------------------------------------------------------------*/
         
-        /** @return Getter for token */
+        public boolean tokenExists() {
+			return token.isValid();
+		}
+
+		/** @return Getter for token */
         public Token getToken() {
             return NullHelper.value(token);
         }

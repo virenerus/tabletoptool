@@ -187,7 +187,7 @@ public class ChatExecutor {
 							String speechKey = token.getSpeech(parts.getArguments()[0]);
 							String speech=token.getSpeech(speechKey);
 							if(text!=null)
-								TabletopTool.addMessage(TextMessage.say(speech, new TokenSpeaker(token.getName())));
+								TabletopTool.addMessage(TextMessage.say(speech, new TokenSpeaker(token.getId())));
 						}
 						break;
 					case WHISPER:
@@ -276,7 +276,7 @@ public class ChatExecutor {
 	}
 
 	public static void outOfCharacter(String message) {
-		TabletopTool.addMessage(TextMessage.say("(( "+message+" ))", new PlayerSpeaker(TabletopTool.getPlayer().getName())));
+		TabletopTool.addMessage(TextMessage.say("(( "+message+" ))", new PlayerSpeaker(TabletopTool.getPlayer())));
 	}
 
 	public static void emote(String message, Speaker identity) {

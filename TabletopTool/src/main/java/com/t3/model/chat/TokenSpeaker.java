@@ -8,8 +8,8 @@ public class TokenSpeaker extends Speaker {
 	
 	private transient Token token;
 	
-	public TokenSpeaker(String identity) {
-		super(identity);
+	public TokenSpeaker(GUID tokenId) {
+		super(tokenId.toString());
 	}
 
 	@Override

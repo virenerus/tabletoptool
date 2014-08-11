@@ -141,9 +141,13 @@ public class CommandPanel extends JPanel implements Observer {
 	 */
 	public Speaker getSpeaker() {
 		if (impersonatedToken == null)
-			return new PlayerSpeaker(TabletopTool.getPlayer().getName());
-		else
-			return new TokenSpeaker(impersonatedToken.getId().toString());
+			return new PlayerSpeaker(TabletopTool.getPlayer());
+		else if(!impersonatedToken.isValid()) {
+			this.setImpersonatedToken(null);
+			return new PlayerSpeaker(TabletopTool.getPlayer());
+		}
+
+		return new TokenSpeaker(impersonatedToken.getId());
 	}
 
 	public Token getImpersonatedToken() {

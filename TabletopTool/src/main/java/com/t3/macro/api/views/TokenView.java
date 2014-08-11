@@ -117,7 +117,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void say(Object message) {
-		ChatExecutor.say(message.toString(),new TokenSpeaker(token.getId().toString()));
+		ChatExecutor.say(message.toString(),new TokenSpeaker(token.getId()));
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisper(Object message, String targetPlayer) {
-		ChatExecutor.whisper(message.toString(), new TokenSpeaker(token.getId().toString()), targetPlayer);		
+		ChatExecutor.whisper(message.toString(), new TokenSpeaker(token.getId()), targetPlayer);		
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void whisperToGM(Object message) {
-		ChatExecutor.gm(message.toString(), new TokenSpeaker(token.getId().toString()));
+		ChatExecutor.gm(message.toString(), new TokenSpeaker(token.getId()));
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void emote(Object message) {
-		ChatExecutor.emote(message.toString(), new TokenSpeaker(token.getId().toString()));
+		ChatExecutor.emote(message.toString(), new TokenSpeaker(token.getId()));
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class TokenView extends TokenPropertyView {
 	 * @param message a string or some other kind of objects that is written to the chat
 	 */
 	public void reply(Object message) {
-		ChatExecutor.reply(message.toString(), new TokenSpeaker(token.getId().toString()));
+		ChatExecutor.reply(message.toString(), new TokenSpeaker(token.getId()));
 	}
 	
 	/**

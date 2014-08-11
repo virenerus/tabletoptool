@@ -171,7 +171,8 @@ public class InitiativeListModel extends AbstractListModel<TokenInitiative> impl
                 } else if (evt.getNewValue() == null & evt.getOldValue() instanceof TokenInitiative) {
 
                     // Removed a token
-                    if (isTokenVisible(((TokenInitiative)evt.getOldValue()).getToken(), list.isHideNPC())) {
+                	TokenInitiative ti=(TokenInitiative)evt.getOldValue();
+                    if (ti.tokenExists() && isTokenVisible(ti.getToken(), list.isHideNPC())) {
                         fireIntervalRemoved(InitiativeListModel.this, list.getSize(), list.getSize());
                         fireContentsChanged(InitiativeListModel.this, 0, list.getSize() - 1);
                     }
