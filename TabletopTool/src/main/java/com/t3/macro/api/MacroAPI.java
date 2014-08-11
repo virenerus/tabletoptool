@@ -11,6 +11,7 @@
  */
 package com.t3.macro.api;
 
+import com.t3.macro.api.functions.*;
 import groovy.lang.Script;
 
 import com.t3.chatparser.generated.ChatParser;
@@ -20,12 +21,6 @@ import com.t3.client.ui.commandpanel.ChatExecutor;
 import com.t3.dice.DiceBuilder;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.MacroException;
-import com.t3.macro.api.functions.CampaignFunctions;
-import com.t3.macro.api.functions.DialogFunctions;
-import com.t3.macro.api.functions.InfoFunctions;
-import com.t3.macro.api.functions.MapFunctions;
-import com.t3.macro.api.functions.PathFunctions;
-import com.t3.macro.api.functions.PlayerFunctions;
 import com.t3.macro.api.views.InitiativeListView;
 import com.t3.model.chat.PlayerSpeaker;
 
@@ -38,6 +33,7 @@ public abstract class MacroAPI extends Script {
 	public final DialogFunctions dialog;
 	public final PathFunctions path;
 	public final CampaignFunctions campaign;
+    public final TableFunctions table;
 
 	public MacroAPI() {
 		super();
@@ -47,6 +43,7 @@ public abstract class MacroAPI extends Script {
 		this.dialog=new DialogFunctions();
 		this.path=new PathFunctions();
 		this.campaign=new CampaignFunctions();
+        this.table=new TableFunctions();
 	}
 
 	/**
