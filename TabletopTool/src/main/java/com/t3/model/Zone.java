@@ -42,7 +42,6 @@ import com.t3.client.ui.zone.ZoneView;
 import com.t3.guid.GUID;
 import com.t3.guid.UniquelyIdentifiable;
 import com.t3.language.I18N;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.DrawablePaint;
@@ -50,6 +49,8 @@ import com.t3.model.drawing.DrawableTexturePaint;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.util.StringUtil;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
@@ -342,7 +343,7 @@ public class Zone extends BaseModel implements UniquelyIdentifiable {
 				TokenInitiative ti = initiativeList.getTokenInitiative(i);
 				TokenInitiative oldti = (TokenInitiative) saveInitiative[i][1];
 				ti.setHolding(oldti.isHolding());
-				ti.setState(oldti.getState());
+				ti.setState(oldti.getRawState());
 			}
 		}
 		initiativeList.setZone(this);

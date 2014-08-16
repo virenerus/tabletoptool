@@ -32,6 +32,7 @@ import org.codehaus.groovy.syntax.ParserException;
 
 
 
+
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.T3Util;
@@ -51,8 +52,6 @@ import com.t3.macro.api.views.InitiativeListView.InitiativeEntry;
 import com.t3.model.AbstractPoint;
 import com.t3.model.CellPoint;
 import com.t3.model.Direction;
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.LightSource;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
@@ -66,6 +65,8 @@ import com.t3.model.campaign.TokenProperty;
 import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.util.ImageManager;
 import com.t3.util.TokenUtil;
 import com.t3.util.math.IntPoint;
@@ -195,7 +196,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return true if the token was added
 	 */
 	public boolean addToInitiative() {
-		return addToInitiative(false, null);
+		return addToInitiative(false, (String)null);
 	}
 	
 	/**
@@ -204,7 +205,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return true if the token was added
 	 */
 	public boolean addToInitiative(boolean allowDuplicates) {
-		return addToInitiative(allowDuplicates, null);
+		return addToInitiative(allowDuplicates, (String)null);
 	}
 	
 	/**
@@ -215,6 +216,27 @@ public class TokenView extends TokenPropertyView {
 	 * @return if this token was actually added
 	 */
 	public boolean addToInitiative(boolean allowDuplicates, String state) {
+		InitiativeList list = token.getZone().getInitiativeList();
+	    // insert the token if needed
+	    TokenInitiative ti = null;
+	    if (allowDuplicates || !list.contains(token)) {
+	        ti = list.insertToken(-1, token);
+	        if (state != null) ti.setState(state);
+	    } else {
+	    	setTokenInitiative(state);
+	        return false;
+	    }
+	    return ti != null;
+	}
+	
+	/**
+	 * This method adds this token to the initiative list. If it is already present and you don't allow duplicates the given state will override the old one.
+	 * Otherwise the given state will be the state of the new initative list entry
+	 * @param allowDuplicates if this token should be added if it is already in the intiative list
+	 * @param state an optional state that can be displayed with the token name (like a initiative value)
+	 * @return if this token was actually added
+	 */
+	public boolean addToInitiative(boolean allowDuplicates, Number state) {
 		InitiativeList list = token.getZone().getInitiativeList();
 	    // insert the token if needed
 	    TokenInitiative ti = null;
@@ -304,6 +326,19 @@ public class TokenView extends TokenPropertyView {
      * @param state the new initiative of the token
      */
     public void setTokenInitiative(String state) {
+    	InitiativeList list=token.getZone().getInitiativeList();
+    	for(Integer index:list.indexOf(token)) {
+	        TokenInitiative ti = list.getTokenInitiative(index);
+	        if(ti!=null)
+	        	ti.setState(state);
+        }
+    }
+    
+    /**
+     * This lets you set the initiative of a token.
+     * @param state the new initiative of the token
+     */
+    public void setTokenInitiative(Number state) {
     	InitiativeList list=token.getZone().getInitiativeList();
     	for(Integer index:list.indexOf(token)) {
 	        TokenInitiative ti = list.getTokenInitiative(index);

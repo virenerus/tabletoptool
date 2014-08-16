@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model;
+package com.t3.model.initiative;
 
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
@@ -20,8 +20,10 @@ import javax.swing.AbstractListModel;
 
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
-import com.t3.model.InitiativeList.TokenInitiative;
+import com.t3.model.Token;
 import com.t3.model.Token.Type;
+import com.t3.model.Zone;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 
 /**
  * This implements a list model for the for the panel. It removes all of the tokens that aren't

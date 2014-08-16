@@ -45,7 +45,7 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.image.ImageUtil;
-import com.t3.model.InitiativeList.TokenInitiative;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.model.Token;
 import com.t3.swing.ImageLabel;
 import com.t3.swing.SwingUtil;

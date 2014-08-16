@@ -9,12 +9,13 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.model;
+package com.t3.model.initiative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,11 +24,14 @@ import java.util.ListIterator;
 
 import javax.swing.Icon;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.guid.GUID;
+import com.t3.model.Token;
+import com.t3.model.Zone;
 import com.t3.util.guidreference.NullHelper;
 import com.t3.util.guidreference.TokenReference;
 import com.t3.util.guidreference.ZoneReference;
@@ -40,7 +44,7 @@ import com.t3.xstreamversioned.version.SerializationVersion;
  * 
  * @author Jay
  */
-@SerializationVersion(0)
+@SerializationVersion(1)
 public class InitiativeList implements Serializable {
 
     /*---------------------------------------------------------------------------------------------
@@ -468,48 +472,7 @@ public class InitiativeList implements Serializable {
     public void sort() {
         startUnitOfWork();
         TokenInitiative currentInitiative = getTokenInitiative(getCurrent()); // Save the currently selected initiative
-        Collections.sort(tokens, new Comparator<TokenInitiative>() {
-            @Override
-			public int compare(TokenInitiative o1, TokenInitiative o2) {
-                
-                // Get a number, string, or null for first parameter
-                Object one = null;
-                if (o1.state != null) {
-                    one = o1.state;                
-                    try {
-                        one = Double.valueOf(o1.state);
-                    } catch (NumberFormatException e) {
-                        // Not a number so ignore
-                    } // endtry
-                } // endif
-                
-                // Repeat for second param
-                Object two = null;
-                if (o2.state != null) {
-                    two = o2.state;                
-                    try {
-                        two = Double.valueOf(o2.state);
-                    } catch (NumberFormatException e) {
-                        // Not a number so ignore
-                    } // endtry
-                } // endif
-                
-                // Do the comparison
-                if (one == two || (one != null && one.equals(two)))
-                	return 0;
-                if (one == null)
-                	return 1; // Null is always the smallest value
-                if (two == null)
-                	return -1;
-                if (one instanceof Double & two instanceof Double)
-                	return ((Double)two).compareTo((Double)one);
-                if (one instanceof String & two instanceof String)
-                	return ((String)two).compareTo((String)one);
-                if (one instanceof Double)
-                	return -1; // Integers are bigger than strings
-                return 1;
-            }            
-        });
+        Collections.sort(tokens);
         getPCS().firePropertyChange(TOKENS_PROP, null, tokens);
         setCurrent(indexOf(currentInitiative)); // Restore current initiative
         finishUnitOfWork();
@@ -585,7 +548,7 @@ public class InitiativeList implements Serializable {
         if (zone == null)
             return;
         LOGGER.debug("Token Init update: " + ti.getId());
-        TabletopTool.serverCommand().updateTokenInitiative(zone.getId(), ti.getId(), ti.isHolding(), ti.getState(), indexOf(ti));
+        TabletopTool.serverCommand().updateTokenInitiative(zone.getId(), ti.getId(), ti.isHolding(), ti.getRawState(), indexOf(ti));
     }
 
     /** @param aZone Setter for the zone */
@@ -623,8 +586,8 @@ public class InitiativeList implements Serializable {
      * 
      * @author Jay
      */
-    @SerializationVersion(0)
-    public static class TokenInitiative {
+    @SerializationVersion(1)
+    public static class TokenInitiative implements Comparable<TokenInitiative> {
         
         /*---------------------------------------------------------------------------------------------
          * Instance Variables 
@@ -643,7 +606,7 @@ public class InitiativeList implements Serializable {
         /**
          * Optional state that can be displayed in the initiative panel. 
          */
-        private String state;
+        private InitiativeValue state;
         
         /**
          * Save off the icon so that it can be displayed as needed.
@@ -701,16 +664,48 @@ public class InitiativeList implements Serializable {
         }
 
         /** @return Getter for state */
-        public String getState() {
+        public Object getState() {
+        	if(state==null)
+        		return null;
+        	else
+        		return state.getValue();
+        }
+        
+        /** @return Getter for state */
+        public InitiativeValue getRawState() {
             return state;
         }
 
+        public void setState(String state) {
+        	this.setState(InitiativeValue.create(state));
+        }
+        
+        public void setState(Number state) {
+        	this.setState(InitiativeValue.create(state));
+        }
+        
+        /** This method accepts a string as the new initiative value but it will try to convert it into a number first*/
+        public void setUnparsedState(String state) {
+			try {
+				this.setState(Integer.valueOf(state));
+			} catch(NumberFormatException e) {
+				try {
+					this.setState(Double.valueOf(state));
+				} catch(NumberFormatException e2) {
+					if(StringUtils.isBlank(state))
+						this.setState((InitiativeValue)null);
+					else
+						this.setState(state);
+				}
+			}
+		}
+        
         /** @param aState Setter for the state to set */
-        public void setState(String aState) {
+        public void setState(InitiativeValue aState) {
             if (state == aState || (state != null && state.equals(aState)))
             	return;
             initiativeList.startUnitOfWork();
-            String old = state;
+            Object old = state;
             state = aState;
             initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), old, aState);
             initiativeList.finishUnitOfWork(this);
@@ -726,6 +721,14 @@ public class InitiativeList implements Serializable {
             this.displayIcon = displayIcon;
         }
         
+        public void update(boolean isHolding, String aState) {
+        	this.update(isHolding, InitiativeValue.create(aState));
+        }
+        
+        public void update(boolean isHolding, Number aState) {
+        	this.update(isHolding, InitiativeValue.create(aState));
+        }
+        
         /**
          * Update the internal state w/o firing events. Needed for single token 
          * init updates. 
@@ -733,10 +736,10 @@ public class InitiativeList implements Serializable {
          * @param isHolding New holding state
          * @param aState New state
          */
-        public void update(boolean isHolding, String aState) {
+        public void update(boolean isHolding, InitiativeValue aState) {
             boolean old = holding;
             holding = isHolding;
-            String oldState = state;
+            Object oldState = state;
             state = aState;
             initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), old, isHolding);
             initiativeList.getPCS().fireIndexedPropertyChange(TOKENS_PROP, initiativeList.tokens.indexOf(this), oldState, aState);
@@ -744,6 +747,14 @@ public class InitiativeList implements Serializable {
 
 		public void setInitiativeList(InitiativeList initiativeList) {
 			this.initiativeList = initiativeList;
+		}
+
+		@Override
+		public int compareTo(TokenInitiative o) {
+			if(o==null)
+				return 1;
+			else
+				return state.compareTo(o.state);
 		}
     }
 }

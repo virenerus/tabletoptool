@@ -22,7 +22,6 @@ import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Pointer;
@@ -35,6 +34,8 @@ import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.chat.TextMessage;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
 
 public class ServerCommandClientImpl implements ServerCommand {
 
@@ -279,7 +280,7 @@ public class ServerCommandClientImpl implements ServerCommand {
 	}
 
 	@Override
-	public void updateTokenInitiative(GUID zone, GUID token, Boolean holding, String state, Integer index) {
+	public void updateTokenInitiative(GUID zone, GUID token, Boolean holding, InitiativeValue state, Integer index) {
 		makeServerCall(NetworkCommand.updateTokenInitiative, zone, token, holding, state, index);
 	}
 

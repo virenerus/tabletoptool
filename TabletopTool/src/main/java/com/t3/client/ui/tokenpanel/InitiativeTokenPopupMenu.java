@@ -12,6 +12,7 @@
 package com.t3.client.ui.tokenpanel;
 
 import java.awt.event.ActionEvent;
+import java.text.MessageFormat;
 import java.util.Set;
 
 import javax.swing.AbstractAction;
@@ -24,8 +25,9 @@ import com.t3.client.ui.TokenPopupMenu;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.guid.GUID;
 import com.t3.language.I18N;
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.model.Token;
 import com.t3.model.ZonePoint;
 
@@ -135,14 +137,15 @@ public class InitiativeTokenPopupMenu extends TokenPopupMenu {
                 String sName = ti.getToken().getName();
                 if (TabletopTool.getPlayer().isGM() && ti.getToken().getGMName() != null && ti.getToken().getGMName().trim().length() != 0)
                     sName += " (" + ti.getToken().getGMName().trim() + ")";
-                message = String.format(I18N.getText("initPanel.enterState"), sName);
-                defaultValue = ti.getState();
+                message = MessageFormat.format(I18N.getText("initPanel.enterState"), sName);
+                if(ti.getState()!=null)
+                	defaultValue = ti.getState().toString();
             } // endif
             String input = JOptionPane.showInputDialog(message, defaultValue);
             if (input == null) return;
             input = input.trim();
             for (TokenInitiative ti : selectedTokenInitiatives)
-                ti.setState(input.trim());
+                ti.setUnparsedState(input.trim());
         };
     };
 
@@ -153,7 +156,7 @@ public class InitiativeTokenPopupMenu extends TokenPopupMenu {
         @Override
 		public void actionPerformed(ActionEvent e) {
             for (TokenInitiative ti : selectedTokenInitiatives)
-                ti.setState(null);
+                ti.setState((InitiativeValue)null);
         };
     };
 

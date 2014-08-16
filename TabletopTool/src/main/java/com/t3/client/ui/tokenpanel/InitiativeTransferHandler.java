@@ -22,8 +22,8 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
 
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 
 /**
  * This is the transfer handler for the list in the {@link InitiativePanel}.

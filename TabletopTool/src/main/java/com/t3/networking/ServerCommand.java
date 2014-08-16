@@ -19,7 +19,6 @@ import com.t3.MD5Key;
 import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.InitiativeList;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Pointer;
@@ -32,6 +31,8 @@ import com.t3.model.campaign.CampaignProperties;
 import com.t3.model.chat.TextMessage;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
 
 public interface ServerCommand {
 
@@ -115,7 +116,7 @@ public interface ServerCommand {
 
 	public void updateInitiative(InitiativeList list, Boolean ownerPermission);
 
-	public void updateTokenInitiative(GUID zone, GUID token, Boolean hold, String state, Integer index);
+	public void updateTokenInitiative(GUID zone, GUID token, Boolean hold, InitiativeValue initiativeValue, Integer index);
 
 	public void setVisionType(GUID zoneGUID, VisionType visionType);
 

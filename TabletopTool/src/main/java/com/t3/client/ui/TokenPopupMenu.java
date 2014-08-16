@@ -55,11 +55,13 @@ import com.t3.guid.GUID;
 import com.t3.language.I18N;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.model.InitiativeList;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
 import com.t3.model.Player;
 import com.t3.model.Player.Role;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
@@ -845,10 +847,10 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 								init.getTokenInitiative(index).setHolding(false);
 						} else if (name.equals("initiative.menu.setState")) {
 							if (index != -1)
-								init.getTokenInitiative(index).setState(input);
+								init.getTokenInitiative(index).setUnparsedState(input);
 						} else if (name.equals("initiative.menu.clearState")) {
 							if (index != -1)
-								init.getTokenInitiative(index).setState(null);
+								init.getTokenInitiative(index).setState((InitiativeValue)null);
 						} // endif
 					} // endif
 				} // endfor
