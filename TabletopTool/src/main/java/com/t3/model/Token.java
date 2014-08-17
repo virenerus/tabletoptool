@@ -50,6 +50,7 @@ import com.t3.model.grid.Grid;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
+import com.t3.util.guidreference.ZoneReference;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
@@ -143,7 +144,7 @@ public class Token extends BaseModel implements UniquelyIdentifiable {
 	
 	private boolean ownedByAll;
 	
-	private transient Zone zone;
+	private ZoneReference zone;
 
 	private TokenShape tokenShape;
 	private Type tokenType;
@@ -1435,10 +1436,10 @@ public class Token extends BaseModel implements UniquelyIdentifiable {
 	}
 
 	public Zone getZone() {
-		return zone;
+		return zone.value();
 	}
 
 	public void setZone(Zone zone) {
-		this.zone = zone;
+		this.zone = new ZoneReference(zone);
 	}
 }
