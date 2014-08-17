@@ -5,13 +5,13 @@
   <parent>
   	<groupId>tabletoptool</groupId>
   	<artifactId>t3-master</artifactId>
-  	<version>0.4.4</version>
+  	<version>0.4.5</version>
   </parent>
   <dependencies>
   	<dependency>
   		<groupId>tabletoptool</groupId>
   		<artifactId>xstream-versioned</artifactId>
-  		<version>0.4.4</version>
+  		<version>0.4.5</version>
   	</dependency>
   </dependencies>
 </project>
