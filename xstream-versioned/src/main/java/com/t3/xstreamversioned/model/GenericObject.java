@@ -125,4 +125,8 @@ public class GenericObject {
 	public GenericObject getReferencing() {
 		return genericObjectManager.getObject(referencing);
 	}
+
+	public void removeChild(GenericObject child) {
+		children.remove(child);
+	}
 }

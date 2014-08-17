@@ -18,7 +18,7 @@ import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
-public class VersionSetter {
+public class BuildSetter {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, JDOMException {
 		File root=new File("./").getAbsoluteFile().getParentFile().getParentFile();

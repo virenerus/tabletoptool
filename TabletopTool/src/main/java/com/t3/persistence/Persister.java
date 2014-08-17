@@ -1,6 +1,8 @@
 package com.t3.persistence;
 
 import com.t3.persistence.converter.AssetImageConverter;
+import com.t3.persistence.migrators.InitiativeList0_1Migrator;
+import com.t3.persistence.migrators.TokenInitiative0_1Migrator;
 import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
 import com.t3.xstreamversioned.migration.MigrationManager;
 import com.thoughtworks.xstream.XStream;
@@ -17,7 +19,8 @@ public class Persister {
 		MigrationManager mm=new MigrationManager("com.t3.",true);
 		
 		//add migrators here for changed classes
-		//mm.registerMigrator(type, updater);
+		mm.registerMigrator(new InitiativeList0_1Migrator());
+		mm.registerMigrator(new TokenInitiative0_1Migrator());
 		
 		
 		XStream xstream=new XStream();
