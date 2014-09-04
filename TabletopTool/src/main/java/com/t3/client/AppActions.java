@@ -81,18 +81,17 @@ import com.t3.client.ui.campaignproperties.CampaignPropertiesDialog;
 import com.t3.client.ui.io.FTPClient;
 import com.t3.client.ui.io.FTPTransferObject;
 import com.t3.client.ui.io.FTPTransferObject.Direction;
-import com.t3.client.ui.io.LoadSaveImpl;
 import com.t3.client.ui.io.ProgressBarList;
 import com.t3.client.ui.io.UpdateRepoDialog;
 import com.t3.client.ui.token.TransferProgressDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.Player;
 import com.t3.model.Token;
@@ -1646,7 +1645,6 @@ public class AppActions {
 			zone.setVisible(!zone.isVisible());
 
 			TabletopTool.serverCommand().setZoneVisibility(zone.getId(), zone.isVisible());
-			TabletopTool.getFrame().getZoneMiniMapPanel().flush();
 			TabletopTool.getFrame().repaint();
 		}
 	};
@@ -1755,23 +1753,6 @@ public class AppActions {
 				}
 				renderer.maybeForcePlayersView();
 			}
-		}
-	};
-
-	public static final Action TOGGLE_ZONE_SELECTOR = new DefaultClientAction() {
-		{
-			init("action.showMapSelector");
-		}
-
-		@Override
-		public boolean isSelected() {
-			return TabletopTool.getFrame().getZoneMiniMapPanel().isVisible();
-		}
-
-		@Override
-		public void execute(ActionEvent e) {
-			JComponent panel = TabletopTool.getFrame().getZoneMiniMapPanel();
-			panel.setVisible(!panel.isVisible());
 		}
 	};
 
@@ -2111,7 +2092,7 @@ public class AppActions {
 							{
 								TabletopTool.serverCommand().setCampaign(campaign.campaign);
 							}
-							TabletopTool.setCampaign(campaign.campaign, campaign.currentZoneId);
+							TabletopTool.setCampaign(campaign.campaign, campaign.currentZone.getId());
 							ZoneRenderer current = TabletopTool.getFrame().getCurrentZoneRenderer();
 							if (campaign.currentView != null && current != null)
 								current.setZoneScale(campaign.currentView);
@@ -2119,7 +2100,7 @@ public class AppActions {
 							TabletopTool.getAutoSaveManager().tidy();
 
 							// UI related stuff
-							TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
+							TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(null);
 							TabletopTool.getFrame().resetPanels();
 						}
 					} finally {
@@ -2132,25 +2113,6 @@ public class AppActions {
 			}
 		}.start();
 	}
-
-	/**
-	 * This is the integrated load/save interface that allows individual
-	 * components of the application's dataet to be saved to an external file.
-	 * The goal is to allow specific maps and tokens, campaign properties
-	 * (sight, light, token props), and layers + their contents to be saved
-	 * through a single unified interface.
-	 */
-	public static final Action LOAD_SAVE = new DeveloperClientAction() {
-		{
-			init("action.loadSaveDialog");
-		}
-
-		@Override
-		public void execute(ActionEvent ae) {
-			LoadSaveImpl impl = new LoadSaveImpl();
-			impl.saveApplication(); // All the work is done here
-		}
-	};
 
 	public static final Action SAVE_CAMPAIGN = new DefaultClientAction() {
 		{
@@ -2412,45 +2374,41 @@ public class AppActions {
 				try {
 					StaticMessageDialog progressDialog = new StaticMessageDialog(I18N.getText("msg.info.mapLoading"));
 
-					try {
-						// I'm going to get struck by lighting for writing code like this.
-						// CLEAN ME CLEAN ME CLEAN ME ! I NEED A SWINGWORKER !
-						TabletopTool.getFrame().showFilledGlassPane(progressDialog);
+					// I'm going to get struck by lighting for writing code like this.
+					// CLEAN ME CLEAN ME CLEAN ME ! I NEED A SWINGWORKER !
+					TabletopTool.getFrame().showFilledGlassPane(progressDialog);
 
-						// Load
-						final PersistedMap map = PersistenceUtil.loadMap(mapFile);
+					// Load
+					final PersistedMap map = PersistenceUtil.loadMap(mapFile);
 
-						if (map != null) {
-							AppPreferences.setLoadDir(mapFile.getParentFile());
-							if ((map.zone.getExposedArea() != null && !map.zone.getExposedArea().isEmpty())
-									|| (map.zone.getExposedAreaMetaData() != null && !map.zone.getExposedAreaMetaData().isEmpty())) {
-								boolean ok = TabletopTool.confirm("<html>Map contains exposed areas of fog.<br>Do you want to reset all of the fog?");
-								if (ok == true) {
-									// This fires a ModelChangeEvent, but that shouldn't matter
-									map.zone.clearExposedArea();
-								}
+					if (map != null) {
+						AppPreferences.setLoadDir(mapFile.getParentFile());
+						if ((map.zone.getExposedArea() != null && !map.zone.getExposedArea().isEmpty())
+								|| (map.zone.getExposedAreaMetaData() != null && !map.zone.getExposedAreaMetaData().isEmpty())) {
+							boolean ok = TabletopTool.confirm("<html>Map contains exposed areas of fog.<br>Do you want to reset all of the fog?");
+							if (ok == true) {
+								// This fires a ModelChangeEvent, but that shouldn't matter
+								map.zone.clearExposedArea();
 							}
-							TabletopTool.addZone(map.zone);
-
-							TabletopTool.getAutoSaveManager().restart();
-							TabletopTool.getAutoSaveManager().tidy();
-
-							// Flush the images associated with the current
-							// campaign
-							// Do this juuuuuust before we get ready to show the
-							// new campaign, since we
-							// don't want the old campaign reloading images
-							// while we loaded the new campaign
-
-							// XXX (FJE) Is this call even needed for loading
-							// maps? Probably not...
-							ImageManager.flush();
 						}
-					} finally {
-						TabletopTool.getFrame().hideGlassPane();
+						TabletopTool.addZone(map.zone);
+
+						TabletopTool.getAutoSaveManager().restart();
+						TabletopTool.getAutoSaveManager().tidy();
+
+						// Flush the images associated with the current
+						// campaign
+						// Do this juuuuuust before we get ready to show the
+						// new campaign, since we
+						// don't want the old campaign reloading images
+						// while we loaded the new campaign
+
+						// XXX (FJE) Is this call even needed for loading
+						// maps? Probably not...
+						ImageManager.flush();
 					}
-				} catch (IOException ioe) {
-					TabletopTool.showError("msg.error.failedLoadMap", ioe);
+				} finally {
+					TabletopTool.getFrame().hideGlassPane();
 				}
 			}
 		}.start();

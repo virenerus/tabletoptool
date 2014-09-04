@@ -30,10 +30,11 @@ import com.t3.client.ui.macrobuttons.buttons.MacroButtonPrefs;
 import com.t3.client.ui.macrobuttons.panels.CampaignPanel;
 import com.t3.client.ui.macrobuttons.panels.GlobalPanel;
 import com.t3.language.I18N;
-import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.persistence.PersistenceUtil;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 @SuppressWarnings("serial")
 public class ButtonGroupPopupMenu extends JPopupMenu {
@@ -41,17 +42,13 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 	private final AreaGroup areaGroup;
 	private final String macroGroup;
 	private final String panelClass;
-	private GUID tokenId;
+	private TokenReference token;
 
 	public ButtonGroupPopupMenu(String panelClass, AreaGroup areaGroup, String macroGroup, Token token) {
 		this.areaGroup = areaGroup;
 		this.macroGroup = macroGroup;
 		this.panelClass = panelClass;
-		if (token == null){
-			this.tokenId=null;
-		} else {
-			this.tokenId = token.getId();
-		}
+		this.token=NullHelper.referenceToken(token);
 		if(panelClass.equals("SelectionPanel")) {
 			if(areaGroup != null) {
 				if(areaGroup.getGroupLabel().equals(I18N.getText("component.areaGroup.macro.commonMacros"))) {
@@ -127,15 +124,11 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 						for(Token nextToken : TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokensList()) {
 							new MacroButtonProperties(nextToken, nextToken.getMacroNextIndex(), macroGroup);
 						}
-					} else if(tokenId != null) {
-						Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-						new MacroButtonProperties(token, token.getMacroNextIndex(), macroGroup);
-					}
+					} else if(token != null)
+						new MacroButtonProperties(token.value(), token.value().getMacroNextIndex(), macroGroup);
 				}
-			} else if (tokenId != null){
-				Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-				new MacroButtonProperties(token, token.getMacroNextIndex(), macroGroup);
-			}
+			} else if (token != null)
+				new MacroButtonProperties(token.value(), token.value().getMacroNextIndex(), macroGroup);
 		}
 	}
 
@@ -205,49 +198,49 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 												new MacroButtonProperties(nextToken, nextToken.getMacroNextIndex(), newButtonProps);
 											}
 										}
-							} else if (tokenId != null){
-								Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-										for(MacroButtonProperties nextMacro : token.getMacroList(true)) {
+							} else if (token != null){
+								Token tokenV = token.value();
+										for(MacroButtonProperties nextMacro : tokenV.getMacroList(true)) {
 											if(newButtonProps.hashCodeForComparison() == nextMacro.hashCodeForComparison()) {
 												alreadyExists = true;
 											}
 										}
 										if(alreadyExists) {
-											String tokenName = token.getName();
+											String tokenName = tokenV.getName();
 											if(TabletopTool.getPlayer().isGM()) {
-												if(token.getGMName() != null) {
-													if(!token.getGMName().equals("")) {
-														tokenName = tokenName + "(" + token.getGMName() + ")";
+												if(tokenV.getGMName() != null) {
+													if(!tokenV.getGMName().equals("")) {
+														tokenName = tokenName + "(" + tokenV.getGMName() + ")";
 													}
 												}
 											}
 											alreadyExists = confirmImport(newButtonProps, I18N.getText("confirm.macro.tokenLocation", tokenName));
 										}
 										if(!alreadyExists) {
-								new MacroButtonProperties(token, token.getMacroNextIndex(), newButtonProps);
+								new MacroButtonProperties(tokenV, tokenV.getMacroNextIndex(), newButtonProps);
 							}
 									}
 								}
-							} else if (tokenId != null){
-								Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-								for(MacroButtonProperties nextMacro : token.getMacroList(true)) {
+							} else if (token != null){
+								Token tokenV = token.value();
+								for(MacroButtonProperties nextMacro : tokenV.getMacroList(true)) {
 									if(newButtonProps.hashCodeForComparison() == nextMacro.hashCodeForComparison()) {
 										alreadyExists = true;
 									}
 								}
 								if(alreadyExists) {
-									String tokenName = token.getName();
+									String tokenName = tokenV.getName();
 									if(TabletopTool.getPlayer().isGM()) {
-										if(token.getGMName() != null) {
-											if(!token.getGMName().equals("")) {
-												tokenName = tokenName + "(" + token.getGMName() + ")";
+										if(tokenV.getGMName() != null) {
+											if(!tokenV.getGMName().equals("")) {
+												tokenName = tokenName + "(" + tokenV.getGMName() + ")";
 											}
 										}
 									}
 									alreadyExists = confirmImport(newButtonProps, I18N.getText("confirm.macro.tokenLocation", tokenName));
 								}
 								if(!alreadyExists) {
-									new MacroButtonProperties(token, token.getMacroNextIndex(), newButtonProps);
+									new MacroButtonProperties(tokenV, tokenV.getMacroNextIndex(), newButtonProps);
 								}
 							}
 						} catch (IOException ioe) {
@@ -327,49 +320,49 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 												new MacroButtonProperties(nextToken, nextToken.getMacroNextIndex(), nextProps);
 											}
 										}
-									} else if(tokenId != null){
-										Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-										for(MacroButtonProperties nextMacro : token.getMacroList(true)) {
+									} else if(token != null){
+										Token tokenV = token.value();
+										for(MacroButtonProperties nextMacro : tokenV.getMacroList(true)) {
 											if(nextProps.hashCodeForComparison() == nextMacro.hashCodeForComparison()) {
 												alreadyExists = true;
 											}
 										}
 										if(alreadyExists) {
-											String tokenName = token.getName();
+											String tokenName = tokenV.getName();
 											if(TabletopTool.getPlayer().isGM()) {
-												if(token.getGMName() != null) {
-													if(!token.getGMName().equals("")) {
-														tokenName = tokenName + "(" + token.getGMName() + ")";
+												if(tokenV.getGMName() != null) {
+													if(!tokenV.getGMName().equals("")) {
+														tokenName = tokenName + "(" + tokenV.getGMName() + ")";
 													}
 												}
 											}
 											alreadyExists = confirmImport(nextProps, I18N.getText("confirm.macro.tokenLocation", tokenName));
 										}
 										if(!alreadyExists) {
-											new MacroButtonProperties(token, token.getMacroNextIndex(), nextProps);
+											new MacroButtonProperties(tokenV, tokenV.getMacroNextIndex(), nextProps);
 										}
 									}
 								}
-							} else if (tokenId != null){
-								Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-								for(MacroButtonProperties nextMacro : token.getMacroList(true)) {
+							} else if (token != null){
+								Token tokenV = token.value();
+								for(MacroButtonProperties nextMacro : tokenV.getMacroList(true)) {
 									if(nextProps.hashCodeForComparison() == nextMacro.hashCodeForComparison()) {
 										alreadyExists = true;
 									}
 								}
 								if(alreadyExists) {
-									String tokenName = token.getName();
+									String tokenName = tokenV.getName();
 									if(TabletopTool.getPlayer().isGM()) {
-										if(token.getGMName() != null) {
-											if(!token.getGMName().equals("")) {
-												tokenName = tokenName + "(" + token.getGMName() + ")";
+										if(tokenV.getGMName() != null) {
+											if(!tokenV.getGMName().equals("")) {
+												tokenName = tokenName + "(" + tokenV.getGMName() + ")";
 											}
 										}
 									}
 									alreadyExists = confirmImport(nextProps, I18N.getText("confirm.macro.tokenLocation", tokenName));
 								}
 								if(!alreadyExists) {
-								new MacroButtonProperties(token, token.getMacroNextIndex(), nextProps);
+								new MacroButtonProperties(tokenV, tokenV.getMacroNextIndex(), nextProps);
 							}
 						}
 						}
@@ -464,11 +457,11 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 										}
 									}
 									PersistenceUtil.saveMacroSet(exportList, selectedFile);
-						} else if (tokenId != null){
-							Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-									Boolean trusted = AppUtil.playerOwns(token);
+						} else if (token != null){
+							Token tokenV = token.value();
+									Boolean trusted = AppUtil.playerOwns(tokenV);
 									List<MacroButtonProperties> exportList = new ArrayList<MacroButtonProperties>();
-									for(MacroButtonProperties nextMacro : token.getMacroList(trusted)) {
+									for(MacroButtonProperties nextMacro : tokenV.getMacroList(trusted)) {
 										if(TabletopTool.getPlayer().isGM() || (!TabletopTool.getPlayer().isGM() && nextMacro.getAllowPlayerEdits())) {
 											exportList.add(nextMacro);
 										} else {
@@ -478,10 +471,8 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 									PersistenceUtil.saveMacroSet(exportList, selectedFile);
 								}
 							}
-						} else if (tokenId != null){
-							Token token = TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId);
-							PersistenceUtil.saveMacroSet(token.getMacroList(true), selectedFile);
-						}
+						} else if (token != null)
+							PersistenceUtil.saveMacroSet(token.value().getMacroList(true), selectedFile);
 					} catch (IOException ioe) {
 						ioe.printStackTrace();
 						TabletopTool.showError(I18N.getText("msg.error.macro.exportSetFail", ioe));
@@ -503,8 +494,8 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 					GlobalPanel.deleteButtonGroup(macroGroup);
 				} else if (panelClass.equals("CampaignPanel")) {
 					CampaignPanel.deleteButtonGroup(macroGroup);
-				} else if (tokenId != null){
-					TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId).deleteMacroGroup(macroGroup, true);
+				} else if (token != null){
+					token.value().deleteMacroGroup(macroGroup, true);
 				}
 			}
 		}
@@ -525,10 +516,10 @@ public class ButtonGroupPopupMenu extends JPopupMenu {
 				if(TabletopTool.confirm(I18N.getText("confirm.macro.clearPanel", I18N.getText("panel.Campaign")))) {
 					CampaignPanel.clearPanel();
 				}
-			} else if (tokenId != null) {
+			} else if (token != null) {
 				if(panelClass.equals("ImpersonatePanel")) {
 					if(TabletopTool.confirm(I18N.getText("confirm.macro.clearPanel", I18N.getText("panel.Impersonate")))) {
-						TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId).deleteAllMacros(true);
+						token.value().deleteAllMacros(true);
 					}
 				}
 			}

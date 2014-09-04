@@ -23,11 +23,11 @@ import javax.swing.ImageIcon;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
-import com.t3.model.Zone;
+import com.t3.guid.GUID;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.LineSegment;
 import com.t3.model.drawing.Pen;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Tool for drawing freehand lines.
@@ -88,27 +88,26 @@ public class PolygonExposeTool extends PolygonTool implements MouseMotionListene
 		if (line == null)
 			return; // Escape has been pressed
 		addPoint(e);
-		completeDrawable(renderer.getZone().getId(), getPen(), line);
+		completeDrawable(new ZoneReference(renderer.getZone()), getPen(), line);
 		resetTool();
 	}
 
 	@Override
-	protected void completeDrawable(GUID zoneId, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		if (!TabletopTool.getPlayer().isGM()) {
 			TabletopTool.showError("msg.error.fogexpose");
 			TabletopTool.getFrame().refresh();
 			return;
 		}
-		Zone zone = TabletopTool.getCampaign().getZone(zoneId);
 
 		Polygon polygon = getPolygon((LineSegment) drawable);
 		Area area = new Area(polygon);
 		Set<GUID> selectedToks = TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokenSet();
 		if (pen.isEraser()) {
-			zone.hideArea(area, selectedToks);
+			zone.value().hideArea(area, selectedToks);
 			TabletopTool.serverCommand().hideFoW(zone.getId(), area, selectedToks);
 		} else {
-			zone.exposeArea(area, selectedToks);
+			zone.value().exposeArea(area, selectedToks);
 			TabletopTool.serverCommand().exposeFoW(zone.getId(), area, selectedToks);
 		}
 		TabletopTool.getFrame().refresh();

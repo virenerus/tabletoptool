@@ -94,13 +94,14 @@ import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.NewTokenDialog;
 import com.t3.client.walker.ZoneWalker;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.image.ImageUtil;
 import com.t3.model.AbstractPoint;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
 import com.t3.model.Label;
 import com.t3.model.LightSource;
 import com.t3.model.ModelChangeEvent;
@@ -128,7 +129,7 @@ import com.t3.util.TokenUtil;
 
 /**
  */
-public class ZoneRenderer extends JComponent implements DropTargetListener, Comparable<ZoneRenderer> {
+public class ZoneRenderer extends JComponent implements DropTargetListener, Comparable<ZoneRenderer>, UniquelyIdentifiable {
 	private static final long serialVersionUID = 3832897780066104884L;
 
 	private static final Logger log = Logger.getLogger(ZoneRenderer.class);
@@ -2844,6 +2845,25 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		return tokenList;
 	}
 
+    /**
+     * A convenience method to get selected tokens
+     * that are also owned by the current player
+     * @return List<Token>
+     */
+    public List<Token> getSelectedOwnedTokensList() {
+        List<Token> tokenList = new ArrayList<Token>();
+
+        for (GUID g : selectedTokenSet) {
+            if (zone.getToken(g) != null && zone.getToken(g).isOwner(TabletopTool.getPlayer().getName())) {
+                tokenList.add(zone.getToken(g));
+            }
+        }
+        // Commented out to preserve selection order
+        // Collections.sort(tokenList, Token.NAME_COMPARATOR);
+
+        return tokenList;
+    }
+
 	public boolean isTokenSelectable(GUID tokenGUID) {
 		if (tokenGUID == null) {
 			return false;
@@ -3196,15 +3216,7 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		private final Color foreground;
 		private final ImageLabel background;
 
-		// Used for drawing from label cache.
-		private final GUID tokenId;
-		private int width, height;
-
 		public LabelRenderer(String text, int x, int y) {
-			this(text, x, y, null);
-		}
-
-		public LabelRenderer(String text, int x, int y, GUID tId) {
 			this.text = text;
 			this.x = x;
 			this.y = y;
@@ -3213,11 +3225,6 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 			this.align = SwingUtilities.CENTER;
 			this.background = GraphicsUtil.GREY_LABEL;
 			this.foreground = Color.black;
-			tokenId = tId;
-			if (tokenId != null) {
-				width = labelRenderingCache.get(tokenId).getWidth();
-				height = labelRenderingCache.get(tokenId).getHeight();
-			}
 		}
 
 		@SuppressWarnings("unused")
@@ -3232,35 +3239,11 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 			this.align = align;
 			this.foreground = foreground;
 			this.background = background;
-			tokenId = tId;
-			if (tokenId != null) {
-				width = labelRenderingCache.get(tokenId).getWidth();
-				height = labelRenderingCache.get(tokenId).getHeight();
-			}
 		}
 
 		@Override
 		public void render(Graphics2D g) {
-			if (tokenId != null) { // Use cached image.
-				switch (align) {
-				case SwingUtilities.CENTER:
-					x = x - width / 2;
-					break;
-				case SwingUtilities.RIGHT:
-					x = x - width;
-					break;
-				case SwingUtilities.LEFT:
-					break;
-				}
-				BufferedImage img = labelRenderingCache.get(tokenId);
-				if (img != null) {
-					g.drawImage(img, x, y, width, height, null);
-				} else { // Draw as normal
-					GraphicsUtil.drawBoxedString(g, text, x, y, align, background, foreground);
-				}
-			} else { // Draw as normal.
-				GraphicsUtil.drawBoxedString(g, text, x, y, align, background, foreground);
-			}
+			GraphicsUtil.drawBoxedString(g, text, x, y, align, background, foreground);
 		}
 	}
 
@@ -3807,5 +3790,10 @@ public class ZoneRenderer extends JComponent implements DropTargetListener, Comp
 		} catch (Exception e) {
 		}
 		return c;
+	}
+
+	@Override
+	public GUID getId() {
+		return this.getZone().getId();
 	}
 }

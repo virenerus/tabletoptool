@@ -1,15 +1,15 @@
 package com.t3.model.chat;
 
-import com.t3.GUID;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
 import com.t3.model.Token;
 
 public class TokenSpeaker extends Speaker {
 	
-	private Token token;
+	private transient Token token;
 	
-	public TokenSpeaker(String identity) {
-		super(identity);
+	public TokenSpeaker(GUID tokenId) {
+		super(tokenId.toString());
 	}
 
 	@Override

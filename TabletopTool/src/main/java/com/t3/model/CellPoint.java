@@ -14,7 +14,7 @@ package com.t3.model;
 import com.t3.client.ScreenPoint;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.model.grid.Grid;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This class represents a location based on the grid coordinates of a zone.

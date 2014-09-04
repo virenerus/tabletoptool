@@ -29,7 +29,7 @@ public class T3Connection extends ClientConnection {
 		this.player = player;
 	}
 
-	public T3Connection(Socket socket, Player player) throws IOException {
+	public T3Connection(Socket socket, Player player) {
 		super(socket, null);
 		this.player = player;
 	}

@@ -17,9 +17,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Create and paint a donut burst
@@ -52,9 +51,9 @@ public class BurstTemplate extends RadiusTemplate {
 	 * in the squares, that case isn't allowed.
 	 */
 	private void adjustShape() {
-		if (getZoneId() == null)
+		if (getZoneReference() == null)
 			return;
-		int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+		int gridSize = getZoneReference().value().getGrid().getSize();
 		Rectangle r = (Rectangle) vertexRenderer.getShape();
 		r.setBounds(getVertex().x, getVertex().y, gridSize, gridSize);
 		r = (Rectangle) renderer.getShape();

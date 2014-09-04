@@ -15,20 +15,20 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.t3.GUID;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.model.grid.Grid;
 import com.t3.persistence.FileUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
-public class LightSource implements Comparable<LightSource> {
+public class LightSource implements Comparable<LightSource>, UniquelyIdentifiable {
 	@SerializationVersion(0)
 	public enum Type {
 		NORMAL,
@@ -75,6 +75,7 @@ public class LightSource implements Comparable<LightSource> {
 		this.id = id;
 	}
 
+	@Override
 	public GUID getId() {
 		return id;
 	}
@@ -189,7 +190,7 @@ public class LightSource implements Comparable<LightSource> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, List<LightSource>> getDefaultLightSources() throws IOException {
+	public static Map<String, List<LightSource>> getDefaultLightSources() {
 		Object defaultLights = FileUtil.objFromResource(LightSource.class,"defaultLightSourcesMap.xml");
 		return (Map<String, List<LightSource>>) defaultLights;
 	}

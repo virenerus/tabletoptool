@@ -25,7 +25,7 @@ import com.t3.language.I18N;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.views.MacroButtonView;
 import com.t3.model.MacroButtonProperties;
-import com.t3.model.properties.TokenProperty;
+import com.t3.model.tokenproperties.old.TokenProperty;
 
 public class CampaignFunctions {
 	/**

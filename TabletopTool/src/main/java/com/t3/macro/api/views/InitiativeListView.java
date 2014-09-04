@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
-import com.t3.model.InitiativeListModel;
 import com.t3.model.Token;
 import com.t3.model.Token.Type;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeListModel;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 
 public class InitiativeListView {
 	private InitiativeList list;
@@ -295,9 +295,9 @@ public class InitiativeListView {
 		}
 
 		/**
-		 * @return the initiative value of this token as a string.
+		 * @return the initiative value of this token.
 		 */
-		public String getInitiative() {
+		public Object getInitiative() {
 			return ti.getState();
 		}
 		
@@ -306,7 +306,7 @@ public class InitiativeListView {
 		 * @param ini the new initiative of this entry
 		 */
 		public void setInitiative(double ini) {
-			ti.setState(Double.toString(ini));
+			ti.setState(ini);
 		}
 		
 		/**
@@ -314,7 +314,7 @@ public class InitiativeListView {
 		 * @param ini the new initiative of this entry
 		 */
 		public void setInitiative(int ini) {
-			ti.setState(Integer.toString(ini));
+			ti.setState(ini);
 		}
 		
 		/**

@@ -229,9 +229,6 @@ public class AdvancedAdjustGridPanel extends JComponent implements MouseListener
 	}
 
 	private Point getScaledImagePosition() {
-		Dimension size = getSize();
-		Dimension imageSize = getScaledImageSize();
-
 		int imgX = scale.getOffsetX();
 		int imgY = scale.getOffsetY();
 

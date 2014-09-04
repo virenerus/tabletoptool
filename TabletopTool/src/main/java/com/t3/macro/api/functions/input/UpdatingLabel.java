@@ -24,8 +24,6 @@ import javax.swing.JLabel;
 
 /** JLabel variant that listens for new image data, and redraws its icon. */
 public class UpdatingLabel extends JLabel {
-	private String macroLink;
-
 	@Override
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int w, int h) {
 		Icon curIcon = getIcon();
@@ -49,7 +47,7 @@ public class UpdatingLabel extends JLabel {
 	}
 
 	public void setMacroLink(String link) {
-		macroLink = link;
+		//macroLink = link;
 		/*this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

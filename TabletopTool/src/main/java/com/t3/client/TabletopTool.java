@@ -67,7 +67,6 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import com.jidesoft.grid.CellEditorFactory;
 import com.jidesoft.grid.CellEditorManager;
-import com.jidesoft.grid.CellRendererManager;
 import com.jidesoft.grid.ListComboBoxCellEditor;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
@@ -81,22 +80,16 @@ import com.t3.client.ui.AppMenuBar;
 import com.t3.client.ui.ConnectionStatusPanel;
 import com.t3.client.ui.StartServerDialogPreferences;
 import com.t3.client.ui.T3Frame;
-import com.t3.client.ui.token.CappedIntegerCellEditor;
-import com.t3.client.ui.token.CappedIntegerCellRenderer;
-import com.t3.client.ui.token.DiceExpressionCellEditor;
-import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
 import com.t3.clientserver.connection.ClientConnection;
-import com.t3.dice.expression.Expression;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.image.ThumbnailManager;
 import com.t3.language.I18N;
 import com.t3.macro.MacroEngine;
-import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.AssetManager;
-import com.t3.GUID;
 import com.t3.model.ObservableList;
 import com.t3.model.Player;
 import com.t3.model.Zone;
@@ -104,7 +97,7 @@ import com.t3.model.ZoneFactory;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.chat.TextMessage;
-import com.t3.model.properties.TokenPropertyType;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.net.RPTURLStreamHandlerFactory;
 import com.t3.networking.ClientMethodHandler;
 import com.t3.networking.ServerCommand;
@@ -121,7 +114,6 @@ import com.t3.sound.SoundManager;
 import com.t3.swing.SwingUtil;
 import com.t3.transfer.AssetTransferManager;
 import com.t3.util.UPnPUtil;
-import com.t3.util.math.CappedInteger;
 
 /**
  */
@@ -460,11 +452,7 @@ public class TabletopTool {
 
 	public static BackupManager getBackupManager() {
 		if (backupManager == null) {
-			try {
-				backupManager = new BackupManager(AppUtil.getAppHome("backup"));
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			backupManager = new BackupManager(AppUtil.getAppHome("backup"));
 		}
 		return backupManager;
 	}
@@ -1035,7 +1023,7 @@ public class TabletopTool {
 		if(host==null || host.trim().isEmpty())
 			throw new IllegalArgumentException("host is null or empty string");
 		TabletopTool.player = player;
-		TabletopTool.getFrame().getCommandPanel().setIdentityGUID(null);
+		TabletopTool.getFrame().getCommandPanel().setImpersonatedToken(null);
 
 		ClientConnection clientConn = new T3Connection(host, port, player);
 
@@ -1171,12 +1159,12 @@ public class TabletopTool {
 		uiDefaultsCustomizer.customize(UIManager.getDefaults());
 		
 		//register cell editors and renderers
-		for(TokenPropertyType tpt:TokenPropertyType.values())
+		for(ValueType tpt:ValueType.values())
 			tpt.registerCellEditors();
-		CellEditorManager.registerEditor(TokenPropertyType.class, new CellEditorFactory() {
+		CellEditorManager.registerEditor(ValueType.class, new CellEditorFactory() {
 			@Override
 			public CellEditor create() {
-				return new ListComboBoxCellEditor(TokenPropertyType.values());
+				return new ListComboBoxCellEditor(ValueType.values());
 			}
 		});
 	}

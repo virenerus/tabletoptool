@@ -36,7 +36,7 @@ import com.t3.client.swing.AbeillePanel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
-import com.t3.model.properties.TokenProperty;
+import com.t3.model.tokenproperties.old.TokenProperty;
 
 public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignProperties> {
 

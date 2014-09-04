@@ -18,7 +18,7 @@ import java.util.Map;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class PropertyMacroView implements MacroView {

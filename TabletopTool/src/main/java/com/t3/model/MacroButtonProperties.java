@@ -34,7 +34,7 @@ import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
 import com.t3.model.chat.TextMessage;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This (data)class is used by all Macro Buttons, including campaign, global and token macro buttons.
@@ -538,16 +538,12 @@ public class MacroButtonProperties implements Comparable<MacroButtonProperties> 
 			return toolTip;
 		}
 
-		try {
-			T3MacroContext context = new T3MacroContext("ToolTip", token != null ? token.getName() : "", false, index);
-			if (log.isDebugEnabled()) {
-				log.debug("Evaluating toolTip: " + (token != null ? "for token " + token.getName() + "(" + token.getId() + ")" : "")
-						+ "----------------------------------------------------------------------------------");
-			}
-			return TabletopTool.getParser().parseLine(token, toolTip, context);
-		} catch (MacroException pe) {
-			return toolTip;
+		T3MacroContext context = new T3MacroContext("ToolTip", token != null ? token.getName() : "", false, index);
+		if (log.isDebugEnabled()) {
+			log.debug("Evaluating toolTip: " + (token != null ? "for token " + token.getName() + "(" + token.getId() + ")" : "")
+					+ "----------------------------------------------------------------------------------");
 		}
+		return TabletopTool.getParser().parseLine(token, toolTip, context);
 	}
 
 	public boolean isDuplicateMacro(String source, Token token) {

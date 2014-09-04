@@ -15,6 +15,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -224,8 +225,8 @@ public class TransferableHelper extends TransferHandler {
 			if (o == null && transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 				if (log.isInfoEnabled())
 					log.info("Selected: " + DataFlavor.javaFileListFlavor);
-				List<URL> list = new FileTransferableHandler().getTransferObject(transferable);
-				o = handleURLList(list);
+				List<File> list = new FileTransferableHandler().getTransferObject(transferable);
+				o = handleFileList(list);
 			}
 
 			// DIRECT/BROWSER
@@ -393,6 +394,30 @@ public class TransferableHelper extends TransferHandler {
 		}
 		return assets;
 	}
+
+    // Method Added for handling FileLists
+    private static List<Object> handleFileList(List<File> list) throws Exception {
+        List<Object> assets = new ArrayList<Object>();
+        for (File file : list) {
+            // A JFileChooser (at least under Linux) sends a couple empty filenames that need to be ignored.
+            if (!file.getPath().equals("")) { //$NON-NLS-1$
+                if (Token.isTokenFile(file.getPath())) {
+                    // Loading the token causes the assets to be added to the AssetManager
+                    // so it doesn't need to be added to our List here.  In fact, getAsset()
+                    // will strip out anything in the List that isn't an Asset anyway...
+                    Token token = PersistenceUtil.loadToken(file);
+                    assets.add(token);
+                } else {
+                    Asset temp = AssetManager.createAsset(file);
+                    if (temp != null) // `null' means no image available
+                        assets.add(temp);
+                    else if (log.isInfoEnabled())
+                        log.info("No image available for " + file);
+                }
+            }
+        }
+        return assets;
+    }
 
 	private static Asset handleTransferableAssetReference(Transferable transferable) throws Exception {
 		return AssetManager.getAsset((MD5Key) transferable.getTransferData(TransferableAssetReference.dataFlavor));

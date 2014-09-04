@@ -11,7 +11,7 @@
  */
 package com.t3.model;
 
-import com.t3.GUID;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Represents a player pointer on the screen
@@ -24,7 +24,7 @@ public class Pointer {
 		THOUGHT_BUBBLE
 	}
 	
-	private GUID zoneGUID;
+	private ZoneReference zone;
 	private int x;
 	private int y;
 	private double direction; // 
@@ -33,7 +33,7 @@ public class Pointer {
 	public Pointer() {/* Hessian serializable */}
 	
 	public Pointer(Zone zone, int x, int y, double direction, Type type) {
-		this.zoneGUID = zone.getId();
+		this.zone = new ZoneReference(zone);
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -49,8 +49,8 @@ public class Pointer {
 		return type != null ? type : Type.ARROW;
 	}
 	
-	public GUID getZoneGUID() {
-		return zoneGUID;
+	public ZoneReference getZoneReference() {
+		return zone;
 	}
 	
 	public int getX() {

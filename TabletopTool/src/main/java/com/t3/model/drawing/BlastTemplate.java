@@ -17,9 +17,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * The blast template draws a square for D&D 4e
@@ -50,8 +49,8 @@ public class BlastTemplate extends ConeTemplate {
      * This methods adjusts the rectangle in the renderer to match the new radius, vertex, or location.
      */
     private void adjustRectangle() {
-        if (getZoneId() == null) return;
-        int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+        if (getZoneReference() == null) return;
+        int gridSize = getZoneReference().value().getGrid().getSize();
         int size = getRadius() * gridSize;
 
         Rectangle r = (Rectangle)renderer.getShape();

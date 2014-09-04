@@ -23,10 +23,10 @@ import javax.swing.ImageIcon;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
-import com.t3.model.Zone;
+import com.t3.guid.GUID;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
+import com.t3.util.guidreference.ZoneReference;
 
 public class OvalExposeTool extends OvalTool {
 	private static final long serialVersionUID = -9023090752132286356L;
@@ -78,22 +78,21 @@ public class OvalExposeTool extends OvalTool {
 	}
 
 	@Override
-	protected void completeDrawable(GUID zoneId, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		if (!TabletopTool.getPlayer().isGM()) {
 			TabletopTool.showError("msg.error.fogexpose");
 			TabletopTool.getFrame().refresh();
 			return;
 		}
-		Zone zone = TabletopTool.getCampaign().getZone(zoneId);
 
 		Rectangle bounds = drawable.getBounds();
 		Area area = new Area(new Ellipse2D.Double(bounds.x, bounds.y, bounds.width, bounds.height));
 		Set<GUID> selectedToks = TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokenSet();
 		if (pen.isEraser()) {
-			zone.hideArea(area, selectedToks);
+			zone.value().hideArea(area, selectedToks);
 			TabletopTool.serverCommand().hideFoW(zone.getId(), area, selectedToks);
 		} else {
-			zone.exposeArea(area, selectedToks);
+			zone.value().exposeArea(area, selectedToks);
 			TabletopTool.serverCommand().exposeFoW(zone.getId(), area, selectedToks);
 		}
 		TabletopTool.getFrame().refresh();

@@ -23,7 +23,7 @@ import java.net.URLConnection;
 
 import javax.swing.ProgressMonitor;
 
-import com.t3.GUID;
+import com.t3.guid.GUID;
 
 public class RemoteFileDownloader {
 	private final URL url;
@@ -74,7 +74,6 @@ public class RemoteFileDownloader {
 			int bytesRead = 0;
 			byte[] buf = new byte[buflen];
 
-			long start = System.currentTimeMillis();
 			for (int nRead = in.read(buf); nRead != -1; nRead = in.read(buf)) {
 				if (monitor.isCanceled()) {
 					return null;

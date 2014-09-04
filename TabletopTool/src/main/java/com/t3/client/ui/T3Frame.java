@@ -110,12 +110,11 @@ import com.t3.client.ui.tokenpanel.InitiativePanel;
 import com.t3.client.ui.tokenpanel.TokenPanelTreeCellRenderer;
 import com.t3.client.ui.tokenpanel.TokenPanelTreeModel;
 import com.t3.client.ui.zone.PointerOverlay;
-import com.t3.client.ui.zone.ZoneMiniMapPanel;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Asset;
-import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZoneFactory;
@@ -166,7 +165,6 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 	private final AboutDialog aboutDialog;
 	private final ColorPicker colorPicker;
 	private final Toolbox toolbox;
-	private final ZoneMiniMapPanel zoneMiniMapPanel;
 	private final JPanel zoneRendererPanel;
 	private JPanel visibleControlPanel;
 	private FullScreenFrame fullScreenFrame;
@@ -326,9 +324,6 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		statusPanel.addPanel(connectionStatusPanel);
 		statusPanel.addPanel(activityMonitor);
 		statusPanel.addPanel(new SpacerStatusBar(25));
-
-		zoneMiniMapPanel = new ZoneMiniMapPanel();
-		zoneMiniMapPanel.setSize(100, 100);
 
 		zoneRendererPanel = new JPanel(new PositionalLayout(5));
 		zoneRendererPanel.setBackground(Color.black);
@@ -688,7 +683,6 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		zoneRendererPanel.setComponentZOrder(layoutPanel, 0);
 		zoneRendererPanel.revalidate();
 		zoneRendererPanel.repaint();
-		zoneMiniMapPanel.repaint();
 		visibleControlPanel = layoutPanel;
 	}
 
@@ -1057,10 +1051,6 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		progressBar.endDeterminate();
 	}
 
-	public ZoneMiniMapPanel getZoneMiniMapPanel() {
-		return zoneMiniMapPanel;
-	}
-
 	// /////////////////////////////////////////////////////////////////////////
 	// static methods
 	// /////////////////////////////////////////////////////////////////////////
@@ -1128,14 +1118,10 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 				setCurrentZoneRenderer(null);
 			}
 		}
-		zoneMiniMapPanel.flush();
-		zoneMiniMapPanel.repaint();
 	}
 
 	public void clearZoneRendererList() {
 		zoneRendererList.clear();
-		zoneMiniMapPanel.flush();
-		zoneMiniMapPanel.repaint();
 	}
 
 	public void setCurrentZoneRenderer(ZoneRenderer renderer) {
@@ -1245,7 +1231,6 @@ public class T3Frame extends DefaultDockableHolder implements WindowListener, Ap
 		if (!TabletopTool.MAC_OS_X)
 			menuBar.setVisible(false);
 
-		fullScreenFrame.add(zoneMiniMapPanel);
 		fullScreenFrame.setVisible(true);
 		this.setVisible(false);
 	}

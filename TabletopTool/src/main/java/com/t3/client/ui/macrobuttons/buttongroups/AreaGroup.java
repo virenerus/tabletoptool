@@ -25,9 +25,10 @@ import javax.swing.SwingUtilities;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
-import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 public class AreaGroup extends AbstractButtonGroup {
 	// constructor for creating an area group in the campaign/global panels
@@ -37,14 +38,14 @@ public class AreaGroup extends AbstractButtonGroup {
 		setPanelClass(panel.getPanelClass());
 		setGroupClass("AreaGroup");
 		setGroupLabel(panelLabel);
-		setTokenId(panel.getToken());
+		setTokenReference(NullHelper.referenceToken(panel.getToken()));
 		addMouseListener(this);
 		drawArea();
 	}
 
 	// constructor for creating an area group for the impersonate/selection panels
-	public AreaGroup(GUID tokenId, AbstractMacroPanel panel) {
-		setTokenId(tokenId);
+	public AreaGroup(TokenReference token, AbstractMacroPanel panel) {
+		setTokenReference(token);
 		setPropertiesList(getToken().getMacroList(true));
 		setPanel(panel);
 		setPanelClass(panel.getPanelClass());
@@ -78,20 +79,20 @@ public class AreaGroup extends AbstractButtonGroup {
 		Collections.sort(propertiesList);
 
 		if (propertiesList.isEmpty()) {
-			add(new ButtonGroup(propertiesList, "", getPanel(), getTokenId(), this));
+			add(new ButtonGroup(propertiesList, "", getPanel(), getTokenReference(), this));
 		} else {
 			// build separate button groups for each user-defined group
 			for (MacroButtonProperties prop : propertiesList) {
 				currentGroup = prop.getGroup();
 				if (!groupList.isEmpty() && !lastGroup.equalsIgnoreCase(currentGroup)) { // better to use currentGroup.equals(lastGroup) since lastGroup could be initialized to null
-					add(new ButtonGroup(groupList, lastGroup, getPanel(), getTokenId(), this));
+					add(new ButtonGroup(groupList, lastGroup, getPanel(), getTokenReference(), this));
 					groupList.clear();
 				}
 				lastGroup = currentGroup;
 				groupList.add(prop);
 			}
 			if (!groupList.isEmpty()) {
-				add(new ButtonGroup(groupList, lastGroup, getPanel(), getTokenId(), this));
+				add(new ButtonGroup(groupList, lastGroup, getPanel(), getTokenReference(), this));
 				groupList.clear();
 			}
 		}

@@ -45,10 +45,10 @@ import com.t3.client.TabletopTool;
 import com.t3.client.ui.Scale;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
-import com.t3.GUID;
 import com.t3.model.LookupTable;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
@@ -58,7 +58,8 @@ import com.t3.model.campaign.CampaignProperties;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.util.guidreference.ZoneReference;
+import com.t3.xstreamversioned.version.SerializationVersion;
 import com.thoughtworks.xstream.converters.ConversionException;
 
 /**
@@ -83,7 +84,7 @@ public class PersistenceUtil {
 	public static class PersistedCampaign {
 		public Campaign campaign;
 		public Map<MD5Key, Asset> assetMap = new HashMap<MD5Key, Asset>();
-		public GUID currentZoneId;
+		public ZoneReference currentZone;
 		public Scale currentView;
 		public String tabletopToolVersion;
 	}
@@ -110,7 +111,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static PersistedMap loadMap(File mapFile) throws IOException {
+	public static PersistedMap loadMap(File mapFile) {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(mapFile);
@@ -194,7 +195,7 @@ public class PersistenceUtil {
 			// Keep track of the current view
 			ZoneRenderer currentZoneRenderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 			if (currentZoneRenderer != null) {
-				persistedCampaign.currentZoneId = currentZoneRenderer.getZone().getId();
+				persistedCampaign.currentZone = new ZoneReference(currentZoneRenderer.getZone());
 				persistedCampaign.currentView = currentZoneRenderer.getZoneScale();
 			}
 			// Save all assets in active use (consolidate duplicates between maps)
@@ -246,11 +247,7 @@ public class PersistenceUtil {
 			}
 		} finally {
 			saveTimer.start("Close");
-			try {
-				if (pakFile != null)
-					pakFile.close();
-			} catch (Exception e) {
-			}
+			IOUtils.closeQuietly(pakFile);
 			saveTimer.stop("Close");
 			pakFile = null;
 		}
@@ -419,7 +416,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static Token loadToken(File file) throws IOException {
+	public static Token loadToken(File file) {
 		PackedFile pakFile = null;
 		Token token = null;
 		try {
@@ -447,7 +444,7 @@ public class PersistenceUtil {
 		return token;
 	}
 
-	private static void loadAssets(Collection<MD5Key> assetIds, PackedFile pakFile) throws IOException {
+	private static void loadAssets(Collection<MD5Key> assetIds, PackedFile pakFile) {
 		List<Asset> addToServer = new ArrayList<Asset>(assetIds.size());
 
 		for (MD5Key key : assetIds) {
@@ -599,7 +596,7 @@ public class PersistenceUtil {
 		}
 	}
 
-	public static MacroButtonProperties loadMacro(InputStream in) throws IOException {
+	public static MacroButtonProperties loadMacro(InputStream in) {
 		MacroButtonProperties mbProps = null;
 		try {
 			mbProps = (MacroButtonProperties) Persister.newInstance().fromXML(new InputStreamReader(in, "UTF-8"));
@@ -724,7 +721,7 @@ public class PersistenceUtil {
 		return table;
 	}
 
-	public static LookupTable loadTable(File file) throws IOException {
+	public static LookupTable loadTable(File file) {
 		PackedFile pakFile = null;
 		try {
 			pakFile = new PackedFile(file);

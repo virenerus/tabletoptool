@@ -57,7 +57,7 @@ public class AppSetup {
 		installLibrary(libraryName, unzipDir);
 	}
 
-	public static void installLibrary(final String libraryName, final File root) throws IOException {
+	public static void installLibrary(final String libraryName, final File root) {
 		// Add as a resource root
 		AppPreferences.addAssetRoot(root);
 		if (TabletopTool.getFrame() != null) {

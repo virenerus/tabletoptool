@@ -18,7 +18,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ import javax.swing.Action;
 import javax.swing.KeyStroke;
 
 import com.t3.client.AppPreferences;
-import com.t3.client.TabletopTool;
 import com.t3.client.tool.PointerTool;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.walker.ZoneWalker;
@@ -37,7 +35,7 @@ import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
 import com.t3.model.TokenFootprint.OffsetTranslator;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class HexGridHorizontal extends HexGrid {
@@ -145,13 +143,8 @@ public class HexGridHorizontal extends HexGrid {
 
 	@Override
 	public List<TokenFootprint> getFootprints() {
-		if (footprintList == null) {
-			try {
-				footprintList = loadFootprints("hexGridHorizFootprints.xml", getOffsetTranslator());
-			} catch (IOException ioe) {
-				TabletopTool.showError("Could not load Hex Grid footprints", ioe);
-			}
-		}
+		if (footprintList == null)
+			footprintList = loadFootprints("hexGridHorizFootprints.xml", getOffsetTranslator());
 		return footprintList;
 	}
 

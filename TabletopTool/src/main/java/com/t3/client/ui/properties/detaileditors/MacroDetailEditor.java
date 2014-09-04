@@ -4,7 +4,7 @@ import com.t3.client.ui.macroeditor.MacroEditor;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.views.PropertyMacroView;
 import com.t3.model.Token;
-import com.t3.model.properties.PropertyHolder;
+import com.t3.model.tokenproperties.old.PropertyHolder;
 
 public class MacroDetailEditor extends DetailEditor<PropertyMacroView> {
 

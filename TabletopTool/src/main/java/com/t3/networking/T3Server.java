@@ -243,6 +243,6 @@ public class T3Server {
 	// STANDALONE SERVER
 	public static void main(String[] args) throws IOException {
 		// This starts the server thread.
-		T3Server server = new T3Server(new ServerConfig(), new ServerPolicy());
+		new T3Server(new ServerConfig(), new ServerPolicy());
 	}
 }

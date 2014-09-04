@@ -21,9 +21,10 @@ import com.jidesoft.grid.BooleanCheckBoxCellEditor;
 import com.jidesoft.grid.EditorContext;
 import com.jidesoft.grid.TreeTableModel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
-import com.t3.model.properties.TokenPropertiesList;
-import com.t3.model.properties.TokenProperty;
-import com.t3.model.properties.TokenPropertyType;
+import com.t3.model.tokenproperties.instance.Struct;
+import com.t3.model.tokenproperties.instance.TokenPropertiesList;
+import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
 
 public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 
@@ -84,8 +85,8 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		@Override
 		public boolean isCellEditable(int columnIndex) {
 			//editable if not the default value of list or struct
-			return !(columnIndex==3 && (property.getType()==TokenPropertyType.LIST 
-									||  property.getType()==TokenPropertyType.STRUCT));
+			return !(columnIndex==3 && (property.getType()==ValueType.LIST 
+									||  property.getType()==ValueType.STRUCT));
 		}
 		
 		@Override
@@ -100,15 +101,15 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		@Override
 		public void setValueAt(Object value, int columnIndex) {
 			if(columnIndex==0) {
-				TokenPropertyType newType = (TokenPropertyType)value;
+				ValueType newType = (ValueType)value;
 				property=property.withType(newType);
 				
 				//change list type if this is the child of a list
-				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==TokenPropertyType.LIST)
+				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==ValueType.LIST)
 					((PropertyTypeRow)this.getParent()).setValueAt(new TokenPropertiesList<>(newType), 3);
 				//change list type if this is a list
-				if(this.property.getType()==TokenPropertyType.LIST) {
-					TokenPropertyType subType = property.getSubType().getType();
+				if(this.property.getType()==ValueType.LIST) {
+					ValueType subType = property.getSubType().getType();
 					this.setValueAt(new TokenPropertiesList<>(subType), 3);
 				}
 				createSubRows();
@@ -133,7 +134,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		@Override
 		public Class<?> getCellClassAt(int columnIndex) {
 			if(columnIndex==0)
-				return TokenPropertyType.class;
+				return ValueType.class;
 			else if(columnIndex==1)
 				return String.class;
 			else if(columnIndex==2)
@@ -209,7 +210,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 		ArrayList<TokenProperty> subTypes=new ArrayList<>();
 		for(PropertyTypeRow childRow:children) {
 			TokenProperty tp=childRow.getProperty();
-			if(prop.getType()==TokenPropertyType.LIST || !StringUtils.isBlank(tp.getName()))
+			if(prop.getType()==ValueType.LIST || !StringUtils.isBlank(tp.getName()))
 				subTypes.add(collectTokenProperties(tp,childRow.getChildren()));
 		}
 		return prop.withSubTypes(subTypes);

@@ -22,10 +22,10 @@ import javax.swing.ImageIcon;
 
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
-import com.t3.model.Zone;
+import com.t3.guid.GUID;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
+import com.t3.util.guidreference.ZoneReference;
 
 public class RectangleExposeTool extends RectangleTool {
 	private static final long serialVersionUID = 2072551559910263728L;
@@ -72,22 +72,21 @@ public class RectangleExposeTool extends RectangleTool {
 	}
 
 	@Override
-	protected void completeDrawable(GUID zoneId, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		if (!TabletopTool.getPlayer().isGM()) {
 			TabletopTool.showError("msg.error.fogexpose");
 			TabletopTool.getFrame().refresh();
 			return;
 		}
-		Zone zone = TabletopTool.getCampaign().getZone(zoneId);
 
 		Rectangle bounds = drawable.getBounds();
 		Area area = new Area(bounds);
 		Set<GUID> selectedToks = TabletopTool.getFrame().getCurrentZoneRenderer().getSelectedTokenSet();
 		if (pen.isEraser()) {
-			zone.hideArea(area, selectedToks);
+			zone.value().hideArea(area, selectedToks);
 			TabletopTool.serverCommand().hideFoW(zone.getId(), area, selectedToks);
 		} else {
-			zone.exposeArea(area, selectedToks);
+			zone.value().exposeArea(area, selectedToks);
 			TabletopTool.serverCommand().exposeFoW(zone.getId(), area, selectedToks);
 		}
 		TabletopTool.getFrame().refresh();

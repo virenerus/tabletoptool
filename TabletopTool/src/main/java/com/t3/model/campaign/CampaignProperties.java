@@ -12,7 +12,6 @@
 package com.t3.model.campaign;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.TreeMap;
 
 import com.t3.MD5Key;
 import com.t3.client.AppPreferences;
-import com.t3.client.TabletopTool;
 import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.token.ColorDotTokenOverlay;
@@ -41,15 +39,15 @@ import com.t3.client.ui.token.TwoImageBarTokenOverlay;
 import com.t3.client.ui.token.TwoToneBarTokenOverlay;
 import com.t3.client.ui.token.XTokenOverlay;
 import com.t3.client.ui.token.YieldTokenOverlay;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
-import com.t3.model.properties.TokenProperty;
-import com.t3.model.properties.TokenPropertyType;
+import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.util.math.CappedInteger;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(1)
 public class CampaignProperties {
@@ -259,17 +257,13 @@ public class CampaignProperties {
 		}
 		lightSourcesMap = new TreeMap<String, Map<GUID, LightSource>>();
 
-		try {
-			Map<String, List<LightSource>> map = LightSource.getDefaultLightSources();
-			for (String key : map.keySet()) {
-				Map<GUID, LightSource> lightSourceMap = new LinkedHashMap<GUID, LightSource>();
-				for (LightSource source : map.get(key)) {
-					lightSourceMap.put(source.getId(), source);
-				}
-				lightSourcesMap.put(key, lightSourceMap);
+		Map<String, List<LightSource>> map = LightSource.getDefaultLightSources();
+		for (String key : map.keySet()) {
+			Map<GUID, LightSource> lightSourceMap = new LinkedHashMap<GUID, LightSource>();
+			for (LightSource source : map.get(key)) {
+				lightSourceMap.put(source.getId(), source);
 			}
-		} catch (IOException ioe) {
-			TabletopTool.showError("CampaignProperties.error.initLightSources", ioe);
+			lightSourcesMap.put(key, lightSourceMap);
 		}
 	}
 
@@ -304,13 +298,9 @@ public class CampaignProperties {
 			sightTypeMap.put((String) row[0], st);
 		}
 		SightType dv = sightTypeMap.get("Darkvision");
-		try {
-			dv.setPersonalLightSource(LightSource.getDefaultLightSources().get("Generic").get(5));
-			// sightTypeMap.put("Darkvision & Lowlight", new SightType("Darkvision", 2,
-			// 		LightSource.getDefaultLightSources().get("Generic").get(4)));
-		} catch (IOException e) {
-			TabletopTool.showError("CampaignProperties.error.noGenericLight", e);
-		}
+		dv.setPersonalLightSource(LightSource.getDefaultLightSources().get("Generic").get(5));
+		// sightTypeMap.put("Darkvision & Lowlight", new SightType("Darkvision", 2,
+		// 		LightSource.getDefaultLightSources().get("Generic").get(4)));
 		defaultSightType = (String) starter[0][0];
 	}
 
@@ -321,21 +311,21 @@ public class CampaignProperties {
 		tokenTypeMap = new HashMap<String, List<TokenProperty>>();
 
 		List<TokenProperty> list = new ArrayList<TokenProperty>(12);
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Strength", "Str"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Dexterity", "Dex"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Constitution", "Con"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Intelligence", "Int"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Wisdom", "Wis"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Charisma", "Char"));
-		TokenProperty tp = new TokenProperty(TokenPropertyType.CAPPED,"HP", true, true, false);
+		list.add(new TokenProperty(ValueType.INTEGER,"Strength", "Str"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Dexterity", "Dex"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Constitution", "Con"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Intelligence", "Int"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Wisdom", "Wis"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Charisma", "Char"));
+		TokenProperty tp = new TokenProperty(ValueType.CAPPED,"HP", true, true, false);
 		tp.setDefaultValue(new CappedInteger(10, 0, 10));
 		list.add(tp);
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"AC", true, true, false));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Defense", "Def"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Movement", "Mov"));
-		list.add(new TokenProperty(TokenPropertyType.INTEGER,"Elevation", "Elv", true, false, false));
-		list.add(new TokenProperty(TokenPropertyType.TEXT,"Description", "Des"));
-		tp=new TokenProperty(TokenPropertyType.BOOLEAN,"Female","fem");
+		list.add(new TokenProperty(ValueType.INTEGER,"AC", true, true, false));
+		list.add(new TokenProperty(ValueType.INTEGER,"Defense", "Def"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Movement", "Mov"));
+		list.add(new TokenProperty(ValueType.INTEGER,"Elevation", "Elv", true, false, false));
+		list.add(new TokenProperty(ValueType.TEXT,"Description", "Des"));
+		tp=new TokenProperty(ValueType.BOOLEAN,"Female","fem");
 		tp.setDefaultValue(Boolean.FALSE);
 		list.add(tp);
 

@@ -52,6 +52,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import com.google.common.base.Objects;
 import com.t3.MD5Key;
 import com.t3.client.AppActions;
 import com.t3.client.AppConstants;
@@ -72,10 +73,10 @@ import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneOverlay;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.image.ImageUtil;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
 import com.t3.model.MovementKey;
 import com.t3.model.Player;
 import com.t3.model.Pointer;
@@ -86,7 +87,7 @@ import com.t3.model.Zone.Layer;
 import com.t3.model.Zone.VisionType;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
-import com.t3.model.properties.TokenProperty;
+import com.t3.model.tokenproperties.old.TokenProperty;
 import com.t3.swing.SwingUtil;
 import com.t3.util.GraphicsUtil;
 import com.t3.util.ImageManager;
@@ -1407,7 +1408,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 										propName = property.getShortName();
 									else
 										propName= property.getName();
-									propertyMap.put(propName, property.getType().toStatsheetString(propertyValue));
+									propertyMap.put(propName, property.getType().getDescriptor().toStatsheetString(propertyValue));
 								}
 							}
 						}

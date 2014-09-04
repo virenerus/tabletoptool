@@ -53,11 +53,8 @@ import com.t3.client.AppPreferences;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.language.I18N;
-import com.t3.GUID;
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
-import com.t3.model.InitiativeListModel;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
 import com.t3.model.Token;
@@ -65,6 +62,9 @@ import com.t3.model.Token.Type;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.chat.TextMessage;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeListModel;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 
 /**
  * This panel shows the initiative order inside of TabletopTools.
@@ -706,7 +706,7 @@ public class InitiativePanel extends JPanel implements PropertyChangeListener, M
 			String input = JOptionPane.showInputDialog(s, ti.getState());
 			if (input == null)
 				return;
-			ti.setState(input.trim());
+			ti.setUnparsedState(input.trim());
 		};
 	};
 
@@ -719,7 +719,7 @@ public class InitiativePanel extends JPanel implements PropertyChangeListener, M
 			TokenInitiative ti = (TokenInitiative) displayList.getSelectedValue();
 			if (ti == null)
 				return;
-			ti.setState(null);
+			ti.setState((String)null);
 		};
 	};
 

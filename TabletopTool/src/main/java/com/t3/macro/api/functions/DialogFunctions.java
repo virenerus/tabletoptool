@@ -13,6 +13,7 @@ package com.t3.macro.api.functions;
 
 import java.util.Map;
 
+import com.t3.client.ui.htmlframe.HTMLDialog;
 import com.t3.client.ui.htmlframe.HTMLFrame;
 import com.t3.client.ui.htmlframe.HTMLFrameFactory;
 import com.t3.macro.MacroException;
@@ -183,5 +184,13 @@ public class DialogFunctions {
 	 */
 	public Map<String, String> input(TokenView token, String... parameters) throws MacroException {
 		return InputFunctions.input(token, parameters);
+	}
+	
+	public void htmlFrame(String name, String title, String html) {
+		HTMLFrame.showFrame(name, title,-1, -1, html);
+	}
+	
+	public void htmlDialog(String name, String title, boolean hasFrame, boolean input, boolean temporary, boolean closeButton, String html) {
+		HTMLDialog.showDialog(name, title, -1, -1, hasFrame, input, temporary, closeButton, html);
 	}
 }

@@ -51,18 +51,21 @@ import com.t3.client.ui.token.BarTokenOverlay;
 import com.t3.client.ui.token.BooleanTokenOverlay;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.language.I18N;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
-import com.t3.model.InitiativeList;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Path;
 import com.t3.model.Player;
 import com.t3.model.Player.Role;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.model.Token;
 import com.t3.model.Zone;
 import com.t3.model.ZonePoint;
+import com.t3.util.guidreference.TokenReference;
 
 public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private static final long serialVersionUID = -622385975780832588L;
@@ -189,7 +192,7 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 				if (tok.getHasSight() && tok.isVisible()) {
 					ExposedAreaMetaData meta = zone.getExposedAreaMetaData(tok.getExposedAreaGUID());
 					if (!meta.getExposedAreaHistory().isEmpty()) {
-						subMenu.add(new AddTokensExposedAreaAction(tok.getId()));
+						subMenu.add(new AddTokensExposedAreaAction(tok));
 						subItemCount++;
 					}
 				}
@@ -206,19 +209,18 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 	private class AddTokensExposedAreaAction extends AbstractAction {
 		private static final long serialVersionUID = 8452765509474109699L;
 
-		private final GUID tokID;
+		private final TokenReference token;
 
-		public AddTokensExposedAreaAction(GUID theTokId) {
-			tokID = theTokId;
-			Token sourceToken = getRenderer().getZone().getToken(tokID);
-			String tokensView = I18N.getText("token.popup.menu.fow.tokens.view", sourceToken.getName());
+		public AddTokensExposedAreaAction(Token token) {
+			this.token=new TokenReference(token);
+			String tokensView = I18N.getText("token.popup.menu.fow.tokens.view", token.getName());
 			I18N.setAction(tokensView, this, true);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Zone zone = getRenderer().getZone();
-			Token sourceToken = zone.getToken(tokID);
+			Token sourceToken = token.value();
 			ExposedAreaMetaData sourceMeta = zone.getExposedAreaMetaData(sourceToken.getExposedAreaGUID());
 			for (GUID tok : selectedTokenSet) {
 				Token targetToken = zone.getToken(tok);
@@ -845,10 +847,10 @@ public class TokenPopupMenu extends AbstractTokenPopupMenu {
 								init.getTokenInitiative(index).setHolding(false);
 						} else if (name.equals("initiative.menu.setState")) {
 							if (index != -1)
-								init.getTokenInitiative(index).setState(input);
+								init.getTokenInitiative(index).setUnparsedState(input);
 						} else if (name.equals("initiative.menu.clearState")) {
 							if (index != -1)
-								init.getTokenInitiative(index).setState(null);
+								init.getTokenInitiative(index).setState((InitiativeValue)null);
 						} // endif
 					} // endif
 				} // endfor

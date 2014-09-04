@@ -15,7 +15,7 @@ import java.util.List;
 
 import com.t3.model.CellPoint;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * A template that draws consecutive blocks

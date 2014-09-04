@@ -24,12 +24,10 @@ import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.clientserver.handler.AbstractMethodHandler;
 import com.t3.common.T3Constants;
+import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Pointer;
@@ -44,6 +42,9 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.transfer.AssetProducer;
 
 /**
@@ -191,7 +192,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 				updateInitiative((InitiativeList) context.get(0), (Boolean) context.get(1));
 				break;
 			case updateTokenInitiative:
-				updateTokenInitiative(context.getGUID(0), context.getGUID(1), context.getBool(2), context.getString(3), context.getInt(4));
+				updateTokenInitiative(context.getGUID(0), context.getGUID(1), context.getBool(2), (InitiativeValue)context.get(3), context.getInt(4));
 				break;
 			case setVisionType:
 				setVisionType(context.getGUID(0), (VisionType) context.get(1));
@@ -393,7 +394,7 @@ public class ServerMethodHandler extends AbstractMethodHandler<NetworkCommand> i
 	}
 
 	@Override
-	public void updateTokenInitiative(GUID zoneId, GUID tokenId, Boolean hold, String state, Integer index) {
+	public void updateTokenInitiative(GUID zoneId, GUID tokenId, Boolean hold, InitiativeValue state, Integer index) {
 		Zone zone = server.getCampaign().getZone(zoneId);
 		InitiativeList list = zone.getInitiativeList();
 		TokenInitiative ti = list.getTokenInitiative(index);

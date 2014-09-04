@@ -22,14 +22,14 @@ import java.util.Map;
  */
 public class EventDispatcher {
 
-	private Map<Enum, List<AppEventListener>> listenerMap = new HashMap<Enum, List<AppEventListener>>();
+	private Map<Enum<?>, List<AppEventListener>> listenerMap = new HashMap<>();
 	
-	public synchronized void registerEvents(Enum[] ids) {
-		for (Enum e : ids) {
+	public synchronized void registerEvents(Enum<?>[] ids) {
+		for (Enum<?> e : ids) {
 			registerEvent(e);
 		}
 	}
-	public synchronized void registerEvent(Enum id) {
+	public synchronized void registerEvent(Enum<?> id) {
 		if (listenerMap.containsKey(id)) {
 			throw new IllegalArgumentException("Event '" + id + "' is already registered.");
 		}
@@ -37,12 +37,12 @@ public class EventDispatcher {
 		listenerMap.put(id, new ArrayList<AppEventListener>());
 	}
 	
-	public synchronized void addListener(Enum id, AppEventListener listener) {
+	public synchronized void addListener(Enum<?> id, AppEventListener listener) {
 		addListener(listener, id);
 	}
 
-	public synchronized void addListener(AppEventListener listener, Enum... ids) {
-		for (Enum id : ids) {
+	public synchronized void addListener(AppEventListener listener, Enum<?>... ids) {
+		for (Enum<?> id : ids) {
 			if (!listenerMap.containsKey(id)) {
 				throw new IllegalArgumentException("Event '" + id + "' is not registered.");
 			}

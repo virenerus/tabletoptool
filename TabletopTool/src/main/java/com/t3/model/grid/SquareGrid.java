@@ -44,7 +44,7 @@ import com.t3.model.MovementKey;
 import com.t3.model.TokenFootprint;
 import com.t3.model.ZonePoint;
 import com.t3.swing.SwingUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class SquareGrid extends Grid {
@@ -197,11 +197,7 @@ public class SquareGrid extends Grid {
 	@Override
 	public List<TokenFootprint> getFootprints() {
 		if (footprintList == null) {
-			try {
-				footprintList = loadFootprints("squareGridFootprints.xml");
-			} catch (IOException ioe) {
-				TabletopTool.showError("SquareGrid.error.squareGridNotLoaded", ioe);
-			}
+			footprintList = loadFootprints("squareGridFootprints.xml");
 		}
 		return footprintList;
 	}

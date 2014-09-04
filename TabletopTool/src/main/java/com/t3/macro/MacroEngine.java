@@ -78,7 +78,7 @@ public abstract class MacroEngine<T> {
 	}
 
 	//FIXMESOON find out what this should do and implement it
-	public String parseLine(Token token, String toolTip, T3MacroContext context) throws MacroException {
+	public String parseLine(Token token, String toolTip, T3MacroContext context) {
 		return "hallo";
 	}
 

@@ -30,6 +30,7 @@ import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.LineSegment;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.ShapeDrawable;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Tool for drawing freehand lines.
@@ -96,7 +97,7 @@ public abstract class AbstractLineTool extends AbstractDrawingTool {
 		if (isBackgroundFill(e) && line.getPoints().size() > 3) { // TODO: There's a bug where the last point is duplicated, hence 3 points
 			drawable = new ShapeDrawable(getPolygon(line));
 		}
-		completeDrawable(renderer.getZone().getId(), getPen(), drawable);
+		completeDrawable(new ZoneReference(renderer.getZone()), getPen(), drawable);
 
 		line = null;
 		currentX = -1;

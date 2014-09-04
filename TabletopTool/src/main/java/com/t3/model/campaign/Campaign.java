@@ -32,16 +32,16 @@ import com.t3.client.ui.token.ImageTokenOverlay;
 import com.t3.client.ui.token.MultipleImageBarTokenOverlay;
 import com.t3.client.ui.token.SingleImageBarTokenOverlay;
 import com.t3.client.ui.token.TwoImageBarTokenOverlay;
+import com.t3.guid.GUID;
 import com.t3.model.Asset;
-import com.t3.GUID;
 import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.SightType;
 import com.t3.model.Zone;
-import com.t3.model.properties.TokenProperty;
+import com.t3.model.tokenproperties.old.TokenProperty;
 import com.t3.net.Location;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * <p>

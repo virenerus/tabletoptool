@@ -37,27 +37,29 @@ import javax.swing.ImageIcon;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Logger;
 
-import com.t3.GUID;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.image.ImageUtil;
 import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.grid.Grid;
-import com.t3.model.properties.PropertyHolder;
+import com.t3.model.tokenproperties.old.PropertyHolder;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.util.guidreference.ZoneReference;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This object represents the placeable objects on a map. For example an icon that represents a character would exist as
  * an {@link Asset} (the image itself) and a location and scale.
  */
 @SerializationVersion(0)
-public class Token extends PropertyHolder {
+public class Token extends PropertyHolder implements UniquelyIdentifiable {
 	private static final Logger log = Logger.getLogger(Token.class);
 
 	private GUID id = new GUID();
@@ -143,7 +145,7 @@ public class Token extends PropertyHolder {
 	
 	private boolean ownedByAll;
 	
-	private transient Zone zone;
+	private ZoneReference zone;
 
 	private TokenShape tokenShape;
 	private Type tokenType;
@@ -458,7 +460,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null && lightSource.getType() == lightType)
 					i.remove();
 			}
@@ -469,7 +471,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -485,7 +487,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -501,7 +503,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -518,7 +520,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null) {
 					List<Light> lights = lightSource.getLightList();
 					for (Light light : lights) {
@@ -535,7 +537,7 @@ public class Token extends PropertyHolder {
 		if (lightSourceList != null) {
 			for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 				AttachedLightSource als = i.next();
-				LightSource lightSource = TabletopTool.getCampaign().getLightSource(als.getLightSourceId());
+				LightSource lightSource = als.getLightSource();
 				if (lightSource != null && lightSource.getType() == lightType)
 					return true;
 			}
@@ -549,7 +551,7 @@ public class Token extends PropertyHolder {
 		}
 		for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 			AttachedLightSource als = i.next();
-			if (als != null && als.getLightSourceId() != null && als.getLightSourceId().equals(source.getId())) {
+			if (als != null && als.getLightSourceReference() != null && als.getLightSourceReference().getId().equals(source.getId())) {
 				i.remove();
 			}
 		}
@@ -571,7 +573,7 @@ public class Token extends PropertyHolder {
 		}
 		for (ListIterator<AttachedLightSource> i = lightSourceList.listIterator(); i.hasNext();) {
 			AttachedLightSource als = i.next();
-			if (als != null && als.getLightSourceId() != null && als.getLightSourceId().equals(source.getId())) {
+			if (als != null && als.getLightSourceReference() != null && als.getLightSourceReference().getId().equals(source.getId())) {
 				return true;
 			}
 		}
@@ -628,7 +630,7 @@ public class Token extends PropertyHolder {
 	}
 
 	public synchronized boolean isOwner(String playerId) {
-		return this.ownedByAll || (ownerList != null && ownerList.contains(playerId));
+		return this.ownedByAll || (ownerList != null && ownerList.contains(playerId)) || TabletopTool.getPlayer().isGM();
 	}
 
 	@Override
@@ -719,6 +721,7 @@ public class Token extends PropertyHolder {
 		this.charsheetImage = charsheetImage;
 	}
 
+	@Override
 	public GUID getId() {
 		return id;
 	}
@@ -1380,10 +1383,10 @@ public class Token extends PropertyHolder {
 	}
 
 	public Zone getZone() {
-		return zone;
+		return zone.value();
 	}
 
 	public void setZone(Zone zone) {
-		this.zone = zone;
+		this.zone = new ZoneReference(zone);
 	}
 }

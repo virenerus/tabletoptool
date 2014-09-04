@@ -19,11 +19,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import com.t3.GUID;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.LineSegment;
 import com.t3.model.drawing.Pen;
 import com.t3.model.drawing.ShapeDrawable;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Tool for drawing freehand lines.
@@ -50,9 +50,9 @@ public class PolygonTool extends LineTool implements MouseMotionListener {
 	}
 
 	@Override
-	protected void completeDrawable(GUID zoneGUID, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		LineSegment line = (LineSegment) drawable;
-		super.completeDrawable(zoneGUID, pen, new ShapeDrawable(getPolygon(line)));
+		super.completeDrawable(zone, pen, new ShapeDrawable(getPolygon(line)));
 	}
 
 	@Override

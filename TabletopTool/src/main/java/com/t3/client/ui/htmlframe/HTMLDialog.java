@@ -130,7 +130,7 @@ public class HTMLDialog extends JDialog implements HTMLPanelContainer {
 	 *            The HTML to display in the dialog.
 	 * @return The dialog.
 	 */
-	static HTMLDialog showDialog(String name, String title, int width, int height, boolean frame,
+	public static HTMLDialog showDialog(String name, String title, int width, int height, boolean frame,
 				boolean input, boolean temp, boolean closeButton, String html) {
 		HTMLDialog dialog;
 		if (dialogs.containsKey(name)) {

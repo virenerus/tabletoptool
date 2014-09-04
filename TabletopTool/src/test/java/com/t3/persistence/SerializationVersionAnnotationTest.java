@@ -1,22 +1,20 @@
 package com.t3.persistence;
 
-import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Objects;
 
 import org.reflections.Reflections;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.beust.jcommander.Strings;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.macro.MacroEngine;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 public class SerializationVersionAnnotationTest {
 
@@ -26,6 +24,10 @@ public class SerializationVersionAnnotationTest {
 		LinkedList<Class<?>> annotatedClasses = new LinkedList<>(reflections.getTypesAnnotatedWith(SerializationVersion.class));
 
 		AssertJUnit.assertFalse(annotatedClasses.isEmpty());
+		
+		MacroEngine.initialize();
+		for(ValueType tpt:ValueType.values())
+			annotatedClasses.add(tpt.getType());
 
 		HashSet<Class<?>> checked = new HashSet<Class<?>>();
 		while (!annotatedClasses.isEmpty()) {
@@ -39,6 +41,7 @@ public class SerializationVersionAnnotationTest {
 
 		ArrayList<Class<?>> sorted=new ArrayList<>(checked);
 		Collections.sort(sorted, new Comparator<Class<?>>() {
+			@Override
 			public int compare(Class<?> o1, Class<?> o2) {
 				return o1.getName().compareTo(o2.getName());
 			}

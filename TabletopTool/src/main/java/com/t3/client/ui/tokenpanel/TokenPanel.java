@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
 import com.t3.client.AppUtil;
 import com.t3.client.ui.TokenPopupMenu;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.ModelChangeListener;
 import com.t3.model.Token;

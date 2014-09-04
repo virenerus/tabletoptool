@@ -9,8 +9,8 @@ import javax.swing.AbstractAction;
 import com.jidesoft.grid.TreeTable;
 import com.jidesoft.swing.JidePopupMenu;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
-import com.t3.model.properties.TokenProperty;
-import com.t3.model.properties.TokenPropertyType;
+import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
 
 public class PropertiesTablePopupMenuManager extends MouseAdapter {
 
@@ -28,11 +28,11 @@ public class PropertiesTablePopupMenuManager extends MouseAdapter {
 				
 				JidePopupMenu popup=new JidePopupMenu();
 				
-				if(ptr.getProperty().getType()==TokenPropertyType.STRUCT)
+				if(ptr.getProperty().getType()==ValueType.STRUCT)
 					popup.add(new AddChildAction("Create Struct Child",ptr,-1));
 				
 				if(ptr.getParent() instanceof PropertyTypeRow && 
-						((PropertyTypeRow)ptr.getParent()).getProperty().getType()==TokenPropertyType.STRUCT) {
+						((PropertyTypeRow)ptr.getParent()).getProperty().getType()==ValueType.STRUCT) {
 					
 					
 					PropertyTypeRow parent=((PropertyTypeRow)ptr.getParent());

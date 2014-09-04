@@ -31,6 +31,7 @@ import com.t3.client.swing.TwoToneTextPane;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.model.drawing.DrawnLabel;
 import com.t3.model.drawing.Pen;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * A text tool that uses a text component to allow text to be entered on the
@@ -271,7 +272,7 @@ public class DrawnTextTool extends AbstractDrawingTool implements
 		textPane = null;
 
 		// Tell everybody else
-		completeDrawable(renderer.getZone().getId(), getPen(), label);
+		completeDrawable(new ZoneReference(renderer.getZone()), getPen(), label);
 		resetTool();
 	}
 

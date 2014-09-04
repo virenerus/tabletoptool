@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Random;
 
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class MultiplicationNode extends Expression {

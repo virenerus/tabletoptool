@@ -31,13 +31,11 @@ import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneRendererFactory;
 import com.t3.clientserver.handler.AbstractMethodHandler;
+import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.AssetManager;
 import com.t3.model.CellPoint;
 import com.t3.model.ExposedAreaMetaData;
-import com.t3.GUID;
-import com.t3.model.InitiativeList;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.Label;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Player;
@@ -53,6 +51,9 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeValue;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.transfer.AssetChunk;
 import com.t3.transfer.AssetConsumer;
 import com.t3.transfer.AssetHeader;
@@ -304,7 +305,6 @@ public class ClientMethodHandler extends AbstractMethodHandler<NetworkCommand> {
 						currentRenderer = TabletopTool.getFrame().getZoneRenderer(zoneGUID);
 						TabletopTool.getFrame().setCurrentZoneRenderer(currentRenderer);
 					}
-					TabletopTool.getFrame().getZoneMiniMapPanel().flush();
 					TabletopTool.getFrame().refresh();
 					return;
 
@@ -515,7 +515,7 @@ public class ClientMethodHandler extends AbstractMethodHandler<NetworkCommand> {
 							return;
 						ti = list.getTokenInitiative(tokenIndex.get(0));
 					} // endif
-					ti.update((Boolean) parameters[2], (String) parameters[3]);
+					ti.update((Boolean) parameters[2], (InitiativeValue) parameters[3]);
 					return;
 
 				case setUseVision:

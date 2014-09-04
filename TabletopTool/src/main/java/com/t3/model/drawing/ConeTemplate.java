@@ -16,7 +16,7 @@ import java.awt.Rectangle;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.ZonePoint;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /** The cone template draws a highlight over all the squares effected from a
  * specific spine. There are 8 different directions from each spine.
@@ -201,17 +201,17 @@ public class ConeTemplate extends RadiusTemplate {
 	@Override
 	public Rectangle getBounds() {
 
-		if (TabletopTool.getCampaign().getZone(getZoneId()) == null) {
+		if (getZoneReference() == null) {
 			// How does this happen ?! Anyway, try to use the current zone
 			// (since that's what we're drawing anyway, seems reasonable
 			if (TabletopTool.getFrame().getCurrentZoneRenderer() == null) {
 				// Wha?!
 				return new Rectangle();
 			}
-			setZoneId(TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getId());
+			setZone(TabletopTool.getFrame().getCurrentZoneRenderer().getZone());
 		}
 
-		int gridSize = TabletopTool.getCampaign().getZone(getZoneId()).getGrid().getSize();
+		int gridSize = getZoneReference().value().getGrid().getSize();
 		int quadrantSize = getRadius() * gridSize + BOUNDS_PADDING;
 
 		// Find the x,y loc

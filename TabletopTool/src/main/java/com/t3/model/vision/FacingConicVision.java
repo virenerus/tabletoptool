@@ -16,16 +16,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 
-import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.model.Vision;
 import com.t3.model.Zone;
 
 public class FacingConicVision extends Vision {
 	private Integer lastFacing;
-
-	// DEPRECATED: here to support the serialization
-	private transient GUID tokenGUID;
 
 	public FacingConicVision() {
 	}

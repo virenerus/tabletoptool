@@ -42,8 +42,6 @@ public class ImageBorder {
 	private int leftMargin;
 	private int rightMargin;
 	
-	private boolean valid;
-	
 	public ImageBorder(String imagePath) {
 		
 		try {
@@ -61,7 +59,6 @@ public class ImageBorder {
 			rightMargin = max(topRight.getWidth(), right.getWidth(), bottomRight.getWidth());
 			leftMargin = max(topLeft.getWidth(), left.getWidth(), bottomLeft.getWidth());
 			
-			valid = true;
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}

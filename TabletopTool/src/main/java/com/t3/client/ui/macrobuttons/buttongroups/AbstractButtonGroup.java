@@ -42,15 +42,17 @@ import com.t3.client.ui.macrobuttons.buttons.MacroButton;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.client.ui.token.EditTokenDialog;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
+import com.t3.guid.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 import com.t3.swing.SwingUtil;
 import com.t3.util.ImageManager;
+import com.t3.util.guidreference.NullHelper;
+import com.t3.util.guidreference.TokenReference;
 
 public abstract class AbstractButtonGroup extends JPanel implements DropTargetListener, MouseListener {
 	protected DropTarget dt;
-	private GUID tokenId;
+	private TokenReference token;
 	private List<Token> tokenList;
 	private List<MacroButtonProperties> propertiesList; 
 	private AbstractMacroPanel panel;
@@ -86,27 +88,15 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 	}
 
 	public Token getToken() {
-		if (tokenId == null){
-			return null;
-		} else {
-			return TabletopTool.getFrame().getCurrentZoneRenderer() != null ? TabletopTool.getFrame().getCurrentZoneRenderer().getZone().getToken(tokenId) : null;
-		}
+		return NullHelper.value(token);
 	}
 
-	public GUID getTokenId(){
-		return this.tokenId;
+	public TokenReference getTokenReference(){
+		return this.token;
 	}
 	
-	public void setTokenId(GUID tokenId){
-		this.tokenId = tokenId;
-	}
-
-	public void setTokenId(Token token){
-		if (token == null) {
-			this.tokenId = null;
-		} else {
-			this.tokenId = token.getId();
-		}
+	public void setTokenReference(TokenReference token){
+		this.token=token;
 	}
 
 	public List<Token> getTokenList() {
@@ -306,7 +296,7 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 					} else if (SwingUtilities.isRightMouseButton(event)) {
 						// open token popup menu
 						Set<GUID> GUIDSet = new HashSet<GUID>();
-						GUIDSet.add(tokenId);
+						GUIDSet.add(NullHelper.getId(AbstractButtonGroup.this.token));
 						ZoneRenderer renderer = TabletopTool.getFrame().getCurrentZoneRenderer();
 						new TokenPopupMenu(GUIDSet, event.getX(), event.getY(), renderer, token).showPopup(AbstractButtonGroup.this);
 					} else if (SwingUtilities.isLeftMouseButton(event) && SwingUtil.isShiftDown(event)) {
@@ -314,7 +304,7 @@ public abstract class AbstractButtonGroup extends JPanel implements DropTargetLi
 						if (token.isBeingImpersonated()) {
 							TabletopTool.getFrame().getCommandPanel().quickCommit("/im");
 						} else {
-							TabletopTool.getFrame().getCommandPanel().quickCommit("/im " + tokenId, false);
+							TabletopTool.getFrame().getCommandPanel().quickCommit("/im " + NullHelper.value(AbstractButtonGroup.this.token), false);
 						}
 					}					
 				}

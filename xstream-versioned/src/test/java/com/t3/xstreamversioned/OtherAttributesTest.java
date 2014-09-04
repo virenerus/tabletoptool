@@ -2,14 +2,14 @@ package com.t3.xstreamversioned;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.t3.xstreamversioned.VersionedMarshallingStrategy;
+import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
+import com.t3.xstreamversioned.migration.MigrationManager;
 import com.thoughtworks.xstream.XStream;
 
 public class OtherAttributesTest {
@@ -20,8 +20,9 @@ public class OtherAttributesTest {
 		map.put("second", "value");
 		
 		XStream xs=new XStream();
-		xs.setMarshallingStrategy(new VersionedMarshallingStrategy());
+		xs.setMarshallingStrategy(new MigratingMarshallingStrategy(new MigrationManager("com.t3.", true)));
 		
+		System.out.println(xs.toXML(map));
 		Map<String, String> map2=(Map<String, String>) xs.fromXML(xs.toXML(map));
 		
 		Assert.assertEquals(map, map2);

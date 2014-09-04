@@ -31,7 +31,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.t3.GUID;
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.TabletopTool;
@@ -40,8 +39,9 @@ import com.t3.client.ui.T3Frame;
 import com.t3.client.ui.zone.PlayerView;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.ui.zone.ZoneView;
+import com.t3.guid.GUID;
+import com.t3.guid.UniquelyIdentifiable;
 import com.t3.language.I18N;
-import com.t3.model.InitiativeList.TokenInitiative;
 import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.DrawableColorPaint;
 import com.t3.model.drawing.DrawablePaint;
@@ -49,8 +49,10 @@ import com.t3.model.drawing.DrawableTexturePaint;
 import com.t3.model.drawing.DrawnElement;
 import com.t3.model.drawing.Pen;
 import com.t3.model.grid.Grid;
+import com.t3.model.initiative.InitiativeList;
+import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.util.StringUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * This object represents the maps that will appear for placement of
@@ -62,7 +64,7 @@ import com.t3.xstreamversioned.SerializationVersion;
  * compatibility.
  */
 @SerializationVersion(0)
-public class Zone extends BaseModel {
+public class Zone extends BaseModel implements UniquelyIdentifiable {
 	private static final Logger log = Logger.getLogger(Zone.class);
 
 	@SerializationVersion(0)
@@ -341,7 +343,7 @@ public class Zone extends BaseModel {
 				TokenInitiative ti = initiativeList.getTokenInitiative(i);
 				TokenInitiative oldti = (TokenInitiative) saveInitiative[i][1];
 				ti.setHolding(oldti.isHolding());
-				ti.setState(oldti.getState());
+				ti.setState(oldti.getRawState());
 			}
 		}
 		initiativeList.setZone(this);
@@ -356,6 +358,7 @@ public class Zone extends BaseModel {
 		hasFog = zone.hasFog;
 	}
 
+	@Override
 	public GUID getId() {
 		return id;
 	}

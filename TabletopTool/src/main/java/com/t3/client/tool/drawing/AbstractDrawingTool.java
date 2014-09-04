@@ -25,7 +25,6 @@ import com.t3.client.tool.LayerSelectionDialog;
 import com.t3.client.tool.LayerSelectionDialog.LayerSelectionListener;
 import com.t3.client.ui.zone.ZoneOverlay;
 import com.t3.client.ui.zone.ZoneRenderer;
-import com.t3.GUID;
 import com.t3.model.Zone;
 import com.t3.model.Zone.Layer;
 import com.t3.model.ZonePoint;
@@ -33,6 +32,7 @@ import com.t3.model.drawing.Drawable;
 import com.t3.model.drawing.Pen;
 import com.t3.swing.ColorPicker;
 import com.t3.swing.SwingUtil;
+import com.t3.util.guidreference.ZoneReference;
 
 /**
  * Tool for drawing freehand lines.
@@ -172,14 +172,14 @@ public abstract class AbstractDrawingTool extends DefaultTool implements ZoneOve
 	 * Render a drawable on a zone. This method consolidates all of the calls to the server in one place so that it is
 	 * easier to keep them in sync.
 	 * 
-	 * @param zoneId
-	 *            Id of the zone where the <code>drawable</code> is being drawn.
+	 * @param zone
+	 *            the zone where the <code>drawable</code> is being drawn.
 	 * @param pen
 	 *            The pen used to draw.
 	 * @param drawable
 	 *            What is being drawn.
 	 */
-	protected void completeDrawable(GUID zoneId, Pen pen, Drawable drawable) {
+	protected void completeDrawable(ZoneReference zone, Pen pen, Drawable drawable) {
 		if (!hasPaint(pen)) {
 			return;
 		}
@@ -190,7 +190,7 @@ public abstract class AbstractDrawingTool extends DefaultTool implements ZoneOve
 		T3Util.uploadTexture(pen.getBackgroundPaint());
 
 		// Tell the local/server to render the drawable.
-		TabletopTool.serverCommand().draw(zoneId, pen, drawable);
+		TabletopTool.serverCommand().draw(zone.getId(), pen, drawable);
 
 		// Allow it to be undone
 		Zone z = TabletopTool.getFrame().getCurrentZoneRenderer().getZone();

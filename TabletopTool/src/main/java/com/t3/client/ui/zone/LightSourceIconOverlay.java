@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Area;
 
 import com.t3.client.AppStyle;
-import com.t3.client.TabletopTool;
 import com.t3.model.AttachedLightSource;
 import com.t3.model.LightSource;
 import com.t3.model.Token;
@@ -30,7 +29,7 @@ public class LightSourceIconOverlay implements ZoneOverlay {
 			if (token.hasLightSources()) {
 				boolean foundNormalLight = false;
 				for (AttachedLightSource attachedLightSource : token.getLightSources()) {
-					LightSource lightSource = TabletopTool.getCampaign().getLightSource(attachedLightSource.getLightSourceId());
+					LightSource lightSource = attachedLightSource.getLightSource();
 					if (lightSource != null && lightSource.getType() == LightSource.Type.NORMAL) {
 						foundNormalLight = true;
 						break;

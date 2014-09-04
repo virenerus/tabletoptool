@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +28,9 @@ import com.t3.client.AppPreferences;
 import com.t3.client.tool.PointerTool;
 import com.t3.client.ui.zone.ZoneRenderer;
 import com.t3.client.walker.ZoneWalker;
+import com.t3.guid.GUID;
 import com.t3.model.Asset;
 import com.t3.model.CellPoint;
-import com.t3.GUID;
 import com.t3.model.ModelChangeEvent;
 import com.t3.model.Token;
 import com.t3.model.TokenFootprint;
@@ -40,7 +39,7 @@ import com.t3.model.Zone;
 import com.t3.model.Zone.Event;
 import com.t3.model.ZonePoint;
 import com.t3.persistence.FileUtil;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Base class for grids.
@@ -103,7 +102,7 @@ public abstract class Grid implements Cloneable {
 		return null;
 	}
 
-	protected List<TokenFootprint> loadFootprints(String name, OffsetTranslator... translators) throws IOException {
+	protected List<TokenFootprint> loadFootprints(String name, OffsetTranslator... translators) {
 		Object obj = FileUtil.objFromResource(Asset.class,name);
 		@SuppressWarnings("unchecked")
 		List<TokenFootprint> footprintList = (List<TokenFootprint>) obj;

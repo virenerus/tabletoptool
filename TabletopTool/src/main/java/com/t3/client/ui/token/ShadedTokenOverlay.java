@@ -18,7 +18,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.t3.model.Token;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 /**
  * Paints a single reduced alpha color over the token.

@@ -18,8 +18,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.t3.MD5Key;
+import com.t3.chatparser.generated.ChatParser;
+import com.t3.chatparser.generated.ParseException;
+import com.t3.dice.expression.Expression;
 import com.t3.macro.MacroException;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public class LookupTable {
@@ -75,15 +78,25 @@ public class LookupTable {
 	
 	public LookupEntry getLookup(String roll) throws MacroException {
 
+        int tableResult = 0;
+
+        // If the roll is null, we didn't get a passed in result, so roll
+        // the table's default
 		if (roll == null) {
 			roll = getDefaultRoll();
+            try {
+                Expression rollExpr= new ChatParser(roll).parseExpression();
+                roll = Float.toString(rollExpr.getResult());
+            } catch (ParseException e) {
+                throw new MacroException("Could not parse dice Expression '"+roll+"'",e);
+            }
 		}
-		
-		int tableResult = 0;
+
 		try {
-			//Result result = expressionParser.evaluate(roll);
-			//FIXMESOON here has something to be evaluated (dice expression)
-			tableResult = Integer.parseInt("4");
+            // Translate the String into a Integer
+            // Use ParseFloat to ensure the best match with
+            // macro syntax
+			tableResult = (int)Float.parseFloat(roll);
 
 			Integer minmin = Integer.MAX_VALUE;
 			Integer maxmax = Integer.MIN_VALUE;

@@ -23,9 +23,9 @@ import java.util.Set;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.zone.FogUtil;
 import com.t3.client.ui.zone.ZoneRenderer;
+import com.t3.guid.GUID;
 import com.t3.macro.api.functions.token.TokenLocation;
 import com.t3.model.CellPoint;
-import com.t3.GUID;
 import com.t3.model.Token;
 import com.t3.model.Token.Type;
 import com.t3.model.Zone;
@@ -228,6 +228,14 @@ public class MapView {
 	public List<TokenView> getSelectedTokens() {
 		return TokenView.makeTokenViewList(zr.getSelectedTokensList());
 	}
+
+    /**
+     * This return
+     * @return the List of all the selected, owned TokenViews
+     */
+    public List<TokenView> getSelectedOwnedTokens() {
+        return TokenView.makeTokenViewList(zr.getSelectedOwnedTokensList());
+    }
 	
 	/**
 	 * @return a list of all the tokens on this map currently visible

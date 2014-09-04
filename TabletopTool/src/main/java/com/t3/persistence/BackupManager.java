@@ -26,11 +26,11 @@ public class BackupManager {
 	private File backupDir;
 	private long maxBackupSize;
 	
-	public BackupManager(File backupDir) throws IOException {
+	public BackupManager(File backupDir) {
 		this(backupDir, DEFAULT_MAX_BACKUP_SIZE);
 	}
 	
-	public BackupManager(File backupDir, long maxBackupSize) throws IOException {
+	public BackupManager(File backupDir, long maxBackupSize) {
 		this.backupDir = backupDir;
 		this.maxBackupSize = maxBackupSize;
 		

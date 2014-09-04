@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 import com.t3.client.ui.AssetPaint;
 import com.t3.model.Asset;
-import com.t3.xstreamversioned.SerializationVersion;
+import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public abstract class DrawablePaint implements Serializable {

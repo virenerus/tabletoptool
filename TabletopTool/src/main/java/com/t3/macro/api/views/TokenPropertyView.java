@@ -19,7 +19,7 @@ import java.util.Set;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.Token;
-import com.t3.model.properties.TokenProperty;
+import com.t3.model.tokenproperties.old.TokenProperty;
 import com.t3.util.StringUtil;
 
 /**

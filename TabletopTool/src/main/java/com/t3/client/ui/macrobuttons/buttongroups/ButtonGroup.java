@@ -32,22 +32,22 @@ import com.t3.client.ui.macrobuttons.buttons.TransferData;
 import com.t3.client.ui.macrobuttons.buttons.TransferableMacroButton;
 import com.t3.client.ui.macrobuttons.panels.AbstractMacroPanel;
 import com.t3.language.I18N;
-import com.t3.GUID;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
+import com.t3.util.guidreference.TokenReference;
 
 @SuppressWarnings("serial")
 public class ButtonGroup extends AbstractButtonGroup {
 
 	// constructor for creating a normal button group
-	public ButtonGroup(List<MacroButtonProperties> propertiesList, String group, AbstractMacroPanel panel, GUID tokenId, AreaGroup area) {
+	public ButtonGroup(List<MacroButtonProperties> propertiesList, String group, AbstractMacroPanel panel, TokenReference tokenReference, AreaGroup area) {
 		setArea(area);
 		setPropertiesList(propertiesList);
 		setPanel(panel);
 		setPanelClass(panel.getPanelClass());
 		setGroupClass("ButtonGroup");
 		setGroupLabel(group);
-		setTokenId(tokenId);
+		setTokenReference(tokenReference);
 		setMacroGroup(group);
 		addMouseListener(this);
 		drawButtons();

@@ -14,7 +14,7 @@ package com.t3.macro.groovy;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
 import com.t3.dice.Dice;
-import com.t3.model.properties.TokenPropertyType;
+import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.util.math.CappedInteger;
 import com.t3.util.math.IntPoint;
 
@@ -23,7 +23,7 @@ public class MacroImportCustomizer extends ImportCustomizer {
 		super();
 		this.addImports(
 				CappedInteger.class,
-				TokenPropertyType.class,
+				ValueType.class,
 				IntPoint.class
 				);
 		this.addStarImports(Dice.class.getPackage().getName());
