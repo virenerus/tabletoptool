@@ -48,12 +48,12 @@
   	<dependency>
   		<groupId>tabletoptool</groupId>
   		<artifactId>xstream-versioned</artifactId>
-  		<version>0.4.5</version>
+  		<version>0.4.6</version>
   	</dependency>
   </dependencies>
   <parent>
   	<groupId>tabletoptool</groupId>
   	<artifactId>t3-master</artifactId>
-  	<version>0.4.5</version>
+  	<version>0.4.6</version>
   </parent>
 </project>
