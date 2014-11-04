@@ -13,6 +13,8 @@ package com.t3.macro.api.views;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -24,6 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.t3.client.TabletopTool;
 import com.t3.guid.GUID;
+import com.t3.macro.MacroException;
+import com.t3.macro.api.functions.CampaignFunctions;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.Token;
 
@@ -288,9 +292,18 @@ public class MacroButtonView implements MacroView {
 	public String createLink(String text, String... args) {
 		try {
 			StringBuilder sb=new StringBuilder("<a href=\"macro://");
-			sb.append(macro.getToken().getId().toString())
-				.append('/')
-				.append(URLEncoder.encode(macro.getLabel(),"utf8"));
+			//is campaign macro
+			if(macro.getToken()==null) {
+				if(StringUtils.isEmpty(macro.getSaveLocation()))
+					sb.append("GlobalPanel");
+				else
+					sb.append(macro.getSaveLocation());
+			}
+			else
+				sb.append(macro.getToken().getId().toString());
+			
+				
+			sb.append('/').append(URLEncoder.encode(macro.getLabel(),"utf8"));
 			if(args.length>0) {
 				sb.append('?');
 				
@@ -301,27 +314,52 @@ public class MacroButtonView implements MacroView {
 				}
 			}
 			
-			return sb.toString();
+			return sb.append("\">").append(text).append("</a>").toString();
 		} catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public static Object executeLink(String link) {
+	public static Object executeLink(String link) throws MacroException {
 		try {
-			URL u=new URL(link);
-			Token t=TabletopTool.getFrame().findToken(new GUID(u.getHost()));
-			MacroButtonProperties mbp = t.getMacro(URLDecoder.decode(u.getPath(),"utf8"),false);
+			URI u=new URI(link);
+			MacroButtonProperties mbp;
+			Token t = null;
+			
+			//campaign macro
+			if("CampaignPanel".equals(u.getHost())) {
+				CampaignFunctions cf = new CampaignFunctions();
+				MacroButtonView mv=cf.getCampaignMacro(URLDecoder.decode(u.getPath(),"utf8").substring(1));
+				if(mv==null)
+					throw new IllegalArgumentException("Campaign macro '"+URLDecoder.decode(u.getPath(),"utf8")+" not found.");
+				else
+				mbp=mv.macro;
+			}
+			//global macro
+			else if("GlobalPanel".equals(u.getHost())) {
+				CampaignFunctions cf = new CampaignFunctions();
+				MacroButtonView mv=cf.getGlobalMacro(URLDecoder.decode(u.getPath(),"utf8").substring(1));
+				if(mv==null)
+					throw new IllegalArgumentException("Global macro '"+URLDecoder.decode(u.getPath(),"utf8").substring(1)+" not found.");
+				else
+				mbp=mv.macro;
+			}
+			//token macro
+			else {
+				t=TabletopTool.getFrame().findToken(new GUID(u.getHost()));
+				mbp = t.getMacro(URLDecoder.decode(u.getPath(),"utf8").substring(1),false);
+			}
 			HashMap<String,Object> arguments=new HashMap<String,Object>();
-			for(String a:StringUtils.split(u.getQuery(),'&')) {
-				String[] aps=StringUtils.split(a,'=');
-				arguments.put(aps[0], URLDecoder.decode(aps[1], "utf8"));
+			if(u.getQuery()!=null) {
+				for(String a:StringUtils.split(u.getQuery(),'&')) {
+					String[] aps=StringUtils.split(a,'=');
+					arguments.put(aps[0], URLDecoder.decode(aps[1], "utf8"));
+				}
 			}
 			return mbp.executeMacro(t, arguments);
-		} catch (MalformedURLException | UnsupportedEncodingException e) {
-			e.printStackTrace();
+		} catch (UnsupportedEncodingException|URISyntaxException e) {
+			throw new MacroException(e);
 		}
-		return null;
 	}
 }

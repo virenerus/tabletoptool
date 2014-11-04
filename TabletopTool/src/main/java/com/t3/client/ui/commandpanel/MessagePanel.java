@@ -41,6 +41,8 @@ import com.t3.client.TabletopTool;
 import com.t3.client.swing.MessagePanelEditorKit;
 import com.t3.macro.MacroEngine;
 import com.t3.macro.MacroException;
+import com.t3.macro.api.views.MacroButtonView;
+import com.t3.macro.api.views.MacroView;
 import com.t3.model.chat.Speaker;
 import com.t3.model.chat.TextMessage;
 import com.t3.util.URLUtil;
@@ -103,11 +105,10 @@ public class MessagePanel extends JPanel {
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
 								try {
-									MacroEngine.getInstance().evaluate(e.getDescription());
+									MacroButtonView.executeLink(e.getDescription());
 								} catch (MacroException e1) {
-									e1.printStackTrace();
-									log.error("Error while trying to execute script from HTML", e1);
-									TabletopTool.addMessage(TextMessage.me(e1.getHTMLErrorMessage()));
+									//FIXME should use macro error handling
+									throw new RuntimeException(e1);
 								}
 							}
 						}
