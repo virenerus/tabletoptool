@@ -77,6 +77,7 @@ public abstract class AbstractTemplate extends AbstractDrawing {
 	/**
 	 * The directions that can be drawn. All is for a radius and the other values are for cones.
 	 */
+	@SerializationVersion(0)
 	public static enum Direction {
 		/** Draw a Radius */
 		ALL,

@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import com.t3.client.AppPreferences;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.commandpanel.MessagePanel;
+import com.t3.macro.MacroException;
 import com.t3.macro.api.views.MacroButtonView;
 
 @SuppressWarnings("serial")
@@ -63,7 +64,12 @@ public class HTMLPane extends JEditorPane {
 						Matcher m = MessagePanel.URL_PATTERN.matcher(e.getDescription());
 						if (m.matches()) {
 							if (m.group(1).equalsIgnoreCase("macro")) {
-								MacroButtonView.executeLink(e.getDescription());
+								try {
+									MacroButtonView.executeLink(e.getDescription());
+								} catch (MacroException e1) {
+									//FIXME here should be macro error handling
+									throw new RuntimeException(e1);
+								}
 							}
 						}
 					}

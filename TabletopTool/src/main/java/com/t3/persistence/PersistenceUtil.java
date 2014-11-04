@@ -37,6 +37,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
+import com.jidesoft.utils.StringUtils;
 import com.t3.CodeTimer;
 import com.t3.MD5Key;
 import com.t3.client.AppConstants;
@@ -74,6 +75,7 @@ public class PersistenceUtil {
 		PackedFile.init(AppUtil.getAppHome("tmp")); //$NON-NLS-1$
 	}
 
+	@SerializationVersion(0)
 	public static class PersistedMap {
 		public Zone zone;
 		public Map<MD5Key, Asset> assetMap = new HashMap<MD5Key, Asset>();
@@ -457,15 +459,34 @@ public class PersistenceUtil {
 				
 				try {
 					asset = (Asset) pakFile.getFileObject(pathname); // XML deserialization
+					
+					//this fixes a bug where asset objects were serialized without their extension
+					if(asset.getId()==null) {
+						String imageDataPath=null;
+						for(String path:pakFile.getPaths()) {
+							if(path.startsWith(pathname+'.')) {
+								imageDataPath=path;
+								break;
+							}
+						}
+						
+						if(imageDataPath==null)
+							continue;
+						else {
+							String ext=imageDataPath.substring(imageDataPath.lastIndexOf('.')+1);
+							if(org.apache.commons.lang3.StringUtils.isEmpty(ext))
+								continue;
+							else
+								asset=new Asset(key, ext);
+						}
+						
+					}
 				} catch (Exception e) {
-					// Do nothing.  The asset will be 'null' and it'll be handled below.
-					log.info("Exception while handling asset '" + pathname + "'", e);
-				}
-				
-				if (asset == null) { // Referenced asset not included in PackedFile??
-					log.error("Referenced asset '" + pathname + "' not found while loading?!");
+					// Do nothing.
+					log.error("Exception while handling asset '" + pathname + "'", e);
 					continue;
 				}
+				
 				// If the asset was marked as "broken" then ignore it completely.  The end
 				// result is that MT will attempt to load it from a repository again, as normal.
 				if ("broken".equals(asset.getName())) {
