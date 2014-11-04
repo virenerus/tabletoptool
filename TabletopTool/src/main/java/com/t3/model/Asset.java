@@ -32,7 +32,7 @@ public class Asset {
 	private String name;
 	private String extension;
 
-	private byte[] image;
+	private transient byte[] image;
 
 	protected Asset() {
 	}
@@ -49,6 +49,11 @@ public class Asset {
 
 	public Asset(MD5Key id) {
 		this.id = id;
+	}
+
+	public Asset(MD5Key id, String extension) {
+		this.id=id;
+		this.extension=extension;
 	}
 
 	public MD5Key getId() {

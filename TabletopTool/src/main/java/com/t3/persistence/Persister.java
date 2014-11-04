@@ -1,12 +1,10 @@
 package com.t3.persistence;
 
-import com.t3.persistence.converter.AssetImageConverter;
 import com.t3.persistence.migrators.InitiativeList0_1Migrator;
 import com.t3.persistence.migrators.TokenInitiative0_1Migrator;
 import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
 import com.t3.xstreamversioned.migration.MigrationManager;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.Converter;
 
 public class Persister {
 	
@@ -28,7 +26,7 @@ public class Persister {
 
 		
 		//ADD ALL CONVERTERS HERE THAT DECIDE HOW TO SERIALIZE DESERIALIZE CERTAIN CLASSES
-		xstream.registerConverter((Converter)new AssetImageConverter());
+		//xstream.registerConverter(converter);
 		return xstream;
 	}
 }
