@@ -610,7 +610,7 @@ public class AppActions {
 				return;
 			}
 			File saveFile = chooser.getSelectedFile();
-			if (saveFile.getName().indexOf(".") < 0) {
+			if (!saveFile.getName().contains(".")) {
 				saveFile = new File(saveFile.getAbsolutePath() + ".html");
 			}
 			if (saveFile.exists() && !TabletopTool.confirm("msg.confirm.fileExists")) {
@@ -2214,11 +2214,11 @@ public class AppActions {
 		if (saveStatus == JFileChooser.APPROVE_OPTION) {
 			File campaignFile = chooser.getSelectedFile();
 
+			if (!campaignFile.getName().contains(".")) {
+				campaignFile = new File(campaignFile.getAbsolutePath() + AppConstants.CAMPAIGN_FILE_EXTENSION);
+			}
 			if (campaignFile.exists() && !TabletopTool.confirm("msg.confirm.overwriteExistingCampaign")) {
 				return;
-			}
-			if (campaignFile.getName().indexOf(".") < 0) {
-				campaignFile = new File(campaignFile.getAbsolutePath() + AppConstants.CAMPAIGN_FILE_EXTENSION);
 			}
 			doSaveCampaign(campaign, campaignFile, callback);
 
@@ -2249,7 +2249,7 @@ public class AppActions {
 			if (chooser.showSaveDialog(TabletopTool.getFrame()) == JFileChooser.APPROVE_OPTION) {
 				try {
 					File mapFile = chooser.getSelectedFile();
-					if (mapFile.getName().indexOf(".") < 0) {
+					if (!mapFile.getName().contains(".")) {
 						mapFile = new File(mapFile.getAbsolutePath() + AppConstants.MAP_FILE_EXTENSION);
 					}
 					PersistenceUtil.saveMap(zr.getZone(), mapFile);

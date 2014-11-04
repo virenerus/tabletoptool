@@ -74,6 +74,7 @@ public class PersistenceUtil {
 		PackedFile.init(AppUtil.getAppHome("tmp")); //$NON-NLS-1$
 	}
 
+	@SerializationVersion(0)
 	public static class PersistedMap {
 		public Zone zone;
 		public Map<MD5Key, Asset> assetMap = new HashMap<MD5Key, Asset>();
