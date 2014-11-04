@@ -47,7 +47,7 @@ import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.grid.Grid;
-import com.t3.model.tokenproperties.old.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyHolder;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;

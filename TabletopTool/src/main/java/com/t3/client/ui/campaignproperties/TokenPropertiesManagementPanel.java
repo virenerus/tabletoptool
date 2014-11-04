@@ -36,11 +36,11 @@ import com.t3.client.swing.AbeillePanel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignProperties;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 
 public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignProperties> {
 
-	private Map<String, List<TokenProperty>> tokenTypeMap;
+	private Map<String, List<PropertyType>> tokenTypeMap;
 	private String editingType;
 	private TreeTable tokenPropertiesTable;
 	private PropertyTypesTableModel tokenPropertiesTableModel;
@@ -53,7 +53,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 
 	public void copyCampaignToUI(CampaignProperties campaignProperties) {
 
-		tokenTypeMap = new HashMap<String, List<TokenProperty>>(campaignProperties.getTokenTypeMap());
+		tokenTypeMap = new HashMap<String, List<PropertyType>>(campaignProperties.getTokenTypeMap());
 
 		updateTypeList();
 
@@ -137,7 +137,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tokenPropertiesTableModel!=null)
-					tokenPropertiesTableModel.addRow(tokenPropertiesTableModel.new PropertyTypeRow(new TokenProperty()));
+					tokenPropertiesTableModel.addRow(tokenPropertiesTableModel.new PropertyTypeRow(new PropertyType()));
 			}
 		});
 	}
@@ -185,7 +185,7 @@ public class TokenPropertiesManagementPanel extends AbeillePanel<CampaignPropert
 		// Pull the old one out and put the new one in (rename)
 		
 		try {
-			List<TokenProperty> current=tokenPropertiesTableModel.collectTokenProperties();
+			List<PropertyType> current=tokenPropertiesTableModel.collectTokenProperties();
 
 			tokenTypeMap.remove(editingType);
 			tokenTypeMap.put(getTokenTypeName().getText().trim(), current);

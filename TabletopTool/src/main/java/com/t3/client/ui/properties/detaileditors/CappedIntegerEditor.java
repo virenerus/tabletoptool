@@ -11,7 +11,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.t3.util.math.CappedInteger;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 
 public class CappedIntegerEditor extends DetailEditor<CappedInteger> {
 	private SpinnerNumberModel	maxSpinner;

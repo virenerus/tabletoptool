@@ -87,7 +87,7 @@ import com.t3.model.Zone.Layer;
 import com.t3.model.Zone.VisionType;
 import com.t3.model.ZonePoint;
 import com.t3.model.grid.Grid;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.swing.SwingUtil;
 import com.t3.util.GraphicsUtil;
 import com.t3.util.ImageManager;
@@ -1392,7 +1392,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 				// Stats
 				Map<String, String> propertyMap = new LinkedHashMap<String, String>();
 				if (AppPreferences.getShowStatSheet()) {
-					for (TokenProperty property : TabletopTool.getCampaign().getTokenPropertyList(tokenUnderMouse.getPropertyType())) {
+					for (PropertyType property : TabletopTool.getCampaign().getTokenPropertyList(tokenUnderMouse.getPropertyType())) {
 						if (property.isShowOnStatSheet()) {
 							if (property.isGMOnly() && !TabletopTool.getPlayer().isGM()) {
 								continue;

@@ -22,20 +22,20 @@ import com.t3.client.AppStyle;
 import com.t3.client.TabletopTool;
 import com.t3.image.ImageUtil;
 import com.t3.model.Token;
+import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.instance.TokenPropertiesList;
-import com.t3.model.tokenproperties.old.PropertyHolder;
-import com.t3.model.tokenproperties.old.TokenProperty;
 
 public class ListEditor<TYPE> extends DetailEditor<TokenPropertiesList<TYPE>> {
 
 	private static final Logger log=Logger.getLogger(ListEditor.class);
 	private CollapsiblePane	collapsiblePane;
 	private JPanel listElementsPane;
-	private TokenProperty	listElementsProperty;
+	private PropertyType	listElementsProperty;
 	private ArrayList<DetailEditor<TYPE>> subEditors=new ArrayList<>();
 	private PropertyHolder	propertyHolder;
 
-	public ListEditor(TokenProperty tokenProperty, PropertyHolder propertyHolder) {
+	public ListEditor(PropertyType tokenProperty, PropertyHolder propertyHolder) {
 		super(true);
 		this.propertyHolder=propertyHolder;
 		this.listElementsProperty=tokenProperty.getSubType();

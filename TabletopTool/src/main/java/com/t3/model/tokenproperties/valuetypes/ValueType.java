@@ -16,13 +16,14 @@ import com.t3.client.ui.token.DiceExpressionCellEditor;
 import com.t3.client.ui.token.PropertyMacroViewCellEditor;
 import com.t3.dice.expression.Expression;
 import com.t3.macro.api.views.PropertyMacroView;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 import com.t3.model.tokenproperties.instance.Struct;
 import com.t3.model.tokenproperties.instance.TokenPropertiesList;
-import com.t3.util.math.CappedInteger;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(0)
 public enum ValueType {
+	//TODO implement more descriptors with converters
 	BOOLEAN("Boolean", Boolean.class, new DefaultValueTypeDescriptor<Boolean>(Boolean.FALSE, BooleanCheckBoxCellEditor.CONTEXT)),
 	TEXT("Text", String.class, new DefaultValueTypeDescriptor<String>("")),
 	INTEGER("Integer", Integer.class, new DefaultValueTypeDescriptor<Integer>(0)),
@@ -59,5 +60,9 @@ public enum ValueType {
 	
 	public ValueTypeDescriptor<?> getDescriptor() {
 		return descriptor;
+	}
+
+	public Object convert(Object object) {
+		return descriptor.convert(object);
 	}
 }

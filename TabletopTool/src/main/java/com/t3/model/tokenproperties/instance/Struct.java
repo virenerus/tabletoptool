@@ -1,23 +1,24 @@
 package com.t3.model.tokenproperties.instance;
 
-import com.t3.model.tokenproperties.old.PropertyHolder;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.PropertyTypeReference;
 import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
-@SerializationVersion(0)
+@SerializationVersion(1)
 public class Struct extends PropertyHolder {
 	
-	private TokenProperty	tokenProperty;
+	private PropertyTypeReference	structPropertyTypeReference;
 
-	public Struct(TokenProperty tokenProperty) {
-		if(tokenProperty==null || tokenProperty.getType()!= ValueType.STRUCT)
+	public Struct(PropertyType propertyType) {
+		if(propertyType==null || propertyType.getType()!= ValueType.STRUCT)
 			throw new IllegalArgumentException("Token property of a Struct must be of type struct");
-		this.tokenProperty=tokenProperty;
+		this.structPropertyTypeReference=new PropertyTypeReference(propertyType);
 	}
 	
 	@Override
-	protected TokenProperty getPropertyInfo(String key) {
-		return tokenProperty.getSubType(key);
+	protected PropertyType getPropertyInfo(String key) {
+		return structPropertyTypeReference.value().getSubType(key);
 	}
 }

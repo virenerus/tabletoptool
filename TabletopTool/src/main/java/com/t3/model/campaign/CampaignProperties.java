@@ -44,9 +44,9 @@ import com.t3.model.LightSource;
 import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 import com.t3.model.tokenproperties.valuetypes.ValueType;
-import com.t3.util.math.CappedInteger;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(1)
@@ -54,7 +54,7 @@ public class CampaignProperties {
 	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
 
 	//FIXME make this a 2d HashMap
-	private Map<String, List<TokenProperty>> tokenTypeMap;
+	private Map<String, List<PropertyType>> tokenTypeMap;
 	private List<String> remoteRepositoryList;
 	private Map<String, Map<GUID, LightSource>> lightSourcesMap;
 	private Map<String, LookupTable> lookupTableMap;
@@ -76,9 +76,9 @@ public class CampaignProperties {
 	}
 
 	public CampaignProperties(CampaignProperties properties) {
-		tokenTypeMap = new HashMap<String, List<TokenProperty>>();
-		for (Entry<String, List<TokenProperty>> entry : properties.tokenTypeMap.entrySet()) {
-			List<TokenProperty> typeList = new ArrayList<TokenProperty>();
+		tokenTypeMap = new HashMap<String, List<PropertyType>>();
+		for (Entry<String, List<PropertyType>> entry : properties.tokenTypeMap.entrySet()) {
+			List<PropertyType> typeList = new ArrayList<PropertyType>();
 			typeList.addAll(properties.tokenTypeMap.get(entry.getKey()));
 
 			tokenTypeMap.put(entry.getKey(), typeList);
@@ -149,7 +149,7 @@ public class CampaignProperties {
 		}
 	}
 
-	public Map<String, List<TokenProperty>> getTokenTypeMap() {
+	public Map<String, List<PropertyType>> getTokenTypeMap() {
 		if (tokenTypeMap == null) {
 			initTokenTypeMap();
 		}
@@ -170,11 +170,11 @@ public class CampaignProperties {
 	}
 
 	// TODO: This is for conversion from 1.3b19-1.3b20
-	public void setTokenTypeMap(Map<String, List<TokenProperty>> map) {
+	public void setTokenTypeMap(Map<String, List<PropertyType>> map) {
 		tokenTypeMap = map;
 	}
 
-	public List<TokenProperty> getTokenPropertyList(String tokenType) {
+	public List<PropertyType> getTokenPropertyList(String tokenType) {
 		return getTokenTypeMap().get(tokenType);
 	}
 
@@ -308,24 +308,24 @@ public class CampaignProperties {
 		if (tokenTypeMap != null) {
 			return;
 		}
-		tokenTypeMap = new HashMap<String, List<TokenProperty>>();
+		tokenTypeMap = new HashMap<String, List<PropertyType>>();
 
-		List<TokenProperty> list = new ArrayList<TokenProperty>(12);
-		list.add(new TokenProperty(ValueType.INTEGER,"Strength", "Str"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Dexterity", "Dex"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Constitution", "Con"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Intelligence", "Int"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Wisdom", "Wis"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Charisma", "Char"));
-		TokenProperty tp = new TokenProperty(ValueType.CAPPED,"HP", true, true, false);
+		List<PropertyType> list = new ArrayList<PropertyType>(12);
+		list.add(new PropertyType(ValueType.INTEGER,"Strength", "Str"));
+		list.add(new PropertyType(ValueType.INTEGER,"Dexterity", "Dex"));
+		list.add(new PropertyType(ValueType.INTEGER,"Constitution", "Con"));
+		list.add(new PropertyType(ValueType.INTEGER,"Intelligence", "Int"));
+		list.add(new PropertyType(ValueType.INTEGER,"Wisdom", "Wis"));
+		list.add(new PropertyType(ValueType.INTEGER,"Charisma", "Char"));
+		PropertyType tp = new PropertyType(ValueType.CAPPED,"HP", true, true, false);
 		tp.setDefaultValue(new CappedInteger(10, 0, 10));
 		list.add(tp);
-		list.add(new TokenProperty(ValueType.INTEGER,"AC", true, true, false));
-		list.add(new TokenProperty(ValueType.INTEGER,"Defense", "Def"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Movement", "Mov"));
-		list.add(new TokenProperty(ValueType.INTEGER,"Elevation", "Elv", true, false, false));
-		list.add(new TokenProperty(ValueType.TEXT,"Description", "Des"));
-		tp=new TokenProperty(ValueType.BOOLEAN,"Female","fem");
+		list.add(new PropertyType(ValueType.INTEGER,"AC", true, true, false));
+		list.add(new PropertyType(ValueType.INTEGER,"Defense", "Def"));
+		list.add(new PropertyType(ValueType.INTEGER,"Movement", "Mov"));
+		list.add(new PropertyType(ValueType.INTEGER,"Elevation", "Elv", true, false, false));
+		list.add(new PropertyType(ValueType.TEXT,"Description", "Des"));
+		tp=new PropertyType(ValueType.BOOLEAN,"Female","fem");
 		tp.setDefaultValue(Boolean.FALSE);
 		list.add(tp);
 

@@ -34,6 +34,7 @@ import org.codehaus.groovy.syntax.ParserException;
 
 
 
+
 import com.t3.MD5Key;
 import com.t3.client.AppUtil;
 import com.t3.client.T3Util;
@@ -65,7 +66,7 @@ import com.t3.model.ZonePoint;
 import com.t3.model.chat.TokenSpeaker;
 import com.t3.model.grid.Grid;
 import com.t3.model.grid.SquareGrid;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.initiative.InitiativeList;
 import com.t3.model.initiative.InitiativeList.TokenInitiative;
 import com.t3.util.ImageManager;
@@ -1286,9 +1287,9 @@ public class TokenView extends TokenPropertyView {
 	 */
 	public Object getPropertyDefault(String property) {
 		Object val = null;
-		List<TokenProperty> propertyList = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		List<PropertyType> propertyList = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
 		if (propertyList != null) {
-			for (TokenProperty tp : propertyList) {
+			for (PropertyType tp : propertyList) {
 				if (property.equalsIgnoreCase(tp.getName())) {
 					val = tp.getDefaultValue();
 					break;

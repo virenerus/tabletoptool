@@ -19,7 +19,7 @@ import java.util.Set;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.Token;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.util.StringUtil;
 
 /**
@@ -91,8 +91,8 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 
 	@Override
 	public Object put(String key, Object value) {
-		List<TokenProperty> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
-		for(TokenProperty propType:propTypes) {
+		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		for(PropertyType propType:propTypes) {
 			if(propType.getName().equals(key)) {
 				if(value!=null && !propType.getType().isInstance(value))
 					throw new IllegalArgumentException("Given value is of type "+value.getClass()+" instead of "+propType.getType());
@@ -110,9 +110,9 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 
 	@Override
 	public void putAll(Map<? extends String, ?> m) {
-		List<TokenProperty> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
 		for(Entry<? extends String, ?> e:m.entrySet()) {
-			for(TokenProperty propType:propTypes) {
+			for(PropertyType propType:propTypes) {
 				if(propType.getName().equals(e.getKey())) {
 					if(e.getValue()!=null && !propType.getType().isInstance(e.getValue()))
 						throw new IllegalArgumentException("Given value is of type "+e.getValue().getClass()+" instead of "+propType.getType());

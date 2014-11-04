@@ -39,7 +39,7 @@ import com.t3.model.LookupTable;
 import com.t3.model.MacroButtonProperties;
 import com.t3.model.SightType;
 import com.t3.model.Zone;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.net.Location;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
@@ -58,7 +58,7 @@ public class Campaign {
 	/**
 	 * The only built-in property type is "Basic". Any others are user-defined.
 	 */
-	public static final String DEFAULT_TOKEN_PROPERTY_TYPE = "Basic";
+	public static final String DEFAULT_TOKEN_PROPERTY_SET = "Basic";
 
 	private GUID id = new GUID();
 	private Map<GUID, Zone> zones = Collections.synchronizedMap(new LinkedHashMap<GUID, Zone>());
@@ -81,7 +81,7 @@ public class Campaign {
 	private int macroButtonLastIndex = 0;
 
 	// DEPRECATED: As of 1.3b20 these are now in campaignProperties, but are here for backward compatibility
-	private Map<String, List<TokenProperty>> tokenTypeMap;
+	private Map<String, List<PropertyType>> tokenTypeMap;
 	private List<String> remoteRepositoryList;
 
 	private Map<String, Map<GUID, LightSource>> lightSourcesMap;
@@ -186,19 +186,19 @@ public class Campaign {
 		campaignProperties.setSightTypeMap(map);
 	}
 
-	public List<TokenProperty> getTokenPropertyList(String tokenType) {
-		return getTokenTypeMap().containsKey(tokenType) ? getTokenTypeMap().get(tokenType) : new ArrayList<TokenProperty>();
+	public List<PropertyType> getTokenPropertyList(String tokenType) {
+		return getTokenTypeMap().containsKey(tokenType) ? getTokenTypeMap().get(tokenType) : new ArrayList<PropertyType>();
 	}
 	
 	//TODO make this fast via a 2d hashmap
-	public TokenProperty getTokenProperty(String tokenType, String propertyName) {
-		for(TokenProperty tp:getTokenPropertyList(tokenType))
+	public PropertyType getTokenProperty(String tokenType, String propertyName) {
+		for(PropertyType tp:getTokenPropertyList(tokenType))
 			if(tp.getName().equals(propertyName))
 				return tp;
 		return null;
 	}
 
-	public void putTokenType(String name, List<TokenProperty> propertyList) {
+	public void putTokenType(String name, List<PropertyType> propertyList) {
 		getTokenTypeMap().put(name, propertyList);
 	}
 
@@ -207,7 +207,7 @@ public class Campaign {
 	 * 
 	 * @return
 	 */
-	public Map<String, List<TokenProperty>> getTokenTypeMap() {
+	public Map<String, List<PropertyType>> getTokenTypeMap() {
 		checkCampaignPropertyConversion(); // TODO: Remove, for compatibility 1.3b19-1.3b20
 		return campaignProperties.getTokenTypeMap();
 	}

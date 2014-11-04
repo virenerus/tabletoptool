@@ -1160,7 +1160,7 @@ public class TabletopTool {
 		
 		//register cell editors and renderers
 		for(ValueType tpt:ValueType.values())
-			tpt.registerCellEditors();
+			tpt.getDescriptor().registerCellEditors();
 		CellEditorManager.registerEditor(ValueType.class, new CellEditorFactory() {
 			@Override
 			public CellEditor create() {

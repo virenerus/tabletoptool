@@ -25,7 +25,7 @@ import com.t3.language.I18N;
 import com.t3.macro.MacroException;
 import com.t3.macro.api.views.MacroButtonView;
 import com.t3.model.MacroButtonProperties;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 
 public class CampaignFunctions {
 	/**
@@ -69,11 +69,11 @@ public class CampaignFunctions {
 	 * @return a string list containing the property names.
 	 */
 	public List<String> getAllPropertyNames() {
-		Map<String, List<TokenProperty>> pmap = TabletopTool.getCampaign().getCampaignProperties().getTokenTypeMap();
+		Map<String, List<PropertyType>> pmap = TabletopTool.getCampaign().getCampaignProperties().getTokenTypeMap();
 		ArrayList<String> namesList = new ArrayList<String>();
 
-		for (Entry<String, List<TokenProperty>> entry : pmap.entrySet()) {
-			for (TokenProperty tp : entry.getValue()) {
+		for (Entry<String, List<PropertyType>> entry : pmap.entrySet()) {
+			for (PropertyType tp : entry.getValue()) {
 				namesList.add(tp.getName());
 			}
 		}
@@ -87,9 +87,9 @@ public class CampaignFunctions {
 	 * @return a string list containing the property names.
 	 */
 	public List<String> getAllPropertyNames(String type) {
-		List<TokenProperty> props = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(type);
+		List<PropertyType> props = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(type);
 		ArrayList<String> namesList = new ArrayList<String>();
-		for (TokenProperty tp : props) {
+		for (PropertyType tp : props) {
 			namesList.add(tp.getName());
 		}
 		return namesList;

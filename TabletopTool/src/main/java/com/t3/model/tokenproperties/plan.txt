@@ -1,5 +1,8 @@
 ValueType ->    enum with TEXT and so one
 ValueTypeDescriptor -> contain stuff that is currently in enum (allows for different behaviour in different enum values)
 PropertyType ->     type class with name of type, value type and stuff
-			 ->     generate PropertySignature (name + valuetype + signatures of subtypes)
-PropertyHolder -> maps PropertySignature to PropertyInstances
+PropertyHolder -> maps name to PropertyInstances
+PropertyConverter -> converts property of any valuetype into any other value type
+
+
+TODO: fix Struct & TokenPropertiesList

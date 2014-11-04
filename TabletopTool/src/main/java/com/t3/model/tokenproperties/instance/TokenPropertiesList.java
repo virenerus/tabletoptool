@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
@@ -14,17 +15,22 @@ import com.t3.xstreamversioned.version.SerializationVersion;
 public class TokenPropertiesList<T> implements Iterable<T> {
 	
 	private final Object[] 		elements;
-	private final ValueType	type;
 
-	public TokenPropertiesList(ValueType type) {
+	public TokenPropertiesList(PropertyType type) {
 		this(type, new Object[0]);
 	}
 	
-	public TokenPropertiesList(ValueType type, List<T> elements) {
+	public TokenPropertiesList(PropertyType type, List<T> elements) {
 		this(type, elements.toArray());
 	}
 	
-	private TokenPropertiesList(ValueType type, Object[] elements) {
+	private TokenPropertiesList(PropertyType type, Object[] elements) {
+		this.type=type.getSignature();
+		this.resolvedType=type;
+		this.elements=elements;
+	}
+	
+	private TokenPropertiesList(PropertyTypeSignature type, Object[] elements) {
 		this.type=type;
 		this.elements=elements;
 	}
@@ -47,9 +53,15 @@ public class TokenPropertiesList<T> implements Iterable<T> {
 	}
 	
 	public TokenPropertiesList<T> withAdded(T tp) {
-		if(!type.isInstance(tp))
+		if(!this.getType().isInstance(tp))
 			throw new IllegalArgumentException("Was expepcting an element of type "+type.getType().getSimpleName()+", but got "+tp.getClass().getSimpleName());
 		return new TokenPropertiesList<T>(type, ArrayUtils.add(elements, tp));
+	}
+
+	private ValueType getType() {
+		if(resolvedType==null)
+			resolvedType=type.getType();
+		return resolvedType.getType();
 	}
 
 	@Override

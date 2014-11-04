@@ -1,8 +1,11 @@
-package com.t3.model.tokenproperties.old;
+package com.t3.model.tokenproperties;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import com.t3.client.TabletopTool;
 import com.t3.model.BaseModel;
@@ -12,15 +15,15 @@ import com.t3.xstreamversioned.version.SerializationVersion;
 @SerializationVersion(0)
 public class PropertyHolder extends BaseModel {
 
-	private String propertyType = Campaign.DEFAULT_TOKEN_PROPERTY_TYPE;
-	private HashMap<TokenProperty, Object> propertyMap=new HashMap<>();
+	private String propertySet = Campaign.DEFAULT_TOKEN_PROPERTY_SET;
+	private HashMap<String, Object> propertyMap=new HashMap<>();
 	
 	public PropertyHolder() {
 	}
 	
 	public PropertyHolder(PropertyHolder ph) {
-		if(ph.propertyType!=null)
-			this.propertyType=ph.propertyType;
+		if(ph.propertySet!=null)
+			this.propertySet=ph.propertySet;
 		this.propertyMap.clear();	
 		this.propertyMap.putAll(ph.propertyMap);
 	}
@@ -29,10 +32,7 @@ public class PropertyHolder extends BaseModel {
 	 * @return all property names, all in lowercase.
 	 */
 	public Set<String> getPropertyNames() {
-		HashSet<String> set=new HashSet<>(propertyMap.size());
-		for(TokenProperty tp:propertyMap.keySet())
-			set.add(tp.getName());
-		return set;
+		return Collections.unmodifiableSet(propertyMap.keySet());
 	}
 	
 	public boolean containsValue(Object value) {
@@ -40,13 +40,13 @@ public class PropertyHolder extends BaseModel {
 	}
 	
 	public String getPropertyType() {
-		return propertyType;
+		return propertySet;
 	}
 
-	public void setPropertyType(String propertyType) {
-		if(propertyType==null)
+	public void setPropertyType(String propertySet) {
+		if(propertySet==null)
 			throw new IllegalArgumentException("The property type of a token can't be null");
-		this.propertyType = propertyType;
+		this.propertySet = propertySet;
 	}
 	
 	public void resetProperty(String key) {
@@ -54,27 +54,22 @@ public class PropertyHolder extends BaseModel {
 	}
 
 	public Object setProperty(String key, Object value) {
-		if(value==null)
-			return propertyMap.remove(getPropertyInfo(key));
-		else if(!getPropertyInfo(key).getType().isInstance(value))
-			throw new IllegalArgumentException("Property "+key+" must be of type "+getPropertyInfo(key).getType());
-		else
-			return propertyMap.put(getPropertyInfo(key), value);
+		return setProperty(getPropertyInfo(key), value);
 	}
 	
-	public Object setProperty(TokenProperty tp, Object value) {
+	public Object setProperty(PropertyType tp, Object value) {
 		if(value==null)
-			return propertyMap.remove(tp);
+			return propertyMap.remove(tp.getName());
 		else if(!tp.getType().isInstance(value))
 			throw new IllegalArgumentException("Property "+tp.getName()+" must be of type "+tp.getType());
 		else
-			return propertyMap.put(tp, value);
+			return propertyMap.put(tp.getName(), value);
 	}
 
-	protected TokenProperty getPropertyInfo(String key) {
-		TokenProperty tp = TabletopTool.getCampaign().getTokenProperty(propertyType, key);
+	protected @Nonnull PropertyType getPropertyInfo(String key) {
+		PropertyType tp = TabletopTool.getCampaign().getTokenProperty(propertySet, key);
 		if(tp==null)
-			throw new IllegalArgumentException("There is no property "+key+" in "+propertyType);
+			throw new IllegalArgumentException("There is no property "+key+" in "+propertySet);
 		return tp;
 	}
 	
@@ -84,7 +79,7 @@ public class PropertyHolder extends BaseModel {
 	 * @return its value
 	 */
 	public Object getProperty(String key) {
-		Object value = propertyMap.get(getPropertyInfo(key));
+		Object value = getPropertyInfo(key).convert(propertyMap.get(key));
 		if(value==null) //or is not set
 			value=getPropertyInfo(key).getDefaultValue();
 		return value;
@@ -95,7 +90,7 @@ public class PropertyHolder extends BaseModel {
 	 * @param tp the property
 	 * @return its value
 	 */
-	public Object getProperty(TokenProperty tp) {
+	public Object getProperty(PropertyType tp) {
 		Object value = propertyMap.get(tp);
 		if(value==null) //or is not set
 			value=tp.getDefaultValue();

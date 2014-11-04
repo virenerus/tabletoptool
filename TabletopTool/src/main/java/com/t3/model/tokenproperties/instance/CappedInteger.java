@@ -9,7 +9,7 @@
  *     rptools.com team - initial implementation
  *     tabletoptool.com team - further development
  */
-package com.t3.util.math;
+package com.t3.model.tokenproperties.instance;
 
 import org.apache.commons.lang3.StringUtils;
 

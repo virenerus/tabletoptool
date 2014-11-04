@@ -9,7 +9,7 @@ import javax.swing.AbstractAction;
 import com.jidesoft.grid.TreeTable;
 import com.jidesoft.swing.JidePopupMenu;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.valuetypes.ValueType;
 
 public class PropertiesTablePopupMenuManager extends MouseAdapter {
@@ -68,7 +68,7 @@ public class PropertiesTablePopupMenuManager extends MouseAdapter {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			PropertyTypeRow child=parentRow.getTreeTableModel().new PropertyTypeRow(new TokenProperty(""));
+			PropertyTypeRow child=parentRow.getTreeTableModel().new PropertyTypeRow(new PropertyType(""));
 			if(childIndex==-1)
 				parentRow.addChild(child);
 			else

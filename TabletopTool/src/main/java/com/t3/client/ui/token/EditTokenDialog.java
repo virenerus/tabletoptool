@@ -80,8 +80,8 @@ import com.t3.model.Token;
 import com.t3.model.TokenFootprint;
 import com.t3.model.Zone.Layer;
 import com.t3.model.grid.Grid;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.instance.TokenPropertiesList;
-import com.t3.model.tokenproperties.old.TokenProperty;
 import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.util.ImageManager;
 

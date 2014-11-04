@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellRenderer;
 
-import com.t3.util.math.CappedInteger;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 
 //todo don't create a new Panel+labels every time -> just style them
 public class CappedIntegerCellRenderer implements TableCellRenderer {

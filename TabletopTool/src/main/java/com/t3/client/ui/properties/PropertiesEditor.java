@@ -20,15 +20,15 @@ import javax.swing.JSeparator;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.properties.detaileditors.DetailEditor;
 import com.t3.model.Token;
-import com.t3.model.tokenproperties.old.PropertyHolder;
-import com.t3.model.tokenproperties.old.TokenProperty;
+import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyType;
 
 public class PropertiesEditor extends JPanel {
 
 	private PropertyHolder	propertyHolder;
 	private String	propertyType;
 	private JPanel	contentPanel;
-	private Map<TokenProperty,DetailEditor<?>> detailEditors=new HashMap<>();
+	private Map<PropertyType,DetailEditor<?>> detailEditors=new HashMap<>();
 
 	public PropertiesEditor() {
 		this.setLayout(new BorderLayout());
@@ -56,7 +56,7 @@ public class PropertiesEditor extends JPanel {
 			c.insets=new Insets(5, 5, 5, 5);
 			int gridY=0;
 			
-			for(TokenProperty tp:TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(propertyType)) {
+			for(PropertyType tp:TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(propertyType)) {
 				DetailEditor<?> de=DetailEditor.createDetailEditor(tp, propertyHolder);
 				detailEditors.put(tp, de);
 				de.setValue(propertyHolder.getProperty(tp));
@@ -94,7 +94,7 @@ public class PropertiesEditor extends JPanel {
 	}
 	
 	public void applyTo(Token propertyHolder) {
-		for(Entry<TokenProperty, DetailEditor<?>> e:detailEditors.entrySet())
+		for(Entry<PropertyType, DetailEditor<?>> e:detailEditors.entrySet())
 			propertyHolder.setProperty(e.getKey(), e.getValue().getValue());
 	}
 

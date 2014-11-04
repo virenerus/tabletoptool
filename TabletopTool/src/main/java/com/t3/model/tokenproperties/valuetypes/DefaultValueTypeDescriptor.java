@@ -50,4 +50,9 @@ public class DefaultValueTypeDescriptor<TYPE> implements ValueTypeDescriptor<TYP
 		return defaultDefaultValue;
 	}
 
+	@Override
+	public TYPE convert(Object object) {
+		return null;
+	}
+
 }

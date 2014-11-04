@@ -23,7 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 import com.jidesoft.grid.CellEditorFactory;
-import com.t3.util.math.CappedInteger;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 
 public class CappedIntegerCellEditor extends AbstractCellEditor implements TableCellEditor {
 	private JSpinner valueField = new JSpinner();

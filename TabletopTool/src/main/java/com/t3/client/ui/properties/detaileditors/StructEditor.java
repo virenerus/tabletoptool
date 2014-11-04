@@ -14,20 +14,20 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 import com.jidesoft.pane.CollapsiblePane;
+import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.instance.Struct;
-import com.t3.model.tokenproperties.old.PropertyHolder;
-import com.t3.model.tokenproperties.old.TokenProperty;
 
 public class StructEditor extends DetailEditor<Struct> {
 
 	private static final Logger log=Logger.getLogger(ListEditor.class);
 	private CollapsiblePane	collapsiblePane;
 	private JPanel listElementsPane;
-	private TokenProperty	structProperty;
-	private Map<TokenProperty, DetailEditor<?>> subEditors=new HashMap<>();
+	private PropertyType	structProperty;
+	private Map<PropertyType, DetailEditor<?>> subEditors=new HashMap<>();
 	private PropertyHolder	propertyHolder;
 
-	public StructEditor(TokenProperty structProperty, PropertyHolder propertyHolder) {
+	public StructEditor(PropertyType structProperty, PropertyHolder propertyHolder) {
 		super(true);
 		this.structProperty=structProperty;
 		this.propertyHolder=propertyHolder;
@@ -42,7 +42,7 @@ public class StructEditor extends DetailEditor<Struct> {
 		listElementsPane=new JPanel(new GridBagLayout());
 		contentPane.add(listElementsPane);
 		
-		for(TokenProperty subProperty:structProperty.getSubTypes()) {
+		for(PropertyType subProperty:structProperty.getSubTypes()) {
 			subEditors.put(subProperty, createSubEditor(subProperty));
 		}
 	}
@@ -50,18 +50,18 @@ public class StructEditor extends DetailEditor<Struct> {
 	@Override
 	public Struct getValue() {
 		Struct struct=new Struct(structProperty);
-		for(Entry<TokenProperty, DetailEditor<?>> e:subEditors.entrySet())
+		for(Entry<PropertyType, DetailEditor<?>> e:subEditors.entrySet())
 			struct.setProperty(e.getKey(), e.getValue().getValue());
 		return struct;
 	}
 
 	@Override
 	public void setTypedValue(Struct value) {
-		for(Entry<TokenProperty, DetailEditor<?>> e:subEditors.entrySet())
+		for(Entry<PropertyType, DetailEditor<?>> e:subEditors.entrySet())
 			e.getValue().setValue(value.getProperty(e.getKey()));
 	}
 
-	private DetailEditor<?> createSubEditor(TokenProperty subProperty) {
+	private DetailEditor<?> createSubEditor(PropertyType subProperty) {
 		DetailEditor<?> de=DetailEditor.createDetailEditor(subProperty, propertyHolder);
 
 		GridBagConstraints c=new GridBagConstraints();

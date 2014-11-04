@@ -7,9 +7,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.t3.model.Token;
-import com.t3.model.tokenproperties.old.PropertyHolder;
-import com.t3.model.tokenproperties.old.TokenProperty;
-import com.t3.util.math.CappedInteger;
+import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.instance.CappedInteger;
 
 public abstract class DetailEditor<TYPE> extends JPanel {
 
@@ -28,7 +28,7 @@ public abstract class DetailEditor<TYPE> extends JPanel {
 		return spansTwoColumns;
 	}
 	
-	public static DetailEditor<?> createDetailEditor(TokenProperty tokenProperty, PropertyHolder propertyHolder) {
+	public static DetailEditor<?> createDetailEditor(PropertyType tokenProperty, PropertyHolder propertyHolder) {
 		switch(tokenProperty.getType()) {
 			case BOOLEAN:
 				return new BooleanDetailEditor();
