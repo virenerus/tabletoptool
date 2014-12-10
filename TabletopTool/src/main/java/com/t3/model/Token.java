@@ -47,7 +47,7 @@ import com.t3.language.I18N;
 import com.t3.model.Zone.Layer;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.grid.Grid;
-import com.t3.model.tokenproperties.PropertyHolder;
+import com.t3.model.tokenproperties.propertyholder.BasicPropertyHolder;
 import com.t3.transferable.TokenTransferData;
 import com.t3.util.ImageManager;
 import com.t3.util.StringUtil;
@@ -59,7 +59,7 @@ import com.t3.xstreamversioned.version.SerializationVersion;
  * an {@link Asset} (the image itself) and a location and scale.
  */
 @SerializationVersion(0)
-public class Token extends PropertyHolder implements UniquelyIdentifiable {
+public class Token extends BasicPropertyHolder implements UniquelyIdentifiable {
 	private static final Logger log = Logger.getLogger(Token.class);
 
 	private GUID id = new GUID();

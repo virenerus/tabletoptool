@@ -13,7 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.t3.macro.MacroEngine;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
+import com.t3.model.tokenproperties.ValueType;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 public class SerializationVersionAnnotationTest {

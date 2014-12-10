@@ -1392,7 +1392,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 				// Stats
 				Map<String, String> propertyMap = new LinkedHashMap<String, String>();
 				if (AppPreferences.getShowStatSheet()) {
-					for (PropertyType property : TabletopTool.getCampaign().getTokenPropertyList(tokenUnderMouse.getPropertyType())) {
+					for (PropertyType property : TabletopTool.getCampaign().getTokenPropertyList(tokenUnderMouse.getPropertySet())) {
 						if (property.isShowOnStatSheet()) {
 							if (property.isGMOnly() && !TabletopTool.getPlayer().isGM()) {
 								continue;
@@ -1408,7 +1408,7 @@ public class PointerTool extends DefaultTool implements ZoneOverlay {
 										propName = property.getShortName();
 									else
 										propName= property.getName();
-									propertyMap.put(propName, property.getType().getDescriptor().toStatsheetString(propertyValue));
+									propertyMap.put(propName, property.getType().toStatsheetString(propertyValue));
 								}
 							}
 						}

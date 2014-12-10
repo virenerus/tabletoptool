@@ -22,9 +22,10 @@ import com.jidesoft.grid.EditorContext;
 import com.jidesoft.grid.TreeTableModel;
 import com.t3.client.ui.campaignproperties.PropertyTypesTableModel.PropertyTypeRow;
 import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.ValueType;
 import com.t3.model.tokenproperties.instance.Struct;
-import com.t3.model.tokenproperties.instance.TokenPropertiesList;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
+import com.t3.model.tokenproperties.instance.list.TokenPropertiesList;
+import com.t3.model.tokenproperties.instance.list.TokenPropertiesListImpl;
 
 public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 
@@ -94,7 +95,7 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 			if(columnIndex>3)
 				return BooleanCheckBoxCellEditor.CONTEXT;
 			else if(columnIndex==3)
-				return property.getType().getDescriptor().getEditorContext();
+				return property.getType().getEditorContext();
 			return super.getEditorContextAt(columnIndex);
 		}
 		
@@ -105,12 +106,13 @@ public class PropertyTypesTableModel extends TreeTableModel<PropertyTypeRow> {
 				property=property.withType(newType);
 				
 				//change list type if this is the child of a list
-				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==ValueType.LIST)
-					((PropertyTypeRow)this.getParent()).setValueAt(new TokenPropertiesList<>(property), 3);
+				if(this.getLevel()>0 && ((PropertyTypeRow)this.getParent()).property.getType()==ValueType.LIST) {
+					PropertyTypeRow p = (PropertyTypeRow)this.getParent();
+					p.setValueAt(new TokenPropertiesListImpl<>(p.property), 3);
+				}
 				//change list type if this is a list
 				if(this.property.getType()==ValueType.LIST) {
-					ValueType subType = property.getSubType().getType();
-					this.setValueAt(new TokenPropertiesList<>(subType), 3);
+					this.setValueAt(new TokenPropertiesListImpl<>(property), 3);
 				}
 				createSubRows();
 				PropertyTypesTableModel.this.refresh();

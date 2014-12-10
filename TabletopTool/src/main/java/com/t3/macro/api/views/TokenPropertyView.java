@@ -91,7 +91,7 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 
 	@Override
 	public Object put(String key, Object value) {
-		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertySet());
 		for(PropertyType propType:propTypes) {
 			if(propType.getName().equals(key)) {
 				if(value!=null && !propType.getType().isInstance(value))
@@ -110,7 +110,7 @@ public abstract class TokenPropertyView implements Map<String, Object>{
 
 	@Override
 	public void putAll(Map<? extends String, ?> m) {
-		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		List<PropertyType> propTypes = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertySet());
 		for(Entry<? extends String, ?> e:m.entrySet()) {
 			for(PropertyType propType:propTypes) {
 				if(propType.getName().equals(e.getKey())) {

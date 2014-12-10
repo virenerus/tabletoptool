@@ -97,7 +97,7 @@ import com.t3.model.ZoneFactory;
 import com.t3.model.campaign.Campaign;
 import com.t3.model.campaign.CampaignFactory;
 import com.t3.model.chat.TextMessage;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
+import com.t3.model.tokenproperties.ValueType;
 import com.t3.net.RPTURLStreamHandlerFactory;
 import com.t3.networking.ClientMethodHandler;
 import com.t3.networking.ServerCommand;
@@ -1160,7 +1160,7 @@ public class TabletopTool {
 		
 		//register cell editors and renderers
 		for(ValueType tpt:ValueType.values())
-			tpt.getDescriptor().registerCellEditors();
+			tpt.registerCellEditors();
 		CellEditorManager.registerEditor(ValueType.class, new CellEditorFactory() {
 			@Override
 			public CellEditor create() {

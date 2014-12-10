@@ -20,8 +20,8 @@ import javax.swing.JSeparator;
 import com.t3.client.TabletopTool;
 import com.t3.client.ui.properties.detaileditors.DetailEditor;
 import com.t3.model.Token;
-import com.t3.model.tokenproperties.PropertyHolder;
 import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.propertyholder.PropertyHolder;
 
 public class PropertiesEditor extends JPanel {
 

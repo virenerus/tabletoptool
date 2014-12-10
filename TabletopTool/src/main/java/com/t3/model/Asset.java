@@ -26,13 +26,13 @@ import com.t3.xstreamversioned.version.SerializationVersion;
 /**
  * The binary representation of an image.
  */
-@SerializationVersion(0)
+@SerializationVersion(1)
 public class Asset {
 	private MD5Key id;
 	private String name;
 	private String extension;
 
-	private transient byte[] image;
+	private byte[] image;
 
 	protected Asset() {
 	}
@@ -53,6 +53,12 @@ public class Asset {
 
 	public Asset(MD5Key id, String extension) {
 		this.id=id;
+		this.extension=extension;
+	}
+
+	public Asset(MD5Key id, String name, String extension) {
+		this.id=id;
+		this.name=name;
 		this.extension=extension;
 	}
 

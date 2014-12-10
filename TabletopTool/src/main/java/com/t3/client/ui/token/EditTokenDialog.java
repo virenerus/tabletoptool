@@ -81,8 +81,8 @@ import com.t3.model.TokenFootprint;
 import com.t3.model.Zone.Layer;
 import com.t3.model.grid.Grid;
 import com.t3.model.tokenproperties.PropertyType;
-import com.t3.model.tokenproperties.instance.TokenPropertiesList;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
+import com.t3.model.tokenproperties.ValueType;
+import com.t3.model.tokenproperties.instance.list.TokenPropertiesList;
 import com.t3.util.ImageManager;
 
 /**
@@ -146,7 +146,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		// PROPERTIES
 		updatePropertyTypeCombo();
 		getPropertiesEditor().setPropertyHolder(token);
-		updatePropertiesTable(token.getPropertyType());
+		updatePropertiesTable(token.getPropertySet());
 
 		// SIGHT
 		updateSightTypeCombo();
@@ -209,7 +209,7 @@ public class EditTokenDialog extends AbeillePanel<Token> {
 		getShapeCombo().setSelectedItem(token.getShape());
 		setSizeCombo(token);
 
-		getPropertyTypeCombo().setSelectedItem(token.getPropertyType());
+		getPropertyTypeCombo().setSelectedItem(token.getPropertySet());
 		getSightTypeCombo().setSelectedItem(token.getSightType() != null ? token.getSightType() : TabletopTool.getCampaign().getCampaignProperties().getDefaultSightType());
 		getCharSheetPanel().setImageId(token.getCharsheetImage());
 		getPortraitPanel().setImageId(token.getPortraitImage());

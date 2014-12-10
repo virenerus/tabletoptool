@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 import com.jidesoft.pane.CollapsiblePane;
-import com.t3.model.tokenproperties.PropertyHolder;
 import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.instance.Struct;
+import com.t3.model.tokenproperties.propertyholder.PropertyHolder;
 
 public class StructEditor extends DetailEditor<Struct> {
 
@@ -49,9 +49,10 @@ public class StructEditor extends DetailEditor<Struct> {
 	
 	@Override
 	public Struct getValue() {
-		Struct struct=new Struct(structProperty);
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		for(Entry<PropertyType, DetailEditor<?>> e:subEditors.entrySet())
-			struct.setProperty(e.getKey(), e.getValue().getValue());
+			map.put(e.getKey().getName(), e.getValue().getValue());
+		Struct struct=new Struct(structProperty, map);
 		return struct;
 	}
 

@@ -1,5 +1,6 @@
 package com.t3.persistence;
 
+import com.t3.persistence.converters.AssetConverter;
 import com.t3.persistence.migrators.InitiativeList0_1Migrator;
 import com.t3.persistence.migrators.TokenInitiative0_1Migrator;
 import com.t3.xstreamversioned.marshalling.MigratingMarshallingStrategy;
@@ -26,7 +27,8 @@ public class Persister {
 
 		
 		//ADD ALL CONVERTERS HERE THAT DECIDE HOW TO SERIALIZE DESERIALIZE CERTAIN CLASSES
-		//xstream.registerConverter(converter);
+		xstream.registerConverter(new AssetConverter());
+		
 		return xstream;
 	}
 }

@@ -45,8 +45,8 @@ import com.t3.model.LookupTable;
 import com.t3.model.ShapeType;
 import com.t3.model.SightType;
 import com.t3.model.tokenproperties.PropertyType;
+import com.t3.model.tokenproperties.ValueType;
 import com.t3.model.tokenproperties.instance.CappedInteger;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(1)
@@ -311,21 +311,21 @@ public class CampaignProperties {
 		tokenTypeMap = new HashMap<String, List<PropertyType>>();
 
 		List<PropertyType> list = new ArrayList<PropertyType>(12);
-		list.add(new PropertyType(ValueType.INTEGER,"Strength", "Str"));
-		list.add(new PropertyType(ValueType.INTEGER,"Dexterity", "Dex"));
-		list.add(new PropertyType(ValueType.INTEGER,"Constitution", "Con"));
-		list.add(new PropertyType(ValueType.INTEGER,"Intelligence", "Int"));
-		list.add(new PropertyType(ValueType.INTEGER,"Wisdom", "Wis"));
-		list.add(new PropertyType(ValueType.INTEGER,"Charisma", "Char"));
-		PropertyType tp = new PropertyType(ValueType.CAPPED,"HP", true, true, false);
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Strength", "Str"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Dexterity", "Dex"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Constitution", "Con"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Intelligence", "Int"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Wisdom", "Wis"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Charisma", "Char"));
+		PropertyType tp = new PropertyType(ValueType.CAPPED,DEFAULT_TOKEN_PROPERTY_TYPE,"HP", true, true, false);
 		tp.setDefaultValue(new CappedInteger(10, 0, 10));
 		list.add(tp);
-		list.add(new PropertyType(ValueType.INTEGER,"AC", true, true, false));
-		list.add(new PropertyType(ValueType.INTEGER,"Defense", "Def"));
-		list.add(new PropertyType(ValueType.INTEGER,"Movement", "Mov"));
-		list.add(new PropertyType(ValueType.INTEGER,"Elevation", "Elv", true, false, false));
-		list.add(new PropertyType(ValueType.TEXT,"Description", "Des"));
-		tp=new PropertyType(ValueType.BOOLEAN,"Female","fem");
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"AC", true, true, false));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Defense", "Def"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Movement", "Mov"));
+		list.add(new PropertyType(ValueType.INTEGER,DEFAULT_TOKEN_PROPERTY_TYPE,"Elevation", "Elv", true, false, false));
+		list.add(new PropertyType(ValueType.TEXT,DEFAULT_TOKEN_PROPERTY_TYPE,"Description", "Des"));
+		tp=new PropertyType(ValueType.BOOLEAN,DEFAULT_TOKEN_PROPERTY_TYPE,"Female","fem");
 		tp.setDefaultValue(Boolean.FALSE);
 		list.add(tp);
 

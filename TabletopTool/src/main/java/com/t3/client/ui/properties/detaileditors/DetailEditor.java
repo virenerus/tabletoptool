@@ -7,9 +7,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.t3.model.Token;
-import com.t3.model.tokenproperties.PropertyHolder;
 import com.t3.model.tokenproperties.PropertyType;
 import com.t3.model.tokenproperties.instance.CappedInteger;
+import com.t3.model.tokenproperties.propertyholder.PropertyHolder;
 
 public abstract class DetailEditor<TYPE> extends JPanel {
 

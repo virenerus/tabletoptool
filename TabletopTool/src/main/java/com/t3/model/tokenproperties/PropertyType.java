@@ -21,7 +21,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.t3.clientserver.CopyUtil;
 import com.t3.model.tokenproperties.instance.Struct;
-import com.t3.model.tokenproperties.valuetypes.ValueType;
 import com.t3.xstreamversioned.version.SerializationVersion;
 
 @SerializationVersion(1)
@@ -73,7 +72,7 @@ public class PropertyType implements Serializable {
 		this.gmOnly = isGMOnly;
 		this.type=type;
 		this.propertySet=propertySet;
-		this.defaultValue=type.getDescriptor().getDefaultDefaultValue();
+		this.defaultValue=type.getDefaultDefaultValue(this);
 		if(subTypes==null)
 			this.subTypes=createDefaultSubTypes(type);
 		else {
@@ -90,7 +89,7 @@ public class PropertyType implements Serializable {
 		highPriority=p.highPriority;
 		ownerOnly=p.ownerOnly;
 		gmOnly=p.gmOnly;
-		defaultValue=p.defaultValue==null?p.type.getDescriptor().getDefaultDefaultValue():p.defaultValue;
+		defaultValue=p.defaultValue==null?p.type.getDefaultDefaultValue(this):p.defaultValue;
 		type=p.type;
 		subTypes=ArrayUtils.clone(p.getSubTypes());
 		for(PropertyType st:subTypes)
@@ -239,11 +238,11 @@ public class PropertyType implements Serializable {
 	 * @param object the object you want to convert
 	 * @return the converted result
 	 */
-	public @Nonnull Object convert(Object object) {
-		if(this.type.isInstance(object))
-			return object;
+	public Object convert(Object object) {
+		if(object==null)
+			return null;
 		else {
-			Object ret=this.type.convert(object);
+			Object ret=this.type.convert(this, object);
 			if(ret==null)
 				return this.getDefaultValue();
 			else

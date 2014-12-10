@@ -1287,7 +1287,7 @@ public class TokenView extends TokenPropertyView {
 	 */
 	public Object getPropertyDefault(String property) {
 		Object val = null;
-		List<PropertyType> propertyList = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertyType());
+		List<PropertyType> propertyList = TabletopTool.getCampaign().getCampaignProperties().getTokenPropertyList(token.getPropertySet());
 		if (propertyList != null) {
 			for (PropertyType tp : propertyList) {
 				if (property.equalsIgnoreCase(tp.getName())) {
@@ -1347,7 +1347,7 @@ public class TokenView extends TokenPropertyView {
 	 * @return the properties type of the token
 	 */
 	public String getPropertiesType() {
-		 return token.getPropertyType();
+		 return token.getPropertySet();
 	}
 	
 	/**
